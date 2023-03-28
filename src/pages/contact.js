@@ -109,7 +109,7 @@ export default function Contact({ trustedBy }) {
                 <SubTitle className='max-w-[70%] mx-auto' mainTitle='Get Inspired' subTitle={''} />
                 <div className='flex gap-24 px-24'>
                   <div className='flex-1 flex flex-col text-center justify-start'>
-                    <h3 className='font-pop font-semibold text-xl mt-2 mb-4'>Inspiring Life's Beauty</h3>
+                    <h3 className='font-pop font-semibold text-xl mt-2 mb-4'>{"Inspiring Life's Beauty"}</h3>
                     <p ref={textRef} className=''>
                       {"We envision a world where photography is not just a means of capturing a moment, but a way of experiencing life's beauty. Through our lens, we want to inspire people to see the world in a new light, appreciate the little things in life, and cherish the moments that matter most. We believe that photography has the power to connect people, tell stories, and leave a lasting impact on the world. As we continue on our journey, we aim to capture life's beauty in all its forms and share it with the world."}
                     </p>
