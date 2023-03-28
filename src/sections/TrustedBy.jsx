@@ -9,30 +9,7 @@ import React from 'react'
 
 export default function TrustedBy({ trustedBy }) {
 
-  function getImages(type) {
 
-    let images = trustedBy.map((logo, i) => {
-      let { src, width, height, loader } = useNextSanityImage(client, logo.image);
-      let ar = (width / height)
-
-      return logo.type === type ?
-        <Image
-          src={src}
-          width={width}
-          height={height}
-          loader={loader}
-          style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-          key={i}
-          className='my-auto'
-          alt={`Logo of the ${type} ${logo.name}`}
-        // sizes="100px"
-        // placeholder="blur"
-        // blurDataURL={trustedBy[1].image.asset.metadata.lqip} 
-        /> : null
-    })
-
-    return images
-  }
 
   // let imageProps = trustedBy.map((logo) => useNextSanityImage(client, logo.image));
 
@@ -69,14 +46,33 @@ export default function TrustedBy({ trustedBy }) {
         <AccentTitle noMargin className={''} text='Artists' />
         <Line className={'w-56 mx-auto mb-2'} />
         <div className='flex justify-center gap-12'>
-          {getImages('artist')}
+          {trustedBy.map((logo, i) => {return <Logo type='artist' logo={logo} key={i} />})}
         </div>
         <AccentTitle noMargin className={'mt-4'} text='Companies' />
         <Line className={'w-56 mx-auto mb-2'} />
         <div className='flex justify-center gap-12'>
-          {getImages('company')}
+        {trustedBy.map((logo, i) => {return <Logo type='company' logo={logo} key={i} />})}
         </div>
       </div>
     </LayoutSection>
   )
+}
+
+function Logo ({type, logo}) {
+  let { src, width, height, loader } = useNextSanityImage(client, logo.image);
+  let ar = (width / height)
+  // console.log(logo)
+  if (logo.type === type) {return(
+  <Image
+      src={src}
+      width={width}
+      height={height}
+      loader={loader}
+      style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
+      className='my-auto'
+      alt={`Logo of the ${type} ${logo.name}`}
+    // sizes="100px"
+    // placeholder="blur"
+    // blurDataURL={trustedBy[1].image.asset.metadata.lqip} 
+    />)} 
 }
