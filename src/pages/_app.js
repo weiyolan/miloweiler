@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import React, {useState, useEffect} from 'react'
 import Head from 'next/head'
-import { Poppins,Lora } from '@next/font/google'
+import { Poppins, Lora, Work_Sans } from 'next/font/google'
 import { AppWrapper } from '@utils/appContext';
 // import { Toaster } from 'react-hot-toast';
 
@@ -21,8 +21,9 @@ const lora = Lora({
   subsets: ['latin'],
   variable: '--font-lora',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  // weight: ['400', '500', '600', '700'],
 })
+
 
 export default function App({ Component, pageProps }) {
   let [scrolled, setScrolled] = useState(0)
@@ -44,7 +45,7 @@ export default function App({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
-      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-sans relative scroll-smooth w-full h-[100dh]`}>
+      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative scroll-smooth w-full h-[100dh]`}>
         <Component {...pageProps} />
         {/* <Toaster/> */}
       </AppWrapper>

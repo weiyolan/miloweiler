@@ -9,8 +9,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={''}>
-      HI!
+      <main className={'text-4xl'}>
+        <p className='font-pop font-medium'>
+          Hi! My name is Milo. Is this the poppings font
+        </p>
+        <p className='font-lora font-bold '>
+        Hi! My name isqsdfqdf Milqdsf qdsfo. Is this the poppinqsd fqs dfqf gs fonqsdf qdft
+        </p>
+    
       </main>
     </>
   )

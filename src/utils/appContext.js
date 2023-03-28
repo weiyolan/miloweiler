@@ -7,7 +7,7 @@ import useLocalStorage from './useLocalStorage';
 
 const AppContext = createContext();
 
-export function AppWrapper({ children, scrolled }) {
+export function AppWrapper({ children, scrolled , className}) {
   let { width, height } = useWindowSize();
   let { locale } = useRouter();
   // const [navIsOpen, toggleNav] = useCycle(false, true);
@@ -35,7 +35,9 @@ export function AppWrapper({ children, scrolled }) {
         // toggleNav: toggleNav,
         handleLightboxes: handleLightboxes,
       }}>
+        <div className={className}>
       {children}
+      </div>
     </AppContext.Provider>
   );
 }

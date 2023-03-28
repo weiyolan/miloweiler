@@ -8,8 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-worksans)', ...fontFamily.sans],
-        quick: ['var(--font-quicksand)', ...fontFamily.sans],
+        pop: ['var(--font-poppins)', ...fontFamily.sans],
+        lora: ['var(--font-lora)', ...fontFamily.serif],
+        work: ['var(--font-workSans)', ...fontFamily.sans],
       },
       letterSpacing: {
         max: '.25em',
@@ -20,7 +21,8 @@ module.exports = {
         'mobm': '350px',
       },
       colors: {
-        'primary': '#FFFAEA',
+        'primary': '#FFF5EA',
+        'darkPrimary' : '#000',
         'accent': '#4100A4',
         'white': '#fff',
         'green': '#00CC99',
