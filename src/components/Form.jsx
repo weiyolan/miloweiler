@@ -66,7 +66,7 @@ const Form = ({ noBlur, setLightbox }) => {
         <input name="bot-field" value={honey} onChange={(e) => setHoney(e.target.value)} />
       </p>
 
-      <div className={`grid gap-6 grid-cols-3 w-full min-w-[30vw] auto-rows-min font-normal placeholder:text-xs min-[400px]:placeholder:text-sm ${darkMode ? 'text-primary placeholder:text-primary' : 'text-black placeholder:text-black'}`}>
+      <div className={`grid gap-1 xs:gap-6 grid-cols-3 w-full min-w-[30vw] auto-rows-min font-normal placeholder:text-xs min-[400px]:placeholder:text-sm ${darkMode ? 'text-primary placeholder:text-primary' : 'text-black placeholder:text-black'}`}>
         <div className='inline-flex col-start-1 col-span-3 min-[500px]:col-span-2'>
           <div className='inline-block relative col-start-1 col-span-1 pr-3'>
             <label className='cursor-pointer font-semibold whitespace-nowrap text-xs inline-flex max-w-fit mt-2 ml-1' htmlFor='name'>{`${locale === 'en' ? 'Name' : "Prénom"}`}</label>
@@ -132,7 +132,7 @@ const Form = ({ noBlur, setLightbox }) => {
         </div>
 
         {/* BUTTON */}
-        <div className='flex flex-col relative w-full col-start-1 row-start-4 min-[400px]:col-start-3 min-[400px]:row-start-2 min-h-[50px] justify-start items-start '>
+        <div className='flex flex-col relative w-full col-start-1 col-span-2 min-[400px]:col-span-1 pr-4 xs:pr-0 row-start-4 min-[400px]:col-start-3 min-[400px]:row-start-2 min-h-[50px] justify-start items-start '>
           <label className=' cursor-pointer whitespace-nowrap font-semibold text-xs inline-flex max-w-fit mt-2 ml-1' htmlFor='subject'>{`${locale === 'en' ? 'Subject' : "Sujet"}`}</label>
           <input name='subject' className={`block bg-black/10 
               rounded-full  autofill:bg-black/10 valid:scale-[0.99] 
@@ -146,11 +146,10 @@ const Form = ({ noBlur, setLightbox }) => {
             onChange={(e) => { setSubject(e.target.value) }} />
         </div>
         {/* <div className='col-start-2 row-start-4 min-[400px]:col-start-1 min-[400px]:row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 ' data-netlify-recaptcha="true"></div> */}
-      </div>
-      <div className='w-full flex justify-end'>
+      <div className='w-full flex items-end justify-end mb-2  min-[400px]:mb-0 col-start-3 row-start-4  relative '>
         <button key='submit' type='submit'
           className={`inline-flex shadow-sm left-0 bottom-0
-          border-2 border-solid rounded-full px-4 py-2  
+          border-2 border-solid rounded-full min-w-[100px] px-2 justify-center xs:px-4 py-2  
           font-sans font-semibold text-xs textcenter whitespace-nowrap
           cursor-pointer w-fit min-[400px]:w-50% min-[430px]:w-fit h-fit duration-300
           ${success ? 'opacity-0 translate-y-[40px]' : 'opacity-100'}
@@ -159,6 +158,7 @@ const Form = ({ noBlur, setLightbox }) => {
         >
           {`${locale === 'en' ? 'SEND' : "ENVOYER"}`}
         </button>
+      </div>
       </div>
       {/* </div> */}
 

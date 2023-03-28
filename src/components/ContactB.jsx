@@ -5,13 +5,13 @@ import { usePageContext } from '@/utils/pageContext';
 let whatsappLink = 'https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A';
 let mailLink = "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A"
 
-export default function ContactB() {
+export default function ContactB({className}) {
   const { locale } = useAppContext()
   const { darkMode } = usePageContext()
 
   return (
 
-    <div className='inline-flex gap-3 mt-2'>
+    <div className={`inline-flex gap-3 mt-4 sm:mt-2 ${className?className:''}`}>
       <Link className='focus:outline-none group' href='tel:+32476506209' title={`${locale === 'en' ? 'Call phone number' : "Appeler le numéro téléphone"}`}>
         <Button>
           <svg className={`w-4 sm:w-4 ${darkMode ? 'fill-primary' : 'fill-black'}`} alt={`${locale === 'en' ? 'Call phone number' : "Appeler le numéro téléphone"}`} viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg">

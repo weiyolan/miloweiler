@@ -45,12 +45,12 @@ export default function TrustedBy({ trustedBy }) {
         <SubTitle className='max-w-[70%] mx-auto' mainTitle='Trusted By' subTitle={''} />
         <AccentTitle noMargin className={''} text='Artists' />
         <Line className={'w-56 mx-auto mb-2'} />
-        <div className='flex justify-center gap-12'>
+        <div className='flex justify-center flex-wrap gap-12'>
           {trustedBy.map((logo, i) => {return <Logo type='artist' logo={logo} key={i} />})}
         </div>
         <AccentTitle noMargin className={'mt-4'} text='Companies' />
         <Line className={'w-56 mx-auto mb-2'} />
-        <div className='flex justify-center gap-12'>
+        <div className='flex justify-center flex-wrap gap-12'>
         {trustedBy.map((logo, i) => {return <Logo type='company' logo={logo} key={i} />})}
         </div>
       </div>
@@ -69,7 +69,7 @@ function Logo ({type, logo}) {
       height={height}
       loader={loader}
       style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-      className='my-auto'
+      className='my-auto scale-75 xs:scale-100'
       alt={`Logo of the ${type} ${logo.name}`}
     // sizes="100px"
     // placeholder="blur"
