@@ -2,12 +2,12 @@ import { defineField, defineType } from 'sanity'
 import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 
 export default defineType({
-  name: 'trustedBy',
-  title: 'Trusted By',
-  type: 'document',
-  orderings: [orderRankOrdering],
+  name: 'trustedByLogo',
+  title: 'Logo',
+  type: 'object',
+  // orderings: [orderRankOrdering],
   fields: [
-    orderRankField({ type: 'document', hidden: true }),
+    // orderRankField({ type: 'document', hidden: true }),
     defineField({
       name: 'name', title: 'Name', type: 'string',
       validation: Rule => Rule.required()
@@ -22,30 +22,10 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'type', title: 'Type', type: 'string', options: {
-        list: [
-          { title: 'Artist', value: 'artist' },
-          { title: 'Company', value: 'company' },
-        ], // <-- predefined values
-        //layout: 'radio' // <-- defaults to 'dropdown'
-      },
-      validation: Rule => Rule.required()
-    }),
-    defineField({
       name: 'link', title: 'Official webpage', type: 'string',
       validation: Rule => Rule.required()
     })
-  ],
-  preview: {
-    select: {
-      title: 'name',
-      subtitle: 'type',
-    }
-    // prepare(selection) {
-    //   const {date, completion} = selection
-    //   return {...selection, subtitle: `${completion}%, ${new Intl.DateTimeFormat("en-US", { day: 'numeric', month: 'short', year:'numeric' }).format(new Date(date))}`}
-    // },
-  },
+  ]
 })
 
 // types: (schemaTypes) => {

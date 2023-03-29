@@ -4,16 +4,18 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemas'
 import { dashboardTool } from "@sanity/dashboard";
 import { netlifyWidget } from "sanity-plugin-dashboard-widget-netlify";
+import { myStructure } from './sanity.structure';
 
 export default defineConfig({
   name: 'default',
   title: 'miloweiler',
-
   projectId: 'erjr84ua',
   dataset: 'production',
 
   plugins: [
-    deskTool(), 
+    deskTool({
+      structure: myStructure
+    }),
     visionTool(),
     dashboardTool({
       widgets: [
@@ -27,9 +29,9 @@ export default defineConfig({
               name: 'miloweiler',
             },]
         })],
-      }),
-    ],
-    schema: {
-      types: schemaTypes,
-    },
-  })
+    }),
+  ],
+  schema: {
+    types: schemaTypes,
+  },
+})

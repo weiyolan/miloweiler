@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { supportedLanguages } from './supportedLanguages'
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -11,11 +12,6 @@ import { defineType, defineField } from 'sanity'
  *  }
  */
 
-const supportedLanguages = [
-  { id: 'en', title: 'English', isDefault: true },
-  // { id: 'no', title: 'Norwegian' },
-  { id: 'fr', title: 'French' }
-]
 
 // const baseLanguage = supportedLanguages.find(l => l.isDefault)
 
@@ -23,19 +19,21 @@ export default defineType({
   title: 'Localized string',
   name: 'localeString',
   type: 'object',
+  options: { collapsible: true, collapsed:true }, 
   fieldsets: [
     {
       title: 'Translations',
       name: 'translations',
-      options: { collapsible: true }
+      options: { collapsible: true , collapsed:false}
     }
   ],
   fields: supportedLanguages.map(lang => defineField({
     title: lang.title,
     name: lang.id,
     type: 'string',
+    fieldset: 'translations',
     fieldset: lang.isDefault ? null : 'translations',
-    validation: Rule => Rule.required()
+    // validation: Rule => Rule.required()
   }))
 }
 

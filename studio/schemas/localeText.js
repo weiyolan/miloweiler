@@ -1,6 +1,5 @@
 import { defineType, defineField } from 'sanity'
 import { supportedLanguages } from './supportedLanguages'
-
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -13,11 +12,12 @@ import { supportedLanguages } from './supportedLanguages'
  */
 
 
+
 // const baseLanguage = supportedLanguages.find(l => l.isDefault)
 
 export default defineType({
-  title: 'Localized blockContent',
-  name: 'localeBlockContent',
+  title: 'Localized text',
+  name: 'localeText',
   type: 'object',
   options: { collapsible: true, collapsed:true }, 
   fieldsets: [
@@ -30,7 +30,9 @@ export default defineType({
   fields: supportedLanguages.map(lang => defineField({
     title: lang.title,
     name: lang.id,
-    type: 'blockContent',
+    type: 'text',
+    // options: {},
+    fieldset: 'translations',
     fieldset: lang.isDefault ? null : 'translations',
     // validation: Rule => Rule.required()
   }))

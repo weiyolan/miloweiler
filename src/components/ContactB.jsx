@@ -11,7 +11,7 @@ export default function ContactB({className}) {
 
   return (
 
-    <div className={`inline-flex gap-3 mt-4 sm:mt-2 ${className?className:''}`}>
+    <div className={`inline-flex gap-3 mt-4 sm:mt-4 ${className?className:''}`}>
       <Link className='focus:outline-none group' href='tel:+32476506209' title={`${locale === 'en' ? 'Call phone number' : "Appeler le numéro téléphone"}`}>
         <Button>
           <svg className={`w-4 sm:w-4 ${darkMode ? 'fill-primary' : 'fill-black'}`} alt={`${locale === 'en' ? 'Call phone number' : "Appeler le numéro téléphone"}`} viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg">

@@ -15,17 +15,19 @@ import TrustedBy from '@/sections/TrustedBy'
 import Image from 'next/image'
 import { useAppContext } from '@/utils/appContext'
 import Footer from '@/components/Footer'
+import ContactDetails from '@/sections/ContactDetails'
+import SanityImage from '@/components/SanityImage'
+import PrintingDetails from '@/sections/PrintingDetails'
+import Logo from '@/components/Logo'
 
-export default function Contact({ trustedBy }) {
-  // let imageProps = trustedBy.map((logo)=>useNextSanityImage(client, logo.image))
-  let mailLink = "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A"
-  // console.log(trustedBy)
+export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null)
-  let {width} = useAppContext();
+  let { width, locale } = useAppContext();
   let { height: textHeight } = useDimensions(textRef)
-  // console.log(textHeight)
-
   let pageMobile = width < 648;
+
+  // console.log(contactFormData)
+
   return (
     <>
       <Head>
@@ -34,78 +36,43 @@ export default function Contact({ trustedBy }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={'bg-gradient-to-br from-primary to-[#FFEAD6]'}>
+      <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative'}>
+        <div className='fixed w-full '>
+          <Logo darkMode={false} className='w-full opacity-[0.02] relative -translate-x-14 -translate-y-40' />
+        </div>
         <PageWrapper darkMode={false}>
-          <Layout className={''}>
+          <Layout className={'relative'}>
             <h1 className='invisible h-0'>Contact Page</h1>
 
             {/* =======CONTACT DETAILS======== */}
-            <LayoutSection right className={`flex-col-reverse`}>
-              {/* <div></div> */}
-              <div className='w-full h-96 bg-black/30 rounded-2xl '> YAY </div>
-              <div className='flex flex-col '>
-                <SubTitle mainTitle='Get In Touch' SubTitle='' left />
-                <AccentTitle noMargin text='Hi! Nice to meet you.' className={`mt-2`} />
-                <p className='font-pop font-normal text-justify'>
-                  {"Yes that's me on the picture. Feel free to reach our for an offer or if you simply need advice for your project. And more and more text until it has a beautiful length to resonate with the reader’s soul."}
-                </p>
-                <div className='flex flex-col-reverse xs:flex-row font-pop gap-6 mt-4'>
-                  <div className='flex-col flex-1'>
-                    <AccentTitle text='Address' noMargin/>
-                    <p className='whitespace-pre'>{'miloweiler.com\nHof Savelkoul 40\n2640 Mortsel\nBelgium'}</p>
-                  </div>
-                  <div className='flex-col flex-1 '>
-                    <AccentTitle text='Details' noMargin/>
-                    <p className='w-fit font-pop'>{'TVA: BE 0791 549 197'}</p>
-                    <ArrowLink inText text='contact@miloweiler.com' to={mailLink} ext tabIndex='0' />
-                    <ArrowLink inText text='+32 476 50 62 09' to='tel:+32476506209' tabIndex='0' />
-                    <ContactB />
-                  </div>
-                </div>
-              </div>
-            </LayoutSection>
-
+            <ContactDetails contactDetails={contactDetailsData} />
+            {/* {console.log(contactDetailsData)} */}
             {/* =======TRUSTED BY======== */}
-            <TrustedBy trustedBy={trustedBy}/>
+            <TrustedBy trustedBy={trustedByData} />
 
             {/* =======OFFER FORM======== */}
             <LayoutSection right className={`flex-col-reverse`} >
               <div className='flex flex-col'>
-                <SubTitle mainTitle='Ask an offer' SubTitle='' left />
+                {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
+                <SubTitle mainTitle={contactFormData.title[locale]} SubTitle='' left />
                 <Form />
               </div>
-              <div className='w-full h-96 bg-black/30 rounded-2xl'> YAY </div>
+              <SanityImage fill image={contactFormData.image.image} alt={contactFormData.image.alt[locale]} />
             </LayoutSection>
 
             {/* =======PRINTING SERVICE======== */}
-            <LayoutSection left>
-              <div className='flex flex-col'>
-                <SubTitle mainTitle='High Quality Prints' subTitle={"Discover the power of visual storytelling through my lens. Download my portfolio now."} left />
-                <AccentTitle text='Nice to know' />
-                <ul className='list-disc pl-8'>
-                  <li>Hier een paar dingen te zeggen</li>
-                  <li>Download my portfolio now</li>
-                  <li>Big wall photography</li>
-                  <li>Frames</li>
-                </ul>
-                <ContactB className={'justify-center'}/>
-              </div>
-              <div className='flex-col flex h-full gap-2 sm:gap-6 justify-center'>
-                <Image src='/images/interior2.jpg' className='rounded-t-2xl' width={4945/1.5} height={3007/1.5} alt='beautiful modern interior with a wall decorated using beautiful photgraphs printed out.'/>
-                <Image src='/images/interior.jpg' className='rounded-b-2xl' width={4262/1.5} height={1775/1.5} alt='beautiful modern interior with a wall decorated using beautiful photgraphs printed out.'/>
-                {/* <div className='w-full  bg-black/30 rounded-2xl h-2/3'> YAY </div> */}
-                {/* <div className='w-full bg-black/30 rounded-2xl h-1/3'> YAY </div> */}
-              </div>
-            </LayoutSection>
+            <PrintingDetails printingData={printingData} />
 
             {/* ======PRORTFOLIO======== */}
             <LayoutSection center >
               <div className='w-full text-center'>
-                <SubTitle className='max-w-[750px] mx-auto' mainTitle='Portfolio' subTitle={'Discover the power of visual storytelling through my lens. Download my portfolio now and immerse yourself in a world of emotion, creativity, and imagination. '} />
+                <SubTitle className='max-w-[750px] mx-auto' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
                 <ArrowLink className='ml-8 ' inText text='download' to='/' />
-                <div className='flex flex-col sm:flex-row gap-6 sm:gap-12 px-0 sm:px-12 mt-4'>
-                  <div className=' bg-black/30 w-full h-56 rounded-2xl' />
-                  <div className=' bg-black/30 w-full h-56 rounded-2xl' />
+                <div className='flex flex-col h-80 sm:flex-row gap-6 sm:gap-12 px-0 sm:px-12 mt-4'>
+                  {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
+                  {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
+                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image1.image} alt={portfolioData.image1.alt[locale]} />
+                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image2.image} alt={portfolioData.image2.alt[locale]} />
                 </div>
               </div>
             </LayoutSection>
@@ -113,19 +80,20 @@ export default function Contact({ trustedBy }) {
             {/* ======INSPIRATION======== */}
             <LayoutSection center>
               <div className='w-full text-center'>
-                <SubTitle className='max-w-[70%] mx-auto' mainTitle='Get Inspired' subTitle={''} />
+                <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
+                <ArrowLink className='ml-8 w-fit self-center mb-4' text='Contact me' to='#contactSection' />
                 <div className='flex flex-col sm:flex-row gap-4 sm:gap-24 sm:px-24'>
                   <div className='flex-1 flex flex-col  justify-start'>
-                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{"Inspiring Life's Beauty"}</h3>
-                    <p ref={textRef} className='text-justify sm:text-center'>
-                      {"We envision a world where photography is not just a means of capturing a moment, but a way of experiencing life's beauty. Through our lens, we want to inspire people to see the world in a new light, appreciate the little things in life, and cherish the moments that matter most. We believe that photography has the power to connect people, tell stories, and leave a lasting impact on the world. As we continue on our journey, we aim to capture life's beauty in all its forms and share it with the world."}
+                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
+                    <p ref={textRef} className='text-justify sm:text-center  text-sm'>
+                      {inspirationData.text1[locale]}
                     </p>
-                      <ArrowLink className='ml-8 w-fit' text='Go to homepage' to='/' />
+                    <ArrowLink className='ml-8 w-fit' text='Go to homepage' to='/' />
                   </div>
                   <div className='flex-1 flex flex-col justify-start'>
-                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{"A Journey of Discovery"}</h3>
-                    <p style={{ height: pageMobile? 'auto': textHeight ? textHeight + 'px' : 'auto' }} className='text-justify sm:text-center'>
-                      {"Our mission is to capture life's precious moments in a unique and personalized way. We believe that everyone has a story to tell, and through the art of photography, we aim to tell those stories with creativity and authenticity. Whether it's your wedding day, your craft, or your product, we strive to create high-quality images that capture the essence of your vision. Our goal is to enrich your life through our pictures and provide you with memories that will last a lifetime."}
+                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
+                    <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }} className='text-justify sm:text-center text-sm'>
+                      {inspirationData.text2[locale]}
                     </p>
                     <ArrowLink className='ml-8 w-fit self-center text-center' text='Visit my gallery' to='/' />
                   </div>
@@ -134,7 +102,7 @@ export default function Contact({ trustedBy }) {
             </LayoutSection>
 
           </Layout>
-          <Footer/>
+          <Footer />
         </PageWrapper>
       </main>
     </>
@@ -142,12 +110,23 @@ export default function Contact({ trustedBy }) {
 }
 
 export async function getStaticProps() {
-  const trustedBy = await client.fetch(`*[_type == "trustedBy"]`);
+  const contactDetailsData = await client.fetch(`*[_type == "contactPageCDS"][0]`);
+  const trustedByData = await client.fetch(`*[_type == "contactPageTBS"][0]`);
+  const contactFormData = await client.fetch(`*[_type == "contactPageAOS"][0]`);
+  const printingData = await client.fetch(`*[_type == "contactPagePSS"][0]`);
+  const portfolioData = await client.fetch(`*[_type == "contactPagePFS"][0]`);
+  const inspirationData = await client.fetch(`*[_type == "contactPageGIS"][0]`);
   // const products = await client.fetch(`*[_type == "product"]`);
   // console.log(responsibilities)
+  // console.log(contactDetail)
   return {
     props: {
-      trustedBy
+      contactDetailsData: contactDetailsData,
+      trustedByData: trustedByData,
+      contactFormData: contactFormData,
+      printingData: printingData,
+      portfolioData: portfolioData,
+      inspirationData: inspirationData
     }
   };
 }
