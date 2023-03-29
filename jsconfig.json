@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@lib/*": [ "netlify/functions/lib/*"],
+      "@lib/*": [ "./lib/*"],
       "@utils/*": ["./src/utils/*"],
       "@components/*": ["./src/components/*"],
     }

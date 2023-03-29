@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
 import { useAppContext } from '@utils/appContext';
 import { usePageContext } from '@/utils/pageContext';
+import { toast } from 'react-hot-toast';
 
 
-const Form = ({ noBlur, setLightbox }) => {
+const Form = () => {
   let [success, setSuccess] = useState(false)
   let [buttonHovering, setButtonHovering] = useState(false)
   const { locale } = useAppContext();
@@ -47,11 +48,27 @@ const Form = ({ noBlur, setLightbox }) => {
         'bot-field': honey
       }),
     })
-      .then(() => { setLightbox(true); setSuccess(true); setName(''); setLastName(''); setEmail(''); setHoney(''); setMessage('') })
+      .then(() => { setSuccess(true); setName(''); setLastName(''); setEmail(''); setSubject(''); setHoney(''); setMessage('') })
       .catch((error) => alert(error));
+
+
+      toast.promise(upload, {
+        loading: 'Loading..',
+        success: 'Email submitted',
+        error: (err) => {return `There was an error registering your email:\n${err.toString()}`}
+      },
+        {
+          style: {
+            minWidth: '250px',
+              borderRadius: '10px',
+              background: '#333',
+              color: '#FFFAEA',
+          }
+        })
+
+    // setLightbox(true); 
     // console.log(upload)
     // console.log(upload.then)
-
   };
 
 
@@ -149,16 +166,15 @@ const Form = ({ noBlur, setLightbox }) => {
 
         {/* BUTTON */}
         <div className='w-full flex items-end justify-end  col-start-3 row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 relative '>
-          <button key='submit' type='submit'
+          <button key='submit' type={success?'reset':'submit'} onClick={()=>{if(success){setSuccess(false)}}}
             className={`inline-flex shadow-sm left-0 bottom-0
           border-2 border-solid rounded-full min-w-[100px] px-2 justify-center xs:px-4 py-2  
           font-sans font-semibold text-xs textcenter whitespace-nowrap
           cursor-pointer w-fit min-[400px]:w-50% min-[430px]:w-fit h-fit duration-300
-          ${success ? 'opacity-0 translate-y-[40px]' : 'opacity-100'}
           outline-none  focus-visible:outline-blac/30 border-transparent bg-black/10  
-          active:bg-black/30 hover:border-black/30`}
+          active:bg-black/30 hover:border-black/30 uppercase`}
           >
-            {`${locale === 'en' ? 'SEND' : "ENVOYER"}`}
+            {success?<BsCheckLg className={`text-base`}/>:`${locale === 'en' ? 'Send' : "Envoyer"}`}
           </button>
         </div>
       </div>

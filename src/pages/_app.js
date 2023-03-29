@@ -1,9 +1,10 @@
 import '@/styles/globals.css'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Poppins, Lora, Work_Sans } from 'next/font/google'
 import { AppWrapper } from '@utils/appContext';
-// import { Toaster } from 'react-hot-toast';
+import Script from 'next/script';
+import { Toaster } from 'react-hot-toast';
 
 // const workSans = Work_Sans({
 //   subsets: ['latin'],
@@ -14,7 +15,7 @@ const poppins = Poppins({
   subsets: ['latin'],
   variable: '--font-poppins',
   display: 'swap',
-  weight:['100','200','300','400','500','600','700','800','900']
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 
 })
 const lora = Lora({
@@ -28,26 +29,27 @@ const lora = Lora({
 export default function App({ Component, pageProps }) {
   let [scrolled, setScrolled] = useState(0)
 
-  function handleScroll () {
-    let ratio = (document.documentElement.scrollTop + document.body.scrollTop)/(document.documentElement.scrollHeight - document.documentElement.clientHeight)
+  function handleScroll() {
+    let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
     setScrolled(ratio)
   }
 
-  useEffect(()=>{
-    let ratio = (document.documentElement.scrollTop + document.body.scrollTop)/(document.documentElement.scrollHeight - document.documentElement.clientHeight)
+  useEffect(() => {
+    let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
     setScrolled(ratio)
-    window.addEventListener('scroll', handleScroll, {passive:true})
-    return () => {window.removeEventListener('scroll', handleScroll)}
-  },[])
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => { window.removeEventListener('scroll', handleScroll) }
+  }, [])
 
   return (
     <>
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"/>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative scroll-smooth w-full h-[100dh] overflow-hidden`}>
         <Component {...pageProps} />
-        {/* <Toaster/> */}
+        <Toaster/>
       </AppWrapper>
 
     </>)

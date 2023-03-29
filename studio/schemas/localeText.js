@@ -32,7 +32,7 @@ export default defineType({
     name: lang.id,
     type: 'text',
     // options: {},
-    fieldset: 'translations',
+    // fieldset: 'translations',
     fieldset: lang.isDefault ? null : 'translations',
     // validation: Rule => Rule.required()
   }))
