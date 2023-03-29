@@ -8,7 +8,7 @@ import { myStructure } from './sanity.structure';
 
 export default defineConfig({
   name: 'default',
-  title: 'miloweiler',
+  title: "Milo's Studio 📷",
   projectId: 'erjr84ua',
   dataset: 'production',
 

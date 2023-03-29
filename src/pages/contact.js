@@ -22,10 +22,10 @@ import Logo from '@/components/Logo'
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null)
-  let { width, locale } = useAppContext();
+  let { width, locale } = useAppContext()
   let { height: textHeight } = useDimensions(textRef)
   let pageMobile = width < 648;
-
+  let darkMode=false
   // console.log(contactFormData)
 
   return (
@@ -38,9 +38,9 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       </Head>
       <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative'}>
         <div className='fixed w-full '>
-          <Logo darkMode={false} className='w-full opacity-[0.02] relative -translate-x-14 -translate-y-40' />
+          <Logo darkMode={darkMode} className='w-full opacity-[0.02] relative -translate-x-14 -translate-y-40' />
         </div>
-        <PageWrapper darkMode={false}>
+        <PageWrapper darkMode={darkMode}>
           <Layout className={'relative'}>
             <h1 className='invisible h-0'>Contact Page</h1>
 

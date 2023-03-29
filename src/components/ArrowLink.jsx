@@ -9,7 +9,7 @@ let {darkMode} = usePageContext();
 
   if (ext) {
     return (
-      <Link tabIndex={tabIndex} className={`${inherit?'text-inherit':darkMode?'text-primary':'text-black'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-alias `} 
+      <Link tabIndex={tabIndex} className={`${inherit?'text-inherit':darkMode?'text-primary':'text-black'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer `} 
       href={to} onFocus={()=>{setHovering(true)}} onBlur={()=>{setHovering(false)}} rel="noopener noreferrer" target='_blank'>
       
       <span className={`inline-flex items-center ${inText?'mt-0':'mt-4'} relative ${className?className:''}`}
@@ -23,13 +23,13 @@ let {darkMode} = usePageContext();
   }
 
   return (
-    <Link tabIndex={tabIndex} className={` ${inherit?'text-inherit font-medium':darkMode?'text-primary font-semibold':'text-black font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap   `} 
+    <Link tabIndex={tabIndex} className={` ${inherit?'text-inherit font-medium':darkMode?'text-primary fill-primary font-semibold':'text-darkPrimary fill-darkPrimary font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap   `} 
     href={to} onFocus={()=>{setHovering(true)}} onBlur={()=>{setHovering(false)}}>
       <span className={`inline-flex items-center ${inText?'mt-0':'mt-4'} relative  ${className?className:''}`}
       onMouseEnter={()=>setHovering(true)}
       onMouseLeave={()=>setHovering(false)}>
         {text}
-        <Arrow inherit={inherit} hovering={hovering} />
+        <Arrow  hovering={hovering} />
       </span>
     </Link>
   )
@@ -37,7 +37,7 @@ let {darkMode} = usePageContext();
 
 export default ArrowLink
 
-function Arrow ({hovering, inherit}) {
+function Arrow ({hovering}) {
   return (
     <span className='block duration-300 relative w-10 h-5 overflow-hidden '>
       <span className={`absolute duration-300 top-1/2 left-0 -translate-y-1/2 ${hovering?'translate-x-1/4 scale-125 ':'-translate-x-[100%] opacity-0'}`}>
