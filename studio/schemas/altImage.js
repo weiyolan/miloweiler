@@ -5,12 +5,18 @@ export default defineType({
   title: 'Image',
   name: 'altImage',
   type: 'object',
-  options: { collapsible: true, collapsed:false },
+  options: { collapsible: true, collapsed: false },
 
   fields: [
     defineField({
-      name: 'image', title: 'Image', type: 'image', options: { hotspot: true },
-      // options: {collapsible: true, collapsed: true},
+      name: 'image', title: 'Image', type: 'image',
+      options: {
+        hotspot: true,
+        metadata: [
+          'lqip',       // Default: included
+          'palette',    // Default: included
+        ],
+      },
       validation: Rule => Rule.required()
     }),
     defineField({

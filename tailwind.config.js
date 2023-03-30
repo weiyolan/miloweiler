@@ -22,8 +22,8 @@ module.exports = {
       },
       colors: {
         'primary': '#FFF5EA',
-        'darkPrimary' : '#000',
-        'darkGrey' : '#303030',
+        'darkPrimary': '#000',
+        'darkGrey': '#303030',
         'accent': '#4100A4',
         'white': '#fff',
         'green': '#00CC99',
@@ -34,6 +34,10 @@ module.exports = {
         // 'gray-dark': '#273444',
         // 'gray': '#8492a6',
         // 'gray-light': '#d3dce6',
+      },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+        'inner-3xl': 'inset 0 0px 50px 10px rgba(0, 0, 0, 0.3)',
       },
       keyframes: {
         wiggle: {
@@ -48,16 +52,15 @@ module.exports = {
         },
       },
     },
-  
-  animation: {
-    wiggle: 'wiggle 1s ease infinite',
-    outlinePulse: 'outlinePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-    borderPulse: 'borderPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-  },
-  variants: {
-    animation: ["motion-safe"]
-  },
+    animation: {
+      wiggle: 'wiggle 1s ease infinite',
+      outlinePulse: 'outlinePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      borderPulse: 'borderPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+    },
+    variants: {
+      animation: ["motion-safe"]
+    },
 
-},
+  },
   plugins: [],
 }

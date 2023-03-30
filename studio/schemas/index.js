@@ -1,5 +1,6 @@
 import trustedByLogo from './trustedByLogo'
 import altImage from './altImage'
+import metaImage from './metaImage'
 import blockContent from './blockContent'
 
 import localeString from './localeString'
@@ -19,6 +20,7 @@ export const schemaTypes = [
   trustedByLogo,
   blockContent,
   altImage,
+  metaImage,
   localeBlockContent,
   localeString,
   localeText,

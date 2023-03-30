@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Poppins, Lora, Work_Sans } from 'next/font/google'
 import { AppWrapper } from '@utils/appContext';
-import Script from 'next/script';
+// import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 
 // const workSans = Work_Sans({
@@ -43,7 +43,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"/>
+      {/* <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"/> */}
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>

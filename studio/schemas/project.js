@@ -25,11 +25,18 @@ export default defineType({
       name: 'title', title: 'Project Title', type: 'string', description: 'Title of your project baby!',
       group: 'details',
       validation: Rule => Rule.required()
-    }), 
+    }),
+    defineField({
+      name: 'slug', title: 'Slug', type: 'slug', description: 'Goes here: www.miloweiler.com/gallery/[slug]. ',
+      options: {
+        source: 'title',
+      },
+      validation: Rule => Rule.required()
+    }),
     defineField({
       name: 'cat', title: 'Category', type: 'string',
       group: 'details',
-      options:{
+      options: {
         list: [
           { title: 'Behind The Scenes', value: 'bts' },
           { title: 'Documentary', value: 'docu' },
@@ -57,7 +64,7 @@ export default defineType({
       name: 'album', title: 'Album', type: 'string',
       group: 'details',
       fieldset: 'details',
-      hidden: ({document}) => document?.cat !== 'bts',
+      hidden: ({ document }) => document?.cat !== 'bts',
     }),
     // ======================================= 
     defineField({
@@ -69,7 +76,7 @@ export default defineType({
       name: 'directed', title: 'Directed By', type: 'array', of: [{ type: 'string' }],
       group: 'details',
       fieldset: 'details',
-      hidden: ({document}) => document?.cat !== 'bts',
+      hidden: ({ document }) => document?.cat !== 'bts',
     }),
     defineField({
       name: 'produced', title: 'Produced By', type: 'array', of: [{ type: 'string' }],
@@ -85,7 +92,7 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'otherImages', title: 'Project Images', type: 'array', of: [{ type: 'image' }],
+      name: 'otherImages', title: 'Project Images', type: 'array', of: [{ type: 'metaImage' }],
       group: 'images',
     }),
   ],

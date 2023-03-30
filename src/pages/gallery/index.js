@@ -3,14 +3,65 @@ import Logo from '@/components/Logo';
 import ProjectThumb from '@/components/ProjectThumb';
 import { useAppContext } from '@/utils/appContext';
 import { PageWrapper } from '@/utils/pageContext';
+import { gsap } from 'gsap';
 import Head from 'next/head';
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import client from '../../../lib/sanity'
 
-export default function Gallery({projects}) {
+export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
   let pageMobile = width < 648;
   let darkMode = true
+  let [activeIndex, setActiveIndex] = useState(null)
+  const ctx = useRef();
+
+  useEffect(() => {
+    ctx.current = gsap.context(() => {}); // nothing initially (we'll add() to the context when endX changes)
+    return () => ctx.current.revert();
+  }, [ctx]);
+
+  function pushCardsOnClick() {
+    ctx.current.add(() => {
+      gsap.to(".inactiveCard", {
+        scale: 0.6,
+        duration:1,
+        // y: 20,
+        // yoyo: true, 
+        // repeat: -1, 
+        // ease: "expo.out",
+        stagger: {
+          // amount: 0.5,
+          each: 0.3,
+          grid: "auto",
+          from: activeIndex
+        }
+      })
+    })
+  }
+
+  // useEffect(() => {
+  //   let obj = { myNum: 10, myColor: "red" };
+  //   gsap.to(obj, {
+  //     myNum: 200,
+  //     myColor: "blue",
+  //     onUpdate: () => console.log(obj.myNum, obj.myColor)
+  //   });
+  // }, [])
+
+
+  function handleMouseEnter(i) {
+    setActiveIndex(i);
+    ctx.current.add(() => {
+      gsap.to(`.index-${i}`, { scale: 1.05, duration: 0.5, ease: "power4.out" })
+    })
+  }
+
+  function handleMouseLeave(i) {
+    setActiveIndex(null)
+    ctx.current.add(() => {
+      gsap.to(`.index-${i}`, { scale: 1, duration: 0.5, })
+    })
+  }
 
   return (
     <>
@@ -20,21 +71,18 @@ export default function Gallery({projects}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={'bg-gradient-to-br from-darkGrey to-[#070013] w-full h-screen'}>
+      <main className={'bg-gradient-to-br from-darkGrey to-[#070013] w-full '}>
         <PageWrapper darkMode={darkMode}>
           <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`uppercase font-lora text-center text-3xl py-4 ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>Gallery</h1>
 
-          <div className='w-full relative flex flex-wrap gap-1 justify-center'>
-            {projects.map((project,i)=><ProjectThumb key={i} project={project}/>)}
-            {projects.map((project,i)=><ProjectThumb key={i} project={project}/>)}
-            {projects.map((project,i)=><ProjectThumb key={i} project={project}/>)}
-            {projects.map((project,i)=><ProjectThumb key={i} project={project}/>)}
-            {projects.map((project,i)=><ProjectThumb key={i} project={project}/>)}
+          <div className='w-full relative grid gap-1 auto-rows-fr grid-cols-6'>
+            {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} index={i} key={i} project={project} />)}
+            {/* {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
+            {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
+            {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
+            {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)} */}
           </div>
-
-
-
 
         </PageWrapper>
       </main>
@@ -43,10 +91,12 @@ export default function Gallery({projects}) {
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == "project"]`);
+  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, cat, mainImage, slug}`);
+  // console.log(projects)
   return {
     props: {
-      projects:projects
+      projects: [...projects]
+      // projects: [...projects, ...projects, ...projects, ...projects, ...projects, ...projects]
     }
   };
 }
