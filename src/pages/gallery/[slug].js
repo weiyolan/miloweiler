@@ -115,13 +115,13 @@ export default function Project({ project, slug, slugs }) {
 
           {/* ========================INSIDE======================== */}
           <div className={`relative w-[93%] xl:w-[95] max-w-[1700px] rounded-3xl h-[93%]  overflow-hidden 
-          before:absolute before:w-full before:h-full before:top-0 before:left-0 before:rounded-3xl before:shadow-inner-3xl before:shadow-black/60 before:z-[1]`}>
+          before:absolute before:w-full before:h-full before:top-0 before:left-0 before:rounded-3xl before:shadow-inner-3xl before:shadow-black/60 before:select-none before:z-[1]`}>
             <div className={`w-full h-full absolute`}>
               <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} />
               <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
             </div>
 
-            <div className="relative flex w-full h-full z-10 ">
+            <div className="relative flex flex-col md:flex-row w-full h-full z-[2] ">
               <ProjectPicture images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
               <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} />
               <ProjectDescription project={project} />

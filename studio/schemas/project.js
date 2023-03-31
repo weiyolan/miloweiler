@@ -27,11 +27,20 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'slug', title: 'Slug', type: 'slug', description: 'Goes here: www.miloweiler.com/gallery/[slug]. ',
+      name: 'subTitle', title: 'Subtitle', type: 'string', description: 'De tekst tussen haakjes vlak naast de titel',
+      group: 'details',
+      // validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'slug', title: 'Slug', type: 'slug', description: 'Komt hier: www.miloweiler.com/gallery/[slug]. ',
       options: {
         source: 'title',
       },
       validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'by', title: 'By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
     }),
     defineField({
       name: 'cat', title: 'Category', type: 'string',
@@ -47,18 +56,8 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
 
-    // ============================================================
-    // ADD FIELDS: 
-    // COMMISSIONED 
-    // DESIGNED BY 
-    // ============================================================
+    // =============DETAILS FIELDSET=======================
 
-    defineField({
-      name: 'subTitle', title: 'Subtitle', type: 'string', description: 'Optioneel. De tekst tussen haakjes vlak naast de titel',
-      group: 'details',
-      fieldset: 'details',
-      // validation: Rule => Rule.required()
-    }),
     defineField({
       name: 'date',
       title: 'Date',
@@ -71,22 +70,40 @@ export default defineType({
       name: 'album', title: 'Album', type: 'string',
       group: 'details',
       fieldset: 'details',
-      hidden: ({ document }) => document?.cat !== 'bts',
     }),
-    // ======================================= 
-    defineField({
-      name: 'by', title: 'By', type: 'array', of: [{ type: 'string' }],
-      group: 'details',
-      fieldset: 'details',
-    }),
+
     defineField({
       name: 'directed', title: 'Directed By', type: 'array', of: [{ type: 'string' }],
       group: 'details',
       fieldset: 'details',
-      hidden: ({ document }) => document?.cat !== 'bts',
     }),
     defineField({
       name: 'produced', title: 'Produced By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'designed', title: 'Designed By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'created', title: 'Created By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'developed', title: 'Developed By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'commissioned', title: 'Commissioned By', type: 'array', of: [{ type: 'string' }],
+      group: 'details',
+      fieldset: 'details',
+    }),
+    defineField({
+      name: 'artist', title: 'Artists', type: 'array', of: [{ type: 'string' }],
       group: 'details',
       fieldset: 'details',
     }),
@@ -101,18 +118,31 @@ export default defineType({
     defineField({
       name: 'otherImages', title: 'Project Images', type: 'array', of: [{ type: 'metaImage' }],
       group: 'images',
+      validation: Rule => Rule.required()
     }),
   ],
   preview: {
     select: {
       title: 'title',
       subTitle: 'subTitle',
+      by: 'by',
       date: 'date',
-      // completion: 'completion',
     },
     prepare(selection) {
-      const { title, date, subTitle } = selection
-      return { title: `${title} (${subTitle})`, subtitle: date.slice(0, 4) }
+      const { title, date, by, subTitle } = selection
+      return { title: subTitle ? `${title} (${subTitle})` : `${title}`, subtitle: getSubTitle(by, date) }
     },
   },
 })
+
+function getSubTitle(by, date) {
+  if (by && date) {
+    return `By ${by[0]}, ${date.slice(0, 4)}`
+  } else if (by === undefined) {
+    return `${date.slice(0, 4)}`
+  } else if (date === undefined) {
+    return `By ${by[0]}`
+  } else {
+    return 'Loading...'
+  }
+}
