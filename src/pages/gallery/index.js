@@ -13,10 +13,11 @@ export default function Gallery({ projects }) {
   let pageMobile = width < 648;
   let darkMode = true
   let [activeIndex, setActiveIndex] = useState(null)
+  const gallery = useRef();
   const ctx = useRef();
 
   useEffect(() => {
-    ctx.current = gsap.context(() => {}); // nothing initially (we'll add() to the context when endX changes)
+    ctx.current = gsap.context(() => {}, gallery); // nothing initially (we'll add() to the context when endX changes)
     return () => ctx.current.revert();
   }, [ctx]);
 
@@ -24,14 +25,14 @@ export default function Gallery({ projects }) {
     ctx.current.add(() => {
       gsap.to(".inactiveCard", {
         scale: 0.6,
-        duration:1,
+        duration:0.3,
         // y: 20,
         // yoyo: true, 
         // repeat: -1, 
         // ease: "expo.out",
         stagger: {
           // amount: 0.5,
-          each: 0.3,
+          each: 0.2,
           grid: "auto",
           from: activeIndex
         }
@@ -49,19 +50,19 @@ export default function Gallery({ projects }) {
   // }, [])
 
 
-  function handleMouseEnter(i) {
-    setActiveIndex(i);
-    ctx.current.add(() => {
-      gsap.to(`.index-${i}`, { scale: 1.05, duration: 0.5, ease: "power4.out" })
-    })
-  }
+  // function handleMouseEnter(i) {
+  //   setActiveIndex(i);
+  //   ctx.current.add(() => {
+  //     gsap.to(`.index-${i}`, { scale: 1.05, duration: 0.5, ease: "power4.out" })
+  //   })
+  // }
 
-  function handleMouseLeave(i) {
-    setActiveIndex(null)
-    ctx.current.add(() => {
-      gsap.to(`.index-${i}`, { scale: 1, duration: 0.5, })
-    })
-  }
+  // function handleMouseLeave(i) {
+  //   setActiveIndex(null)
+  //   ctx.current.add(() => {
+  //     gsap.to(`.index-${i}`, { scale: 1, duration: 0.5, })
+  //   })
+  // }
 
   return (
     <>
@@ -76,8 +77,8 @@ export default function Gallery({ projects }) {
           <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`uppercase font-lora text-center text-3xl py-4 ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>Gallery</h1>
 
-          <div className='w-full relative grid gap-1 auto-rows-fr grid-cols-6'>
-            {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick} handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} index={i} key={i} project={project} />)}
+          <div ref={gallery} className='w-full relative grid gap-1 auto-rows-fr grid-cols-6'>
+            {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick}  index={i} key={i} project={project} />)}
             {/* {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
             {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
             {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
