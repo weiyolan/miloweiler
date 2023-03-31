@@ -32,9 +32,10 @@ export default function ProjectDescription({ project }) {
   // })
 
   return (
-    <div className="description shadow-xl  absolute bg-black/40 rounded-[40px] backdrop-blur w-[55%] mx-3 top-full -translate-y-20 pt-8 px-10 pb-20"
+    <div className="description shadow-xl absolute bg-black/40 rounded-[40px] backdrop-blur w-[55%] ml-3 top-full left-0 -translate-y-20 pt-8 px-10 pb-20"
       onMouseEnter={() => hoverTween.current.play()}
-      onMouseLeave={() => hoverTween.current.reverse()} >
+      onMouseLeave={() => hoverTween.current.reverse()} 
+      >
       <div className={`relative font-lora text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <h1 className={``}>
           {project.title + ' '}

@@ -9,8 +9,9 @@ import client from '../../../lib/sanity'
 import { FaTimes } from 'react-icons/fa'
 import Link from "next/link";
 import ProjectPictures from "@/components/ProjectPictures";
+import ProjectPicture from "@/components/ProjectPicture";
 export default function Project({ project, slugs }) {
-  // console.log(project.date)
+  console.log(project)
   let darkMode = true
 
   return (
@@ -33,11 +34,11 @@ export default function Project({ project, slugs }) {
 
             <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-10' />
 
-            <div className="relative w-full h-full z-10">
-              <ProjectDescription project={project} />
+            <div className="relative flex justify-end w-full h-full z-10">
 
-              {/* <ProjectBigPicture/> */}
-              <ProjectPictures images={project.otherImages}/>
+              {/* <ProjectPicture/> */}
+              <ProjectPictures images={project.otherImages} />
+               <ProjectDescription project={project} />
             </div>
           </div>
           <Link href='/gallery'>

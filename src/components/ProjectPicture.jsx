@@ -4,7 +4,7 @@ import SanityImage from './SanityImage'
 import { gsap } from 'gsap'
 // import Link from 'next/link'
 
-export default function PictureThumb({ image, alt, handleClick, handleMouseEnter, handleMouseLeave, index }) {
+export default function ProjectPicture({ image, alt, handleClick, handleMouseEnter, handleMouseLeave, index }) {
   const { locale } = useAppContext()
 
   function mouseUp({ currentTarget }) {
