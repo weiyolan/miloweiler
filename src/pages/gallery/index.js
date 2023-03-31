@@ -79,7 +79,7 @@ export default function Gallery({ projects }) {
           <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`uppercase font-lora text-center text-3xl py-4 ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>Gallery</h1>
 
-          <div ref={gallery} className='w-full relative grid gap-1 grid-flow-row grid-cols-6'>
+          <div ref={gallery} className='w-full relative grid gap-1 grid-cols-6'>
             {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick}  index={i} key={i} project={project} />)}
             {/* {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}
             {projects.map((project, i) => <ProjectThumb handleMouseEnter={()=>handleMouseEnter(`.index-${i}`)} handleMouseLeave={()=>handleMouseLeave(`.index-${i}`)} key={i} project={project} />)}

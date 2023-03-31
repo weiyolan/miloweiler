@@ -39,14 +39,14 @@ export default function ProjectThumb({ project, handleClick, index }) {
 
   return (
     <Link href={`./gallery/${project.slug.current}`}>
-      <div 
-      onClick={handleClick}
+      <div
+        onClick={handleClick}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
         onMouseEnter={(target) => { setHover(true); handleMouseUp(target) }}
         onMouseLeave={(target) => { setHover(false); handleMouseLeave(target) }}
-        className={`relative cursor-pointer before:block before:pt-[100%] 
-        card ${hover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
+        
         <div className={`absolute top-0 left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
         </div>
 
