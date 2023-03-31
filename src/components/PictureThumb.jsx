@@ -15,11 +15,9 @@ export default function PictureThumb({ image, alt, handleClick, handleMouseEnter
   }
 
   function mouseDown({ currentTarget }) {
-    console.log('down')
     gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
   }
   function mouseEnter({ currentTarget }) {
-    console.log('enter')
     gsap.to(currentTarget, { scale: 1.05, duration: 0.5, ease: 'expo.out' });
   }
   function mouseLeave({ currentTarget }) {
@@ -28,15 +26,14 @@ export default function PictureThumb({ image, alt, handleClick, handleMouseEnter
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div
+    <div className={`relative cursor-pointer before:block before:pt-[100%]`}
+      onClick={handleClick}
       onMouseUp={mouseUp}
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
-      onMouseLeave={mouseLeave}
-      className={`relative cursor-pointer before:block before:pt-[100%]  
-        card `}>
+      onMouseLeave={mouseLeave}>
       <div className='absolute w-full h-full top-0 left-0  '  >
-        <SanityImage sizes='(max-width: 700px) 33vw, 17vw' containerClass={'rounded-none  '} fill image={image} alt={alt} />
+        <SanityImage sizes='(max-width: 700px) 33vw, 15vw' containerClass={'rounded-none '} fill image={image} alt={alt} />
       </div>
     </div>
     // </Link>

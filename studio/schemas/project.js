@@ -46,6 +46,13 @@ export default defineType({
       },
       validation: Rule => Rule.required()
     }),
+
+    // ============================================================
+    // ADD FIELDS: 
+    // COMMISSIONED 
+    // DESIGNED BY 
+    // ============================================================
+
     defineField({
       name: 'subTitle', title: 'Subtitle', type: 'string', description: 'Optioneel. De tekst tussen haakjes vlak naast de titel',
       group: 'details',

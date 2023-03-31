@@ -17,7 +17,7 @@ export default function ProjectDescription({ project }) {
 
   useEffect(() => {
     hoverTween.current = (
-      gsap.to('.description', {
+      gsap.to('.description-container', {
         translateY: -600,
         // translateY: 'calc(100% - 40px)',
         ease: 'expo.inout',
@@ -32,31 +32,36 @@ export default function ProjectDescription({ project }) {
   // })
 
   return (
-    <div className="description shadow-xl absolute bg-black/40 rounded-[40px] backdrop-blur w-[55%] ml-3 top-full left-0 -translate-y-20 pt-8 px-10 pb-20"
-      onMouseEnter={() => hoverTween.current.play()}
-      onMouseLeave={() => hoverTween.current.reverse()} 
+    <div className="description-container absolute w-[55%] top-full left-0 -translate-y-14 px-3 "
+      // onMouseEnter={() => hoverTween.current.play()}
+      // onMouseLeave={() => hoverTween.current.reverse()}
+    >
+      <div className='relative bg-black/40 shadow-xl backdrop-blur cursor-pointer rounded-[40px] w-full pt-6 px-10 pb-20'
+        onMouseEnter={() => hoverTween.current.play()}
+      onMouseLeave={() => hoverTween.current.reverse()}
       >
-      <div className={`relative font-lora text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
-        <h1 className={``}>
-          {project.title + ' '}
-          <SpanBy text={`(${project.subTitle})`} />
-        </h1>
-        <h2>
-          <SpanBy text='by' />
-          {` ${project?.by?.[0]}`}
-        </h2>
-      </div>
-
-      <div className="flex gap-4 relative font-lora ">
-        <div className="w-1/3 text-2xl flex flex-col gap-4">
-          <h3>Year: <SpanDetail text={project?.date.slice(0, 4)} /></h3>
-          <h3>Album: <SpanDetail text={project?.album} /></h3>
-          <h3>Directed By: <SpanDetail text={project?.directed?.join(', ')} /></h3>
-          <h3>Produced By: <SpanDetail text={project?.produced} /></h3>
+        <div className={`relative font-lora text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+          <h1 className={``}>
+            {project.title + ' '}
+            <SpanBy text={`(${project.subTitle})`} />
+          </h1>
+          <h2>
+            <SpanBy text='by' />
+            {` ${project?.by?.[0]}`}
+          </h2>
         </div>
-        <div className="w-2/3 text-lg font-pop font-extralight text-justify  whitespace-pre-wrap">
-          <h3 className="font-lora text-2xl">About: </h3>
-          <p>{project?.description?.[locale] || ''}</p>
+
+        <div className="flex gap-4 relative font-lora ">
+          <div className="w-1/3 text-2xl flex flex-col gap-4">
+            <h3>Year: <SpanDetail text={project?.date.slice(0, 4)} /></h3>
+            <h3>Album: <SpanDetail text={project?.album} /></h3>
+            <h3>Directed By: <SpanDetail text={project?.directed?.join(', ')} /></h3>
+            <h3>Produced By: <SpanDetail text={project?.produced} /></h3>
+          </div>
+          <div className="w-2/3 text-lg font-pop font-extralight text-justify  whitespace-pre-wrap">
+            <h3 className="font-lora text-2xl">About: </h3>
+            <p>{project?.description?.[locale] || ''}</p>
+          </div>
         </div>
       </div>
     </div>)

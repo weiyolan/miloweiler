@@ -3,11 +3,11 @@ import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 
-export default function SanityImage({ image, alt, fill, absolute, blur, sizes, style, containerClass, ...props }) {
+export default function SanityImage({ image, alt, fill, absolute, blur, sizes, style, containerClass, className, ...props }) {
   let { src, width, height, loader } = useNextSanityImage(client, image);
+  let landscape = width/height > 1;
 
-
-  function getAdditionalProps () {
+  function getBlurProps () {
     let additionalProps = {}
     // newProps.fill = true
     // newProps.style = { objectFit: 'cover', objectPosition: 'center', ...style }
@@ -36,19 +36,16 @@ export default function SanityImage({ image, alt, fill, absolute, blur, sizes, s
           src={src} 
           loader={loader}
           alt={alt}
-          {...getAdditionalProps()}
-          // placeholder="blur"
-          // blurDataURL={image.asset.metadata.lqip}
+          {...getBlurProps()}
           {...props} />
       </div>
     )
   }
 
   return (
-    <Image style={{ width: '100%', height: 'auto', ...style}} {...props} {...{ src, width, height, loader }} alt={alt} 
-    {...getAdditionalProps()}
-    // placeholder="blur"
-    // blurDataURL={image.asset.metadata.lqip}
+    // objectFit:'contain',  maxWidth: '100%',maxHeight: '100%',position:'relative',  position:'absolute'
+    <Image style={{width:landscape?'100%':'auto', height:landscape?'auto':'100%', ...style}} {...{ src, width, height, loader }} alt={alt} className={className }
+    {...getBlurProps()} {...props}
     />
   )
 }
