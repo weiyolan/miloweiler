@@ -6,7 +6,7 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { useState, useEffect } from "react"
 import client from '../../../lib/sanity'
-import { IoClose, IoArrowBack, IoArrowBackCircleOutline } from 'react-icons/io5'
+import { IoClose, IoArrowBack } from 'react-icons/io5'
 import Link from "next/link";
 import ProjectPictures from "@/components/ProjectPictures";
 import ProjectPicture from "@/components/ProjectPicture";

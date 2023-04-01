@@ -49,7 +49,7 @@ export default function ProjectDescription({ project }) {
   return (
     <div className="description-container absolute w-full md:w-[70%] top-full left-0 px-1 md:px-12 z-[2]"
     >
-      <div className='relative w-full bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer -translate-y-16 rounded-t-[40px] pt-6 px-4 md:px-10 pb-20'
+      <div className='relative w-full bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer -translate-y-16 rounded-t-[40px] pt-6 px-4 md:px-10 pb-10'
         // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}

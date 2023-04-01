@@ -23,7 +23,7 @@ export default function Gallery({ projects }) {
   }, [ctx]);
 
   function pushCardsOnClick() {
-    console.log('push')
+    // console.log('push')
     ctx.current.add(() => {
       gsap.to(".inactiveCard", {
         scale: 0.6,

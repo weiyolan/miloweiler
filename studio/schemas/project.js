@@ -135,24 +135,24 @@ export default defineType({
   },
 })
 function getTitle(title, subTitle) {
-  if (title && subTitle) {
-    return `${title} (${subTitle})`
+  if (title === undefined  && subTitle === undefined) {
+    return 'Loading...'
   } else if (subTitle === undefined) {
     return `${title}`
   } else if (title === undefined) {
     return `... (${subTitle})`
   } else {
-    return 'Loading...'
+    return `${title} (${subTitle})`
   }
 }
 function getSubTitle(by, date) {
-  if (by && date) {
-    return `By ${by[0]}, ${date.slice(0, 4)}`
+  if (by===undefined && date===undefined) {
+    return 'Loading...'
   } else if (by === undefined) {
     return `${date.slice(0, 4)}`
   } else if (date === undefined) {
     return `By ${by[0]}`
   } else {
-    return 'Loading...'
+    return `By ${by[0]}, ${date.slice(0, 4)}`
   }
 }

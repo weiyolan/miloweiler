@@ -10,7 +10,7 @@ module.exports = {
       fontFamily: {
         pop: ['var(--font-poppins)', ...fontFamily.sans],
         lora: ['var(--font-lora)', ...fontFamily.serif],
-        work: ['var(--font-workSans)', ...fontFamily.sans],
+        // work: ['var(--font-workSans)', ...fontFamily.sans],
       },
       letterSpacing: {
         max: '.25em',

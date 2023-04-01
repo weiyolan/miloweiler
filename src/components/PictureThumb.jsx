@@ -4,7 +4,7 @@ import SanityImage from './SanityImage'
 import { gsap } from 'gsap'
 // import Link from 'next/link'
 
-export default function PictureThumb({ image, alt, handleClick, handleMouseEnter, handleMouseLeave, index }) {
+export default function PictureThumb({ image, alt, handleClick, handleMouseEnter, handleMouseLeave, index, className }) {
   const { locale } = useAppContext()
 
   function mouseUp({ currentTarget }) {
@@ -25,7 +25,7 @@ export default function PictureThumb({ image, alt, handleClick, handleMouseEnter
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div className={`relative select-none cursor-pointer before:block before:pt-[100%]`}
+    <div className={`relative select-none cursor-pointer before:block before:pt-[100%] ${className}`}
       onClick={handleClick}
       onMouseUp={mouseUp}
       onMouseDown={mouseDown}
