@@ -25,7 +25,7 @@ export default function PictureThumb({ image, alt, handleClick, handleMouseEnter
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div className={`relative select-none cursor-pointer before:block before:pt-[100%] ${className}`}
+    <div className={`relative select-none cursor-pointer before:block before:pt-[100%] ${className?className:''}`}
       onClick={handleClick}
       onMouseUp={mouseUp}
       onMouseDown={mouseDown}

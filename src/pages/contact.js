@@ -57,7 +57,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 <SubTitle mainTitle={contactFormData.title[locale]} SubTitle='' left />
                 <Form />
               </div>
-              <SanityImage fill image={contactFormData.image.image} alt={contactFormData.image.alt[locale]} />
+              <SanityImage fill image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
             </LayoutSection>
 
             {/* =======PRINTING SERVICE======== */}
@@ -71,8 +71,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 <div className='flex flex-col h-80 sm:flex-row gap-6 sm:gap-12 px-0 sm:px-12 mt-4'>
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image1.image} alt={portfolioData.image1.alt[locale]} />
-                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image2.image} alt={portfolioData.image2.alt[locale]} />
+                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
+                  <SanityImage containerClass='flex-1 rounded-sm' fill image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
                 </div>
               </div>
             </LayoutSection>

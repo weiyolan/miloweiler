@@ -29,7 +29,7 @@ export default function TrustedBy({ trustedBy }) {
 }
 
 function Logo ({type, logo}) {
-  let { src, width, height, loader } = useNextSanityImage(client, logo.image);
+  let { src, width, height, loader } = useNextSanityImage(client, logo.image.asset);
   let ar = (width / height)
   // console.log(ar)
   return(

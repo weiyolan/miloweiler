@@ -21,8 +21,8 @@ export default function PrintingDetails({ printingData }) {
         <ContactB className={''} />
       </div>
       <div className='flex-col flex h-full gap-2 sm:gap-6 justify-center'>
-        <SanityImage className='rounded-t-2xl' image={printingData.image1.image} alt={printingData.image1.alt[locale]}/>
-        <SanityImage className='rounded-b-2xl' image={printingData.image2.image} alt={printingData.image2.alt[locale]}/>
+        <SanityImage className='rounded-t-2xl' image={printingData.image1.image.asset} alt={printingData.image1.alt[locale]}/>
+        <SanityImage className='rounded-b-2xl' image={printingData.image2.image.asset} alt={printingData.image2.alt[locale]}/>
       </div>
     </LayoutSection>)
 }

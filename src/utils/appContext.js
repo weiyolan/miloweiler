@@ -35,7 +35,7 @@ export function AppWrapper({ children, scrolled , className}) {
         // toggleNav: toggleNav,
         handleLightboxes: handleLightboxes,
       }}>
-        <div className={className}>
+        <div className={`${className}`}>
       {children}
       </div>
     </AppContext.Provider>

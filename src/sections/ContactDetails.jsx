@@ -17,7 +17,7 @@ export default function ContactDetails({ contactDetails }) {
   // console.log(contactDetails.image)
   return (
     <LayoutSection right className={`flex-col-reverse`}>
-      <SanityImage priority fill image={contactDetails.image.image} alt={contactDetails.image.alt[locale]} />
+      <SanityImage priority fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
       <div id='contactSection' className='flex flex-col '>
         <SubTitle mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`mt-2`} />
