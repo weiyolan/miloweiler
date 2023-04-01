@@ -46,16 +46,18 @@ export default function ProjectThumb({ project, handleClick, index }) {
         onMouseEnter={(target) => { setHover(true); handleMouseUp(target) }}
         onMouseLeave={(target) => { setHover(false); handleMouseLeave(target) }}
         className={`relative cursor-pointer before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
-        
+
         <div className={`absolute top-0 left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
         </div>
 
         <div className='absolute w-full h-full top-0 left-0 flex items-end bg-black'>
-          {/* to make an absolute  */}
-          {/* <div className='absolute w-full h-full '>  */}
-          <SanityImage sizes='(max-width: 700px) 33vw, 17vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
-          {/* </div> */}
-          <h2 className={`font-lora text-xl text-white invert-0  duration-500 ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
+
+          <SanityImage blur sizes='(max-width: 700px) 33vw, 17vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
+          {/* {console.log(project.mainImage)} */}
+          <div className={`absolute h-full w-full bg-black/30 backdrop-blur-sm duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
+          </div>
+
+          <h2 className={`font-lora text-xl  invert-0 p-4 duration-500 ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
             {project.title}
           </h2>
         </div>

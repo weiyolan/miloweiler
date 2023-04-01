@@ -7,8 +7,11 @@ export default defineType({
   type: 'image',
   options: {
     metadata: [
-      'lqip',
-      'palette',
+      'blurhash',   // Default: included
+      'lqip',       // Default: included
+      'palette',    // Default: included
+      'exif',       // Default: not included
+      'location',   // Default: not included
     ],
   },
 })

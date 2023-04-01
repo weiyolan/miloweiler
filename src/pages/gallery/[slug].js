@@ -17,13 +17,15 @@ export default function Project({ project, slug, slugs }) {
   let darkMode = true
   let [visibleItem, setVisibleItem] = useState([null])
   let [clicked, setClicked] = useState(false)
+  let [descriptionOpen, setDescriptionOpen] = useState(false)
 
 
   useEffect(() => {
     let visibility = new Array(project.otherImages.length + 1).fill(false)
     visibility[0] = true
     setVisibleItem(visibility)
-    console.log(visibility)
+    setDescriptionOpen(false)
+    // console.log(visibility)
   }, [project])
   // useEffect(() => {
   //   let interval = setInterval(() => {
@@ -106,8 +108,10 @@ export default function Project({ project, slug, slugs }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`bg-gradient-to-br from-darkGrey to-[#070013] w-full h-[100dvh] relative flex items-center justify-between overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
-        <PageWrapper darkMode={darkMode}>
+      <main tabIndex={0} className={`bg-gradient-to-br focus:outline-none from-darkGrey to-[#070013] w-full h-[100dvh] relative flex items-center justify-between overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+        onKeyDown={(e) => {if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
+      >
+        <PageWrapper descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
 
           <Link title='Previous project' href={`/gallery/${prevSlug()}`}>
             <AiFillCaretLeft className='relative fill-darkGrey opacity-100 w-8 h-1/6  drop-shadow-xl cursor-pointer px-1' />
@@ -122,6 +126,7 @@ export default function Project({ project, slug, slugs }) {
             </div>
 
             <div className="relative flex flex-col md:flex-row w-full h-full z-[2] ">
+              {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
               <ProjectPicture images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
               <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} />
               <ProjectDescription project={project} />
@@ -160,7 +165,10 @@ export async function getStaticPaths() {
 
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps({ params }) {
-  const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]`);
+  // const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]`);
+  const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]{...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}`);
+  // *[_type == "project" ][0]{...,mainImage{alt,image{asset->{_ref,_type,url,metadata}}},otherImages[]{_key,_type,asset->{_ref,_type,url,metadata}}}
+
   const projectSlugs = await client.fetch(`*[_type == "project"]|order(date){slug}`);
   const slugNames = projectSlugs.map((projectSlug) => projectSlug.slug.current);
   return {

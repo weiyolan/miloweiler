@@ -5,6 +5,7 @@ import { schemaTypes } from './schemas'
 import { dashboardTool } from "@sanity/dashboard";
 import { netlifyWidget } from "sanity-plugin-dashboard-widget-netlify";
 import { myStructure } from './sanity.structure';
+import {Love} from './actions'
 
 export default defineConfig({
   name: 'default',
@@ -31,6 +32,9 @@ export default defineConfig({
         })],
     }),
   ],
+  document:{
+    actions: [Love],
+  },
   schema: {
     types: schemaTypes,
   },

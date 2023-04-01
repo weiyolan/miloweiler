@@ -130,11 +130,21 @@ export default defineType({
     },
     prepare(selection) {
       const { title, date, by, subTitle } = selection
-      return { title: subTitle ? `${title} (${subTitle})` : `${title}`, subtitle: getSubTitle(by, date) }
+      return { title: getTitle(title,subTitle), subtitle: getSubTitle(by, date) }
     },
   },
 })
-
+function getTitle(title, subTitle) {
+  if (title && subTitle) {
+    return `${title} (${subTitle})`
+  } else if (subTitle === undefined) {
+    return `${title}`
+  } else if (title === undefined) {
+    return `... (${subTitle})`
+  } else {
+    return 'Loading...'
+  }
+}
 function getSubTitle(by, date) {
   if (by && date) {
     return `By ${by[0]}, ${date.slice(0, 4)}`

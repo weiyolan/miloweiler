@@ -21,7 +21,6 @@ export default defineType({
     }),
     defineField({
       name: 'alt', title: 'Description', type: 'localeString', description: 'A simple description of what is shown on the picture for people using screenreaders.',
-      // options: {collapsible: true, collapsed: true},
       validation: Rule => Rule.required()
     }),
   ]

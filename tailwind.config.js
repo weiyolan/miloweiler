@@ -36,6 +36,8 @@ module.exports = {
         // 'gray-light': '#d3dce6',
       },
       boxShadow: {
+        'top-xl': '0 -20px 25px -5px rgb(0 0 0 / 0.1), 0 -8px 10px -6px rgb(0 0 0 / 0.1)',
+        'top-2xl': '0 -25px 50px -12px rgb(0 0 0 / 0.25)',
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
         'inner-3xl': 'inset 0 0px 50px 10px rgba(0, 0, 0, 0.3)',
       },
