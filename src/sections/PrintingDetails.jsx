@@ -32,7 +32,8 @@ export default function PrintingDetails({ printingData }) {
           markers: false
         }
       })
-        .from('.printing-child', { opacity: 0, duration: 1, ease: 'bounce', stagger: 0.1 })
+        .from('.printing-child', { opacity: 0 ,duration: 1, ease: 'bounce', stagger: 0.1 })
+        .from('.printing-child', { translateX: -20 ,duration: 1, ease: 'ease.out', stagger: 0.1 },'<')
     }, '.printing-parent')
     return () => ctx.current.revert()
   }, [width])

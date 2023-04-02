@@ -48,13 +48,23 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.portfolioImage', {
-        x: 0, opacity: 1,  stagger: 0.2, ease: 'expo.out', scrollTrigger: {
+        x: 0, opacity: 1,  stagger: 0.2, ease: 'ease.out', scrollTrigger: {
           trigger: '.portfolioImage',
           start: `top ${width < 648 ? '90%' : '85%'}`,
           end: `top ${width < 648 ? '80%' : '40%'}`,
           invalidateOnRefresh: true, toggleActions: 'play none reverse none',
           scrub: 2,
-          markers: true
+          markers: false,
+        }
+      })
+      gsap.to('.portfolioText', {
+        x: 0, opacity: 1, ease: 'ease.out', scrollTrigger: {
+          trigger: '.portfolioText',
+          start: `top ${width < 648 ? '90%' : '85%'}`,
+          end: `top ${width < 648 ? '80%' : '65%'}`,
+          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
+          scrub: 2,
+          markers: false,
         }
       })
       // gsap.to('.portfolioImage', {
@@ -170,8 +180,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             {/* ======PRORTFOLIO======== */}
             <LayoutSection center >
               <div className='w-full text-center'>
-                <SubTitle className='max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
-                <ArrowLink className='ml-8 ' inText text='download' to='/' />
+                <SubTitle className='portfolioText max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
+                <ArrowLink className='portfolioText ml-8 ' inText text='download' to='/' />
                 <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
