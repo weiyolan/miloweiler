@@ -40,26 +40,26 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       // tl.current = gsap.timeline({ paused: false });
 
       gsap.to('.contact-image0', { opacity: 1, duration: 1.2, delay: 0.5, })
-      gsap.to('.contact-image1', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false , invalidateOnRefresh: true,} })
-      gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false , invalidateOnRefresh: true,} })
-      gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false , invalidateOnRefresh: true,} })
-      gsap.to('.contact-image4', { opacity: 1, duration: 1.2, stagger: 0.3, scrollTrigger: { trigger: '.contact-image4', start: `top ${width < 648 ? '85%' : '60%'}` , invalidateOnRefresh: true,} })
-      gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}` , invalidateOnRefresh: true,} })
+      gsap.to('.contact-image1', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
+      gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
+      gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
+      gsap.to('.contact-image4', { opacity: 1, duration: 1.2, stagger: 0.3, scrollTrigger: { trigger: '.contact-image4', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
+      gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         gsap.to(logo, {
-          translateX: (a, logo) => parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,
           // ease: "none",
           scrollTrigger: {
             trigger: '.trusted-by',
-            start: width<648?'30% 20%':'center 20%',
+            start: width < 648 ? '30% 20%' : 'center 20%',
             // start: 'top bottom',
             // end: "max",
             invalidateOnRefresh: true,
             scrub: 2,
-            markers: i?false:true,
+            markers: i ? false : true,
             // markers: ()=>i?false:false,
           }
         })
@@ -74,23 +74,26 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         // image.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;
         // the first image (i === 0) should be handled differently because it should start at the very top.
         // use function-based values in order to keep things responsive
-        if (image.getAttribute('data-imagecontainer')==='true') {gsap.fromTo(image.bg, {
-          objectPosition: () => i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px"
-        },
-          {
-            objectPosition: () => `50% ${(width<648?'':'')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
-            // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
-            ease: "none",
-            scrollTrigger: {
-              trigger: image,
-              start: i ? "top bottom" : width < 648 ? "top 30%" : width<800? 'top top':"top top ",
-              end: "bottom top",
-              scrub: true,
-              markers: true,
-              // markers: () => i ? false : false,
-              invalidateOnRefresh: true // to make it responsive
-            }
-          });}
+        if (image.getAttribute('data-imagecontainer') === 'true') {
+          gsap.fromTo(image.bg, {
+            objectPosition: i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px"
+          },
+            {
+              objectPosition: `50% ${(width < 648 ? '' : '')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
+              // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
+              ease: "none",
+              scrollTrigger: {
+                trigger: image,
+                start: "top top",
+                // start: i ? "top top" : width < 648 ? "top top" : width<800? 'top top':"top top ",
+                end: "bottom top",
+                scrub: true,
+                markers: true,
+                // markers: () => i ? false : false,
+                invalidateOnRefresh: true // to make it responsive
+              }
+            });
+        }
       });
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
@@ -153,7 +156,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             <LayoutSection center>
               <div className='w-full text-center'>
                 <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
-                {!pageMobile&&<ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
+                {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
                 <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 lg:gap-24 px:gap-8 lg:px-24'>
                   <div className='flex-1 flex flex-col justify-start'>
                     <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
@@ -164,8 +167,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                   </div>
                   <div className='flex-1 flex flex-col justify-start'>
                     <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
-                    <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }} 
-                    className='text-justify lg:text-center text-sm  first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                    <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
+                      className='text-justify lg:text-center text-sm  first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                       {inspirationData.text2[locale]}
                     </p>
                     <ArrowLink inText className='ml-8 w-fit self-center text-center mt-2' text='Visit my gallery' to='/' />
