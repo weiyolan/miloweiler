@@ -37,16 +37,16 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
       gsap.to('.contact-image0', {opacity:1, duration:1.2, delay:0.5, })
-      gsap.from('.contact-image1', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image1', start:'20% 60%',markers:false}})
-      gsap.from('.contact-image2', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image2', start:'20% 70%',markers:false}})
-      gsap.from('.contact-image3', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image3', start:'top 70%',markers:false}})
-      gsap.from('.contact-image4', {opacity:0, duration:1.2, stagger:0.3, scrollTrigger:{trigger:'.contact-image4', start:'top 60%'}})
-      gsap.from('.form-title', {opacity:0, duration:0.8, scrollTrigger:{trigger:'.form-title', start:'top 70%'}})
+      gsap.from('.contact-image1', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image1', start:`20% ${width<648?'85%':'60%'}`,markers:false}})
+      gsap.from('.contact-image2', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image2', start:`20% ${width<648?'85%':'60%'}`,markers:false}})
+      gsap.from('.contact-image3', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image3', start:`top ${width<648?'85%':'60%'}`,markers:false}})
+      gsap.from('.contact-image4', {opacity:0, duration:1.2, stagger:0.3, scrollTrigger:{trigger:'.contact-image4', start:`top ${width<648?'85%':'60%'}`}})
+      gsap.from('.form-title', {opacity:0, duration:0.8, scrollTrigger:{trigger:'.form-title', start:`top ${width<648?'85%':'60%'}`}})
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
     }, '.contact-page')
     return () => ctx.current.revert()
-  }, [])
+  }, [width])
 
   return (
     <>

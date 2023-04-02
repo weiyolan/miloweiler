@@ -17,19 +17,20 @@ export default function PrintingDetails({ printingData }) {
 
   let ctx = useRef(null)
   let tl = useRef(null)
-
+  let parent= useRef(null)
+  const { width } = useAppContext()
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
-      tl.current = gsap.timeline({ scrollTrigger: { trigger: '.printing-child', start: '200% 70%' , markers:false} })
-        .from('.printing-child', { opacity: 0, duration: 1, ease:'bounce', stagger:0.1 })
+      tl.current = gsap.timeline({ scrollTrigger: { trigger: parent.current, start: `top ${width<648?'85%':'60%'}`, markers: true } })
+        .from('.printing-child', { opacity: 0, duration: 1, ease: 'bounce', stagger: 0.1 })
     }, '.printing-parent')
     return () => ctx.current.revert()
-  }, [])
+  }, [width])
 
   const { locale } = useAppContext();
   return (
     <LayoutSection left>
-      <div key='printing' className='printing-parent flex flex-col h-full justify-center'>
+      <div ref={parent} key='printing' className='printing-parent flex flex-col h-full justify-center'>
         <SubTitle child='printing' mainTitle={printingData.title[locale]} subTitle={printingData.text[locale]} left />
         <AccentTitle className='printing-child' text={printingData.subTitle[locale]} />
         <ul className='list-disc pl-8'>

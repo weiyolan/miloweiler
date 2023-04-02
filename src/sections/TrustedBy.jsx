@@ -19,32 +19,34 @@ export default function TrustedBy({ trustedBy }) {
   // const { ctx, tl } = usePageContext()
   let ctx = useRef(null)
   let tl = useRef(null)
-  let {width} =useAppContext()
+  let trusted = useRef(null)
+  let { width } = useAppContext()
+
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
-      tl.current = gsap.timeline({scrollTrigger:{trigger:'.trusted-by', start:`80% ${width<668?'75%':'50%'}`, markers:true}})
+      tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, markers: false } })
         // .from('.title', { opacity: 0, duration: 1 })
-        .to('.artist-title', {opacity: 1, duration: 1})
-        .from('.artist-line', {width:0, duration:0.8,},'<')
+        .to('.artist-title', { opacity: 1, duration: 1 })
+        .from('.artist-line', { width: 0, duration: 0.8, }, '<')
         .to('.logo-artist', {
           opacity: 1, duration: 1, ease: 'power4.in', stagger: 0.3,
         }, '-=1')
-        .to('.company-title', {opacity: 1, duration: 1},'-=1')
-        .from('.company-line', {width:0, duration:0.8,},'<')
+        .to('.company-title', { opacity: 1, duration: 1 }, '-=1')
+        .from('.company-line', { width: 0, duration: 0.8, }, '<')
         .to('.logo-company', {
           opacity: 1, duration: 1, ease: 'power4.in', stagger: 0.3,
         }, '-=1')
-        // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
+      // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
     }, '.trusted-by')
     return () => ctx.current.revert()
-  }, [])
+  }, [width])
 
 
   return (
     <LayoutSection center>
-      <div className='trusted-by w-full text-center'>
-        <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle='Trusted By' subTitle={''} />
+      <div ref={trusted} className='trusted-by relative w-full text-center'>
+        <SubTitle className='  max-w-[70%] mx-auto opacity-1 title' mainTitle='Trusted By' subTitle={''} />
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
         <Line className={'w-56 mx-auto mb-2 artist-line'} />
         <div className='artist-container flex justify-center flex-wrap gap-12'>

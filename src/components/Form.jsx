@@ -18,29 +18,29 @@ const Form = () => {
   let [subject, setSubject] = useState('');
   let [message, setMessage] = useState('');
   let [honey, setHoney] = useState('');
+  const { width } = useAppContext()
 
+  let ctx = useRef();
 
-  let ctx=useRef();
-
-  useEffect(()=>{
-    ctx.current = gsap.context(()=>{
-      gsap.from('.form-el',{
-        translateX:-50,
-        translateY:80,
-        opacity:0,
-        ease:'back',
-        duration:0.5,
-        stagger:0.1,
-        scrollTrigger:{
-          trigger:'.form-container',
-          start:'top 70%'   ,
-          markers:false
+  useEffect(() => {
+    ctx.current = gsap.context(() => {
+      gsap.from('.form-el', {
+        translateX: -50,
+        translateY: 80,
+        opacity: 0,
+        ease: 'back',
+        duration: 0.5,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.form-container',
+          start: `top ${width < 648 ? '85%' : '60%'}`,
+          markers: false
         }
       })
     })
-return ()=>ctx.current.revert()
+    return () => ctx.current.revert()
 
-  },[])
+  }, [width])
 
   function encode(data) {
     // console.log(Object.keys(data)
@@ -77,19 +77,19 @@ return ()=>ctx.current.revert()
       .catch((error) => alert(error));
 
 
-      toast.promise(upload, {
-        loading: 'Loading..',
-        success: 'Email submitted',
-        error: (err) => {return `There was an error registering your email:\n${err.toString()}`}
-      },
-        {
-          style: {
-            minWidth: '250px',
-              borderRadius: '10px',
-              background: '#333',
-              color: '#FFFAEA',
-          }
-        })
+    toast.promise(upload, {
+      loading: 'Loading..',
+      success: 'Email submitted',
+      error: (err) => { return `There was an error registering your email:\n${err.toString()}` }
+    },
+      {
+        style: {
+          minWidth: '250px',
+          borderRadius: '10px',
+          background: '#333',
+          color: '#FFFAEA',
+        }
+      })
 
     // setLightbox(true); 
     // console.log(upload)
@@ -191,7 +191,7 @@ return ()=>ctx.current.revert()
 
         {/* BUTTON */}
         <div className='form-el w-full flex items-end justify-end  col-start-3 row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 relative '>
-          <button key='submit' type={success?'reset':'submit'} onClick={()=>{if(success){setSuccess(false)}}}
+          <button key='submit' type={success ? 'reset' : 'submit'} onClick={() => { if (success) { setSuccess(false) } }}
             className={`inline-flex shadow-sm left-0 bottom-0
           border-2 border-solid rounded-full min-w-[80px] sm:min-w-[100px] px-2 justify-center xs:px-4 py-2  
           font-sans font-semibold text-xs textcenter whitespace-nowrap
@@ -199,7 +199,7 @@ return ()=>ctx.current.revert()
           outline-none focus-visible:outline-black/30 border-transparent bg-black/10  
           active:bg-black/30 hover:border-black/90 uppercase`}
           >
-            {success?<BsCheckLg className={`text-base`}/>:`${locale === 'en' ? 'Send' : "Envoyer"}`}
+            {success ? <BsCheckLg className={`text-base`} /> : `${locale === 'en' ? 'Send' : "Envoyer"}`}
           </button>
         </div>
       </div>
