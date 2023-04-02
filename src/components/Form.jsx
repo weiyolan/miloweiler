@@ -33,7 +33,11 @@ const Form = () => {
         stagger: 0.1,
         scrollTrigger: {
           trigger: '.form-container',
-          start: `top ${width < 648 ? '85%' : '60%'}`,
+          start: `top 90%`,
+          // start: `top ${width < 648 ? '85%' : '60%'}`,
+          end: 'top 40%',
+          // toggleActions:'restart none none reverse',
+          scrub: 1,
           markers: false
         }
       })

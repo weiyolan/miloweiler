@@ -21,7 +21,15 @@ export default function PrintingDetails({ printingData }) {
   const { width } = useAppContext()
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
-      tl.current = gsap.timeline({ scrollTrigger: { trigger: parent.current, start: `top ${width < 648 ? '85%' : '60%'}`, markers: false } })
+      tl.current = gsap.timeline({ scrollTrigger: { 
+        trigger: parent.current, 
+        start: `top 90%`, 
+        // start: `top ${width < 648 ? '85%' : '60%'}`, 
+        // toggleActions:'restart none none reverse',
+          end: 'top 50%',
+          scrub:1,
+        markers: false 
+      } })
         .from('.printing-child', { opacity: 0, duration: 1, ease: 'bounce', stagger: 0.1 })
     }, '.printing-parent')
     return () => ctx.current.revert()

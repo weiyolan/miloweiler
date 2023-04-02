@@ -47,7 +47,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         gsap.to(logo, {
-          x: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,
           // ease: "none",
           scrollTrigger: {
@@ -56,7 +56,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             // start: 'top bottom',
             end: "max",
             invalidateOnRefresh: true,
-            scrub: 3,
+            scrub: 1,
             markers: false,
             // markers: ()=>i?false:false,
           }
@@ -65,9 +65,9 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
       gsap.utils.toArray("[data-imagecontainer]").forEach((image, i) => {
         image.bg = image.querySelector(".imageFill");
-        console.log(image)
-        console.log(image.getAttribute('data-imagecontainer'))
         // console.log(image)
+        // console.log(image.getAttribute('data-imagecontainer'))
+
         // // Give the backgrounds some random images
         // image.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;
         // the first image (i === 0) should be handled differently because it should start at the very top.

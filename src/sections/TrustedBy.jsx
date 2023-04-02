@@ -75,7 +75,7 @@ function Logo({ dataSpeed, type, logo }) {
       height={height}
       loader={loader}
       style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-      className={`logo logo-${type} my-auto scale-75 xs:scale-100 opacity-0`}
+      className={`logo logo-${type} my-auto scale-75 translate-x-0 xs:scale-100 opacity-0`}
       alt={`Logo of the ${type} ${logo.name}`}
     // sizes="100px"
     // placeholder="blur"
