@@ -197,7 +197,7 @@ const Form = () => {
         <div className='form-el w-full flex items-end justify-end  col-start-3 row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 relative '>
           <button key='submit' type={success ? 'reset' : 'submit'} onClick={() => { if (success) { setSuccess(false) } }}
             className={`inline-flex shadow-sm left-0 bottom-0
-          border-2 border-solid rounded-full min-w-[80px] sm:min-w-[100px] px-2 justify-center xs:px-4 py-2  
+          border-2 border-solid rounded-full min-w-[80px] lg:min-w-[100px] px-2 justify-center xs:px-4 py-2  
           font-sans font-semibold text-xs textcenter whitespace-nowrap
           cursor-pointer w-fit min-[400px]:w-50% min-[430px]:w-fit h-fit duration-300
           outline-none focus-visible:outline-black/30 border-transparent bg-black/10  

@@ -9,7 +9,7 @@ export default function Layout({children, className, cardSection}) {
   }
   
   return (
-    <div className={`max-w-7xl mx-auto w-full px-4 mobm:px-6 sm:px-12 md:px-24   visible ${className?className:''}`}>
+    <div className={`max-w-7xl mx-auto w-full px-4 mobm:px-6 sm:px-12 lg:px-24 visible ${className?className:''}`}>
       {children}
     </div>
   )
