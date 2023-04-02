@@ -143,11 +143,11 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <div className='w-full text-center'>
                 <SubTitle className='max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
                 <ArrowLink className='ml-8 ' inText text='download' to='/' />
-                <div className='flex flex-col h-80 sm:flex-row gap-6 sm:gap-12 px-0 sm:px-12 mt-4'>
+                <div className='flex flex-col h-80 sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                  <SanityImage containerClass='flex-1 rounded-sm contact-image4 opacity-0' fill image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
-                  <SanityImage containerClass='flex-1 rounded-sm contact-image4 opacity-0' fill image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
+                  <SanityImage containerClass='flex-1 rounded-2x contact-image4 opacity-0' fill image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
+                  <SanityImage containerClass='flex-1 rounded-2x contact-image4 opacity-0' fill image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
                 </div>
               </div>
             </LayoutSection>
@@ -157,10 +157,10 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <div className='w-full text-center'>
                 <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
                 {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
-                <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 lg:gap-24 px:gap-8 lg:px-24'>
+                <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12'>
                   <div className='flex-1 flex flex-col justify-start'>
                     <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
-                    <p ref={textRef} className='text-justify lg:text-center text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                    <p ref={textRef} className='text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                       {inspirationData.text1[locale]}
                     </p>
                     <ArrowLink inText className='ml-8 w-fit mt-2' text='Go to homepage' to='/' />
@@ -168,7 +168,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                   <div className='flex-1 flex flex-col justify-start'>
                     <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
                     <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
-                      className='text-justify lg:text-center text-sm  first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                      className='text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                       {inspirationData.text2[locale]}
                     </p>
                     <ArrowLink inText className='ml-8 w-fit self-center text-center mt-2' text='Visit my gallery' to='/' />
