@@ -17,7 +17,7 @@ import ContactDetails from '@/sections/ContactDetails'
 import SanityImage from '@/components/SanityImage'
 import PrintingDetails from '@/sections/PrintingDetails'
 import Logo from '@/components/Logo'
-import { gsap } from 'gsap'
+import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 gsap.registerPlugin(ScrollTrigger);
@@ -33,15 +33,63 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let tl = useRef()
   let ctx = useRef()
 
+  let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
+
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
-      gsap.to('.contact-image0', {opacity:1, duration:1.2, delay:0.5, })
-      gsap.from('.contact-image1', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image1', start:`20% ${width<648?'85%':'60%'}`,markers:false}})
-      gsap.from('.contact-image2', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image2', start:`20% ${width<648?'85%':'60%'}`,markers:false}})
-      gsap.from('.contact-image3', {opacity:0, duration:1.2, scrollTrigger:{trigger:'.contact-image3', start:`top ${width<648?'85%':'60%'}`,markers:false}})
-      gsap.from('.contact-image4', {opacity:0, duration:1.2, stagger:0.3, scrollTrigger:{trigger:'.contact-image4', start:`top ${width<648?'85%':'60%'}`}})
-      gsap.from('.form-title', {opacity:0, duration:0.8, scrollTrigger:{trigger:'.form-title', start:`top ${width<648?'85%':'60%'}`}})
+      gsap.to('.contact-image0', { opacity: 1, duration: 1.2, delay: 0.5, })
+      gsap.from('.contact-image1', { opacity: 0, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false } })
+      gsap.from('.contact-image2', { opacity: 0, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false } })
+      gsap.from('.contact-image3', { opacity: 0, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false } })
+      gsap.from('.contact-image4', { opacity: 0, duration: 1.2, stagger: 0.3, scrollTrigger: { trigger: '.contact-image4', start: `top ${width < 648 ? '85%' : '60%'}` } })
+      gsap.from('.form-title', { opacity: 0, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}` } })
+      // gsap.set("[data-speed]", {position:'fixed'})
+      gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
+        gsap.to(logo, {
+          x: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          // y:0,
+          // ease: "none",
+          scrollTrigger: {
+            trigger: '.trusted-by',
+            start: 'top 30%',
+            // start: 'top bottom',
+            end: "max",
+            invalidateOnRefresh: true,
+            scrub: 3,
+            markers: false,
+            // markers: ()=>i?false:false,
+          }
+        })
+      })
+
+      gsap.utils.toArray("[data-imagecontainer]").forEach((image, i) => {
+        image.bg = image.querySelector(".imageFill");
+        console.log(image)
+        console.log(image.getAttribute('data-imagecontainer'))
+        // console.log(image)
+        // // Give the backgrounds some random images
+        // image.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;
+        // the first image (i === 0) should be handled differently because it should start at the very top.
+        // use function-based values in order to keep things responsive
+        if (image.getAttribute('data-imagecontainer')==='true') {gsap.fromTo(image.bg, {
+          objectPosition: () => i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px"
+        },
+          {
+            objectPosition: () => `50% -${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
+            // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
+            ease: "none",
+            scrollTrigger: {
+              trigger: image,
+              start: () => i ? "top bottom" : width < 648 ? "top 30%" : "top 30%",
+              end: "bottom top",
+              scrub: true,
+              markers: false,
+              // markers: () => i ? false : false,
+              invalidateOnRefresh: true // to make it responsive
+            }
+          });}
+      });
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
     }, '.contact-page')

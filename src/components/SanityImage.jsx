@@ -3,7 +3,7 @@ import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 
-export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, containerClass, className, ...props }) {
+export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, containerClass, className, name, move, ...props }) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
   // let result = useNextSanityImage(client, image._ref);
   // console.log(result)
@@ -37,10 +37,11 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   if (fill) {
     return (
-      <div className={` select-none h-full w-full ${absolute ? 'absolute' : 'relative'} rounded-2xl overflow-hidden ${containerClass} `}>
+      <div data-imagecontainer={move?'true':'false'} className={`select-none h-full w-full ${absolute ? 'absolute' : 'relative'} rounded-2xl overflow-hidden ${containerClass} `}>
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}
+          className={`imageFill${name?name:''}`}
           src={src}
           loader={loader}
           alt={alt}

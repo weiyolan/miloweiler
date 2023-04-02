@@ -34,7 +34,8 @@ export default function ContactDetails({ contactDetails }) {
   // console.log(contactDetails.image)
   return (
     <LayoutSection right className={`flex-col sm:flex-row relative`}>
-      <SanityImage containerClass='w-[46vw] xs:w-2/5 h-48 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0 opacity-0' priority absolute={width < 648} fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
+      <SanityImage move style={{objectPosition:'top'}} containerClass='w-[46vw] xs:w-2/5 h-48 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0 opacity-0' 
+      priority absolute={width < 648} fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
       <div id='contactSection' className='relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
         <SubTitle child='contact' mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`contact-child`} />
