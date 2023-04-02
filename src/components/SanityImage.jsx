@@ -3,7 +3,7 @@ import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 
-export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, containerClass, className, name, move, ...props }) {
+export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, containerClass, className, name, move,intrinsic, ...props }) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
   // let result = useNextSanityImage(client, image._ref);
   // console.log(result)
@@ -51,9 +51,15 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
     )
   }
 
+  if (intrinsic) {
+    return <Image style={style} {...{ src, width, height, loader }} alt={alt} className={className}
+      {...getBlurProps()} {...props}
+    />
+  }
+
   return (
     // objectFit:'contain',  maxWidth: '100%',maxHeight: '100%',position:'relative',  position:'absolute'
-    <Image style={{ width: landscape ? '100%' : 'auto', height: landscape ? 'auto' : '100%', ...style }} {...{ src, width, height, loader }} alt={alt} className={className}
+    <Image style={{ width: landscape ? '100%' : 'auto', height: landscape ? 'auto' : '100%', ...style }} className={className} {...{ src, width, height, loader }} alt={alt} 
       {...getBlurProps()} {...props}
     />
   )

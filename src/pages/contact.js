@@ -43,7 +43,26 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.contact-image1', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
-      gsap.to('.contact-image4', { opacity: 1, duration: 1.2, stagger: 0.3, scrollTrigger: { trigger: '.contact-image4', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
+      gsap.to('.portfolioImage', {
+        x: 0, opacity: 1,  stagger: 0.2, ease: 'back', scrollTrigger: {
+          trigger: '.portfolioImage',
+          start: `top ${width < 648 ? '90%' : '95%'}`,
+          end: `top ${width < 648 ? '80%' : '70%'}`,
+          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
+          scrub: 1,
+          markers: true
+        }
+      })
+      gsap.to('.portfolioImage', {
+        x: -192, opacity: 0,  stagger: 0.2, ease: 'back', scrollTrigger: {
+          trigger: '.portfolioImage',
+          start: `top ${width < 648 ? '15%' : '25%'}`,
+          end: `top ${width < 648 ? '10%' : '0%'}`,
+          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
+          scrub: 1,
+          markers: true
+        }
+      })
       gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
@@ -59,9 +78,10 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             // end: "max",
             invalidateOnRefresh: true,
             scrub: 2,
-            markers: i ? false : true,
+            markers: i ? false : false,
             // markers: ()=>i?false:false,
-          }
+          },
+          lazy: false,
         })
       })
 
@@ -82,17 +102,19 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               objectPosition: `50% ${(width < 648 ? '' : '')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
               // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
               ease: "none",
+              lazy: false,
+
               scrollTrigger: {
                 trigger: image,
                 start: "top top",
                 // start: i ? "top top" : width < 648 ? "top top" : width<800? 'top top':"top top ",
                 end: "bottom top",
                 scrub: true,
-                markers: true,
+                markers: false,
                 // markers: () => i ? false : false,
                 invalidateOnRefresh: true // to make it responsive
               }
-            });
+            })
         }
       });
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
@@ -143,11 +165,11 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <div className='w-full text-center'>
                 <SubTitle className='max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
                 <ArrowLink className='ml-8 ' inText text='download' to='/' />
-                <div className='flex flex-col h-80 sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
+                <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                   {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                  <SanityImage containerClass='flex-1 rounded-2x contact-image4 opacity-0' fill image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
-                  <SanityImage containerClass='flex-1 rounded-2x contact-image4 opacity-0' fill image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
+                  <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
+                  <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
                 </div>
               </div>
             </LayoutSection>

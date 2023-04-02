@@ -29,12 +29,12 @@ export default function TrustedBy({ trustedBy }) {
         .to('.artist-title', { opacity: 1, duration: 1 })
         .to('.artist-line', { width: 224, duration: 0.8, }, '<')
         .to('.logo-artist', {
-          opacity: 1, duration: 1, ease: 'power4.in', stagger: 0.3,
+          opacity: 1, duration: 0.7, ease: 'back', stagger: 0.2,
         }, '-=1')
-        .to('.company-title', { opacity: 1, duration: 1 }, '-=1')
+        .to('.company-title', { opacity: 1, duration: 1 }, '-=1.5')
         .to('.company-line', { width: 224, duration: 0.8, }, '<')
         .to('.logo-company', {
-          opacity: 1, duration: 1, ease: 'power4.in', stagger: 0.3,
+          opacity: 1, duration: 0.7, ease: 'back', stagger: 0.2,
         }, '-=1')
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});

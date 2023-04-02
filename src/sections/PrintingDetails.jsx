@@ -24,12 +24,12 @@ export default function PrintingDetails({ printingData }) {
       tl.current = gsap.timeline({
         scrollTrigger: {
           trigger: parent.current,
-          start: width<648?`top 90%`:'30% 70%',
+          start: width<648?`top 90%`:'30% 80%',
           // start: `top ${width < 648 ? '85%' : '60%'}`, 
           // toggleActions:'restart none none reverse',
           end: width<648?'top 50%':'30% 40%',
           scrub: 1,
-          markers: true
+          markers: false
         }
       })
         .from('.printing-child', { opacity: 0, duration: 1, ease: 'bounce', stagger: 0.1 })
