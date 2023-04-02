@@ -78,7 +78,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           objectPosition: () => i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px"
         },
           {
-            objectPosition: () => `50% ${(width<648?'-':'')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
+            objectPosition: () => `50% ${(width<648?'':'')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
             // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
             ease: "none",
             scrollTrigger: {
@@ -157,7 +157,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 lg:gap-24 px:gap-8 lg:px-24'>
                   <div className='flex-1 flex flex-col justify-start'>
                     <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
-                    <p ref={textRef} className='text-justify lg:text-center  text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                    <p ref={textRef} className='text-justify lg:text-center text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                       {inspirationData.text1[locale]}
                     </p>
                     <ArrowLink inText className='ml-8 w-fit mt-2' text='Go to homepage' to='/' />
