@@ -17,9 +17,13 @@ import ContactDetails from '@/sections/ContactDetails'
 import SanityImage from '@/components/SanityImage'
 import PrintingDetails from '@/sections/PrintingDetails'
 import Logo from '@/components/Logo'
-import { gsap } from 'gsap/dist/gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+// import { gsap } from 'gsap/dist/gsap'
+// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
+
+import { gsap, ScrollTrigger } from "gsap/dist/all";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null)
@@ -27,7 +31,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let { height: textHeight } = useDimensions(textRef)
   let pageMobile = width < 648;
   let darkMode = false
-  gsap.registerPlugin(ScrollTrigger);
   // console.log(contactFormData)
 
   let tl = useRef()
@@ -45,10 +48,10 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.portfolioImage', {
-        x: 0, opacity: 1,  stagger: 0.2, ease: 'back', scrollTrigger: {
+        x: 0, opacity: 1,  stagger: 0.2, ease: 'expo.out', scrollTrigger: {
           trigger: '.portfolioImage',
-          start: `top ${width < 648 ? '90%' : '90%'}`,
-          end: `top ${width < 648 ? '80%' : '50%'}`,
+          start: `top ${width < 648 ? '90%' : '85%'}`,
+          end: `top ${width < 648 ? '80%' : '40%'}`,
           invalidateOnRefresh: true, toggleActions: 'play none reverse none',
           scrub: 2,
           markers: true
@@ -67,8 +70,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
-        console.log(logo)
-        console.log(logo.getAttribute("data-speed"))
+        // console.log(logo)
+        // console.log(logo.getAttribute("data-speed"))
         gsap.to(logo, {
           translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           opacity:0,
