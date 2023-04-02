@@ -46,28 +46,31 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.portfolioImage', {
         x: 0, opacity: 1,  stagger: 0.2, ease: 'back', scrollTrigger: {
           trigger: '.portfolioImage',
-          start: `top ${width < 648 ? '90%' : '95%'}`,
-          end: `top ${width < 648 ? '80%' : '70%'}`,
+          start: `top ${width < 648 ? '90%' : '90%'}`,
+          end: `top ${width < 648 ? '80%' : '50%'}`,
           invalidateOnRefresh: true, toggleActions: 'play none reverse none',
-          scrub: 1,
+          scrub: 2,
           markers: true
         }
       })
-      gsap.to('.portfolioImage', {
-        x: -192, opacity: 0,  stagger: 0.2, ease: 'back', scrollTrigger: {
-          trigger: '.portfolioImage',
-          start: `top ${width < 648 ? '15%' : '25%'}`,
-          end: `top ${width < 648 ? '10%' : '0%'}`,
-          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
-          scrub: 1,
-          markers: true
-        }
-      })
+      // gsap.to('.portfolioImage', {
+      //   x: -192, opacity: 0,  stagger: 0.2, ease: 'back', scrollTrigger: {
+      //     trigger: '.portfolioImage',
+      //     start: `top ${width < 648 ? '15%' : '25%'}`,
+      //     end: `top ${width < 648 ? '10%' : '0%'}`,
+      //     invalidateOnRefresh: true, toggleActions: 'play none reverse none',
+      //     scrub: 2,
+      //     markers: true
+      //   }
+      // })
       gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
+        console.log(logo)
+        console.log(logo.getAttribute("data-speed"))
         gsap.to(logo, {
           translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          opacity:0,
           // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,
           // ease: "none",

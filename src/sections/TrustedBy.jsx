@@ -11,6 +11,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
 import useLayoutEffect from '@utils/useIsomorphicLayoutEffect'
 import { useAppContext } from '@/utils/appContext';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,24 +84,25 @@ export default function TrustedBy({ trustedBy }) {
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line'} />
         <div className='artist-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
-          {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} /> })}
+          {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} to={logo.link} /> })}
         </div>
         <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text='Companies' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 company-line'} />
         <div className='company-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
-          {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} /> })}
+          {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} to={logo.link} /> })}
         </div>
       </div>
     </LayoutSection>
   )
 }
 
-function Logo({ dataSpeed, dataDirection, type, logo }) {
+function Logo({ dataSpeed, dataDirection, type, logo, link }) {
   let { src, width, height, loader } = useNextSanityImage(client, logo.image.asset);
   let ar = (width / height)
   // console.log(ar)
-  return (
-    <Image
+
+  function getImage() {
+    return (<Image
       src={src}
       data-speed={dataSpeed}
       data-direction={dataDirection}
@@ -114,4 +116,15 @@ function Logo({ dataSpeed, dataDirection, type, logo }) {
     // placeholder="blur"
     // blurDataURL={trustedBy[1].image.asset.metadata.lqip} 
     />)
+  }
+
+  if (link===undefined) {
+    return getImage()
+  } 
+  
+  return (
+    <Link className='cursor-pointer w-fit h-fit' href={link} target='_blank'
+      rel="noopener noreferrer">
+        {getImage()}
+    </Link>)
 }
