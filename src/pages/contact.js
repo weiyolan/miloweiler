@@ -47,14 +47,15 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         gsap.to(logo, {
-          translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          translateX: (a, logo) => parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,
           // ease: "none",
           scrollTrigger: {
             trigger: '.trusted-by',
-            start: 'top 30%',
+            start: ()=>width<648?'top 20%':'center 20%',
             // start: 'top bottom',
-            end: "max",
+            // end: "max",
             invalidateOnRefresh: true,
             scrub: 1,
             markers: false,

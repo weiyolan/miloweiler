@@ -44,6 +44,38 @@ export default function TrustedBy({ trustedBy }) {
 
   let totalLogoAmount = trustedBy.artists.length + trustedBy.companies.length
 
+  function getSpeed(i, company) {
+    if (width < 648) {
+      return (1 - 0.05 * (totalLogoAmount - i - (company ? trustedBy.artists.length : 0)) / totalLogoAmount)
+    } else if (width > 648) {
+      let length = company ? trustedBy.companies.length - 1 : trustedBy.artists.length - 1;
+      let ratio = (i - length / 2) / (length / 2);
+      return (1 - 0.1 * ratio)
+    }
+  }
+
+  function getDirection(i, company) {
+    if (width < 648) {
+      return (i % 2 === 0 ? -1 : 1)
+    } else if (width > 648) {
+      return 1
+
+      // if (company) {
+      //   if (i + 1 <= trustedBy.companies.length / 2) {
+      //     return -1
+      //   } else if (i + 1 > trustedBy.companies.length / 2) {
+      //     return 1
+      //   } else return 0
+      // } else {
+      //   if (i + 1 <= trustedBy.artists.length / 2) {
+      //     return -1
+      //   } else if (i + 1 > trustedBy.artists.length / 2) {
+      //     return 1
+      //   } else return 0
+      // }
+    }
+  }
+
   return (
     <LayoutSection center>
       <div ref={trusted} className='trusted-by relative w-full text-center'>
@@ -51,19 +83,19 @@ export default function TrustedBy({ trustedBy }) {
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line'} />
         <div className='artist-container flex justify-center flex-wrap gap-12'>
-          {trustedBy.artists.map((logo, i) => { return <Logo dataSpeed={`${0.99 - 0.05 * (totalLogoAmount - i) / totalLogoAmount}`} type='artist' logo={logo} key={i} /> })}
+          {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} /> })}
         </div>
         <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text='Companies' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 company-line'} />
         <div className='company-container flex justify-center flex-wrap gap-12'>
-          {trustedBy.companies.map((logo, i) => { return <Logo dataSpeed={`${0.99 - 0.05 * (totalLogoAmount - i - trustedBy.artists.length) / totalLogoAmount}`} type='company' logo={logo} key={i} /> })}
+          {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} /> })}
         </div>
       </div>
     </LayoutSection>
   )
 }
 
-function Logo({ dataSpeed, type, logo }) {
+function Logo({ dataSpeed, dataDirection, type, logo }) {
   let { src, width, height, loader } = useNextSanityImage(client, logo.image.asset);
   let ar = (width / height)
   // console.log(ar)
@@ -71,6 +103,7 @@ function Logo({ dataSpeed, type, logo }) {
     <Image
       src={src}
       data-speed={dataSpeed}
+      data-direction={dataDirection}
       width={width}
       height={height}
       loader={loader}
