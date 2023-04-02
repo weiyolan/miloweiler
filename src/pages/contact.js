@@ -20,7 +20,6 @@ import Logo from '@/components/Logo'
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null)
@@ -28,6 +27,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let { height: textHeight } = useDimensions(textRef)
   let pageMobile = width < 648;
   let darkMode = false
+  gsap.registerPlugin(ScrollTrigger);
   // console.log(contactFormData)
 
   let tl = useRef()
@@ -36,6 +36,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   useLayoutEffect(() => {
+    
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
 
