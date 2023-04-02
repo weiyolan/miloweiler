@@ -37,7 +37,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   if (fill) {
     return (
-      <div className={`w-full select-none h-full ${absolute ? 'absolute' : 'relative'} rounded-2xl overflow-hidden ${containerClass}`}>
+      <div className={` select-none h-full w-full ${absolute ? 'absolute' : 'relative'} rounded-2xl overflow-hidden ${containerClass} `}>
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}

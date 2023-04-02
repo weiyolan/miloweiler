@@ -1,7 +1,7 @@
 import React from 'react'
 import { usePageContext } from '@utils/pageContext'
 // import { } from 'framer-
-export default function SubTitle({ mainTitle, subTitle, left, right, style, className , darkMode:darkModeProp}) {
+export default function SubTitle({ mainTitle, subTitle, left, right, style, className , child,  darkMode:darkModeProp}) {
 
   const { darkMode: darkModeContext } = usePageContext()
 
@@ -15,14 +15,14 @@ export default function SubTitle({ mainTitle, subTitle, left, right, style, clas
   return (
     // whitespace-pre-wrap min-[445px]:whitespace-nowrap sm:whitespace-pre-wrap md:whitespace-nowrap 
 
-    <div  style={style} className={`${style === undefined ? 'relative' : ''} w-full ${textStyle()} ${darkMode ? 'text-primary' : 'text-black'} ${className}`}>
+    <div style={style} className={`${style === undefined ? 'relative' : ''} w-full ${textStyle()} ${darkMode ? 'text-primary' : 'text-black'} ${className}`}>
       <h2 className={`font-lora font-bold  
       whitespace-pre-wrap md:whitespace-nowrap
-      text-2xl mobm:text-2xl sm:text-3xl mb-2 sm:mb-2  `}>
+      text-2xl mobm:text-2xl sm:text-3xl mb-2 sm:mb-2  ${child?child+'-child':''}`}>
             {mainTitle}
       </h2>
 {/* whitespace-pre-wrap sm:whitespace-nowrap md:whitespace-nowrap */}
-      <div className={`font-pop whitespace-pre-wrap ${left||right?'text-justify':''}`}>
+      <div className={`font-pop whitespace-pre-wrap ${left||right?'text-justify':''} ${child?child+'-child':''}`}>
         {subTitle}
       </div>
 

@@ -24,25 +24,25 @@ export default function ProjectDescription({ project }) {
 
   function handleEnter({ currentTarget }) {
     if (!descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: 0, translateY: -72, scale: 1, ease: 'expo.out', duration: 0.7 })
+      gsap.to(currentTarget, { yPercent: 0, translateY: '-=8', backgroundColor: 'rgba(0,0,0,0.5)' , scale: 1, ease: 'expo.out', duration: 0.7 })
     } else if (descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: -100, translateY: 4, scale: 1, ease: 'expo.out', duration: 0.7 })
+      gsap.to(currentTarget, { yPercent: -100, translateY: '+=4', backgroundColor: 'rgba(0,0,0,0.5)' , scale: 1, ease: 'expo.out', duration: 0.7 })
     }
   }
   function handleLeave({ currentTarget }) {
     if (!descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: 0, translateY: -64, scale: 1, ease: 'expo.out', duration: 0.7 })
+      gsap.to(currentTarget, { yPercent: 0, translateY: -64, backgroundColor: 'rgba(0,0,0,0.4)' ,scale: 1, ease: 'expo.out', duration: 0.7 })
     } else if (descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: -100, translateY: -0, scale: 1, ease: 'expo.out', duration: 0.7 })
+      gsap.to(currentTarget, { yPercent: -100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)' , scale: 1, ease: 'expo.out', duration: 0.7 })
     }
   }
   function handleClick({ currentTarget }) {
     if (!descriptionOpen) {
       setDescriptionOpen(true)
-      gsap.to(currentTarget, { yPercent: -100, translateY: 0, scale: 1, ease: 'expo.out', duration: 0.5 })
+      gsap.to(currentTarget, { yPercent: -100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)' ,  scale: 1, ease: 'expo.out', duration: 0.5 })
     } else if (descriptionOpen) {
       setDescriptionOpen(false)
-      gsap.to(currentTarget, { yPercent: -0, translateY: -64, scale: 1, ease: 'expo.out', duration: 0.5 })
+      gsap.to(currentTarget, { yPercent: -0, translateY: -64, backgroundColor: 'rgba(0,0,0,0.4)' , scale: 1, ease: 'expo.out', duration: 0.5 })
     }
   }
 

@@ -18,19 +18,19 @@ export default function ProjectPictures({ images, handleVisibility }) {
   useEffect(() => {
     // console.log('context')
     ctx.current = gsap.context(() => {
-      gsap.to(grid.current,{opacity:1, duration: 2, delay:2});
+      // gsap.to(grid.current,{opacity:1, duration: 2, delay:2});
 
-      // gsap.to(grid.current, {
-      //   yPercent: -100,
-      //   ease: 'none',
-      //   scrollTrigger: {
-      //     trigger: grid.current,
-      //     pin: true,
-      //     scrub: 1,
-      //     end: '+=3000'
-      //   },
-      //   onStart: () => console.log('started'),
-      // })
+      gsap.to(grid.current, {
+        yPercent: -100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: grid.current,
+          pin: true,
+          scrub: 1,
+          end: '+=3000'
+        },
+        onStart: () => console.log('started'),
+      })
     }); 
     return () => ctx.current.revert();
   }, []);
@@ -42,7 +42,7 @@ export default function ProjectPictures({ images, handleVisibility }) {
 
   return (
     <div ref={container} className='project-pictures select-none w-full h-full flex  md:w-[30%] relative pl-1 pr-12'>
-      <div ref={grid} className='project-grid w-full relative z-0 grid gap-1 opacity-0 grid-cols-2 h-fit '>
+      <div ref={grid} className='project-grid w-full relative z-0 grid gap-1 opacity-1   grid-cols-2 h-fit '>
         {images.map((image, i) => (<PictureThumb  handleClick={() => handleVisibility(i)} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
       </div>
     </div>
