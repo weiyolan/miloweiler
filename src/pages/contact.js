@@ -54,7 +54,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           // ease: "none",
           scrollTrigger: {
             trigger: '.trusted-by',
-            start: ()=>width<648?'30% 20%':'center 20%',
+            start: width<648?'30% 20%':'center 20%',
             // start: 'top bottom',
             // end: "max",
             invalidateOnRefresh: true,
@@ -83,10 +83,10 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             ease: "none",
             scrollTrigger: {
               trigger: image,
-              start: () => i ? "top bottom" : width < 648 ? "top 30%" : width<800? 'top top':"top top ",
+              start: i ? "top bottom" : width < 648 ? "top 30%" : width<800? 'top top':"top top ",
               end: "bottom top",
               scrub: true,
-              markers: false,
+              markers: true,
               // markers: () => i ? false : false,
               invalidateOnRefresh: true // to make it responsive
             }

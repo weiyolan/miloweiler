@@ -80,7 +80,7 @@ export default function ProjectDescription({ project }) {
           </div>
           <div className="w-full md:w-2/3 text-lg font-pop font-extralight text-justify  whitespace-pre-wrap">
             {/* <h3 className="font-lora text-xl">About: </h3> */}
-            <p className='text-xs md:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first:first-letter: first-letter:font-lora'>{project?.description?.[locale] || ''}</p>
+            <p className='text-xs md:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>{project?.description?.[locale] || ''}</p>
           </div>
         </div>
       </div>
