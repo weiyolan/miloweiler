@@ -32,7 +32,7 @@ export default function PictureThumb({ image, alt, handleClick, handleMouseEnter
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}>
       <div className='absolute w-full h-full top-0 left-0  '  >
-        <SanityImage blur sizes='(max-width: 700px) 20vw, 15vw'  fill containerClass={'rounded-none '}  image={image} alt={alt} />
+        <SanityImage print={!index?true:false} blur sizes='(max-width: 700px) 20vw, 13vw'  fill containerClass={'rounded-none '}  image={image} alt={alt} />
       </div>
     </div>
     // </Link>

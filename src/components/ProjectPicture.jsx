@@ -67,7 +67,7 @@ function MainPicture({ visible, image, alt, prevVisibility, nextVisibility }) {
     <div className={`absolute flex items-center justify-center max-w-[700px] w-[80vw] md:w-[55vw] h-[250px] md:h-[550px]  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${visible ? '' : 'hidden'}`}>
       {/* // <div className={`absolute inline-flex    max-w-[700px] w-[45vw] h-[550px] border border-red-700 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${visible ? '' : 'invisible'}`}> */}
       {/* <SanityImage style={{  }} className={' mx-auto rounded-2xl align-middle'} image={image} alt={alt} /> */}
-      <SanityImage style={{ objectFit: 'contain' }} className={' shadow-2xl '} image={image} alt={alt} />
+      <SanityImage sizes='(max-width: 700px) 100vw, (max-width: 1500px) 50vw, 33vw' style={{ objectFit: 'contain' }} className={' shadow-2xl '} image={image} alt={alt} />
       <div className=' absolute left-0 flex items-center cursor-pointer w-1/2 h-[90%] mb-[0%]  z-[1]'
         onClick={prevVisibility}>
       </div>
