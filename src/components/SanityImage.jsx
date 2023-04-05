@@ -20,7 +20,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   let result = useNextSanityImage(client, image._ref, options);
   if (print) {
-    console.log(result.loader)
+    // console.log(result.loader)
     // console.log(image)
     // console.log(result.src)
     // console.log(loader({width:500,quality:10}))

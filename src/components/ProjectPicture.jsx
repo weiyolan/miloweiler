@@ -26,14 +26,14 @@ export default function ProjectPicture({ images, visibleItem, handleVisibility, 
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div className={`relative w-full md:w-[70%] h-[calc(100%-80px)] flex overflow-visible justify-between items-center px-4 md:px-14 select-none`}
+    <div className={`relative w-full md:w-[70%] h-full md:h-[calc(100%-80px)] flex overflow-visible justify-between items-center px-4 md:px-14 select-none`}
     // onMouseUp={mouseUp}
     // onMouseDown={mouseDown}
     // onMouseEnter={mouseEnter}
     // onMouseLeave={mouseLeave}
     >
-      <PictureIndicator handleVisibility={handleVisibility} visibleItem={visibleItem} />
       {images.map((image, i) => <MainPicture key={i} visible={visibleItem[i]} image={image} alt={`Project image ${i}`} prevVisibility={prevVisibility} nextVisibility={nextVisibility} />)}
+      <PictureIndicator handleVisibility={handleVisibility} visibleItem={visibleItem} />
       
       {/* LEFT WITH ARROW */}
       {/* <div className='border border-red-600 h-2/5 flex items-center cursor-pointer w-1/2 h-full md:px-2.5 z-[1]'

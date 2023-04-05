@@ -19,6 +19,8 @@ export default function Project({ project, slug, slugs }) {
   let [clicked, setClicked] = useState(false)
   let [descriptionOpen, setDescriptionOpen] = useState(false)
 
+  let palette = project.mainImage.image.asset.metadata.palette;
+  // {console.log(palette)}
 
   useEffect(() => {
     let visibility = new Array(project.otherImages.length + 1).fill(false)
@@ -108,20 +110,23 @@ export default function Project({ project, slug, slugs }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main tabIndex={0} className={`bg-gradient-to-br focus:outline-none from-darkGrey to-[#070013] w-full h-[100dvh] relative flex items-center justify-between overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
-        onKeyDown={(e) => {if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
+      {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
+      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700 flex items-center justify-center overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+        onKeyDown={(e) => { if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
       >
         <PageWrapper descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
 
-          <Link title='Previous project' href={`/gallery/${prevSlug()}`}>
-            <AiFillCaretLeft className='relative fill-darkGrey opacity-100 w-8 h-1/6  drop-shadow-xl cursor-pointer px-1' />
-          </Link>
+
 
           {/* ========================INSIDE======================== */}
-          <div className={`relative w-[93%] xl:w-[95] max-w-[1700px] rounded-3xl h-[93%]  overflow-hidden 
-          before:absolute before:w-full before:h-full before:top-0 before:left-0 before:rounded-3xl before:shadow-inner-3xl before:shadow-black/60 before:select-none before:z-[1]`}>
+          <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
+          after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}>
+            {/* <div className={`relative w-[93%] xl:w-[95] max-w-[1700px] rounded-3xl h-[93%]  overflow-hidden 
+          before:absolute `}> */}
+
             <div className={`w-full h-full absolute`}>
-              <Image fill style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} />
+              {/* <Image fill className="opacity-100" style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} /> */}
+              {/* <div className="w-full h-full bg-slate-50/10 relative"></div> */}
               <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
             </div>
 
@@ -131,18 +136,28 @@ export default function Project({ project, slug, slugs }) {
               <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} />
               <ProjectDescription project={project} />
             </div>
+
+            {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
+
+
+
+            <Link title='Previous project' className='absolute top-0 left-1/2 z-10 w-fit h-fit md:top-6 md:left-3 ' href={`/gallery/${prevSlug()}`}>
+              <AiFillCaretLeft className='relative fill-darkGrey opacity-100 w-8  drop-shadow-xl px-1' />
+            </Link>
+            <Link title='Back to gallery' className='absolute z-10 w-fit h-fit top-4 md:top-6 left-3' href='/gallery'>
+              <IoArrowBack className="w-6 h-6 fill-darkGrey hover:scale-110 " />
+            </Link>
+
+            <Link title='Next project' className='absolute z-10 w-fit h-fit top-0 left-2/3 md:top-6 md:right-3' href={`/gallery/${nextSlug()}`}>
+              <AiFillCaretRight className='relative fill-darkGrey opacity-100 w-8 drop-shadow-xl  px-1' />
+            </Link>
           </div>
+
 
           {/* <Link className='absolute z-10 w-fit h-fit top-10 right-4' href='/gallery'>
             <IoClose className="w-6 h-6 fill-darkGrey hover:scale-110 " />
           </Link> */}
-          <Link title='Back to gallery' className='absolute z-10 w-fit h-fit top-6 left-3' href='/gallery'>
-            <IoArrowBack className="w-6 h-6 fill-darkGrey hover:scale-110 " />
-          </Link>
 
-          <Link title='Next project' href={`/gallery/${nextSlug()}`}>
-            <AiFillCaretRight className='relative fill-darkGrey opacity-100 w-8 h-1/6  drop-shadow-xl cursor-pointer px-1' />
-          </Link>
         </PageWrapper>
       </main>
     </>

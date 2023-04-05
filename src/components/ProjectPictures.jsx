@@ -41,8 +41,8 @@ export default function ProjectPictures({ images, handleVisibility }) {
   // }, [])
 
   return (
-    <div ref={container} className='project-pictures select-none w-full h-full flex  md:w-[30%] relative pl-1 pr-12'>
-      <div ref={grid} className='project-grid w-full relative z-0 grid gap-1 opacity-1   grid-cols-2 h-fit '>
+    <div ref={container} className='project-pictures select-none w-full h-1/3 md:h-full flex md:w-[30%] relative  pl-1 pr-1 md:pr-12'>
+      <div ref={grid} className='project-grid w-full relative z-0 grid gap-1 opacity-1 grid-cols-6 md:grid-cols-2 h-fit '>
         {images.map((image, i) => (<PictureThumb  handleClick={() => handleVisibility(i)} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
       </div>
     </div>
