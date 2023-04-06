@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 export default function useLocalStorage(key, fallbackValue) {
-    const [value, setValue] = useState(fallbackValue);
+    const [value, setValue] = useState(null);
 
     // if (key==='content') {console.log(value)}
 
@@ -14,15 +14,17 @@ export default function useLocalStorage(key, fallbackValue) {
             setValue(stored);
             // console.log('got')
         }
-        // console.log('update 1', stored !== undefined ? JSON.parse(stored) : fallbackValue)
-    }, []);
+        else {setValue(fallbackValue)}
+        // console.log('update 1', stored !== undefined ? stored : fallbackValue)
+        // console.log(stored)
+        // console.log(key)
+    }, [key]);
 
     useEffect(() => {
         if (value && value !== fallbackValue) {
             localStorage.setItem(key, JSON.stringify(value))
             // console.log('setted')
-
-            // console.log('update 2', value)
+            // console.log('setted', value)
         }
     }, [value]);
 

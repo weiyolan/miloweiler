@@ -4,7 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import { imageUrlBuilder} from '@sanity/image-url';
 
-export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, print, containerClass, className, name, move, intrinsic, ...props }) {
+export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, print, onLoad, containerClass, className, name, move, intrinsic, ...props }) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
 
   // UseNextSanityImageOptions({width:500})
@@ -59,6 +59,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}
           className={`imageFill${name ? name : ''}`}
           src={src}
+          onLoad={onLoad}
           loader={loader}
           alt={alt}
           {...getBlurProps()}

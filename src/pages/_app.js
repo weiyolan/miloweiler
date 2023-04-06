@@ -35,9 +35,9 @@ export default function App({ Component, pageProps }) {
     setScrolled(ratio)
   }
 
-  useEffect(()=>{
+  // useEffect(()=>{
     
-  })
+  // })
 
   useEffect(() => {
     let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
