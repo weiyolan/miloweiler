@@ -11,6 +11,8 @@ import Link from "next/link";
 import ProjectPictures from "@/components/ProjectPictures";
 import ProjectPicture from "@/components/ProjectPicture";
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
+import Layout from "@/components/Layout";
+import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 
 export default function Project({ project, slug, slugs }) {
   // console.log(project)
@@ -19,7 +21,8 @@ export default function Project({ project, slug, slugs }) {
   let [clicked, setClicked] = useState(false)
   let [descriptionOpen, setDescriptionOpen] = useState(false)
 
-  let palette = project.mainImage.image.asset.metadata.palette;
+  let palette = project.mainImage.image.asset.metadata.palette
+  // let palette = Object.keys(project.mainImage.image.asset.metadata.palette).map((color,i)=>color.background);
   // {console.log(palette)}
 
   useEffect(() => {
@@ -111,18 +114,18 @@ export default function Project({ project, slug, slugs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
-      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700 flex items-center justify-center overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
         onKeyDown={(e) => { if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
       >
-        <PageWrapper descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
+        <PageWrapper palette={palette} descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
 
-
+        <Layout cardSection className={'relative h-full flex items-center justify-center'}>
 
           {/* ========================INSIDE======================== */}
-          <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
-          after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}>
-            {/* <div className={`relative w-[93%] xl:w-[95] max-w-[1700px] rounded-3xl h-[93%]  overflow-hidden 
-          before:absolute `}> */}
+          {/* <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
+          after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}> */}
+          <div style={{ borderColor: palette.darkMuted.background }} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] md:h-[100%] border-[5px] md:border-0  overflow-hidden 
+          before:absolute `}>
 
             <div className={`w-full h-full absolute`}>
               {/* <Image fill className="opacity-100" style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} /> */}
@@ -133,8 +136,8 @@ export default function Project({ project, slug, slugs }) {
             <div className="relative flex flex-col md:flex-row w-full h-full z-[2] ">
               {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
               <ProjectPicture images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
-              <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} />
-              <ProjectDescription project={project} />
+              <ProjectPictures  images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem}/>
+              <ProjectDescriptionTop project={project} />
             </div>
 
             {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
@@ -153,7 +156,7 @@ export default function Project({ project, slug, slugs }) {
             </Link>
           </div>
 
-
+          </Layout>
           {/* <Link className='absolute z-10 w-fit h-fit top-10 right-4' href='/gallery'>
             <IoClose className="w-6 h-6 fill-darkGrey hover:scale-110 " />
           </Link> */}

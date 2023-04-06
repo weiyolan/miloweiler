@@ -52,12 +52,12 @@ export default function ProjectThumb({ project, handleClick, index }) {
 
         <div className='absolute w-full h-full top-0 left-0 flex items-end bg-black'>
 
-          <SanityImage print={false} blur sizes='(max-width: 700px) 33vw, 17vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
+          <SanityImage print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 17vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
           {/* {console.log(project.mainImage)} */}
-          <div className={`absolute h-full w-full bg-black/30 backdrop-blur-sm duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`absolute h-full w-full bg-black/10 backdrop-blur-sm duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
           </div>
 
-          <h2 className={`font-lora text-xl  invert-0 p-4 duration-500 ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
+          <h2 className={`font-lora text-xl invert-0 p-4 duration-500 ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
             {project.title}
           </h2>
         </div>

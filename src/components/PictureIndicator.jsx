@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 export default function PictureIndicator({ handleVisibility, visibleItem }) {
 
   return (
-    <div className='absolute left-1/2 -translate-x-1/2 flex justify-center items-center gap-2 h-6 top-full -translate-y-2/4 '>
+    <div className='absolute left-1/2 -translate-x-1/2 flex justify-center items-center gap-2 h-6 top-full -translate-y-[150%] md:-translate-y-2/4 '>
       {visibleItem.map((item, i) => {
         return <Bol handleClick={() => { handleVisibility(i) }} visible={item} key={i} />
       })}

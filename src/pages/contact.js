@@ -20,7 +20,7 @@ import Logo from '@/components/Logo'
 // import { gsap } from 'gsap/dist/gsap'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
-
+import { ReactLenis } from '@studio-freight/react-lenis'
 import { gsap, ScrollTrigger } from "gsap/dist/all";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +39,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   useLayoutEffect(() => {
-    
+
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
 
@@ -48,7 +48,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.portfolioImage', {
-        x: 0, opacity: 1,  stagger: 0.2, ease: 'ease.out', scrollTrigger: {
+        x: 0, opacity: 1, stagger: 0.2, ease: 'ease.out', scrollTrigger: {
           trigger: '.portfolioImage',
           start: `top ${width < 648 ? '90%' : '85%'}`,
           end: `top ${width < 648 ? '80%' : '40%'}`,
@@ -84,7 +84,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         // console.log(logo.getAttribute("data-speed"))
         gsap.to(logo, {
           translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
-          opacity:0,
+          opacity: 0,
           // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,
           // ease: "none",
@@ -148,78 +148,80 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative contact-page overflow-x-hidden'}>
-        <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
-          <Logo darkMode={darkMode} className='w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40' />
-        </div>
-        <PageWrapper darkMode={darkMode}
-        // ctx={ctx} tl={tl}
-        >
-          <Layout className={'relative'}>
-            <h1 className='invisible h-0'>Contact Page</h1>
+      <ReactLenis root options={{duratino:0.9, wheelMultiplier:0.9}}>
+        <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative contact-page overflow-x-hidden'}>
+          <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
+            <Logo darkMode={darkMode} className='w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40' />
+          </div>
+          <PageWrapper darkMode={darkMode}
+          // ctx={ctx} tl={tl}
+          >
+            <Layout className={'relative'}>
+              <h1 className='invisible h-0'>Contact Page</h1>
 
-            {/* =======CONTACT DETAILS======== */}
-            <ContactDetails contactDetails={contactDetailsData} />
-            {/* {console.log(contactDetailsData)} */}
-            {/* =======TRUSTED BY======== */}
-            <TrustedBy trustedBy={trustedByData} />
+              {/* =======CONTACT DETAILS======== */}
+              <ContactDetails contactDetails={contactDetailsData} />
+              {/* {console.log(contactDetailsData)} */}
+              {/* =======TRUSTED BY======== */}
+              <TrustedBy trustedBy={trustedByData} />
 
-            {/* =======OFFER FORM======== */}
-            <LayoutSection right className={`flex-col-reverse`} >
-              <div className='flex flex-col w-full'>
-                {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
-                <SubTitle className='form-title' mainTitle={contactFormData.title[locale]} SubTitle='' left />
-                <Form />
-              </div>
-              <SanityImage fill containerClass='contact-image1 opacity-0' image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
-            </LayoutSection>
-
-            {/* =======PRINTING SERVICE======== */}
-            <PrintingDetails printingData={printingData} />
-
-            {/* ======PRORTFOLIO======== */}
-            <LayoutSection center >
-              <div className='w-full text-center'>
-                <SubTitle className='portfolioText max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
-                <ArrowLink className='portfolioText ml-8 ' inText text='download' to='/' />
-                <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
-                  {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                  {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                  <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
-                  <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
+              {/* =======OFFER FORM======== */}
+              <LayoutSection right className={`flex-col-reverse`} >
+                <div className='flex flex-col w-full'>
+                  {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
+                  <SubTitle className='form-title' mainTitle={contactFormData.title[locale]} SubTitle='' left />
+                  <Form />
                 </div>
-              </div>
-            </LayoutSection>
+                <SanityImage fill containerClass='contact-image1 opacity-0' image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
+              </LayoutSection>
 
-            {/* ======INSPIRATION======== */}
-            <LayoutSection center>
-              <div className='w-full text-center'>
-                <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
-                {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
-                <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12'>
-                  <div className='flex-1 flex flex-col justify-start'>
-                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
-                    <p ref={textRef} className='text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
-                      {inspirationData.text1[locale]}
-                    </p>
-                    <ArrowLink inText className='ml-8 w-fit mt-2' text='Go to homepage' to='/' />
-                  </div>
-                  <div className='flex-1 flex flex-col justify-start'>
-                    <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
-                    <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
-                      className='text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
-                      {inspirationData.text2[locale]}
-                    </p>
-                    <ArrowLink inText className='ml-8 w-fit self-center text-center mt-2' text='Visit my gallery' to='/' />
+              {/* =======PRINTING SERVICE======== */}
+              <PrintingDetails printingData={printingData} />
+
+              {/* ======PRORTFOLIO======== */}
+              <LayoutSection center >
+                <div className='w-full text-center'>
+                  <SubTitle className='portfolioText max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
+                  <ArrowLink className='portfolioText ml-8 ' inText text='download' to='/' />
+                  <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
+                    {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
+                    {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
+                    <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
+                    <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
                   </div>
                 </div>
-              </div>
-            </LayoutSection>
+              </LayoutSection>
 
-          </Layout>
-          <Footer />
-        </PageWrapper>
-      </main>
+              {/* ======INSPIRATION======== */}
+              <LayoutSection center>
+                <div className='w-full text-center'>
+                  <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
+                  {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
+                  <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12'>
+                    <div className='flex-1 flex flex-col justify-start'>
+                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
+                      <p ref={textRef} className='text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                        {inspirationData.text1[locale]}
+                      </p>
+                      <ArrowLink inText className='ml-8 w-fit mt-2' text='Go to homepage' to='/' />
+                    </div>
+                    <div className='flex-1 flex flex-col justify-start'>
+                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
+                      <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
+                        className='text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                        {inspirationData.text2[locale]}
+                      </p>
+                      <ArrowLink inText className='ml-8 w-fit self-center text-center mt-2' text='Visit my gallery' to='/' />
+                    </div>
+                  </div>
+                </div>
+              </LayoutSection>
+
+            </Layout>
+            <Footer />
+          </PageWrapper>
+        </main>
+      </ReactLenis>
     </>
   )
 }

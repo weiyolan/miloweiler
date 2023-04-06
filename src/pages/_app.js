@@ -5,6 +5,7 @@ import { Poppins, Lora } from '@next/font/google'
 import { AppWrapper } from '@utils/appContext';
 // import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
+import Lenis from '@studio-freight/lenis'
 
 // const workSans = Work_Sans({
 //   subsets: ['latin'],
@@ -25,6 +26,7 @@ const lora = Lora({
 })
 
 
+
 export default function App({ Component, pageProps }) {
   let [scrolled, setScrolled] = useState(0)
 
@@ -32,6 +34,10 @@ export default function App({ Component, pageProps }) {
     let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
     setScrolled(ratio)
   }
+
+  useEffect(()=>{
+    
+  })
 
   useEffect(() => {
     let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
