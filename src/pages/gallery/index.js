@@ -68,6 +68,10 @@ export default function Gallery({ projects }) {
 
   // console.log(projects)
 
+
+
+  
+
   return (
     <>
       <Head>
@@ -83,6 +87,7 @@ export default function Gallery({ projects }) {
 
           <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-6'>
             {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick}  index={i} key={i} project={project} />)}
+            {/* {console.log(artificialProjects(20))} */}
           </div>
 
         </PageWrapper>
@@ -95,9 +100,22 @@ export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
   // console.log(projects)
   // {...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}
+  
+  
+  function artificialProjects (length) {
+    console.log(Math.floor(Math.random()*projects.length))
+    let artificialArray = new Array(length).fill(0).map(()=>{
+      let randomI = Math.floor(Math.random()*projects.length)
+      // console.log(randomI)
+      // console.log(projects[randomI])
+      return projects[randomI]
+    })
+    return artificialArray
+  }
+  
   return {
     props: {
-      projects: [...projects]
+      projects: artificialProjects(20)
       // projects: [...projects, ...projects, ...projects, ...projects, ...projects, ...projects]
     }
   };

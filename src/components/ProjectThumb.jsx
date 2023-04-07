@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import SanityImage from './SanityImage'
 import { gsap } from 'gsap'
 import Link from 'next/link'
-
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 export default function ProjectThumb({ project, handleClick, index }) {
   const { locale } = useAppContext()
   let [hover, setHover] = useState(false)
@@ -45,16 +46,15 @@ export default function ProjectThumb({ project, handleClick, index }) {
           // stagger: 0.5,
           ease: 'expo.out',
           scrollTrigger: {
-            // scroller: window,
+            scroller: window,
             trigger: projectThumb.current,
             start: '-=50% bottom',
             // end:'bo'
             // end: '+=100%', 
-            end: width < 1024 ? 'center left' : 'center top',
+            end: 'center top',
             // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
-            horizontal: width < 1024,
             // markers: true,
             invalidateOnRefresh: true
           },

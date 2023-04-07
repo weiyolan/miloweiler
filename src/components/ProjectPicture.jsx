@@ -39,7 +39,7 @@ function MainPicture({ visible, image, alt, prevVisibility, nextVisibility, inde
 
   let ar = image.asset.metadata.dimensions.aspectRatio
 
-  index===6 && console.log(mainPictureHeight, (width-2*paddingLeft)/ar - 2)
+  // index===6 && console.log(mainPictureHeight, (width-2*paddingLeft)/ar - 2)
 
   return (
     <div ref={mainPicRef} style={{ '--my-shadow-color': `${image.asset.metadata.palette.darkMuted.background}`, height: Math.min(mainPictureHeight, (width-2*paddingLeft)/ar - 2) || '0'}}
