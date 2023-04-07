@@ -11,17 +11,18 @@ export default function ProjectDescription({ project }) {
   let [animateDescription, setAnimateDescription] = useState(false)
   const { width } = useAppContext()
   const { setDescriptionOpen, descriptionOpen } = usePageContext()
+
   useEffect(() => {
-    let observer2 = Observer.create({
+    let observer = Observer.create({
       target: window,
-      ignore:'.ignore-swipe'  ,       // can be any element (selector text is fine)
+      ignore: '.ignore-swipe',       // can be any element (selector text is fine)
       type: "touch, pointer",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       onDown: () => { if (animateDescription) return; console.log('down'); setAnimateDescription(true); toggleDescription(width < 768 ? true : false) },
       onUp: () => { if (animateDescription) return; console.log('up'); setAnimateDescription(true); toggleDescription(width < 768 ? false : true) },
       lockAxis: true,
     })
-    return () => { observer2.disable() }
-  }, [])
+    return () => { observer.disable() }
+  }, [project])
 
   function toggleDescription(toOpen) {
     if (toOpen) {
@@ -33,14 +34,14 @@ export default function ProjectDescription({ project }) {
     }
   }
 
-let openCloseDuration = 0.7
+  let openCloseDuration = 0.7
 
   function openDescription() {
     if (width < 768) {
       gsap.to('.description-box', {
         yPercent: 100,
         // height:'100dvh',
-        borderRadius:0,
+        borderRadius: 0,
         translateY: 0,
         backgroundColor: 'rgba(0,0,0,0.6)',
         scale: 1,
@@ -66,8 +67,8 @@ let openCloseDuration = 0.7
       gsap.to('.description-box', {
         yPercent: 0,
         // height:'auto',
-        borderRadius:'0px 0px 30px 30px',
-        translateY: ()=>width<350?40:56 ,
+        borderRadius: '0px 0px 30px 30px',
+        translateY: () => width < 350 ? 40 : 56,
         backgroundColor: 'rgba(0,0,0,0.4)',
         scale: 1,
         ease: 'expo.out',

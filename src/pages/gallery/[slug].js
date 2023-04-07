@@ -216,7 +216,7 @@ export default function Project({ project, slug, slugs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
-      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100vh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
         onKeyDown={(e) => { if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
       >
         <PageWrapper palette={palette} descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>

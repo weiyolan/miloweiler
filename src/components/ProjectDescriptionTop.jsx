@@ -9,10 +9,14 @@ import useDimensions from '@/utils/useDimensions'
 export default function ProjectDescriptionTop({ project, openDescription, closeDescription }) {
   const { locale, width } = useAppContext()
   const { darkMode, descriptionOpen, setDescriptionOpen } = usePageContext()
-  let descriptionText = useRef(null)
-  let { height: textHeight } = useDimensions(descriptionText)
+  let textRef = useRef(null)
+  let titleRef = useRef(null)
+  let detailRef = useRef(null)
+  let { height: textHeight } = useDimensions(textRef)
+  let { height: titleHeight } = useDimensions(titleRef)
+  let { height: detailHeight } = useDimensions(detailRef)
 
-  // console.log(textHeight)
+  console.log(textHeight)
   // let hoverTween = useRef()
   // const [ctx, setCtx] = useState(gsap.context(() => {}, app));
 
@@ -65,7 +69,7 @@ export default function ProjectDescriptionTop({ project, openDescription, closeD
       onMouseLeave={handleLeave}
       onClick={handleClick}
     >
-      <div className={`relative text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <div ref={titleRef} className={`relative text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <h1 className={``}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -76,7 +80,7 @@ export default function ProjectDescriptionTop({ project, openDescription, closeD
         </h2>
       </div>
 
-      <div className="w-full md:w-1/3 flex flex-col gap-2 md:gap-4">
+      <div ref={detailRef} className="w-full md:w-1/3 flex flex-col gap-2 md:gap-4">
         {project?.date ? <Detail title='Year' text={[project.date.slice(0, 4)]} /> : null}
         {project?.album ? <Detail title='Album' text={[project.album]} /> : null}
         {project?.directed ? <Detail title='Directed By' text={project.directed} /> : null}
@@ -89,9 +93,9 @@ export default function ProjectDescriptionTop({ project, openDescription, closeD
       </div>
 
       {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-pop font-extralight text-justify whitespace-pre-wrap"> */}
-      <FadeDiv type='bottom' amount={15} className={`${textHeight > 300?'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll':''} max-h-[300px] overflow-hidden ignore-swipe md:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
+      <FadeDiv type='bottom' amount={15} className={`${textHeight > 300?'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll':''} max-h-[300px] mobm:max-h-[400px] overflow-hidden ignore-swipe md:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
         {/* <h3 className="font-lora text-xl">About: </h3> */}
-        <p ref={descriptionText} className={`pb-10 ${textHeight > 300?'pr-2 ignore-swipe':''} whitespace-pre-wrap text-sm mobm:text-base md:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>{project?.description?.[locale] || ''}</p>
+        <p ref={textRef} className={`pb-10 ${textHeight > 300?'pr-2 ignore-swipe':''} whitespace-pre-wrap text-sm mobm:text-base md:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>{project?.description?.[locale] || ''}</p>
       </FadeDiv>
 
       {/* </div> */}

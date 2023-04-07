@@ -11,7 +11,7 @@ export default function ProjectPicture({ images, visibleItem, handleVisibility, 
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div className={`project-picture-container relative w-90% md:w-[70%] flex h-[calc(100%-80px-24px)] px-0 md:px-14 select-none`}>
+    <div className={`project-picture-container relative w-90% md:w-[70%] flex px-0 md:px-14 select-none`}>
 
       {/* <div style={{ backgroundColor: `${images[visibleItem.indexOf(true) || 0].asset.metadata.palette.darkMuted.background}` }} className={`absolute block blur-3xl opacity-80 rounded-full ${ar > 1 ? 'w-4/5 h-1/2' : 'w-1/2 h-4/5'} transition-all duration-1000 delay-[0.15] top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] `} /> */}
 
