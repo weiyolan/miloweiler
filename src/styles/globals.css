@@ -124,7 +124,7 @@ body {
 
 .scroll-bar-small::-webkit-scrollbar {
   /* position: fixed; */
-  width: 4px;
+  width: 3px;
   /* height: 20px; */
   /* background: url(../public/images/background2.svg); */
   background-color: transparent;

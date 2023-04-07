@@ -68,11 +68,11 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
             start: '-=50% bottom',
             // end:'bo'
             // end: '+=100%', 
-            end: width < 768 ? 'center left' : 'center top',
-            // pin:true,width < 768
+            end: width < 1024 ? 'center left' : 'center top',
+            // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
-            horizontal: width < 768,
+            horizontal: width < 1024,
             // markers: true,
             invalidateOnRefresh: true
           },
@@ -107,7 +107,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       style={{ borderColor: `${palette.darkMuted.background}00` }}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
       className={`picture-thumb2 scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit border-[3px] ${visible ? '' : ''}  border-transparent 
-      before:border-[3px] before:block before:w-20 mobm:before:w-28 before:md:w-full ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
+      before:border-[3px] before:block before:w-20 mobm:before:w-28 before:lg:w-full ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
       onMouseUp={mouseUp}

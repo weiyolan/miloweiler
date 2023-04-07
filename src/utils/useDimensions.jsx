@@ -95,32 +95,34 @@ import { useState, useEffect, useCallback } from 'react';
 
 // import { useState, useEffect } from 'react';
 
-export default function useDimensions(ref) {
-  const [dimensions, setDimensions] = useState({ width: undefined, height: undefined, top: undefined, bottom: undefined});
+export default function useDimensions(ref, options) {
+  const [dimensions, setDimensions] = useState({ width: undefined, height: undefined, top: undefined, bottom: undefined });
+
 
   useEffect(() => {
     function handleResize() {
-      const { width, height, x, y} = ref.current.getBoundingClientRect();
+      const { width, height, x, y } = ref.current.getBoundingClientRect();
+      let marginTop = null;
+      let marginBottom = null;
+      let paddingLeft = null;
 
-      setDimensions({ width: width, height: height , top: y, bottom: y + height});
+      if (options?.margin) {
+        var styles = window.getComputedStyle(ref.current);
+        marginTop = parseFloat(styles['marginTop'])
+        marginBottom = parseFloat(styles['marginBottom']);
+      }
+      if (options?.padding) {
+        var styles = window.getComputedStyle(ref.current);
+        paddingLeft = parseFloat(styles['paddingLeft'])
+        // paddingRight = parseFloat(styles['paddingRight'])
+      }
+
+      setDimensions({ width: width, height: height, top: y - marginTop, bottom: y + height + marginBottom, paddingLeft:paddingLeft });
     }
-
-    // const { width, height, x, y } = ref.current.getBBox();
-//       setDimensions({
-//         width,
-//         height,
-//         x,
-//         y,
-//         top: y,
-//         width: width,
-//         bottom: y + height,
-//         height: height
-//       });
 
     handleResize();
 
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, [ref]);
 

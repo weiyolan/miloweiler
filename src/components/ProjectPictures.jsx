@@ -27,10 +27,10 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
     //     scroller: container.current,
     //     trigger: grid.current,
     //     // end: '+=100%', 
-    //     end: width < 768 ? 'right right' : 'bottom bottom',
-    //     // pin:true,width < 768
+    //     end: width < 1024 ? 'right right' : 'bottom bottom',
+    //     // pin:true,width < 1024
     //     scrub: true,
-    //     horizontal: width < 768,
+    //     horizontal: width < 1024,
     //     markers: false,
     //     invalidateOnRefresh: true
     //   }, onUpdate: () => console.log('start')
@@ -58,12 +58,12 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
       //       // end:'bo'
       //       // endTrigger:window,
       //       // end: '+=100%', 
-      //       end: width < 768 ? '+=49% right' : '+=49% bottom',
+      //       end: width < 1024 ? '+=49% right' : '+=49% bottom',
       //       end: '+=49% bottom',
-      //       // pin:true,width < 768
+      //       // pin:true,width < 1024
       //       // scrub: 1,
       //       toggleActions: 'play reverse play reverse',
-      //       horizontal: width < 768,
+      //       horizontal: width < 1024,
       //       markers: false,
       //       invalidateOnRefresh: true
       //     },
@@ -94,10 +94,10 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
   // }, [])
 
   return (
-    // <ReactLenis root options={{}}> overscroll-x-contain md:overscroll-y-contain
-    <div ref={container} className='project-pictures no-scrollbar select-none w-full h-fit md:h-full md:w-[30%] pb-0 md:p-1 md:items-start overflow-hidden overflow-x-scroll  md:overflow-x-hidden md:overflow-y-scroll'>
-      <div ref={grid} className=' project-grid relative w-fit h-fit md:w-full z-0 grid opacity-1 grid-rows-1 grid-flow-col md:grid-flow-row md:grid-rows-none md:grid-cols-2 '>
-        {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 768} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
+    // <ReactLenis root options={{}}> overscroll-x-contain lg:overscroll-y-contain
+    <div ref={container} className='project-pictures no-scrollbar select-none w-full h-fit lg:h-full lg:w-[30%] pb-0 lg:p-1 lg:items-start overflow-hidden overflow-x-scroll  lg:overflow-x-hidden lg:overflow-y-scroll'>
+      <div ref={grid} className=' project-grid relative w-fit h-fit lg:w-full z-0 grid opacity-1 grid-rows-1 grid-flow-col lg:grid-flow-row lg:grid-rows-none lg:grid-cols-2 '>
+        {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 1024} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
       </div>
     </div>
     //  </ReactLenis>
