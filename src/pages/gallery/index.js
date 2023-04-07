@@ -115,7 +115,7 @@ export async function getStaticProps() {
   
   return {
     props: {
-      projects: artificialProjects(20)
+      projects: artificialProjects(40)
       // projects: [...projects, ...projects, ...projects, ...projects, ...projects, ...projects]
     }
   };
