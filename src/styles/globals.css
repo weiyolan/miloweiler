@@ -64,9 +64,9 @@ body {
 /* width */
 ::-webkit-scrollbar {
   /* position: fixed; */
-  width: 8px;
-
-  height: 8px;
+  width: 6px;
+  /* margin:2; */
+  /* height: 8px; */
   /* background: url(../public/images/background2.svg); */
   background-color: transparent;
   /* right: 5px; */
@@ -95,7 +95,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: transparent;
   /* background-color: #00000045; */
-  /* width: 6px; */
+  /* width: 4px; */
   /* height: 20vh; */
   border-radius: 5rem;
   /* border-color: white; */
@@ -114,3 +114,25 @@ body {
   background-color: transparent;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.scroll-bar-small::-webkit-scrollbar {
+  /* position: fixed; */
+  width: 4px;
+  /* height: 20px; */
+  /* background: url(../public/images/background2.svg); */
+  background-color: transparent;
+  /* right: 5px; */
+} 
+
+.scroll-bar-primary::-webkit-scrollbar-thumb {
+  background-color:  rgb(255 245 234);
+  border-radius: 10;
+
+}

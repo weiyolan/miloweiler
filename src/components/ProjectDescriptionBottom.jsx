@@ -3,7 +3,7 @@ import { usePageContext } from '@/utils/pageContext'
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-export default function ProjectDescriptionBottom({ project }) {
+export default function ProjectDescriptionBottom({ project, openDescription, closeDescription}) {
   const { locale } = useAppContext()
   const { darkMode , descriptionOpen, setDescriptionOpen} = usePageContext()
   // let hoverTween = useRef()
@@ -39,16 +39,16 @@ export default function ProjectDescriptionBottom({ project }) {
   function handleClick({ currentTarget }) {
     if (!descriptionOpen) {
       setDescriptionOpen(true)
-      gsap.to(currentTarget, { yPercent: -100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)' ,  scale: 1, ease: 'expo.out', duration: 0.5 })
+      openDescription()
     } else if (descriptionOpen) {
       setDescriptionOpen(false)
+      closeDescription()
       gsap.to(currentTarget, { yPercent: -0, translateY: -64, backgroundColor: 'rgba(0,0,0,0.4)' , scale: 1, ease: 'expo.out', duration: 0.5 })
     }
   }
 
   return (
-    <div className="description-container absolute w-full md:w-[70%] top-full left-0 px-1 md:px-12 z-[2]"
-    >
+    
       <div className='description-box relative w-full bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer -translate-y-16 rounded-t-[40px] pt-6 px-4 md:px-10 pb-10'
         // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
         onMouseEnter={handleEnter}
@@ -84,7 +84,7 @@ export default function ProjectDescriptionBottom({ project }) {
           </div>
         </div>
       </div>
-    </div>)
+    )
 }
 
 function Detail({ title, text }) {

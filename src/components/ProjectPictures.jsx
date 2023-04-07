@@ -21,7 +21,7 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
   const tl = useRef(null);
   // let scrollTween = useRef()
 
-  useEffect(() => {
+  // useEffect(() => {
     // tl.current = gsap.timeline({
     //   scrollTrigger: {
     //     scroller: container.current,
@@ -35,11 +35,11 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
     //     invalidateOnRefresh: true
     //   }, onUpdate: () => console.log('start')
     // })
-  }, [])
+  // }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
     // console.log('context')
-    ctx.current = gsap.context(() => {
+    // ctx.current = gsap.context(() => {
       // gsap.to(grid.current,{opacity:1, duration: 2, delay:2});
       //!!!!!!!!!!!! IMPLEMENTED IN THE THUMBNAIL ITSELF!!!!!!!!!!
       // gsap.utils.toArray(".picture-thumb").forEach((thumbnail, i) => {
@@ -83,9 +83,9 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
       //   },
       //   onStart: () => console.log('started'),
       // })
-    }, container.current);
-    return () => ctx.current.revert();
-  }, []);
+    // }, container.current);
+    // return () => ctx.current.revert();
+  // }, []);
 
   // useEffect(() => {
   //   Draggable.create(grid.current, {
@@ -95,8 +95,8 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
 
   return (
     // <ReactLenis root options={{}}> overscroll-x-contain md:overscroll-y-contain
-    <div ref={container} className='relative flex project-pictures select-none w-full min-h-fit md:h-full  md:w-[30%]  p-0 md:p-1 md:items-start overflow-x-scroll overflow-y-hidden md:overflow-x-hidden md:overflow-y-scroll'>
-      <div ref={grid} className=' project-grid relative w-fit h-fit md:w-full z-0 grid opacity-1 grid-rows-1 grid-flow-col md:grid-flow-row md:grid-cols-2 '>
+    <div ref={container} className='project-pictures no-scrollbar select-none w-full h-fit md:h-full md:w-[30%] pb-0 md:p-1 md:items-start overflow-hidden overflow-x-scroll  md:overflow-x-hidden md:overflow-y-scroll'>
+      <div ref={grid} className=' project-grid relative w-fit h-fit md:w-full z-0 grid opacity-1 grid-rows-1 grid-flow-col md:grid-flow-row md:grid-rows-none md:grid-cols-2 '>
         {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 768} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
       </div>
     </div>

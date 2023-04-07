@@ -32,15 +32,15 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   function setActive() {
     gsap.to(myThumb.current, {
       borderColor: palette.darkMuted.background,
-      ease:'expo.out',
+      ease: 'expo.out',
       duration: 0.7,
     })
   }
 
   function setInActive() {
     gsap.to(myThumb.current, {
-      borderColor: 'transparent',
-      ease:'expo.out',
+      borderColor: `${palette.darkMuted.background}00`,
+      ease: 'expo.out',
       duration: 0.7,
     })
   }
@@ -104,16 +104,17 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
     <div ref={myThumb}
-      style={{ borderColor: 'transparent' }}
+      style={{ borderColor: `${palette.darkMuted.background}00` }}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
-      className={`picture-thumb2 scale-50 opacity-0  relative select-none cursor-pointer  border-[3px] ${visible ? '' : ''} border-spacing-2 border-transparent before:block before:w-20 before:md:w-full ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
+      className={`picture-thumb2 scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit border-[3px] ${visible ? '' : ''}  border-transparent 
+      before:border-[3px] before:block before:w-20 mobm:before:w-28 before:md:w-full ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
       onMouseUp={mouseUp}
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}>
-      <div className='absolute w-full h-full top-0 left-0  '  >
+      <div className='absolute w-full h-full top-0 left-0 '  >
         <SanityImage onLoad={() => { setLoaded(true) }} print={!index ? true : false} blur sizes='(max-width: 700px) 20vw, 13vw' fill containerClass={'rounded-none '} image={image} alt={alt} />
       </div>
     </div>

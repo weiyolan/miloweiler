@@ -16,6 +16,7 @@ import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 import gsap from 'gsap/dist/gsap'
 import useLocalStorage from "@/utils/useLocalStorage";
 import { Observer } from 'gsap/dist/Observer'
+import PictureIndicator from "@/components/PictureIndicator";
 gsap.registerPlugin(Observer)
 
 
@@ -44,14 +45,25 @@ export default function Project({ project, slug, slugs }) {
 
   useEffect(() => {
     let observer = Observer.create({
-      target: ".project-picture-container",         // can be any element (selector text is fine)
+      target: window,         // can be any element (selector text is fine)
+      ignore: ".project-pictures, .project-grid, .imageFill",
       type: "touch, scroll, pointer",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
-      onRight: () => { if (animating) return; console.log('right/prev'); prevVisibility() },
-      onLeft: () => { if (animating) return; console.log('left/next'); nextVisibility() },
+      onRight: () => {
+        console.log('right/prev');
+        // setAnimating(true)
+        prevVisibility()
+      },
+      onLeft: () => {
+        console.log('left/next');
+        // setAnimating(true)
+        nextVisibility()
+      },
+      lockAxis: true,
     })
-    return () => {observer.disable()}
-  }, [visibleItem])
+    return () => { observer.disable() }
+  }, [visibleItem, animating, descriptionOpen])
 
+  // console.log(animating)
 
   function initiateVisibility() {
     let visibility = new Array(project.otherImages.length + 1).fill(false)
@@ -80,6 +92,7 @@ export default function Project({ project, slug, slugs }) {
       .set(`.mainPicture-${index2}`, {
         x: () => direction === 'left' ? `${xAmount}` : `-${xAmount}`,
         scale: scaleAmount,
+        borderRadius: 70,
         // autoAlpha: 0,
       })
       .to(`.mainPicture-${index1}`,
@@ -87,18 +100,20 @@ export default function Project({ project, slug, slugs }) {
           x: () => direction === 'left' ? `-=${xAmount}` : `+=${xAmount}`,
           scale: scaleAmount,
           autoAlpha: 0,
+          borderRadius: 70,
           ease: 'expo.out',
           // ease:'power4.out',
-          duration: 1.5,
+          duration: 0.7,
         })
       .to(`.mainPicture-${index2}`, {
         x: 0,
         scale: 1,
         autoAlpha: 1,
+        borderRadius: 5,
         ease: 'expo.out',
         // ease:'power4.out',
-        duration: 1.5,
-      }, '<+=0.2')
+        duration: 0.7,
+      }, '<+=0.1')
     // .set(`.mainPicture-${index1}`,
     //   {
     //     x: 0,
@@ -144,6 +159,9 @@ export default function Project({ project, slug, slugs }) {
 
   function nextVisibility() {
     // console.log(visibleItem)
+
+    if (animating || descriptionOpen) return;
+
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
       // handleVisibility(true, 0) // Cannot hurt to provide safety against no visibility although should not happen apriori.
@@ -159,6 +177,7 @@ export default function Project({ project, slug, slugs }) {
   }
 
   function prevVisibility() {
+    if (animating || descriptionOpen) return;
     // console.log('prev')
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
@@ -207,7 +226,8 @@ export default function Project({ project, slug, slugs }) {
             {/* ========================INSIDE======================== */}
             {/* <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
           after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}> */}
-            <div style={{ borderColor: palette.darkMuted.background }} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] md:h-[100%] border-[5px] md:border-0  overflow-hidden 
+            {/* { borderColor: palette.darkMuted.background } */}
+            <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] md:h-[100%] border-0 overflow-hidden 
           before:absolute `}>
 
               <div className={`w-full h-full absolute`}>
@@ -216,29 +236,38 @@ export default function Project({ project, slug, slugs }) {
                 <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
               </div>
 
-              <div className="relative flex flex-col justify-center md:flex-row w-full h-full z-[2] ">
-                {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
-                {visibleItem && <ProjectPicture images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />}
-                {visibleItem && <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />}
-             
+              {visibleItem &&
+                <div className="relative flex flex-col justify-end md:flex-row w-full h-full z-[2] py-2 mobm:py-4 gap-4 ">
+                  {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
+                  <ProjectPicture images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
+                  <PictureIndicator handleVisibility={handleVisibility} visibleItem={visibleItem} />
+                  <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
                   <ProjectDescription project={project} />
-                
-              
-              </div>
+
+                </div>}
 
               {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
 
 
 
-              <Link title='Previous project' className='absolute top-0 left-1/2 z-10 w-fit h-fit md:top-6 md:left-3 ' href={`/gallery/${prevSlug()}`}>
-                <AiFillCaretLeft className='relative fill-darkGrey opacity-100 w-8  drop-shadow-xl px-1' />
-              </Link>
-              <Link title='Back to gallery' className='absolute z-10 w-fit h-fit top-4 md:top-6 left-3' href='/gallery'>
-                <IoArrowBack className="w-6 h-6 fill-darkGrey hover:scale-110 " />
+              <Link title='Previous project' className={`absolute flex items-center gap-1 z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-5 md:top-6 right-24 
+              ${width < 768 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
+                <AiFillCaretLeft className='relative fill-primary opacity-100 w-3 h-3  md:px-1' />
+                <div>Prev</div>
               </Link>
 
-              <Link title='Next project' className='absolute z-10 w-fit h-fit top-0 left-2/3 md:top-6 md:right-3' href={`/gallery/${nextSlug()}`}>
-                <AiFillCaretRight className='relative fill-darkGrey opacity-100 w-8 drop-shadow-xl  px-1' />
+              <Link title='Back to gallery'
+                className={`absolute flex items-center z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-4 md:top-6 left-3 
+                ${width < 768 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
+                href='/gallery'>
+                <IoArrowBack className="w-5 h-5 md:w-6 md:h-6 fill-primary hover:scale-110 " />
+                <div>Back to gallery</div>
+              </Link>
+
+              <Link title='Next project' className={`absolute flex items-center gap-1 z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-5 md:top-6 right-3 
+              ${width < 768 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
+                <div>Next</div>
+                <AiFillCaretRight className='relative fill-primary opacity-100 w-3 h-3 ' />
               </Link>
             </div>
 
