@@ -42,7 +42,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
   }, [descriptionBottom, descriptionOpen]);
 
   useEffect(() => {
-    setPosition({ width: descriptionWidth, height: descriptionHeight, top:descriptionTop, bottom:descriptionBottom })
+    setPosition({ width: descriptionWidth, height: descriptionHeight, top: descriptionTop, bottom: descriptionBottom })
   }, [descriptionBottom])
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
       </div>
 
       {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-pop font-extralight text-justify whitespace-pre-wrap"> */}
-      <FadeDiv style={{ height: maxTextHeight||'50%' }} type='bottom' amount={15} className={`${textHeight > height - textTop ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
+      <FadeDiv style={{ height: maxTextHeight || '50%' }} type='bottom' amount={15} className={`${textHeight > height - textTop ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
         {/* <h3 className="font-lora text-xl">About: </h3> */}
         <p ref={textRef} className={`pb-10 ${textHeight > maxTextHeight ? 'pr-2 ignore-swipe' : ''} whitespace-pre-wrap text-sm mobm:text-base lg:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>{project?.description?.[locale] || ''}</p>
       </FadeDiv>
@@ -134,13 +134,14 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
 
       {/* ============== ABSOLUTE TITLE =============== */}
       {/* <Line className={`border-spacing-2 `}/> */}
-      <div className={`absolute bottom-2 mobm:bottom-3 flex mx-auto text-lg mobm:text-2xl md:text-3xl whitespace-nowrap mt-2 w-full px-3 left-1/2 -translate-x-1/2 justify-between transition-all  
-      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
-        <div className={``}>
+      <div className={`absolute bottom-2 mobm:bottom-3 cursor-pointer flex mx-auto text-lg mobm:text-2xl md:text-3xl whitespace-nowrap mt-2 w-full px-3 left-1/2 -translate-x-1/2 justify-between transition-all  
+      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+        onClick={handleClick}>
+        <div className={`cursor-pointer`}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
         </div>
-        <div>
+        <div className='cursor-pointer'>
           <Span text='by' />
           {` ${project?.by?.[0]}`}
         </div>

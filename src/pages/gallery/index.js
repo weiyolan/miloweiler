@@ -68,7 +68,6 @@ export default function Gallery({ projects }) {
 
   // console.log(projects)
 
-  
 
   return (
     <>
@@ -84,7 +83,7 @@ export default function Gallery({ projects }) {
           <h1 className={`uppercase font-lora text-center text-3xl py-4 `}>Gallery</h1>
 
           <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-6'>
-            {projects.map((project, i) => <ProjectThumb handleClick={pushCardsOnClick}  index={i} key={i} project={project} />)}
+            {projects.map((project, i) => <ProjectThumb gridStaggerAnimation={pushCardsOnClick} activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
             {/* {console.log(artificialProjects(20))} */}
           </div>
 
@@ -95,7 +94,7 @@ export default function Gallery({ projects }) {
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
+  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, subTitle, by, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
   // console.log(projects)
   // {...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}
   

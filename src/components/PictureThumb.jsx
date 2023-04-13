@@ -10,8 +10,10 @@ gsap.registerPlugin(ScrollTrigger)
 export default function PictureThumb({ image, alt, row, containerRef, visible, handleClick, handleMouseEnter, handleMouseLeave, index, className }) {
   const { locale, width } = useAppContext()
   const { palette } = usePageContext()
+  // console.log(palette)
   let [loaded, setLoaded] = useState(false)
   const myThumb = useRef(null)
+  const ctx = useRef(gsap.context(() => { }));
 
   function mouseUp({ currentTarget }) {
     gsap.to(currentTarget, {
@@ -19,6 +21,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       ease: 'expo.out'
     });
   }
+
   function mouseDown({ currentTarget }) {
     gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
   }
@@ -29,29 +32,53 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
     gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' });
   }
 
-  function setActive() {
-    gsap.to(myThumb.current, {
-      borderColor: palette.darkMuted.background,
-      ease: 'expo.out',
-      duration: 0.7,
-    })
-  }
+  // function setActive() {
+  //   gsap.to(myThumb.current, {
+  //     borderColor: palette.darkMuted.background,
+  //     ease: 'expo.out',
+  //     duration: 0.7,
+  //   })
+  // }
 
-  function setInActive() {
-    gsap.to(myThumb.current, {
-      borderColor: `${palette.darkMuted.background}00`,
-      ease: 'expo.out',
-      duration: 0.7,
-    })
-  }
+  // function setInActive() {
+  //   gsap.to(myThumb.current, {
+  //     borderColor: `${palette.darkMuted.background}00`,
+  //     ease: 'expo.out',
+  //     duration: 0.7,
+  //   })
+  // }
 
   useEffect(() => {
-    if (visible) {
-      setActive()
-    } else if (!visible) {
-      setInActive()
-    }
-  }, [visible])
+    return () => ctx.current.revert();
+  }, []);
+
+  useEffect(() => {
+    // console.log(visible)
+    ctx.current.add(() => {
+      gsap.to(myThumb.current, {
+        // outlineColor: visible ? `${palette.vibrant.background}FF`:`${palette.vibrant.background}00` ,
+        marginLeft:width<1024?(visible ?12:0):0,
+        marginRight:width<1024?(visible ?12:0):0,
+        marginTop:width<1024?0:(visible ?24:0),
+        marginBottom:width<1024?0:(visible ?24:0),
+        // scale:width<1024?1:visible?1.1:1,
+        // margin: '5 0 5 0' , 
+        y:width<1024?(visible ?-6:0):0,
+        // x:width<1024?0:(visible ?+20:0),
+        // scale:1,
+        ease: 'power1.inout',
+        // ease: 'expo.out',
+        duration: 0.5,
+      });
+    });
+  }, [visible]);
+  // useEffect(() => {
+  //   if (visible) {
+  //     setActive()
+  //   } else if (!visible) {
+  //     setInActive()
+  //   }
+  // }, [visible])
 
   useEffect(() => {
     function onLoad() {
@@ -68,7 +95,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
             start: '-=50% bottom',
             // end:'bo'
             // end: '+=100%', 
-            end: width < 1024 ? 'bottom top' : '80% top',
+            end: '150% top',
             // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
@@ -104,11 +131,11 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
     <div ref={myThumb}
-      style={{ borderColor: `${palette.darkMuted.background}00` }}
+      style={{ }}
       id={`pictureThumb${index}`}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
-      className={`picture-thumb scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit border-none off ${visible ? '' : ''}  border-transparent 
-      before:border-none before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
+      className={`picture-thumb scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2   ${visible ? '' : ''}  
+      before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
       onMouseUp={mouseUp}

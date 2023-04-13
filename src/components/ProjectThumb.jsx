@@ -5,14 +5,15 @@ import { gsap } from 'gsap'
 import Link from 'next/link'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
-export default function ProjectThumb({ project, handleClick, index }) {
+export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
   const { locale } = useAppContext()
   let [hover, setHover] = useState(false)
-  let [loaded,setLoaded] = useState(false)
-  let projectThumb =useRef(null)
-  const {width} = useAppContext()
+  let [loaded, setLoaded] = useState(false)
+  let projectThumb = useRef(null)
+  const { width } = useAppContext()
+  let [selected, setSelected] = useState(false)
   // let myRef = useRef(null)
-  // const ctx = useRef();
+  const ctx = useRef(gsap.context(() => { }));
 
   // useEffect(() => {
   //   ctx.current = gsap.context(() => { },); // nothing initially (we'll add() to the context when endX changes)
@@ -35,7 +36,6 @@ export default function ProjectThumb({ project, handleClick, index }) {
     // })
   }
 
-
   useEffect(() => {
     function onLoad() {
       if (loaded) {
@@ -51,7 +51,7 @@ export default function ProjectThumb({ project, handleClick, index }) {
             start: '-=50% bottom',
             // end:'bo'
             // end: '+=100%', 
-            end: 'center top',
+            end: '150% top',
             // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
@@ -60,52 +60,54 @@ export default function ProjectThumb({ project, handleClick, index }) {
           },
           // onStart: () => console.log('start')
         })
-
       }
     }
-    // gsap.to(target, {
-    //   opacity: 1,
-    //   scale: 1,
-    //   ease: 'expo.out'
-    // })
-    // console.log(loaded)
-    // }
-
     onLoad()
-
-    // return () => tween.kill()
-
   }, [loaded])
 
-  // function handleClick() {
-  //   if (!click) { setClick(true); tween.play() } else { setClick(false); tween.reverse() }
-  // }
-  // console.log(project.mainImage)
-  {/* <Link href={`/blog/${encodeURIComponent(post.slug)}`}> */ }
+  useEffect(() => {
+    if (activeIndex === index) {
+      setHover(true)
+    } else { setHover(false) }
+  }, [activeIndex])
+
 
   return (
-    <Link href={`./gallery/${project.slug.current}` } className='scale-50 opacity-0' ref={projectThumb}>
-      <div 
-        onClick={handleClick}
+    <Link onClick={(e) => {width<1024 && e.preventDefault()}} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className='scale-50 opacity-0 select-none' ref={projectThumb}>
+      <div
+        onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
         onMouseEnter={(target) => { setHover(true); handleMouseUp(target) }}
         onMouseLeave={(target) => { setHover(false); handleMouseLeave(target) }}
-        className={`relative cursor-pointer before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer text-primary before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
 
         <div className={`absolute top-0 left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
         </div>
 
-        <div className='absolute w-full h-full top-0 left-0 flex items-end '>
+        <div className='absolute w-full h-full top-0 left-0 '>
 
-          <SanityImage onLoad={()=>setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 20vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
+          <SanityImage onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 20vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
           {/* {console.log(project.mainImage)} */}
-          <div className={`absolute h-full w-full bg-black/30  duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
-          </div>
+          <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between   p-2 sm:p-4`}>
 
-          <h2 className={`font-lora text-xl invert-0 p-4 duration-500 ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
-            {project.title}
-          </h2>
+
+            <h2 className={`text-left font-lora text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
+              {/* {console.log(project)} */}
+              {project.title}
+              {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
+            </h2>
+            <div className='text-right font-lora'>
+              <Span text='by' />
+              {` ${project?.by?.[0]}`}
+            </div>
+            {width < 1024 &&
+              <Link  href={`./gallery/${project.slug.current}`}
+                className={` absolute w-full h-full left-0 top-0 text-7xl font-pop text-primary font-thin flex items-center justify-center transition-all duration-500 ${hover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
+                +
+              </Link>
+            }
+          </div>
         </div>
 
       </div>
@@ -113,3 +115,27 @@ export default function ProjectThumb({ project, handleClick, index }) {
 
   )
 }
+function Detail({ title, text }) {
+
+  let string;
+
+  if (text.length === 1) {
+    string = text[0]
+  } else if (text.length === 2) {
+    string = text[0] + ' and ' + text[1]
+  }
+  else {
+    // console.log(text)
+    let firsts = text.slice(0, -1)
+    string = firsts.join(', ') + ' and ' + text.slice(-1)
+  }
+
+  return (
+    <h3 className='text-base mobm:text-xl leading-4'>{title + ': '}<Span detail text={string} /></h3>
+  )
+}
+
+function Span({ text, detail }) {
+  return <span className={`font-pop font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
+}
+

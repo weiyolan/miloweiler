@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useState } from 'react';
 import { useAppContext } from '@/utils/appContext';
 import FadeDiv from './FadeDiv';
-// import { ReactLenis } from '@studio-freight/react-lenis';
+import { ReactLenis } from '@studio-freight/react-lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 // gsap.registerPlugin(Draggable);
@@ -96,13 +96,13 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
 
   return (
     // <ReactLenis root options={{}}> overscroll-x-contain lg:overscroll-y-contain
-    <FadeDiv ref={container} type='none' amount={5} className={`relative ignore-swipe project-pictures  no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit overflow-hidden overflow-x-scroll lg:overflow-x-hidden lg:overflow-y-scroll`}>
-      {/* <div ref={container} className='relative project-pictures no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit overflow-hidden overflow-x-scroll lg:overflow-x-hidden lg:overflow-y-scroll'> */}
-        <div ref={grid} className='project-grid ignore-swipe relative w-fit h-fit grid opacity-1 grid-rows-1  grid-flow-col lg:grid-flow-row lg:grid-rows-none lg:grid-cols-1 gap-1 p-1'>
+      <FadeDiv ref={container} type='none' amount={5} className={`relative ignore-swipe project-pictures  no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit  overflow-x-scroll lg:overflow-x-visible lg:overflow-y-scroll`}>
+        {/* <div ref={container} className='relative project-pictures no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit overflow-hidden overflow-x-scroll lg:overflow-x-hidden lg:overflow-y-scroll'> */}
+        <div ref={grid} className='project-grid relative ignore-swipe  w-fit h-fit grid opacity-1 grid-rows-1  grid-flow-col lg:grid-flow-row lg:grid-rows-none lg:grid-cols-1 gap-1 p-1 overflow-visible'>
           {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 1024} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
         </div>
-      {/* </div> */}
-    </FadeDiv>
-    //  </ReactLenis>
+        {/* </div> */}
+      </FadeDiv>
+    // </ReactLenis>
   )
 }

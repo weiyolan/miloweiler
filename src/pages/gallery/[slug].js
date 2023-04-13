@@ -149,9 +149,14 @@ export default function Project({ project, slug, slugs }) {
     ctx.current.add(() => {
       gsap.to('.project-pictures', {
         // x: selected === id ? 200 : 0,
-        scrollTo: width<1024? {x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width<350?((width-80)/2):((width-112)/2), autoKill: true}:{y: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetY: (height-167)/2, autoKill: true},
-        duration: 0.7,
-        ease: 'expo.out',
+        scrollTo:
+          width < 1024
+            ? { x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width < 350 ? ((width - 80) / 2) : ((width - 112) / 2) }
+            : { y: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetY: (height - 167) / 2 },
+        ease: 'power1.inout',
+        duration: 0.7
+        // duration: width < 1024 ? 0.7 : 1,
+        // ease: 'expo.inout',
       });
     });
   }, [visibleItem]);
@@ -260,7 +265,7 @@ export default function Project({ project, slug, slugs }) {
             {/* <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
           after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}> */}
             {/* { borderColor: palette.darkMuted.background } */}
-            <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 overflow-hidden lg:overflow-visible`}>
+            <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
 
               <div className={`w-full h-full absolute`}>
                 {/* <Image fill className="opacity-100" style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} /> */}
@@ -269,7 +274,7 @@ export default function Project({ project, slug, slugs }) {
               </div>
 
               {visibleItem &&
-                <div className="relative flex flex-col justify-end lg:flex-row lg:items-start lg:justify-between w-full h-full z-[2] py-2 mobm:py-4 lg:p-0  ">
+                <div className="relative flex flex-col justify-end lg:flex-row lg:items-start lg:justify-between w-full h-full z-[2] pb-0 pt-10 mobm:pt-14  lg:p-0  ">
                   {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
                   {/* <div> */}
                   <ProjectPicture setMainPictureWidth={setMainPictureWidth} mainPictureHeight={mainPictureHeight} images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
@@ -283,7 +288,7 @@ export default function Project({ project, slug, slugs }) {
               {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
             </div>
           </Layout>
-          <div className="absolute flex w-full lg:w-fit z-10 top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ">
+          <div className={`absolute flex w-full lg:w-fit z-[10] top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ${width < 1024 ? descriptionOpen ? '' : 'invisible select-none' : ''}`}>
             <Link title='Back to gallery'
               className={` group flex items-center w-fit h-fit font-pop text-xs mobm:text-sm font-extralight transition-all 
                 ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
@@ -295,9 +300,9 @@ export default function Project({ project, slug, slugs }) {
 
               </div>
             </Link>
-            <div className={`flex  font-pop text-xs mobm:text-sm font-extralight gap-4`}>
+            <div className={`flex font-pop text-xs mobm:text-sm font-extralight gap-4`}>
               <Link title='Previous project' className={` group transition-all flex items-center gap-1 w-fit h-fit 
-              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
+              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
                 <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
                 <div>Previous
                   <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
@@ -305,7 +310,7 @@ export default function Project({ project, slug, slugs }) {
                 </div>
               </Link>
               <Link title='Next project' className={` group transition-all flex items-center gap-1 w-fit h-fit
-              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
+              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
                 <div>Next
                   <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
 
