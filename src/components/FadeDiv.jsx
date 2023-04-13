@@ -59,4 +59,6 @@ const FadeDiv = React.forwardRef(({ children, className, type, amount, style }, 
   )
 })
 
+FadeDiv.displayName = "FadeDiv";
+
 export default FadeDiv
