@@ -32,7 +32,7 @@ let fadeStyleBottom = amount => ({
   'maskRepeat': 'no-repeat',
 })
 
-const FadeDiv = ({ children, className, type, amount, style }) => {
+const FadeDiv = React.forwardRef(({ children, className, type, amount, style }, ref) => {
   useEffect(() => {
     // console.log(className)
   }, [className])
@@ -53,10 +53,10 @@ const FadeDiv = ({ children, className, type, amount, style }) => {
   }
 
   return (
-    <div style={{ ...getFadeStyle(type), ...style }} className={className}>
+    <div ref={ref} style={{ ...getFadeStyle(type), ...style }} className={className}>
       {children}
     </div>
   )
-}
+})
 
 export default FadeDiv

@@ -65,24 +65,24 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
   //   )
   // }, [])
 
-  function handleEnter({ currentTarget }) {
-    if (width > 1024) {
-      if (!descriptionOpen) {
-        gsap.to(currentTarget, { yPercent: 0, translateY: '+=8', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
-      } else if (descriptionOpen) {
-        gsap.to(currentTarget, { yPercent: 100, translateY: '-=4', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
-      }
-    }
-  }
-  function handleLeave({ currentTarget }) {
-    if (width > 1024) {
-      if (!descriptionOpen) {
-        gsap.to(currentTarget, { yPercent: 0, translateY: 48, backgroundColor: 'rgba(0,0,0,0.4)', scale: 1, ease: 'expo.out', duration: 0.7 })
-      } else if (descriptionOpen) {
-        gsap.to(currentTarget, { yPercent: 100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)', scale: 1, ease: 'expo.out', duration: 0.7 })
-      }
-    }
-  }
+  // function handleEnter({ currentTarget }) {
+  //   if (width > 1024) {
+  //     if (!descriptionOpen) {
+  //       gsap.to(currentTarget, { yPercent: 0, translateY: '+=8', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //     } else if (descriptionOpen) {
+  //       gsap.to(currentTarget, { yPercent: 100, translateY: '-=4', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //     }
+  //   }
+  // }
+  // function handleLeave({ currentTarget }) {
+  //   if (width > 1024) {
+  //     if (!descriptionOpen) {
+  //       gsap.to(currentTarget, { yPercent: 0, translateY: 48, backgroundColor: 'rgba(0,0,0,0.4)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //     } else if (descriptionOpen) {
+  //       gsap.to(currentTarget, { yPercent: 100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //     }
+  //   }
+  // }
   function handleClick({ currentTarget }) {
     if (!descriptionOpen) {
       setDescriptionOpen(true)
@@ -97,11 +97,11 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
 
     <div ref={descriptionRef} className='description-box relative w-full min-h-screen font-lora flex flex-col justify-start bg-black/40 shadow-2xl backdrop-blur cursor-pointer rounded-b-[30px] gap-4 translate-y-10 mobm:translate-y-14 py-10 mobm:py-14 px-4 xs:px-8'
       // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      // onMouseEnter={handleEnter}
+      // onMouseLeave={handleLeave}
       onClick={handleClick}
     >
-      <div className={`relative text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <div className={`relative whitespace-nowrap text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <h1 className={``}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -134,7 +134,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
 
       {/* ============== ABSOLUTE TITLE =============== */}
       {/* <Line className={`border-spacing-2 `}/> */}
-      <div className={`absolute bottom-2 mobm:bottom-3 flex mx-auto text-lg mobm:text-2xl md:text-3xl mt-2 w-[85vw] left-1/2 -translate-x-1/2 justify-between transition-all  
+      <div className={`absolute bottom-2 mobm:bottom-3 flex mx-auto text-lg mobm:text-2xl md:text-3xl whitespace-nowrap mt-2 w-full px-3 left-1/2 -translate-x-1/2 justify-between transition-all  
       ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <div className={``}>
           {project.title}

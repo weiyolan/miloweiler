@@ -8,7 +8,7 @@ import { Observer } from 'gsap/dist/Observer'
 import useDimensions from '@/utils/useDimensions'
 gsap.registerPlugin(Observer)
 
-export default function ProjectDescription({ project, setPosition }) {
+export default function ProjectDescription({ project, setPosition , mainPictureWidth}) {
   let [animateDescription, setAnimateDescription] = useState(false)
   const { width } = useAppContext()
   const { setDescriptionOpen, descriptionOpen } = usePageContext()
@@ -21,11 +21,15 @@ export default function ProjectDescription({ project, setPosition }) {
   }, [descriptionPosition])
 
   useEffect(() => {
-    let observer = Observer.create({
+    let observer1 = Observer.create({
+      preventDefault: false,
       target: window,
       ignore: ['.ignore-swipe'],       // can be any element (selector text is fine)
-      type: "touch, pointer",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
-      onDown: () => {
+      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      // tolerance:10,
+      onDown: (e) => {
+        // e.preventDefault();
+        // console.log(e)
         if (animateDescription) return;
         //  console.log('down'); 
         setAnimateDescription(true);
@@ -33,17 +37,35 @@ export default function ProjectDescription({ project, setPosition }) {
       },
       onUp: () => {
         //  console.log(animateDescription); 
-
         if (animateDescription) return;
         //  console.log('up'); 
         setAnimateDescription(true);
         toggleDescription(width < 1024 ? false : true)
       },
-      // onDownParams:[animateDescription],
-      // onUpParams:[animateDescription],
       lockAxis: true,
     })
-    return () => observer.disable()
+
+    // let observer2 = Observer.create({
+    //   preventDefault: false,
+    //   target: window,
+    //   ignore: ['.ignore-swipe'],       // can be any element (selector text is fine)
+    //   type: "touch, pointer",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      // tolerance:10,
+      // onUp: () => {
+      //   //  console.log(animateDescription); 
+      //   if (animateDescription) return;
+      //   //  console.log('up'); 
+      //   setAnimateDescription(true);
+      //   toggleDescription(width < 1024 ? false : true)
+      // },
+      // onDownParams:[animateDescription],
+      // onUpParams:[animateDescription],
+      // lockAxis: true,
+    // })
+    return () => {
+      observer1.disable();
+      // observer2.disable();
+    }
   }, [project,setPosition])
 
   function toggleDescription(toOpen) {
@@ -55,9 +77,10 @@ export default function ProjectDescription({ project, setPosition }) {
   }
 
   return (
-    <div className="description-container absolute w-full lg:w-[70%] bottom-full left-0 px-0  lg:px-12 z-[2]">
+    <div style={{width: width<1024?'100%':mainPictureWidth}} className="description-container absolute bottom-full lg:top-full lg:px-20 left-0  z-[2]">
       {width > 1024
         ? <ProjectDescriptionBottom setPosition={setDescriptionPosition} setAnimateDescription={setAnimateDescription} key='desktop' project={project} />
+        // ? <ProjectDescriptionBottom setPosition={setDescriptionPosition} setAnimateDescription={setAnimateDescription} key='desktop' project={project} />
         : <ProjectDescriptionTop setPosition={setDescriptionPosition} setAnimateDescription={setAnimateDescription} key='mobile' project={project} />}
     </div>)
 

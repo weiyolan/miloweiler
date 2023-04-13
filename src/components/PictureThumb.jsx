@@ -68,12 +68,12 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
             start: '-=50% bottom',
             // end:'bo'
             // end: '+=100%', 
-            end: width < 1024 ? 'center left' : 'center top',
+            end: width < 1024 ? 'bottom top' : '80% top',
             // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
             horizontal: width < 1024,
-            // markers: true,
+            // markers: true, 
             invalidateOnRefresh: true
           },
           // onStart: () => console.log('start')
@@ -105,9 +105,10 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
     // <Link href={`./gallery/${project.slug.current}`}>
     <div ref={myThumb}
       style={{ borderColor: `${palette.darkMuted.background}00` }}
+      id={`pictureThumb${index}`}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
-      className={`picture-thumb2 scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit border-[3px] ${visible ? '' : ''}  border-transparent 
-      before:border-[3px] before:block before:w-20 mobm:before:w-28 before:lg:w-full ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
+      className={`picture-thumb scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit border-none off ${visible ? '' : ''}  border-transparent 
+      before:border-none before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
       onMouseUp={mouseUp}

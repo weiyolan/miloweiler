@@ -16,15 +16,18 @@ import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 import gsap from 'gsap/dist/gsap'
 import useLocalStorage from "@/utils/useLocalStorage";
 import { Observer } from 'gsap/dist/Observer'
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import PictureIndicator from "@/components/PictureIndicator";
-gsap.registerPlugin(Observer)
+import Line from "@/components/Line";
+
+gsap.registerPlugin(Observer, ScrollToPlugin)
 
 
 export default function Project({ project, slug, slugs }) {
   // console.log(project)
   let [animating, setAnimating] = useState(false)
   let darkMode = true
-  const { width } = useAppContext()
+  const { width, height } = useAppContext()
   // let [loaded, setLoaded] = useState(false)
   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
   let [clicked, setClicked] = useState(false)
@@ -32,6 +35,9 @@ export default function Project({ project, slug, slugs }) {
   let [indicatorPosition, setIndicatorPosition] = useState(null)
   let [descriptionPosition, setDescriptionPosition] = useState(null)
   let [mainPictureHeight, setMainPictureHeight] = useState(null)
+  let [mainPictureWidth, setMainPictureWidth] = useState(null)
+  const ctx = useRef(gsap.context(() => { }));
+
   // let [activeIndex, setActiveIndex] = useLocalStorage(`${slug}-activeIndex`, 0)
 
   useEffect(() => {
@@ -60,6 +66,7 @@ export default function Project({ project, slug, slugs }) {
       target: window,         // can be any element (selector text is fine)
       ignore: ".project-pictures, .project-grid, .imageFill",
       type: "touch, scroll, pointer",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      preventDefault: false,
       onRight: () => {
         // console.log('right/prev');
         // setAnimating(true)
@@ -134,6 +141,20 @@ export default function Project({ project, slug, slugs }) {
     //   })
   }
 
+  useEffect(() => {
+    return () => ctx.current.revert();
+  }, []);
+
+  useEffect(() => {
+    ctx.current.add(() => {
+      gsap.to('.project-pictures', {
+        // x: selected === id ? 200 : 0,
+        scrollTo: width<1024? {x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width<350?((width-80)/2):((width-112)/2), autoKill: true}:{y: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetY: (height-167)/2, autoKill: true},
+        duration: 0.7,
+        ease: 'expo.out',
+      });
+    });
+  }, [visibleItem]);
 
 
   function handleVisibility(nextItem, direction) {
@@ -172,7 +193,7 @@ export default function Project({ project, slug, slugs }) {
   function nextVisibility() {
     // console.log(visibleItem)
 
-    if (animating || descriptionOpen) return;
+    if ((animating || descriptionOpen) && width < 1024) return;
 
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
@@ -189,7 +210,7 @@ export default function Project({ project, slug, slugs }) {
   }
 
   function prevVisibility() {
-    if (animating || descriptionOpen) return;
+    if ((animating || descriptionOpen) && width < 1024) return;
     // console.log('prev')
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
@@ -228,7 +249,7 @@ export default function Project({ project, slug, slugs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
-      <main tabIndex={0} style={{ backgroundColor: palette.vibrant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+      <main tabIndex={0} style={{ backgroundColor: palette.dominant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
         onKeyDown={(e) => { if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
       >
         <PageWrapper palette={palette} descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
@@ -239,8 +260,7 @@ export default function Project({ project, slug, slugs }) {
             {/* <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
           after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}> */}
             {/* { borderColor: palette.darkMuted.background } */}
-            <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 overflow-hidden 
-          before:absolute `}>
+            <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 overflow-hidden lg:overflow-visible`}>
 
               <div className={`w-full h-full absolute`}>
                 {/* <Image fill className="opacity-100" style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} /> */}
@@ -249,41 +269,51 @@ export default function Project({ project, slug, slugs }) {
               </div>
 
               {visibleItem &&
-                <div className="relative flex flex-col justify-end lg:flex-row w-full h-full z-[2] py-2 mobm:py-4 gap-0 ">
+                <div className="relative flex flex-col justify-end lg:flex-row lg:items-start lg:justify-between w-full h-full z-[2] py-2 mobm:py-4 lg:p-0  ">
                   {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
-                  <ProjectPicture mainPictureHeight={mainPictureHeight} images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
-                  <PictureIndicator setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
+                  {/* <div> */}
+                  <ProjectPicture setMainPictureWidth={setMainPictureWidth} mainPictureHeight={mainPictureHeight} images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
+                  <PictureIndicator mainPictureWidth={mainPictureWidth} setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
+                  {/* </div> */}
                   <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
-                  <ProjectDescription setPosition={setDescriptionPosition} project={project} />
+                  <ProjectDescription setPosition={setDescriptionPosition} project={project} mainPictureWidth={mainPictureWidth} />
 
                 </div>}
 
               {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
-
-
-
-              <Link title='Previous project' className={`absolute flex items-center gap-1 z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-5 lg:top-6 right-24 
-              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
-                <AiFillCaretLeft className='relative fill-primary opacity-100 w-3 h-3  lg:px-1' />
-                <div>Prev</div>
-              </Link>
-
-              <Link title='Back to gallery'
-                className={`absolute flex items-center z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-4 lg:top-6 left-3 
+            </div>
+          </Layout>
+          <div className="absolute flex w-full lg:w-fit z-10 top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ">
+            <Link title='Back to gallery'
+              className={` group flex items-center w-fit h-fit font-pop text-xs mobm:text-sm font-extralight transition-all 
                 ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
-                href='/gallery'>
-                <IoArrowBack className="w-5 h-5 lg:w-6 lg:h-6 fill-primary hover:scale-110 " />
-                <div>Back to gallery</div>
-              </Link>
+              href='/gallery'>
+              <IoArrowBack className="w-5 h-5 fill-primary group-hover:scale-110 transition-all " />
+              <div>
+                Back to gallery
+                <Line className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
 
-              <Link title='Next project' className={`absolute flex items-center gap-1 z-10 w-fit h-fit font-pop text-xs mobm:text-sm font-extralight top-5 lg:top-6 right-3 
+              </div>
+            </Link>
+            <div className={`flex  font-pop text-xs mobm:text-sm font-extralight gap-4`}>
+              <Link title='Previous project' className={` group transition-all flex items-center gap-1 w-fit h-fit 
+              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
+                <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
+                <div>Previous
+                  <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
+
+                </div>
+              </Link>
+              <Link title='Next project' className={` group transition-all flex items-center gap-1 w-fit h-fit
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
-                <div>Next</div>
-                <AiFillCaretRight className='relative fill-primary opacity-100 w-3 h-3 ' />
+                <div>Next
+                  <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
+
+                </div>
+                <AiFillCaretRight className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
               </Link>
             </div>
-
-          </Layout>
+          </div>
           {/* <Link className='absolute z-10 w-fit h-fit top-10 right-4' href='/gallery'>
             <IoClose className="w-6 h-6 fill-darkGrey hover:scale-110 " />
           </Link> */}

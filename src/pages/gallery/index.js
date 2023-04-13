@@ -17,7 +17,7 @@ export default function Gallery({ projects }) {
   const ctx = useRef();
 
   useEffect(() => {
-    console.log('context')
+    // console.log('context')
     ctx.current = gsap.context(() => {}, gallery); // nothing initially (we'll add() to the context when endX changes)
     return () => ctx.current.revert();
   }, [ctx]);
@@ -68,8 +68,6 @@ export default function Gallery({ projects }) {
 
   // console.log(projects)
 
-
-
   
 
   return (
@@ -100,7 +98,6 @@ export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
   // console.log(projects)
   // {...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}
-  
   
   function artificialProjects (length) {
     console.log(Math.floor(Math.random()*projects.length))
