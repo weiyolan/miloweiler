@@ -93,8 +93,8 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  /* background-color: #00000045; */
+  /* background-color: transparent; */
+  background-color: #00000045;
   /* width: 4px; */
   /* height: 20vh; */
   border-radius: 5rem;
@@ -121,6 +121,14 @@ body {
 .no-scrollbar::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
 }
+
+.no-scrollbar::-webkit-scrollbar-thumb { 
+  background-color: transparent;
+
+  /* display: none;  Safari and Chrome */
+}
+
+
 
 .scroll-bar-small::-webkit-scrollbar {
   /* position: fixed; */

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react"
-import { useAppContext } from "@components/context/appContext.js"
-import { useSVGContext } from "@components/story/contextSVG"
-import { usePageContext } from "@/components/context/pageContext"
+import { useAppContext } from "@utils/appContext.js"
+import { useSVGContext } from "@components/line/contextSVG"
+import { usePageContext } from "@utils/pageContext"
 
 // function getOffset(lengthArray, i) {
 //   let included = lengthArray.map((l, index) => index < i ? l : 0)
@@ -9,41 +9,6 @@ import { usePageContext } from "@/components/context/pageContext"
 //   return offset
 // }
 
-// const getPathProps = (props,stroke,fill) => {
-//   let pathProps = { ...props }
-//   delete pathProps.handleLength
-//   delete pathProps.print
-//   delete pathProps.lineSpeed
-//   delete pathProps.inverse
-//   delete pathProps.initialDash
-//   delete pathProps.animateFill
-//   delete pathProps.animateStroke
-//   delete pathProps.fillColor
-//   delete pathProps.strokeColor
-//   delete pathProps.home
-//   delete pathProps.drawDuration
-//   delete pathProps.scrolled
-//   delete pathProps.useId
-//   delete pathProps.lengthFactor
-//   delete pathProps.fastErase
-//   delete pathProps.myGradient
-//   delete pathProps['stroke-width']
-//   delete pathProps.initialDash
-//   // pathProps.strokeWidth = '2'
-//   pathProps.strokeLinejoin="round"
-//   delete pathProps['stroke-linejoin']
-//   pathProps.strokeLinecap="round"
-//   delete pathProps['stroke-linecap']
-//   pathProps.fillRule=pathProps['fill-rule']
-//   delete pathProps['fill-rule']
-//   pathProps.clipRule=pathProps['clip-rule']
-//   delete pathProps['clip-rule']
-  
-//   pathProps.stroke= stroke
-//   pathProps.fill= fill
-  
-//   return pathProps
-// }
 
 export function Path(props) {
   let {myRatio, prevRatio, scrollMin, scrollMax, animationSpeed} = useSVGContext();
@@ -56,14 +21,17 @@ export function Path(props) {
   let [dashLineLength, setDashLineLength] = useState(0)
   // let [newProps, setNewProps] = useState(getPathProps(props))
   let [style, setStyle] = useState({transition: 'none'})
-  
   let [visible, setVisible] = useState(false)
   let [animationEnd, setAnimationEnd] = useState(false)
 
   let fakeScrolled = finished?1:props.scrolled;
-  let realScrolled = useAppContext().scrolled;
-  let scrolled=fakeScrolled===undefined?realScrolled:fakeScrolled
-  let biasedScrolled = scrollMin>=0&&scrollMax>scrollMin&&scrollMax>0?(Math.min(Math.max(scrolled-scrollMin,0)/(scrollMax-scrollMin),1)):scrolled;
+  let {scrolled:realScrolled} = useAppContext();
+  // let scrolled=fakeScrolled===undefined?realScrolled:fakeScrolled
+  // let biasedScrolled = scrollMin>=0&&scrollMax>scrollMin&&scrollMax>0?(Math.min(Math.max(scrolled-scrollMin,0)/(scrollMax-scrollMin),1)):scrolled;
+  
+  let biasedScrolled = scrollMin>=0&&scrollMax>scrollMin&&scrollMax>0
+        ?(Math.min(Math.max(realScrolled-scrollMin,0)/(scrollMax-scrollMin),1))
+        :realScrolled
 
   const getPathProps = useCallback((props) => {
     let pathProps = { ...props }
@@ -72,6 +40,8 @@ export function Path(props) {
     delete pathProps.lineSpeed
     delete pathProps.inverse
     delete pathProps.initialDash
+    delete pathProps.transitStrokeAnimation
+    delete pathProps.transitPortion
     delete pathProps.animateFill
     delete pathProps.animateStroke
     delete pathProps.fillColor
@@ -98,9 +68,9 @@ export function Path(props) {
     pathProps.strokeDasharray = dashArray.length>0?dashArray:(pathLength) + ' ' + (pathLength);
 
     if (visible) {
-      let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFFAEA'
+      let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFF5EA'
       pathProps.stroke = props.animateStroke?animationEnd?'transparent':myStroke:myStroke
-      pathProps.fill = props.animateFill?animationEnd?props?.fillColor||'#FFFAEA':'transparent':'transparent';
+      pathProps.fill = props.animateFill?animationEnd?props?.fillColor||'#FFF5EA':'transparent':'transparent';
     } else {
       pathProps.stroke = 'transparent'
       pathProps.fill = 'transparent'
@@ -110,8 +80,11 @@ export function Path(props) {
 
   let childProps=getPathProps(props);
 
-  let newOffset = Math.min( Math.max(biasedScrolled*mySpeed - prevRatio[props.position], 0)  / myRatio[props.position] , 1) * (props.inverse?1:-1) || 0 
-  childProps.strokeDashoffset = (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*newOffset
+  let newOffset = fakeScrolled===undefined
+    ? (Math.min( Math.max(biasedScrolled*mySpeed - prevRatio[props.position], 0)  / myRatio[props.position] , 1) * (props.inverse?1:-1) || 0)
+    : (Math.min( Math.max(fakeScrolled*mySpeed, 0) , 1) * (props.inverse?1:-1) || 0)
+
+  childProps.strokeDashoffset = (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*newOffset*(props?.transitStrokeAnimation?2:1)
 
 // CALCULATE PATHLENGTH 
   useEffect(() => {
@@ -128,6 +101,7 @@ export function Path(props) {
         // const scaledPathLength = originalPath.getTotalLength() * scale;
       }
       if (props.print) {
+        console.log(realScrolled, fakeScrolled)
         // console.log('length is:' + length); console.log('double is: ' + props.double); console.log('so pathlength is : ' + length/props.double)
         // console.log(usePath)
         // console.log(originalPath)
@@ -144,7 +118,6 @@ export function Path(props) {
     if (pathLength>0) {
       props.handleLength(pathLength, props.position)
       props.print && console.log('handleLength ')
-      
     }
   },[pathLength, props.position,])
 
@@ -174,11 +147,30 @@ export function Path(props) {
       // console.log(newStringDash)
       setDashArray(newStringDash)
       setDashLineLength(+lineString)
-      props.print && console.log('dashlength setted ')
-
+      props.print && console.log('dashlength setted')
     }
-
   },[props.initialDash, pathLength])
+
+  useEffect(()=>{
+    if (props.transitStrokeAnimation) {
+      let newStringDash = []
+      // 'line hole'
+      // newStringDash.push(`0`)
+      // newStringDash.push(`${pathLength}`)
+      newStringDash.push(`${pathLength*(props?.transitPortion?(props.transitPortion):0.95)}`)
+      newStringDash.push(`${pathLength*(props?.transitPortion?(2-props.transitPortion):1.05)}`)
+      // newStringDash.push(`0`)
+      // newStringDash.push(`${pathLength}`)
+      // newStringDash.push(`200`)
+      // newStringDash.push(`500`)
+      // newStringDash.push(`${pathLength*1.2}`)
+      newStringDash = newStringDash.join(' ')
+      setDashArray(newStringDash)
+      setDashLineLength(+pathLength)
+      props.print && console.log('special dashlength setted')
+      props.print && console.log(newStringDash)
+    }   
+  },[props.transitStrokeAnimation, pathLength])
 
   // USE lineSpeed to draw stroke faster
   // USE drawDuration to set speed of animation
@@ -187,9 +179,8 @@ export function Path(props) {
     let speed = 1;
     if (animationSpeed) {speed = speed*animationSpeed}
     if (props.lineSpeed) {speed = speed*props.lineSpeed}
-    setMySpeed(speed)
+    setMySpeed(speed) //SPEED CANNOT GO BELOW 1 OR LINE WILL NOT BE DRAWN COMPLETELY, see code line 117 for newOffset
     props.print && console.log('speed setted ')
-
 
   },[animationSpeed, props.lineSpeed])
 
@@ -261,7 +252,7 @@ export function Path(props) {
 
       }
     }
-  },[scrolled, props.myGradient, props.strokeColor, props.animateStroke, props.animateFill, props.fillColor])
+  },[realScrolled, fakeScrolled, props.myGradient, props.strokeColor, props.animateStroke, props.animateFill, props.fillColor])
 
   useEffect(()=>{
     if (Math.abs(newOffset) === 1 && !animationEnd) {
@@ -273,7 +264,7 @@ export function Path(props) {
       props.print && console.log('animation start ')
       setAnimationEnd(false)
     }
-  },[scrolled])
+  },[realScrolled, fakeScrolled])
 
   // useEffect(()=>{
 
@@ -286,14 +277,27 @@ export function Path(props) {
 
   useEffect(()=>{
     
-    setStyle({transition: fakeScrolled!==undefined?`all ${props?.drawDuration||1}s ease`:visible?props.home?'all 0.5s ease':`all ${props?.drawDuration||1}s ease`:props.fastErase?'strokeDashoffset 0.7s ease, stroke 0.2s ease, fill 0.2s ease ':'all 0.7s   ease'})
+    setStyle({transition: 
+      props?.transitStrokeAnimation
+      ?'none'
+      :
+      fakeScrolled!==undefined
+      ?`stroke ${props?.drawDuration||1}s ease, fill ${props?.drawDuration||1}s ease`
+        // :`all ${0.2}s ease`
+      :visible
+        ?props.home
+          ?'all 0.5s ease'
+          :`all ${props?.drawDuration||1}s ease`
+        :props.fastErase
+          ?'strokeDashoffset 0.7s ease, stroke 0.2s ease, fill 0.2s ease '
+          :'all 0.7s   ease'})
     props.print && console.log('setStyle ')
     
     if (props.print) {
       // console.log({transition: visible?props.home?'all 0.5s ease':`all ${props?.drawDuration||1}s ease`:'all 0.1s ease'})
       // console.log('style changed')
     }
-  },[visible])
+  },[visible,props?.drawDuration, props?.transitStrokeAnimation ,props.home, props.fastErase])
 
 // },[visible, props.home, props.drawDuration, props.fastErase,props.print])
   // useEffect(()=>{console.log(style)})

@@ -156,7 +156,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           <PageWrapper darkMode={darkMode}
           // ctx={ctx} tl={tl}
           >
-            <Layout className={'relative'}>
+            <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
               <h1 className='invisible h-0'>Contact Page</h1>
 
               {/* =======CONTACT DETAILS======== */}
