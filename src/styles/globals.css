@@ -78,7 +78,6 @@ body {
   width: 8px;
   background-color: transparent;
   /* background-color: #00000045; */
-
 }
 
 /* Track */
@@ -94,7 +93,7 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   /* background-color: transparent; */
-  background-color: #00000045;
+  background-color: #ffffff45;
   /* width: 4px; */
   /* height: 20vh; */
   border-radius: 5rem;
@@ -128,7 +127,24 @@ body {
   /* display: none;  Safari and Chrome */
 }
 
+/* Handle */
+.light-scrollbar::-webkit-scrollbar-thumb {
+  /* background-color: transparent; */
+  background-color: #ffffff90;
+  /* width: 4px; */
+  /* height: 20vh; */
+  border-radius: 5rem;
+  /* border-color: white; */
+  /* border:1px; */
+}
 
+/* Handle on hover */
+.light-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a6a6a660;
+  /* width: 6px; */
+
+  /* background-color: #fff; */
+}
 
 .scroll-bar-small::-webkit-scrollbar {
   /* position: fixed; */

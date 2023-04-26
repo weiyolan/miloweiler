@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
 // import Image from 'next/image'
-
+import { gsap } from 'gsap/dist/gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import BackgroundMoving from '@/components/line/BackgroundMoving'
 import { PageWrapper } from '@utils/pageContext'
 import { useAppContext } from '@utils/appContext'
@@ -18,30 +19,24 @@ import ScrollingDiv from '@/components/line/ScrollingDiv'
 import FadeDiv from '@/components/FadeDiv'
 
 // import SpireeStory from '../public/images/spireeStory.svg'
-import Story1Astrid from '@/components/line/Story1Astrid'
-// import Story2Pharma from '@/components/story/Story2PharmaBackup'
-import Story2Pharma from '@/components/line/Story2Pharma'
-import Story3Mountain from '@/components/line/Story3Mountain'
-import Story4Flowers from '@/components/line/Story4Flowers'
-import Story5Meaning from '@/components/line/Story5Meaning'
-import Story6Spiree from '@/components/line/Story6Spiree'
-import Story7SunMoon from '@/components/line/Story7SunMoon'
-import Story8Merino from '@/components/line/Story8Merino'
-import Story9Passion from '@/components/line/Story9Passion'
-import Story10RE from '@/components/line/Story10RE'
-import Story11Women from '@/components/line/Story11Women'
-import Story12Support from '@/components/line/Story12Support'
-import StoryText from '@/components/line/StoryText'
+import Story1Logo from '@/components/line/Story1Logo'
+import Story2Moon from '@/components/line/Story2Moon'
+
 
 // import Navbar from '@/components/navbar/Navbar'
 // import ShoppingCart from '@/components/cart/ShoppingCart'
 import Button from '@/components/Button'
 import Background from '@/components/Background'
+import Parallax from '@/components/Parallax'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home({ }) {
 
-  const { scrolled, width: screenWidth, height: screenHeight,  } = useAppContext();
+  const { scrolled, width: screenWidth, height: screenHeight, } = useAppContext();
   // let svgRef = useRef(null)
+  let ctx = useRef()
+  let tl = useRef()
   let [svgHeight, setSvgHeight] = useState(undefined)
   let [svgWidth, setSvgWidth] = useState(undefined)
   let [titleHeight, setTitleHeight] = useState(undefined)
@@ -59,37 +54,15 @@ export default function Home({ }) {
 
   let mobile = screenWidth < 768
 
-
   let finishingScroll = mobile ? 0.95 : 0.995 // Same as ending of animation
+
   useEffect(() => {
-    
-    if (scrolled >= finishingScroll && !finished) { setFinished(true)}
+    if (scrolled >= finishingScroll && !finished) { setFinished(true) }
   }, [scrolled])
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-
-
-  function getButtonPositionX(x) {
-    //SVG viewPortWidth and Height: 
-    // mobile     701 5157
-    // desktop    1760 5420
-    // x length from left of SVG to middle of button. X from middle of html
-    let width = (mobile ? 701 : 1760);
-    let X = svgWidth * (x - (width / 2)) / (width)
-    return X
-  }
-
-  function getButtonPositionY(y) {
-    //SVG viewPortWidth and Height: 
-    // mobile     701 5157
-    // desktop    1760 5420
-    // y from bottom of SVG. Y from top of html
-    let Y = titleHeight + scrollingDivHeight - (svgHeight * y / (mobile ? 5157 : 5420))
-    return Y
-  }
 
   useEffect(() => {
     if (screenHeight > 0 && titleHeight > 0) {
@@ -97,14 +70,72 @@ export default function Home({ }) {
         setSvgViewHeight(screenHeight - titleHeight)
       }
     }
-
   }, [screenHeight, titleHeight])
-
   // -------WITH TITLE AND FOOTER -------------
   // let heightToScroll = (mobile || finished) ? scrollingDivHeight + titleHeight + footerHeight : 6000
+  // -------WITHOUT TITLE AND FOOTER -------------
+  let heightToScroll = (mobile || finished) ? scrollingDivHeight : 6000
 
-// -------WITHOUT TITLE AND FOOTER -------------
-  let heightToScroll = (mobile || finished) ? scrollingDivHeight  : 6000
+  useEffect(() => {
+    ctx.current = gsap.context(() => { },)
+    return () => ctx.current.revert()
+  }, [])
+
+  // useEffect(() => {
+  //   ctx.current.add(() => {
+  //     gsap.to(firstPageVisible,{
+
+  //       scrollTrigger: {
+  //       trigger: '#beam',
+  //       // start: width < 648 ? '30% 20%' : 'center 20%',
+  //       start: '30% bottom',
+  //       // end: "max",
+  //       invalidateOnRefresh: true,
+  //       scrub: 2,
+  //       markers: true,
+  //     }}
+  // }, [])
+
+  // useEffect(() => {
+  //   let observer = ScrollTrigger.observe({
+  //     target: '#beam',         // can be any element (selector text is fine)
+  //     // ignore: ".project-pictures, .project-grid, .imageFill",
+  //     type: "scroll",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+  //     preventDefault: false,
+  //     onRight: () => {
+  //       // console.log('right/prev');
+  //       // setAnimating(true)
+  //       prevVisibility()
+  //     },
+  //     onLeft: () => {
+  //       // console.log('left/next');
+  //       // setAnimating(true)
+  //       nextVisibility()
+  //     },
+  //     lockAxis: true,
+  //   })
+  //   return () => { observer.disable() }
+  // }, [visibleItem, animating, descriptionOpen])
+
+  useEffect(() => {
+    ctx.current.add(() => {
+      gsap.to(['.firstPage', '.svgPage'], {
+        y: '-90vh',
+        duration: 1,
+        ease: 'power3.inout',
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 50%',
+          end: "30% 50%",
+          toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          // scrub: 2,
+          markers: true,
+        }
+      })
+    })
+  }, [])
 
   return (
     <>
@@ -115,8 +146,8 @@ export default function Home({ }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
-      <main style={{ height: heightToScroll + 'px' }} className={`w-full scrollbar-small`} >
+      {/* style={{ height: heightToScroll + 'px' }}  */}
+      <main style={{ height: heightToScroll + 'px' }} className={`w-full light-scrollbar`} >
 
         <PageWrapper
           darkMode={true}
@@ -127,21 +158,20 @@ export default function Home({ }) {
           setAnimationLocation={setAnimationLocation}
           setTextLocation={setTextLocation}
         >
-          <Background type='bottom' amount={10} src='/images/mainpageStars.jpg' />
+          <Background type='bottom' amount={10} src='/images/mainpageMoon.jpg' className={'firstPage top-[90vh]'} />
+          <Background type='bottom' amount={40} src='/images/mainpageStars.jpg' height='h-[160vh]' className={'firstPage'} />
           {/* <Background src='' /> */}
-{/* <Backgroun */}
+          {/* <Backgroun */}
 
-          <section className='flex w-full mx-auto ' >
+          <section className='svgPage flex w-full h-screen mx-auto fixed top-[calc(50%-200px)] ' >
 
-            <FadeDiv style={{ height: (mobile || finished) ? scrollingDivHeight + 'px' : svgViewHeight + 'px', width: screenWidth + 'px', top: titleHeight + 'px' }} className={`${(mobile || finished) ? 'absolute' : 'fixed'} flex left-1/2 -translate-x-1/2 `} amount={false ? (finished ? 0 : mobile ? 2 : 10) : 0} type={false ? (finished ? `top` : 'both') : 'none'}>
+            {/* <FadeDiv style={{ height: (mobile || finished) ? scrollingDivHeight + 'px' : svgViewHeight + 'px', width: screenWidth + 'px', top: titleHeight + 'px' }} className={`${(mobile || finished) ? 'absolute' : 'fixed'} flex left-1/2 -translate-x-1/2 `} amount={false ? (finished ? 0 : mobile ? 2 : 10) : 0} type={false ? (finished ? `top` : 'both') : 'none'}> */}
+            {/* <ScrollingDiv setMoveTracker={setMoveTracker} setMaxMoveTracker={setMaxMoveTracker} setScrollingDivHeight={setScrollingDivHeight} finishingScroll={finishingScroll} animationLocation={animationLocation} textLocation={textLocation} footerHeight={footerHeight} screenHeight={screenHeight} svgHeight={svgHeight} titleHeight={titleHeight}
+                className={`absolute w-full left-1/2 -translate-x-1/2 ${screenHeight > 1000 ? 'top-[60px]' : 'top-6 md:top-[20px]'}`} > */}
+            <Story1Logo setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0}/>
+            <Story2Moon speed={1} scrollMin={0} scrollMax={0} />
 
-              <ScrollingDiv setMoveTracker={setMoveTracker} setMaxMoveTracker={setMaxMoveTracker} setScrollingDivHeight={setScrollingDivHeight} finishingScroll={finishingScroll} animationLocation={animationLocation} textLocation={textLocation} footerHeight={footerHeight} screenHeight={screenHeight} svgHeight={svgHeight} titleHeight={titleHeight}
-                className={`absolute w-full left-1/2 -translate-x-1/2 ${screenHeight > 1000 ? 'top-[60px]' : 'top-6 md:top-[20px]'}`} >
-
-                <Story1Astrid setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0} />
-
-
-                {/* <Story2Pharma speed={1} scrollMin={mobile ? 0 : 0} scrollMax={mobile ? 0.05 : 0.10} />
+            {/* <Story2Pharma speed={1} scrollMin={mobile ? 0 : 0} scrollMax={mobile ? 0.05 : 0.10} />
                 <Story3Mountain speed={1} scrollMin={mobile ? 0.055 : 0.11} scrollMax={mobile ? 0.11 : 0.2} />
                 <Story4Flowers speed={1} scrollMin={mobile ? 0.115 : 0.215} scrollMax={mobile ? 0.2 : 0.35} />
                 <Story5Meaning speed={1} scrollMin={mobile ? 0.22 : 0.39} scrollMax={mobile ? 0.28 : 0.42} />
@@ -154,50 +184,19 @@ export default function Home({ }) {
                 <Story12Support speed={1} scrollMin={mobile ? 0.81 : 0.88} scrollMax={mobile ? 0.9 : 0.995} />
                 <StoryText /> */}
 
-              </ScrollingDiv>
-            </FadeDiv>
+            {/* </ScrollingDiv> */}
+            {/* </FadeDiv> */}
+
 
           </section>
 
-{/* 
-          <div style={{ transform: `translate(calc(-50% + ${getButtonPositionX(mobile ? 298 : 671)}px), calc(-100% + ${getButtonPositionY(mobile ? 2650 : 1360)}px)` }} className='absolute left-1/2 top-0'>
-            <Button text='Pre-Order' to='/pre-order'
-              small={screenWidth < 900} med={screenWidth > 900} tabIndex={finished ? 0 : mobile ? (scrolled > 0.92 ? 0 : -1) : -1}
-              className={`transition-all ${finished ? 'visible ' : mobile ? (scrolled > 0.92 ? 'visible ' : 'invisble') : 'invisible'}`}
-              style={{ transition: 'all 0.5s ease, opacity 1.5s ease', opacity: finished ? 1 : mobile ? (scrolled > 0.40 ? 1 : 0) : 0 }}
-            />
-          </div>
-
-          <div style={{ transform: `translate(calc(-50% + ${getButtonPositionX(mobile ? 448 : 822)}px), calc(-100% + ${getButtonPositionY(mobile ? 2549 : 1294)}px)` }} className='absolute left-1/2 top-0'>
-            <Button text='Sun' to='/collection/#sun'
-              small={screenWidth < 900} med={screenWidth > 900} tabIndex={finished ? 0 : mobile ? (scrolled > 0.92 ? 0 : -1) : -1}
-              className={`transition-all ${finished ? 'visible ' : mobile ? (scrolled > 0.92 ? 'visible ' : 'invisble') : 'invisible'}`}
-              style={{ transition: 'all 0.5s ease, opacity 1.5s ease', opacity: finished ? 1 : mobile ? (scrolled > 0.42 ? 1 : 0) : 0 }}
-            />
-          </div>
-
-          <div style={{ transform: `translate(calc(-50% + ${getButtonPositionX(mobile ? 556 : 883)}px), calc(-100% + ${getButtonPositionY(mobile ? 2462 : 1215)}px)` }} className='absolute left-1/2 top-0'>
-            <Button text='Moon' to='/collection/#moon'
-              small={screenWidth < 900} med={screenWidth > 900} tabIndex={finished ? 0 : mobile ? (scrolled > 0.92 ? 0 : -1) : -1}
-              className={`transition-all ${finished ? 'visible ' : mobile ? (scrolled > 0.92 ? 'visible ' : 'invisble') : 'invisible'}`}
-              style={{ transition: 'all 0.5s ease, opacity 1.5s ease', opacity: finished ? 1 : mobile ? (scrolled > 0.43 ? 1 : 0) : 0 }}
-            />
-          </div>
-
-          <div style={{ transform: `translate(calc(-50% + ${getButtonPositionX(mobile ? 497 : 1183)}px), calc(-100% + ${getButtonPositionY(mobile ? 1744 : 819)}px)` }} className='absolute left-1/2 top-0'>
-            <Button text='100% Merino' to='/merino'
-              small={screenWidth < 900} med={screenWidth > 900} tabIndex={finished ? 0 : mobile ? (scrolled > 0.92 ? 0 : -1) : -1}
-              className={`transition-all ${finished ? 'visible ' : mobile ? (scrolled > 0.92 ? 'visible ' : 'invisble') : 'invisible'}`}
-              style={{ transition: 'all 0.5s ease, opacity 1.5s ease', opacity: finished ? 1 : mobile ? (scrolled > 0.53 ? 1 : 0) : 0 }}
-            />
-          </div>
-          <div style={{ transform: `translate(calc(-50% + ${getButtonPositionX(mobile ? 442 : 591)}px), calc(-100% + ${getButtonPositionY(mobile ? 956 : 565)}px)` }} className='absolute left-1/2 top-0'>
-            <Button text='Run Everywhere' to='https://www.facebook.com/groups/runeverywhere.spiree'
-              small={screenWidth < 900} med={screenWidth > 900} tabIndex={finished ? 0 : mobile ? (scrolled > 0.92 ? 0 : -1) : -1}
-              className={`transition-all ${finished ? 'visible ' : mobile ? (scrolled > 0.92 ? 'visible ' : 'invisble') : 'invisible'}`}
-              style={{ transition: 'all 0.5s ease, opacity 1.5s ease', opacity: finished ? 1 : mobile ? (scrolled > 0.7 ? 1 : 0) : 0 }}
-            />
-          </div> */}
+          {/* <Parallax className={`fixed left-16 bottom-24`}> */}
+          <h1 className='font-lora text-6xl text-primary fixed left-16 bottom-24'>
+            <span className='depth1 scale-0.5'>I am a</span>
+            <span className='depth2 scale-125'>Photo</span>
+            <span className='depth3 scale-150'>grapher</span>
+          </h1>
+          {/* </Parallax> */}
         </PageWrapper>
       </main>
     </>
