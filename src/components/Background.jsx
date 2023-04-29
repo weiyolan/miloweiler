@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useAppContext } from "@utils/appContext"
 import FadeDiv from './FadeDiv'
 
-export default function Background({ src, type, moves, amount, height, maxMoves, className }) {
+export default function Background({ src, type, moves, priority, amount, height, maxMoves, className }) {
   
   return (
     <FadeDiv className={`fixed w-full ${height?height:'h-screen'} ${className?className:''}`} type={type} amount={amount}>
@@ -12,7 +12,7 @@ export default function Background({ src, type, moves, amount, height, maxMoves,
         {/* <div className='flex w-full absolute top-0 h-[100vh] ' > */}
         {/* {console.log(height*(1+overflow)+'px')} */}
         {/* {console.log(`translate(-${Y}px,0)`)} */}
-        {src && <Image alt='' fill priority src={src} className={`object-cover object-center `} sizes="100vw" quality={100} />}
+        {src && <Image alt='' fill priority={priority?priority:false} src={src} className={`object-cover object-center `} sizes="100vw" quality={100} />}
         {/* Empty ALT for purely decorative images */}
         {/* </div> */}
       </div>

@@ -28,6 +28,10 @@ import Story2Moon from '@/components/line/Story2Moon'
 import Button from '@/components/Button'
 import Background from '@/components/Background'
 import Parallax from '@/components/Parallax'
+import StoryText from '@/components/line/StoryText'
+import StoryTitle from '@/components/line/StoryTitle'
+import Image from 'next/image'
+import PageDescription from '@/components/line/PageDescription'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -51,6 +55,7 @@ export default function Home({ }) {
   let [maxMoveTracker, setMaxMoveTracker] = useState(0) //Tracker to move background when animation moves
 
   let [finished, setFinished] = useState(false)
+  let [introAnimated, setIntroAnimated] = useState(false)
 
   let mobile = screenWidth < 768
 
@@ -61,7 +66,7 @@ export default function Home({ }) {
   }, [scrolled])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
@@ -119,10 +124,10 @@ export default function Home({ }) {
 
   useEffect(() => {
     ctx.current.add(() => {
-      gsap.to(['.firstPage', '.svgPage'], {
-        y: '-90vh',
-        duration: 1,
-        ease: 'power3.inout',
+      gsap.to(['.svgPage'], {
+        y: '-=165vh',
+        duration: 2,
+        // ease: 'expo.inout',
         scrollTrigger: {
           trigger: '#beam',
           // start: width < 648 ? '30% 20%' : 'center 20%',
@@ -131,6 +136,91 @@ export default function Home({ }) {
           toggleActions: 'play none reverse none',
           invalidateOnRefresh: true,
           // scrub: 2,
+          markers: false,
+        }
+      })
+      gsap.to(['.pageIntro'], {
+        y: '-=120',
+        // duration: 1,
+        // ease: 'power2.inout',
+        scrollTrigger: {
+          // trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          // start: '30% 50%',
+          // end: "30% 50%",
+          // toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          scrub: 1,
+          markers: false,
+        }
+      })
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 50%',
+          end: "30% 50%",
+          toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          // scrub: 2,
+          markers: true,
+        }
+      })
+        .to(['.pageIntro'], {
+          y: '-=60',
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.inout',
+        })
+        .to(['.page1'], {
+          y: '-=10vh',
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.inout',
+        }, '<')
+        .to(['.page1stars'], {
+          y: '+=40px',
+          opacity: 1,
+          duration: 1,
+          ease: 'power.out',
+        }, '<')
+        .to(['.page1feet'], {
+          y: '-=5vh',
+          opacity: 1,
+          duration: 1,
+          ease: 'power.out',
+        }, '<')
+      
+        gsap.to(['.page1description'], {
+        y: '-=5px',
+        opacity: 1,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 15%',
+          end: "30% 15%",
+          toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          // scrub: 2,
+          markers: false,
+        }
+        // ease: 'expo.out',
+      }, '<')
+
+      gsap.to(['.page1stars'], {
+        y: '-=40px',
+        // duration: 1,
+        // ease: 'power2.inout',
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 45%',
+          // end: '30% 46%',
+          // toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          scrub: 1,
           markers: true,
         }
       })
@@ -151,52 +241,29 @@ export default function Home({ }) {
 
         <PageWrapper
           darkMode={true}
-          viewBox={mobile ? "0 0 701 5157" : "0 0 1760 5420"}
+          viewBox={mobile ? "0 0 701 5157" : "0 0 1782 5420"}
           // svgWidth={""} 
           finished={finished}
           mobile={mobile}
           setAnimationLocation={setAnimationLocation}
           setTextLocation={setTextLocation}
         >
-          <Background type='bottom' amount={10} src='/images/mainpageMoon.jpg' className={'firstPage top-[90vh]'} />
-          <Background type='bottom' amount={40} src='/images/mainpageStars.jpg' height='h-[160vh]' className={'firstPage'} />
-          {/* <Background src='' /> */}
-          {/* <Backgroun */}
+          <Background type='bottom' priority amount={20} src='/images/mainpageStars.jpg' height='h-[160vh]' className={'pageIntro'} />
+          <Background type='bottom' amount={10} src='/images/mainpageMoon.jpg' height='h-[100vh]' className={'page1 opacity-0 top-[20vh]'} />
+          <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} />
 
-          <section className='svgPage flex w-full h-screen mx-auto fixed top-[calc(50%-200px)] ' >
+          <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' />
 
-            {/* <FadeDiv style={{ height: (mobile || finished) ? scrollingDivHeight + 'px' : svgViewHeight + 'px', width: screenWidth + 'px', top: titleHeight + 'px' }} className={`${(mobile || finished) ? 'absolute' : 'fixed'} flex left-1/2 -translate-x-1/2 `} amount={false ? (finished ? 0 : mobile ? 2 : 10) : 0} type={false ? (finished ? `top` : 'both') : 'none'}> */}
-            {/* <ScrollingDiv setMoveTracker={setMoveTracker} setMaxMoveTracker={setMaxMoveTracker} setScrollingDivHeight={setScrollingDivHeight} finishingScroll={finishingScroll} animationLocation={animationLocation} textLocation={textLocation} footerHeight={footerHeight} screenHeight={screenHeight} svgHeight={svgHeight} titleHeight={titleHeight}
-                className={`absolute w-full left-1/2 -translate-x-1/2 ${screenHeight > 1000 ? 'top-[60px]' : 'top-6 md:top-[20px]'}`} > */}
-            <Story1Logo setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0}/>
+          <section className='svgPage flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' >
+            <Story1Logo setIntroAnimated={setIntroAnimated} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0} />
             <Story2Moon speed={1} scrollMin={0} scrollMax={0} />
-
-            {/* <Story2Pharma speed={1} scrollMin={mobile ? 0 : 0} scrollMax={mobile ? 0.05 : 0.10} />
-                <Story3Mountain speed={1} scrollMin={mobile ? 0.055 : 0.11} scrollMax={mobile ? 0.11 : 0.2} />
-                <Story4Flowers speed={1} scrollMin={mobile ? 0.115 : 0.215} scrollMax={mobile ? 0.2 : 0.35} />
-                <Story5Meaning speed={1} scrollMin={mobile ? 0.22 : 0.39} scrollMax={mobile ? 0.28 : 0.42} />
-                <Story6Spiree speed={1} scrollMin={mobile ? 0.29 : 0.45} scrollMax={mobile ? 0.35 : 0.53} />
-                <Story7SunMoon speed={1} scrollMin={mobile ? 0.36 : 0.55} scrollMax={mobile ? 0.42 : 0.62} />
-                <Story8Merino speed={1} scrollMin={mobile ? 0.48 : 0.64} scrollMax={mobile ? 0.53 : 0.70} />
-                <Story9Passion speed={1} scrollMin={mobile ? 0.55 : 0.73} scrollMax={mobile ? 0.63 : 0.76} />
-                <Story10RE speed={1} scrollMin={mobile ? 0.64 : 0.78} scrollMax={mobile ? 0.7 : 0.82} />
-                <Story11Women speed={1} scrollMin={mobile ? 0.71 : 0.83} scrollMax={mobile ? 0.8 : 0.86} />
-                <Story12Support speed={1} scrollMin={mobile ? 0.81 : 0.88} scrollMax={mobile ? 0.9 : 0.995} />
-                <StoryText /> */}
-
-            {/* </ScrollingDiv> */}
-            {/* </FadeDiv> */}
-
-
           </section>
+          {/* LEGS */}
+          {/* 265px */}
+          <StoryTitle introAnimated={introAnimated} />
+          <PageDescription animateName='page1description' className={`text-left top-6 left-8 `} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
-          {/* <Parallax className={`fixed left-16 bottom-24`}> */}
-          <h1 className='font-lora text-6xl text-primary fixed left-16 bottom-24'>
-            <span className='depth1 scale-0.5'>I am a</span>
-            <span className='depth2 scale-125'>Photo</span>
-            <span className='depth3 scale-150'>grapher</span>
-          </h1>
-          {/* </Parallax> */}
+
         </PageWrapper>
       </main>
     </>

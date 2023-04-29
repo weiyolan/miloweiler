@@ -48,6 +48,7 @@ export function Path(props) {
     delete pathProps.strokeColor
     delete pathProps.home
     delete pathProps.drawDuration
+    delete pathProps.ignoreVisibility //to disable a transparent stroke when not visible
     delete pathProps.scrolled
     delete pathProps.useId
     delete pathProps.lengthFactor
@@ -67,7 +68,7 @@ export function Path(props) {
     delete pathProps['clip-rule']
     pathProps.strokeDasharray = dashArray.length>0?dashArray:(pathLength) + ' ' + (pathLength);
 
-    if (visible) {
+    if (visible || props?.ignoreVisibility) {
       let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFF5EA'
       pathProps.stroke = props.animateStroke?animationEnd?'transparent':myStroke:myStroke
       pathProps.fill = props.animateFill?animationEnd?props?.fillColor||'#FFF5EA':'transparent':'transparent';
