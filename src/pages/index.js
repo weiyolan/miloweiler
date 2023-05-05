@@ -32,6 +32,7 @@ import StoryText from '@/components/line/StoryText'
 import StoryTitle from '@/components/line/StoryTitle'
 import Image from 'next/image'
 import PageDescription from '@/components/line/PageDescription'
+import Page1Photos from '@/components/line/Page1Photos'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,6 +57,8 @@ export default function Home({ }) {
 
   let [finished, setFinished] = useState(false)
   let [introAnimated, setIntroAnimated] = useState(false)
+  let [textAppear, setTextAppear] = useState({ textAppear: false })
+  let [textDisappear, setTextDisappear] = useState({ textDisappear: false })
 
   let mobile = screenWidth < 768
 
@@ -66,7 +69,7 @@ export default function Home({ }) {
   }, [scrolled])
 
   useEffect(() => {
-    // window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
@@ -154,60 +157,7 @@ export default function Home({ }) {
           markers: false,
         }
       })
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: '#beam',
-          // start: width < 648 ? '30% 20%' : 'center 20%',
-          start: '30% 50%',
-          end: "30% 50%",
-          toggleActions: 'play none reverse none',
-          invalidateOnRefresh: true,
-          // scrub: 2,
-          markers: true,
-        }
-      })
-        .to(['.pageIntro'], {
-          y: '-=60',
-          opacity: 1,
-          duration: 1,
-          ease: 'power2.inout',
-        })
-        .to(['.page1'], {
-          y: '-=10vh',
-          opacity: 1,
-          duration: 1,
-          ease: 'power2.inout',
-        }, '<')
-        .to(['.page1stars'], {
-          y: '+=40px',
-          opacity: 1,
-          duration: 1,
-          ease: 'power.out',
-        }, '<')
-        .to(['.page1feet'], {
-          y: '-=5vh',
-          opacity: 1,
-          duration: 1,
-          ease: 'power.out',
-        }, '<')
-      
-        gsap.to(['.page1description'], {
-        y: '-=5px',
-        opacity: 1,
-        stagger: 0.2,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '#beam',
-          // start: width < 648 ? '30% 20%' : 'center 20%',
-          start: '30% 15%',
-          end: "30% 15%",
-          toggleActions: 'play none reverse none',
-          invalidateOnRefresh: true,
-          // scrub: 2,
-          markers: false,
-        }
-        // ease: 'expo.out',
-      }, '<')
+
 
       gsap.to(['.page1stars'], {
         y: '-=40px',
@@ -217,14 +167,120 @@ export default function Home({ }) {
           trigger: '#beam',
           // start: width < 648 ? '30% 20%' : 'center 20%',
           start: '30% 45%',
-          // end: '30% 46%',
+          // end: '30% 45%',
           // toggleActions: 'play none reverse none',
           invalidateOnRefresh: true,
           scrub: 1,
-          markers: true,
+          markers: false,
         }
       })
+
+      // gsap.to([textAppear], {
+      //   textAppear: true,
+      //   // duration: 1,
+      //   // ease: 'power2.inout',
+      //   scrollTrigger: {
+      //     trigger: '#beam',
+      //     start: '30% 80%',
+      //     // end: '30% 80%',
+      //     toggleActions: 'play none reverse none',
+      //     invalidateOnRefresh: true,
+      //     // scrub: 1,
+      //     markers: true,
+      //   },
+      //   onComplete: () => {console.log(textAppear) ;setTextAppear({ ...textAppear }) }
+      // })
+
+      gsap.to(['.page1stars'], {
+        y: '-=40px',
+        // duration: 1,
+        // ease: 'power2.inout',
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 45%',
+          // end: '30% 45%',
+          // toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          scrub: 1,
+          markers: false,
+        }
+      })
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: '#beam',
+          // start: width < 648 ? '30% 20%' : 'center 20%',
+          start: '30% 50%',
+          end: "30% 50%",
+          toggleActions: 'play none reverse none',
+          invalidateOnRefresh: true,
+          // scrub: 2,
+          markers: false,
+        }
+      })
+        .to(['.pageIntro'], {
+          y: '-=60',
+          opacity: 1,
+          // duration: 1,
+          ease: 'power2.inout',
+        })
+        .to(['.page1'], {
+          y: '-=10vh',
+          opacity: 1,
+          // duration: 1,
+          ease: 'power2.inout',
+        }, '<')
+        .to(['.page1stars'], {
+          y: '-=40px',
+          opacity: 1,
+          // duration: 1,
+          ease: 'power.out',
+        }, '<')
+        .to(['.page1feet'], {
+          y: '-=5vh',
+          opacity: 1,
+          // duration: 1,
+          ease: 'power.out',
+        }, '<')
     })
+
+    gsap.to(['.page1description'], {
+      y: '-=5px',
+      opacity: 1,
+      stagger: 0.2,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '#beam',
+        // start: width < 648 ? '30% 20%' : 'center 20%',
+        start: '30% 25%',
+        end: "30% 25%",
+        toggleActions: 'play none reverse none',
+        invalidateOnRefresh: true,
+        // scrub: 2,
+        markers: false,
+      }
+      // ease: 'expo.out',
+    })
+
+    gsap.to(['.page1photos'], {
+      // y: '-=5px',
+      opacity: 1,
+      stagger: 0.05,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '#beam',
+        // start: width < 648 ? '30% 20%' : 'center 20%',
+        start: '30% 10%',
+        end: "30% 10%",
+        toggleActions: 'play none reverse none',
+        invalidateOnRefresh: true,
+        // scrub: 2,
+        markers: false,
+      }
+      // ease: 'expo.out',
+    })
+
   }, [])
 
   return (
@@ -260,9 +316,9 @@ export default function Home({ }) {
           </section>
           {/* LEGS */}
           {/* 265px */}
-          <StoryTitle introAnimated={introAnimated} />
-          <PageDescription animateName='page1description' className={`text-left top-6 left-8 `} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
-
+          <StoryTitle textAppear={textAppear} textDisappear={textDisappear} />
+          <PageDescription animateName='page1description' className={`text-left top-8 left-8 `} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
+          <Page1Photos />
 
         </PageWrapper>
       </main>

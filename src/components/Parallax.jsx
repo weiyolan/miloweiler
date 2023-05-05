@@ -4,11 +4,11 @@ import React, { useEffect, useRef } from 'react'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Parallax({ children, className, ...props }) {
+export default function Parallax({ children, scope, className, trigger, start, small, ...props }) {
   const ctx = useRef(null)
-
+  
   useEffect(() => {
-    ctx.current = gsap.context(() => { }, '.parallaxContainer')
+    ctx.current = gsap.context(() => { }, `.parallaxContainer${scope}`)
     return () => ctx.current.revert();
   }, []);
 
@@ -29,29 +29,29 @@ export default function Parallax({ children, className, ...props }) {
       // TRANSFORMATION
       gsap.timeline({
         scrollTrigger: {
-          trigger: '#beam',
+          trigger: trigger,
           // start: width < 648 ? '30% 20%' : 'center 20%',
-          // start: '40% bottom',
+          start: start,
           // end: "max",
           invalidateOnRefresh: true,
-          scrub: 1,
-          markers: false,
+          scrub: 2,
+          markers: true,
         }
       })
         .to('.depth1', {
-          y: '-=400',
+          y: small?'-=150':'-=400',
         })
         .to('.depth2', {
-          y: '-=200',
+          y: small?'-=100':'-=200',
         }, '<')
         .to('.depth3', {
-          y: '-=50',
+          y: small?'-=50':'-=50',
         }, '<')
     })
   }, [])
 
   return (
-    <div className={`parallaxContainer ${className ? className : ''}`} {...props}>
+    <div className={`parallaxContainer${scope} ${className ? className : ''}`} {...props}>
       {children}
     </div>
   )

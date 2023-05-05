@@ -82,7 +82,7 @@ export default function Gallery({ projects }) {
           <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`uppercase font-lora text-center text-3xl py-4 `}>Gallery</h1>
 
-          <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-5'>
+          <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-4'>
             {projects.map((project, i) => <ProjectThumb gridStaggerAnimation={pushCardsOnClick} activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
             {/* {console.log(artificialProjects(20))} */}
           </div>

@@ -87,7 +87,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
         <div className='absolute w-full h-full top-0 left-0 '>
 
-          <SanityImage onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 20vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
+          <SanityImage onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
           {/* {console.log(project.mainImage)} */}
           <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between   p-2 sm:p-4`}>
 
