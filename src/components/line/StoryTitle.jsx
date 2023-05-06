@@ -17,98 +17,81 @@ export default function StoryTitle({ textAppear, textDisappear }) {
   let stagger = 0.3;
   useEffect(() => {
     ctx.current.add(() => {
-      // gsap.timeline()
-      //   .to('.depth3Title', {
-      //     opacity: textAppear ? 1 : 0,
-      //     y: textDisappear?'-=10': textAppear ? '-=5' : '+=5',
-      //     stagger:stagger,
-      //     durationAppear: durationAppear,
-      //     ease: 'power3.out'
-      //   })
-      //   .to('.depth2Title', {
-      //     opacity: textAppear ? 1 : 0,
-      //     y: textDisappear?'-=25': textAppear ? '-=15' : '+=15',
-      //     stagger:stagger,
-      //     durationAppear: durationAppear,
-      //     ease: 'power3.out'
-      //   }, '<+=0.1')
-      //   .to('.depth1Title', {
-      //     opacity: textAppear ? 1 : 0,
-      //     y: textDisappear?'-=40': textAppear ? '-=30' : '+=30',
-      //     stagger:stagger,
-      //     durationAppear: durationAppear,
-      //     ease: 'power3.out'
-      //   }, '<+=0.1')
-        gsap.timeline(      
-           { scrollTrigger: {
-              trigger: '#beam',
-              start: '30% 95%',
-              // end: '30% 95%',
-              toggleActions: 'play none none none',
-              invalidateOnRefresh: true,
-              // scrub: 1,
-              markers: false,
-            }})
+      gsap.timeline(
+        {
+          scrollTrigger: {
+            trigger: '#beam',
+            start: '30% 95%',
+            // end: '30% 95%',
+            toggleActions: 'play none none none',
+            invalidateOnRefresh: true,
+            // scrub: 1,
+            markers: false,
+          }
+        })
         .to('.depth3Title', {
           opacity: 1,
           // y: '-=5',
-          stagger:stagger,
+          stagger: stagger,
           duration: durationAppear,
           ease: 'power3.out'
         })
         .to('.depth2Title', {
-          opacity: 1 ,
+          opacity: 1,
           // y: '-=15',
-          stagger:stagger,
+          stagger: stagger,
           duration: durationAppear,
           ease: 'power3.out'
         }, '<+=0.1')
         .to('.depth1Title', {
-          opacity: 1 ,
+          opacity: 1,
           // y: '-=30',
-          stagger:stagger,
+          stagger: stagger,
           duration: durationAppear,
           ease: 'power3.out'
         }, '<+=0.1')
 
-        gsap.timeline(      
-          { scrollTrigger: {
-             trigger: '#beam',
-             start: '30% 45%',
-             end: '30% 45%',
-             toggleActions: 'play none reverse none',
-             invalidateOnRefresh: true,
-             // scrub: 1,
-             markers: false,
-           }})
-       .to('.depth3Title', {
-         opacity: 0,
-         y: '+=220',
-        //  stagger:stagger,
-         duration: durationDisappear,
-         ease: 'power3.out'
-       })
-       .to('.depth2Title', {
-         opacity: 0 ,
-         y: '+=250',
-        //  stagger:stagger,
-         duration: durationDisappear,
-         ease: 'power3.out'
-       }, '<')
-       .to('.depth1Title', {
-         opacity: 0 ,
-         y: '+=270',
-        //  stagger:stagger,
-         duration: durationDisappear,
-         ease: 'power3.out'
-       }, '<')
-      
+      gsap.timeline(
+        {
+          scrollTrigger: {
+            trigger: '#beam',
+            start: '30% 45%',
+            // end: '30% 45%',
+            end: '30% 25%',
+            // toggleActions: 'play none reverse none',
+            invalidateOnRefresh: true,
+            scrub: 1,
+            markers: false,
+          }
+        })
+        .to('.depth3Title', {
+          opacity: 0,
+          y: '+=220',
+          //  stagger:stagger,
+          duration: durationDisappear,
+          ease: 'power3.out'
+        })
+        .to('.depth2Title', {
+          opacity: 0,
+          y: '+=250',
+          //  stagger:stagger,
+          duration: durationDisappear,
+          ease: 'power3.out'
+        }, '<')
+        .to('.depth1Title', {
+          opacity: 0,
+          y: '+=270',
+          //  stagger:stagger,
+          duration: durationDisappear,
+          ease: 'power3.out'
+        }, '<')
+
     })
 
   }, [textAppear])
 
   return (
-    <Parallax small scope='title' trigger='.depth3Title' start='100% 98%' className={`svgPage w-screen h-screen fixed top-0`}>
+    <Parallax small scope='title' trigger='.depth3Title' start='100% 98%' className={`svgPage1 w-screen h-screen fixed top-0`}>
 
       <h1 className='font-lora text-6xl text-primary fixed left-16 bottom-24 scale-150 hidden'>
         I am a Photographer

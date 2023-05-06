@@ -35,7 +35,7 @@ export default function Parallax({ children, scope, className, trigger, start, s
           // end: "max",
           invalidateOnRefresh: true,
           scrub: 2,
-          markers: true,
+          markers: false,
         }
       })
         .to('.depth1', {
