@@ -138,7 +138,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
   // ========================== MAIN FOOTER CONTENT HERE =======================
   return (
-    <motion.section ref={footerRef}
+    <section ref={footerRef}
       initial={{ y: `${width < breakPointSmall ? 100 : 200}` }}
       whileInView={{ y: 0, transition: { type: 'spring', stiffness: 200, damping: 25 } }}
       viewport={{ once: true }}
@@ -148,7 +148,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
       {getContent()}
  
 
-    </motion.section>
+    </section>
   )
 }
 

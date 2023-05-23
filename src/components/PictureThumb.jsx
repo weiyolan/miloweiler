@@ -134,7 +134,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       style={{ }}
       id={`pictureThumb${index}`}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
-      className={`picture-thumb scale-50 opacity-0 relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2   ${visible ? '' : ''}  
+      className={`picture-thumb scale-50 opacity-0  relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2   ${visible ? '' : ''}  
       before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}

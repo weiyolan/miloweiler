@@ -132,6 +132,7 @@ export default function Home({ }) {
           scrub: 2,
           markers: true,
           invalidateOnRefresh: true,
+          preventOverlaps:true,
         }
       })
         .to('.pageIntro', {
@@ -139,7 +140,6 @@ export default function Home({ }) {
         }, 0)
         // 
         const transition1 = gsap.timeline({
-        // duration: 3,
         // ease: 'power3.inout',
         scrollTrigger: {
           // trigger: '',
@@ -151,7 +151,8 @@ export default function Home({ }) {
           invalidateOnRefresh: true,
           // scrub: 2,
           markers: {startColor: "pink",indent: 40},
-          toggleActions:'play none reverse none'
+          toggleActions:'play none reverse none',
+          preventOverlaps:true,
           // onUpdate: self => {
           //   // console.log(self.getVelocity())
           //   velocity.current = self.getVelocity()
@@ -305,12 +306,12 @@ export default function Home({ }) {
         // // })
         // //====================== PageTransition2 ======================
 
-        .to(['.svgPage1', '.page1feet'], {
-          // y: `-=${0.15986 * svgHeight}px`, //REL
-          y: `-${(0.15986 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
-          duration: 10,
-          ease: 'power4.inout',
-        }, 20)
+        // .to(['.svgPage1', '.page1feet'], {
+        //   // y: `-=${0.15986 * svgHeight}px`, //REL
+        //   y: `-${(0.15986 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
+        //   duration: 10,
+        //   ease: 'power4.inout',
+        // }, 20)
 
       // //====================== PageTransition3 ======================
 
@@ -391,7 +392,7 @@ export default function Home({ }) {
             <Story2Waves speed={1} scrollMin={0.14} scrollMax={0.16} />
           </section> */}
 
-            <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh' }} className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 mx-auto fixed top-[calc(200px)] ' >
+            <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform:'translate3d(-50%,0,0)' }} className='svgPage2 flex w-[115.86vw] left-1/2  mx-auto fixed top-[calc(200px)] ' >
               <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' />
               {/* timeline={masterTl} */}
               <Story1Logo setSvgTop={setSvgTop} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0.15} />

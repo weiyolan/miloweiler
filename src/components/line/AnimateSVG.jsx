@@ -128,8 +128,8 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
 
     return (
       <SVGWrapper handleLength={handleLength} myRatio={allRatios} prevRatio={allPrevRatios} scrollMin={scrollMin} scrollMax={scrollMax} animationSpeed={speed}>
-        <svg  ref={svgRef} alt={alt} style={{transform: `translate(-50%, 0px)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
-          className={`absolute w-full left-1/2`}>
+        <svg  ref={svgRef} alt={alt} style={{transform: `translate3d(-50%, 0px,0)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
+          className={`absolute will-change-transform w-full left-1/2`}>
           {/* className={`absolute w-5/6 xs:w-4/6 sm:w-3/6 md:w-5/6 xl:w-3/5 max-w-6xl left-1/2`}> */}
           
           <g ref={animationRef}>
