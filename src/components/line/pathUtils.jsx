@@ -313,13 +313,13 @@ export function Path(props) {
 
   switch (props.type) {
     case 'rect' :
-      return <rect ref={pathRef} className={`${props.animateFill||props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
+      return <rect ref={pathRef} className={`${props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
     case 'circle' :
-      return <circle ref={pathRef} className={`${props.animateFill||props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
+      return <circle ref={pathRef} className={`${props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
     case 'use' :
-      return <use href={props.useId} ref={pathRef} className={`${props.animateFill||props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
+      return <use href={props.useId} ref={pathRef} className={`${props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
     default :
-      return <path ref={pathRef} className={`${props.animateFill||props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
+      return <path ref={pathRef} className={`${props?.shadowSmall?'drop-shadow-[0_10px_8px_rgba(0,0,0,0.2)]':props?.shadowBig?'drop-shadow-[0_10px_8px_rgba(0,0,0,1)]':''}`} style={style} {...childProps} />
     }
 }
 

@@ -8,7 +8,7 @@ import { usePageContext } from "@utils/pageContext"
 import { useDimensions } from "@/utils/useDimensions"
 // import useGoodChildren from "./useGoodChildren"
 
-export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, setSvgHeight, setSvgWidth, print}) { 
+export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, setSvgHeight, setSvgWidth, setSvgTop, print}) { 
 
     let [allLengths, setAllLengths] = useState([])
     let [allOffsetLengths, setAllOffsetLengths] = useState([])
@@ -52,22 +52,23 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
       let bbox = svgRef.current.getBoundingClientRect()
       let height = bbox.bottom - bbox.top;
       let width = bbox.width;
+      let top = bbox.top;
       if (height>=0 && height!==myHeight && setSvgHeight!==undefined) {
         setSvgHeight(height)
         setMyHeight(height)
         setSvgWidth(width)
+        setSvgTop(top)
         // console.log('effect fired!')
       }
-
     }
 
     useEffect(()=>{
 
-      window.addEventListener('resize',handleSize)
+      window.addEventListener('resize', handleSize)
 
       handleSize()
 
-      return window.removeEventListener('resize',handleSize)
+      return window.removeEventListener('resize', handleSize)
     },[ viewBox, children, setSvgHeight])
 
 

@@ -12,14 +12,13 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // import useStateRef from "@/utils/useStateRef"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Story1Logo({ scrollMin, scrollMax, setIntroAnimated, speed, setSvgHeight, setSvgWidth, banner }) {
+export default function Story1Logo({ scrollMin, scrollMax, timeline, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
 
-  let { locale, scrolled } = useAppContext()
+  let { locale, scrolled, height: screenHeight } = useAppContext()
 
   let { mobile } = usePageContext()
   const ctx = useRef(gsap.context(() => { }));
-  let tl = useRef()
-  // let [tl] = useRef()
+  // let tl = useRef()
   let [started, setStarted] = useState(false)
 
   let [fakeScroll1, setFakeScroll1] = useState({ scroll: 0 })
@@ -38,175 +37,132 @@ export default function Story1Logo({ scrollMin, scrollMax, setIntroAnimated, spe
   // ============= INTRO ANIMATION =================
   useEffect(() => {
     // let tl;
-    let timer = setTimeout(() => {
-      ctx.current.add(() => {
-        tl.current = gsap.timeline()
-          .to(fakeScroll1, {
-            scroll: 1000,
-            ease: 'power2.inout',
-            duration: 5,
-            onUpdate: () => { setFakeScroll1({ ...fakeScroll1 }) }
-          })
-          .set(animateSun, {
-            animate: true,
-            // ease: 'power2.inout',
-            // duration: 3,
-            onUpdate: () => { setAnimateSun({ ...animateSun }) }
-          }, '-=3')
-          .set(animateStroke1, {
-            animate: true,
-            // ease: 'power2.inout',
-            // duration: 3,
-            onUpdate: () => { setAnimateStroke1({ ...animateStroke1 }) }
-          }, '<+=1')
-          .to(
-            ['#rayMaskCircle'],
-            {
-              r: 240,
-              // transformOrigin:'50% 50%',
-              stagger: 0.15,
-              duration: 2,
-              ease: 'expo.out',
-              // onUpdate: () => { setFakeScroll2({ ...fakeScroll2 }); setFakeScroll3({ ...fakeScroll3 }) }
-            }, '<')
-          .to('#circle', {
-            opacity: 1,
-            // scale: 2,
-            ease: 'power2.inout',
-            duration: 1,
-            // yoyo:true,
-            // onUpdate: () => { setFakeScroll1({ ...fakeScroll1 }) }
-          }, '<+=1')
-          .to('#circle', {
-            scale: 3,
-            ease: 'power2.inout',
-            duration: 1,
-            transformOrigin: '50% 50%',
-            yoyo: 'repeat',
-            // onUpdate: () => { setFakeScroll1({ ...fakeScroll1 }) }
-          }, '<')
-          // BEAM
-          .to(fakeScroll45, {
-            scroll: 150,
-            ease: 'power2.inout',
-            // ease: 'back',
-            duration: 3,
-            yoyo: 'repeat',
-            onStart: () => { setIntroAnimated(true) },
-            onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
-          }, '<+=1.5')
-          .to(fakeScroll45, {
-            scroll: 100,
-            ease: 'power2.inout',
-            // ease: 'back',
-            duration: 2,
-            yoyo: true,
-            repeat: started ? 0 : -1,
-            onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
-          })
-      }
-      )
-    }, 200)
-
-    return () => {
-      // console.log('timer cleared')
-      clearTimeout(timer);
-    }
+    ctx.current.add(() => {
+      let introAnimation=gsap.timeline()
+        .to(fakeScroll1, {
+          scroll: 800,
+          duration: 3,
+          ease: 'power2.out',
+          onUpdate: () => { setFakeScroll1({ ...fakeScroll1 }) }
+        })
+        .set(animateSun, {
+          animate: true,
+          // duration: 3,
+          onUpdate: () => { setAnimateSun({ ...animateSun }) }
+        }, '<50%')
+        // .set(animateStroke1, {
+        //   animate: true,
+        //   // duration: 3,
+        //   onUpdate: () => { setAnimateStroke1({ ...animateStroke1 }) }
+        // }, '<+=0.5')
+        .to(['#rayMaskCircle'], {
+          r: 260,
+          stagger: 0.10,
+          duration: 1.5,
+          ease: 'power2.out',
+        }, '-=1')
+        .to('#circle', {
+          opacity: 1,
+          // scale: 2,
+          ease: 'power2.inout',
+          duration: 1,
+          // yoyo:true,
+        }, '<50%')
+        .to('#circle', {
+          scale: 3,
+          ease: 'power2.inout',
+          duration: 1,
+          transformOrigin: '50% 50%',
+          yoyo: 'repeat',
+        }, '<')
+        // BEAM
+        .to(fakeScroll45, {
+          scroll: 100,
+          ease: 'power3.out',
+          // ease: 'back',
+          duration: 2,
+          yoyo: 'repeat',
+          // onStart: () => { setIntroAnimated(true) },
+          onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
+        }, '<30%')
+        .delay(0.2)
+      // .to('#fullLeg',{opacity:1})
+      // .to(fakeScroll45, {
+      //   scroll: 100,
+      //   ease: 'power2.inout',
+      //   // ease: 'back',
+      //   duration: 2,
+      //   yoyo: true,
+      //   repeat: started ? 0 : -1,
+      //   onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
+      // })
+    
+      // console.log(introAnimation.duration())
+    })
   }, [])
   // console.log(scrolled)
 
   // ============= SCROLL ANIMATION ==============
+
+
   useEffect(() => {
-    ctx.current.add(() => {
-      let tl2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#beam',
-          start: '30% 54%',
-          // end: "30% 50%",
-          // end: "max",
-          invalidateOnRefresh: true,
-          scrub: 2,
-          markers: false,
-        }
+
+    // let tl = gsap.timeline(
+    //   // {
+    //   // scrollTrigger: {
+    //   //   markers: true,
+    //   //   // start:0.05*3*screenHeight+'px',
+    //   // }
+    // // }
+    // ).to('svgPage1')
+
+
+    timeline && timeline
+      .addLabel('legStart', 20)
+      .addLabel('dropletStart', 26)
+      // .to('.mainBackground', {
+      //   // opacity: 1,
+      //   duration: 100,
+      // }, 0)
+      // .to('#fullLeg',{opacity:1,duration:5},0)
+      .to(fakeScroll46, {
+        scroll: 790,
+        duration: 20,
+        ease: 'power1.in',
+        onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
+        lazy: false,
+      }, 0)
+      .to(fakeScroll46, {
+        scroll: 1000,
+        duration: 6,
+        ease: 'ease.out',
+        onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
+        lazy: false,
+      }, 20)
+      .set('#droplet2', {
+        scale: 1.2,
+        transformOrigin: '50% 70%',
+        lazy: false,
+      }, 0)
+      .to('#droplet1', {
+        opacity: 1,
+        transformOrigin: '50% 50%',
+        scale: 5,
+        duration: 3,
+        lazy: false,
+      }, 'dropletStart')
+      .to('#droplet2', {
+        opacity: 1,
+        duration: 2,
+        lazy: false,
+      }, 'dropletStart+=3')
+      .to('#droplet1', {
+        opacity: 0,
+        transformOrigin: '50% 50%',
+        lazy: false,
       })
-        .to(fakeScroll46, {
-          scroll: 1000,
-          duration: 3,
-          // ease: "none",
-          onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
-          lazy: false,
-        })
-        .to('#droplet1', {
-          opacity: 1,
-          // duration: 0.2,
-          // ease: "none",
-          // onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
-          lazy: false,
-        })
-        .to('#droplet1', {
-          scale: 10,
-          // duration: 0.5,
-          transformOrigin: '50% 50%',
-          // ease: "none",
-          // onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
-          lazy: false,
-        })
-        .set('#droplet2', {
-          scale: 1.2,
-          transformOrigin: '50% 70%',
-          lazy: false,
-        })
-        .to('#droplet2', {
-          opacity: 1,
-          // duration: 0.5,
-          // ease: "none",
-          // onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
-          lazy: false,
-        }, '<')
-        .to('#droplet1', {
-          opacity: 0,
-          // duration: 0.5,
-          transformOrigin: '50% 50%',
-          // ease: "none",
-          // onUpdate: () => { setFakeScroll46({ ...fakeScroll46 }) },
-          lazy: false,
-        })
-
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: '#droplet1',
-          // start: width < 648 ? '30% 20%' : 'center 20%',
-          start: '30% 55%',
-          // end: "30% 55%",
-          // toggleActions: 'play none reverse none',
-          invalidateOnRefresh: true,
-          scrub: 2,
-          markers: false,
-        }
-      })
-        .to(['#droplet1, #droplet2'], {
-          y: '+=95vh',
-          // duration: 2,
-        })
-        .to('#droplet2', {
-          opacity: 0
-        })
-      // .to(fakeScroll47, {
-      //   scroll: 1000,
-      //   // ease: "none",
-      //   onUpdate: () => { setFakeScroll47({ ...fakeScroll47 }) },
-      //   lazy: false,
-      // })
-      // .to(fakeScroll48, {
-      //   scroll: 1000,
-      //   // ease: "none",
-      //   onUpdate: () => { setFakeScroll48({ ...fakeScroll48 }) },
-      //   lazy: false,
-      // })
-    })
-  }, [])
-
-
+    // return ()=>tl.kill()
+  }, [timeline, screenHeight]);
 
   let colorPrimary = "#FFF5EA";
   let n = 0;
@@ -216,10 +172,10 @@ export default function Story1Logo({ scrollMin, scrollMax, setIntroAnimated, spe
         <Path scrolled={fakeScroll1} drawDuration='1' position={0} inverse={false} id="toAstridMob" d="M351 170C351 332.5 61.9999 266.5 20.5009 410C3.06634 470.287 61.5011 539 118 515" stroke="#FFFAEA" strokeWidth="2" strokeLinecap="round" />
       </g> :
       <g id='desktopPage1'>
-        {/* left */}
-        <Path mask="url(#mask0_322_1018)" transitStrokeAnimation transitPortion={0.65} drawDuration='2' animateStroke={false} strokeColor={animateStroke1.animate ? 'transparent' : colorPrimary} fillColor={'transparent'} lineSpeed={1} scrolled={fakeScroll1.scroll / 1000} inverse={false} double={1} lengthFactor={1} id="lineLeft" d="M24.5 1C235.277 145.095 335.5 -38.5 422 24.5C459.603 51.8869 436.304 151.775 509 173C577.5 193 616 152.13 661.5 164C700 174.043 711.04 196.18 746.5 208C768 215.167 796.5 218.5 816 188.5C842.385 154.12 888.5 141.526 928 160.5C967.5 179.474 994.808 240.5 968.5 282.5C942.192 324.5 889 346.268 841.5 317.5C803.571 294.529 783 239.5 816 189.5C828 172.5 854.5 152 883.5 153" stroke="black" stroke-width="2" />
-        {/* right */}
-        <Path transitStrokeAnimation transitPortion={0.67} drawDuration='2' animateStroke={false} strokeColor={animateStroke1.animate ? 'transparent' : colorPrimary} fillColor={'transparent'} lineSpeed={1} scrolled={fakeScroll1.scroll / 1000} inverse={false} double={1} lengthFactor={1} id="lineRight" d="M1735.5 336C1656 336 1618.5 487.5 1538 472.5C1457.5 457.5 1435.5 334 1366.5 336C1297.5 338 1274.5 396.5 1211.5 386C1148.5 375.5 1154.5 341.113 1115 322C1075.5 302.887 1038.5 327.5 1024 327.5C1008.77 327.5 986.5 329.5 985 299C982.5 241.5 926.5 231.5 907 234C867 240 834 268.497 834 310C834 356.5 888.5 387 918 374.5C906.5 375.5 871.051 370.834 862 335.5C854.095 304.644 874.047 281.145 891 271C909.329 260.032 953.951 260.857 969 292.5C982.662 321.228 970.511 341.652 963.5 350C971.333 345.333 986.8 329 986 301" stroke="black" stroke-width="2" />
+        {/* left 0.65*/}
+        <Path mask="url(#mask0_322_1018)" transitStrokeAnimation transitPortion={0.4} drawDuration='2' strokeColor={animateStroke1.animate ? 'transparent' : colorPrimary} fillColor={'transparent'} lineSpeed={1} scrolled={fakeScroll1.scroll / 1000} inverse={false} double={1} lengthFactor={1} id="lineLeft" d="M24.5 1C235.277 145.095 335.5 -38.5 422 24.5C459.603 51.8869 436.304 151.775 509 173C577.5 193 616 152.13 661.5 164C700 174.043 711.04 196.18 746.5 208C768 215.167 796.5 218.5 816 188.5C842.385 154.12 888.5 141.526 928 160.5C967.5 179.474 994.808 240.5 968.5 282.5C942.192 324.5 889 346.268 841.5 317.5C803.571 294.529 783 239.5 816 189.5C828 172.5 854.5 152 883.5 153" stroke="black" strokeWidth="2" />
+        {/* right 0.67*/}
+        <Path transitStrokeAnimation transitPortion={0.58} drawDuration='2' strokeColor={animateStroke1.animate ? 'transparent' : colorPrimary} fillColor={'transparent'} lineSpeed={1} scrolled={Math.min(fakeScroll1.scroll, 780) / 1000} inverse={false} double={1} lengthFactor={1} id="lineRight" d="M1735.5 336C1656 336 1618.5 487.5 1538 472.5C1457.5 457.5 1435.5 334 1366.5 336C1297.5 338 1274.5 396.5 1211.5 386C1148.5 375.5 1154.5 341.113 1115 322C1075.5 302.887 1038.5 327.5 1024 327.5C1008.77 327.5 986.5 329.5 985 299C982.5 241.5 926.5 231.5 907 234C867 240 834 268.497 834 310C834 356.5 888.5 387 918 374.5C906.5 375.5 871.051 370.834 862 335.5C854.095 304.644 874.047 281.145 891 271C909.329 260.032 953.951 260.857 969 292.5C982.662 321.228 970.511 341.652 963.5 350C971.333 345.333 986.8 329 986 301" stroke="black" strokeWidth="2" />
         {/* moon */}
         <Path fillColor={animateSun.animate ? colorPrimary : 'transparent'} drawDuration='2' scrolled={1} animateStroke={true} animateFill={animateSun.animate} inverse={false} double={1} lengthFactor={1} id="moon" fillRule="evenodd" clipRule="evenodd" d="M833.446 301.604C835.188 284.333 843.211 268.085 856.309 255.304C862.803 248.967 869.237 244.451 877.695 240.292C903.535 227.587 933.651 229.221 956.714 244.58C962.157 248.206 968.352 253.799 971.828 258.227C972.671 259.301 973.46 260.179 973.582 260.179C975.752 262.928 976.586 264.445 977.426 265.975C977.577 266.25 977.729 266.527 977.889 266.811C977.896 266.828 977.904 266.842 977.913 266.854C978.541 267.632 981.774 274.337 982.793 276.975C984.286 280.84 985.641 285.882 986.428 290.506C987.192 295 987.486 304.043 987.006 308.326C986.335 314.309 984.723 321.192 982.791 326.325C978.686 337.223 969.117 348.507 958.287 355.22C956.858 356.106 955.62 356.762 955.536 356.677C955.451 356.593 955.671 356.37 956.024 356.181C957.158 355.575 961.988 349.857 964.36 346.313C974.475 331.2 976.508 312.683 969.817 296.617C968.89 294.39 967.95 292.472 967.278 291.371C966.964 290.832 964.844 287.22 963.12 285.203C962.495 284.154 960.799 282.166 958.694 280.068C945.187 266.607 924.92 261.354 905.491 266.28C895.649 268.775 886.546 273.85 879.146 280.967C867.96 291.728 861.896 305.844 861.896 321.121C861.896 322.512 861.913 323.304 861.998 323.784C862.077 325.157 862.199 326.661 862.356 327.519C862.361 327.545 862.366 327.572 862.372 327.601C862.438 327.919 862.721 329.375 863 330.837C864.08 336.489 867.04 343.587 870.43 348.651C880.372 363.502 896.946 372.106 915.612 372.106C919.69 372.106 925.677 371.548 927.472 371.001C929.047 370.521 924.246 372.794 921.597 373.782C914.477 376.438 903.791 378.266 898.029 377.812C895.267 377.595 888.848 376.381 885.255 375.397C873.108 372.069 862.24 365.817 853.448 357.099C841.8 345.55 835.015 331.392 833.408 315.284L833.026 311.456C832.979 310.98 832.958 310.113 832.958 308.967L833.029 307.005C833.068 305.926 833.256 303.496 833.446 301.604ZM901.001 373.517C894.113 371.649 888.904 369.381 883.697 365.983C869.862 356.954 861.216 343.238 859.219 327.153C856.734 307.132 865.66 286.832 882.544 274.105C891.459 267.384 902.696 262.853 913.046 261.807C915.962 261.512 924.703 261.525 927.408 261.828C935.201 262.701 943.456 265.515 950.286 269.627C970.378 281.725 980.263 304.032 975.748 327.085C975.15 330.141 973.415 335.704 972.214 338.418C971.929 339.063 971.759 339.591 971.837 339.591C972.089 339.591 975.366 334.133 976.642 331.588C979.821 325.249 982.292 317.457 983.476 310.046C984.245 305.229 984.25 295.355 983.487 290.662C981.897 280.887 978.608 272.305 973.373 264.279C962.925 248.262 945.243 237.199 925.09 234.072C920.487 233.358 910.929 233.113 906.223 233.588C882.365 236 861.179 248.432 848.167 267.655C834.54 287.787 831.973 311.826 841.155 333.312C849.162 352.049 866.271 366.382 887.069 371.778C891.861 373.021 898.591 374.056 902.878 374.21C903.309 374.225 902.464 373.913 901.001 373.517Z" fill="#FFF5EA" />
         {/* sun */}
@@ -309,19 +265,22 @@ export default function Story1Logo({ scrollMin, scrollMax, setIntroAnimated, spe
 
         {/* ANIMATED LINE START */}
         <circle opacity={0} id="circle" cx="942" cy="365" r="2" fill={colorPrimary} />
-        <Path id="beam" fillColor={colorPrimary} drawDuration='1' scrolled={fakeScroll45.scroll / 1000} animateStroke={false} inverse={true} double={1} lengthFactor={1} d="M1332 1205C1322 1183 1323 1165.5 1343.5 1129.5C1364 1093.5 1296.7 1094.72 1277.5 1061C1257 1025 1333.2 989.941 1306 938.5C1283 895 1204.5 921.5 1163 833.5L942 365" stroke="black" stroke-width="2" stroke-linecap="round" />
+        {/* scrolled={fakeScroll45.scroll / 1000} */}
+        <Path id="beam" fillColor={colorPrimary} drawDuration='1' ignoreVisibility scrolled={fakeScroll45.scroll / 1000} animateStroke={false} inverse={true} double={1} lengthFactor={1} d="M941.999 365L1163 833.5C1204.5 921.5 1283 895 1306 938.5C1333.2 989.941 1257 1025 1277.5 1061C1296.7 1094.72 1364 1093.5 1343.5 1129.5C1323 1165.5 1322 1183 1332 1205C1356.12 1261.47 1414 1272 1402.5 1301C1399.5 1307.5 1390.08 1294.11 1380 1298L1373.5 1298.87L1352.5 1301.5L1332 1289.5L1314.5 1298.87C1307.58 1295.32 1296.83 1287.22 1296 1294.5C1292 1329.5 1396.11 1355.33 1399.31 1339.2C1400.15 1335 1394.44 1336.27 1387.5 1333.5C1406.72 1326.51 1414.18 1324.31 1403 1356.5L1373.5 1361.5L1352.5 1354L1343 1356.5L1323.5 1345.5L1314.5 1348C1308.87 1344.44 1301.01 1334.67 1298 1343C1289.5 1366.5 1390.5 1403.73 1394.13 1383.93C1394.76 1380.5 1389.14 1379.95 1385 1379C1393.54 1368.75 1400.07 1372.03 1403 1391L1379 1399L1343 1391L1332 1401L1309 1391C1303.73 1391.41 1295 1388.53 1295 1394.5C1295 1419 1385.49 1424.58 1390.19 1406.91C1391.09 1403.5 1379.42 1406.37 1381.5 1405C1381.65 1401.14 1397.72 1395.98 1405 1403.5L1394.13 1429.5L1369 1433.5L1349 1440L1323.5 1433.5L1314.5 1444L1300.5 1461.5C1291.13 1483.99 1353.5 1479.5 1344.5 1502C1342.02 1506.21 1336.38 1504.74 1333 1501.5L1318.5 1497.5L1309 1500.5H1297.21L1284 1511C1284.86 1524.02 1305.1 1524.33 1306.5 1512C1306 1510 1294 1526 1295 1513C1296 1500 1347.5 1504.5 1345 1524.5C1344.68 1527.2 1343.8 1528.78 1334 1532.5L1335 1528.5L1321.5 1523L1310.5 1526L1297.21 1524.24L1289.5 1532.5L1281.5 1543.5C1282.17 1552.48 1296.07 1562.69 1298.5 1551C1294.75 1551.25 1291.74 1550 1291.5 1547C1290 1528.5 1352.5 1536 1323.5 1570C1294.5 1604 1254 1710 1291.5 1701.5C1329 1693 1222 1615.46 1114 1643.5C1035.5 1663.88 973.496 1728 973.496 1747.5C967 1716.5 961.5 1672.5 962 1652C962.028 1650.86 969 1640.5 971 1643.5C973 1646.5 961.702 1653.75 961.5 1651C959.296 1621 955.046 1601.5 952.5 1594.5C951.123 1590.71 942.612 1599.5 944.612 1601.5C947.374 1604.26 954.059 1595.36 952.113 1593.5C952.113 1592 954.613 1582.5 958.613 1584C962.613 1585.5 951.556 1595.01 951.113 1592.5C944.612 1573.5 925.065 1568.56 916.565 1571.56C916.575 1567.53 908.708 1564.16 906.465 1568.06C903.599 1573.05 908.611 1577.37 910.844 1577.5C912.902 1577.62 915.62 1574.23 916 1571.56C928 1570.68 926 1555.18 913.5 1568.06C922.906 1557.36 909.5 1553.18 910 1566.68C906 1554.68 892.5 1566.18 906 1570.68C891.817 1571.04 897.501 1582.38 907 1574.18C897 1585.68 916 1589.68 913.5 1576.18C918.344 1587.22 933.211 1571.55 916.565 1572.18" stroke="#FFF5EA" strokeWidth="2" strokeLinecap="round" />
 
         {/* =============== SCROLLING LINE START ===============  */}
         <circle opacity={0} id="circleScroll" cx="942" cy="365" r="2" fill={colorPrimary} />
 
         {/* ========LEGS & FLOWER======= */}
-        <Path mask="url(#mask1_322_1017)" id="fullLeg" fillColor={colorPrimary} drawDuration='1' scrolled={fakeScroll46.scroll / 1000} animateStroke={false} inverse={false} double={1} lengthFactor={1} d="M941.999 365L1163 833.5C1204.5 921.5 1283 895 1306 938.5C1333.2 989.941 1257 1025 1277.5 1061C1296.7 1094.72 1364 1093.5 1343.5 1129.5C1323 1165.5 1322 1183 1332 1205C1356.12 1261.47 1414 1272 1402.5 1301C1399.5 1307.5 1390.08 1294.11 1380 1298L1373.5 1298.87L1352.5 1301.5L1332 1289.5L1314.5 1298.87C1307.58 1295.32 1296.83 1287.22 1296 1294.5C1292 1329.5 1396.11 1355.33 1399.31 1339.2C1400.15 1335 1394.44 1336.27 1387.5 1333.5C1406.72 1326.51 1414.18 1324.31 1403 1356.5L1373.5 1361.5L1352.5 1354L1343 1356.5L1323.5 1345.5L1314.5 1348C1308.87 1344.44 1301.01 1334.67 1298 1343C1289.5 1366.5 1390.5 1403.73 1394.13 1383.93C1394.76 1380.5 1389.14 1379.95 1385 1379C1393.54 1368.75 1400.07 1372.03 1403 1391L1379 1399L1343 1391L1332 1401L1309 1391C1303.73 1391.41 1295 1388.53 1295 1394.5C1295 1419 1385.49 1424.58 1390.19 1406.91C1391.09 1403.5 1379.42 1406.37 1381.5 1405C1381.65 1401.14 1397.72 1395.98 1405 1403.5L1394.13 1429.5L1369 1433.5L1349 1440L1323.5 1433.5L1314.5 1444L1300.5 1461.5C1291.13 1483.99 1353.5 1479.5 1344.5 1502C1342.02 1506.21 1336.38 1504.74 1333 1501.5L1318.5 1497.5L1309 1500.5H1297.21L1284 1511C1284.86 1524.02 1305.1 1524.33 1306.5 1512C1306 1510 1294 1526 1295 1513C1296 1500 1347.5 1504.5 1345 1524.5C1344.68 1527.2 1343.8 1528.78 1334 1532.5L1335 1528.5L1321.5 1523L1310.5 1526L1297.21 1524.24L1289.5 1532.5L1281.5 1543.5C1282.17 1552.48 1296.07 1562.69 1298.5 1551C1294.75 1551.25 1291.74 1550 1291.5 1547C1290 1528.5 1352.5 1536 1323.5 1570C1294.5 1604 1254 1710 1291.5 1701.5C1329 1693 1222 1615.46 1114 1643.5C1035.5 1663.88 973.496 1728 973.496 1747.5C967 1716.5 961.5 1672.5 962 1652C962.028 1650.86 969 1640.5 971 1643.5C973 1646.5 961.702 1653.75 961.5 1651C959.296 1621 955.046 1601.5 952.5 1594.5C951.123 1590.71 942.612 1599.5 944.612 1601.5C947.374 1604.26 954.059 1595.36 952.113 1593.5C952.113 1592 954.613 1582.5 958.613 1584C962.613 1585.5 951.556 1595.01 951.113 1592.5C944.612 1573.5 925.065 1568.56 916.565 1571.56C916.575 1567.53 908.708 1564.16 906.465 1568.06C903.599 1573.05 908.611 1577.37 910.844 1577.5C912.902 1577.62 915.62 1574.23 916 1571.56C928 1570.68 926 1555.18 913.5 1568.06C922.906 1557.36 909.5 1553.18 910 1566.68C906 1554.68 892.5 1566.18 906 1570.68C891.817 1571.04 897.501 1582.38 907 1574.18C897 1585.68 916 1589.68 913.5 1576.18C918.344 1587.22 933.211 1571.55 916.565 1572.18" stroke="#FF0000" stroke-width="2" stroke-linecap="round" />
+        {/* scrolled={fakeScroll46.scroll / 1000} */}
+        <Path mask="url(#mask1_322_1017)" id="fullLeg" scrolled={fakeScroll46.scroll / 1000} fillColor={colorPrimary} animateStroke={false} inverse={false} double={1} lengthFactor={1} d="M941.999 365L1163 833.5C1204.5 921.5 1283 895 1306 938.5C1333.2 989.941 1257 1025 1277.5 1061C1296.7 1094.72 1364 1093.5 1343.5 1129.5C1323 1165.5 1322 1183 1332 1205C1356.12 1261.47 1414 1272 1402.5 1301C1399.5 1307.5 1390.08 1294.11 1380 1298L1373.5 1298.87L1352.5 1301.5L1332 1289.5L1314.5 1298.87C1307.58 1295.32 1296.83 1287.22 1296 1294.5C1292 1329.5 1396.11 1355.33 1399.31 1339.2C1400.15 1335 1394.44 1336.27 1387.5 1333.5C1406.72 1326.51 1414.18 1324.31 1403 1356.5L1373.5 1361.5L1352.5 1354L1343 1356.5L1323.5 1345.5L1314.5 1348C1308.87 1344.44 1301.01 1334.67 1298 1343C1289.5 1366.5 1390.5 1403.73 1394.13 1383.93C1394.76 1380.5 1389.14 1379.95 1385 1379C1393.54 1368.75 1400.07 1372.03 1403 1391L1379 1399L1343 1391L1332 1401L1309 1391C1303.73 1391.41 1295 1388.53 1295 1394.5C1295 1419 1385.49 1424.58 1390.19 1406.91C1391.09 1403.5 1379.42 1406.37 1381.5 1405C1381.65 1401.14 1397.72 1395.98 1405 1403.5L1394.13 1429.5L1369 1433.5L1349 1440L1323.5 1433.5L1314.5 1444L1300.5 1461.5C1291.13 1483.99 1353.5 1479.5 1344.5 1502C1342.02 1506.21 1336.38 1504.74 1333 1501.5L1318.5 1497.5L1309 1500.5H1297.21L1284 1511C1284.86 1524.02 1305.1 1524.33 1306.5 1512C1306 1510 1294 1526 1295 1513C1296 1500 1347.5 1504.5 1345 1524.5C1344.68 1527.2 1343.8 1528.78 1334 1532.5L1335 1528.5L1321.5 1523L1310.5 1526L1297.21 1524.24L1289.5 1532.5L1281.5 1543.5C1282.17 1552.48 1296.07 1562.69 1298.5 1551C1294.75 1551.25 1291.74 1550 1291.5 1547C1290 1528.5 1352.5 1536 1323.5 1570C1294.5 1604 1254 1710 1291.5 1701.5C1329 1693 1222 1615.46 1114 1643.5C1035.5 1663.88 973.496 1728 973.496 1747.5C967 1716.5 961.5 1672.5 962 1652C962.028 1650.86 969 1640.5 971 1643.5C973 1646.5 961.702 1653.75 961.5 1651C959.296 1621 955.046 1601.5 952.5 1594.5C951.123 1590.71 942.612 1599.5 944.612 1601.5C947.374 1604.26 954.059 1595.36 952.113 1593.5C952.113 1592 954.613 1582.5 958.613 1584C962.613 1585.5 951.556 1595.01 951.113 1592.5C944.612 1573.5 925.065 1568.56 916.565 1571.56C916.575 1567.53 908.708 1564.16 906.465 1568.06C903.599 1573.05 908.611 1577.37 910.844 1577.5C912.902 1577.62 915.62 1574.23 916 1571.56C928 1570.68 926 1555.18 913.5 1568.06C922.906 1557.36 909.5 1553.18 910 1566.68C906 1554.68 892.5 1566.18 906 1570.68C891.817 1571.04 897.501 1582.38 907 1574.18C897 1585.68 916 1589.68 913.5 1576.18C918.344 1587.22 933.211 1571.55 916.565 1572.18" stroke="#FFF5EA" strokeWidth="2" strokeLinecap="round" />
+
         <mask id="mask1_322_1017" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="867" y="359" width="655" height="1412">
           <path id="Subtract" fillRule="evenodd" clipRule="evenodd" d="M1522 359H867V1771H1522V359ZM1400.5 1306.5C1401.44 1301.77 1400.5 1295 1400.5 1295L1376.5 1282.5L1297.5 1289C1297.47 1289.42 1297.44 1289.86 1297.41 1290.32C1297.18 1293.48 1296.91 1297.18 1297.5 1300L1331.5 1323L1397 1340C1398.84 1337.91 1398.31 1334.83 1398.08 1333.48C1398.04 1333.28 1398.01 1333.12 1398 1333C1398.65 1331.82 1407.57 1344.99 1399 1348.5C1399 1349.7 1375 1349 1363 1348.5L1314.5 1333.5L1298 1338.5C1298.4 1341.7 1298.83 1345.83 1299 1347.5L1306.5 1351L1392 1384C1391.88 1381.47 1391.91 1379.81 1392 1376.5C1397.74 1376.78 1399.95 1387.91 1393 1393C1390.11 1395.11 1375.33 1393.67 1367.5 1392L1324 1384L1296 1389.5C1296 1391.5 1296 1394.5 1297 1396L1300.5 1399L1345.5 1406L1388.5 1407.5C1389.55 1406.38 1389.5 1404.5 1389 1403C1393.77 1403.79 1394.16 1410.66 1389.5 1415.5C1387.21 1417.88 1372.83 1424.17 1365 1426.5L1294 1428L1299 1455L1299.5 1461L1301 1463L1302 1464L1352 1477L1356.5 1498.5L1346.5 1508.5L1344 1505C1343.82 1503.56 1343.78 1501.94 1343.75 1500.67C1343.72 1499.24 1343.7 1498.26 1343.5 1498.5C1343.18 1498.9 1341.65 1498.3 1339.99 1497.65C1338.74 1497.16 1337.43 1496.64 1336.5 1496.5L1295 1492.5L1279.5 1510C1279.61 1510.95 1279.69 1511.85 1279.77 1512.72C1280.24 1518.04 1280.56 1521.64 1287 1522.5C1294 1523 1312.22 1521.53 1308 1510L1296 1513.5L1296.01 1513.58C1296.24 1516.85 1296.47 1519.98 1293 1518C1292.02 1516.44 1291.55 1511.63 1293 1508C1293.8 1506 1299.33 1504.17 1300.5 1504L1318 1502L1341 1507.5L1348 1518.5L1347.5 1537.5L1344 1529C1344 1526.5 1344 1524 1342.5 1521.5C1341.39 1519.65 1337.47 1518.51 1334.65 1517.69C1334.42 1517.62 1334.21 1517.56 1334 1517.5L1306 1520.5L1292 1524.5L1283 1532.5L1277.5 1547L1286.5 1560.5C1301.63 1560.65 1307 1546.5 1293.5 1547C1292.81 1548.43 1293 1549.67 1293.5 1552C1288.57 1548.74 1288.07 1545.62 1291.5 1541.5C1293.53 1539.06 1293.16 1537.11 1292.97 1536.15C1292.9 1535.77 1292.86 1535.55 1293 1535.5L1308.5 1533L1323 1535.5L1336 1548.5L1343 1552L1377 1536.5L1440.5 1393L1400.5 1306.5Z" fill="#D9D9D9" />
         </mask>
         {/* ====== WATER DROP ========  */}
-        <Path className="opacity-0" fillColor={colorPrimary} scrolled={1} animateStroke={true} animateFill={true} inverse={false} type='circle' id="droplet1" cx="911" cy="1572" r="1" fill="#FF0000" />
-        <Path className="opacity-0" fillColor={colorPrimary} scrolled={1} animateStroke={true} animateFill={true} inverse={false} id="droplet2" d="M920 1573.19C920 1578.05 916.194 1582 911.5 1582C906.806 1582 903 1578.05 903 1573.19C903 1568.32 911.5 1559 911.5 1559C911.5 1559 920 1568.32 920 1573.19Z" fill="#FF0000" />
+        <Path className="opacity-0" fillColor={colorPrimary} scrolled={1} animateStroke={true} animateFill={true} inverse={false} type='circle' id="droplet1" cx="911" cy="1572" r="1" fill="#FFF5EA" />
+        <Path className="opacity-0" fillColor={colorPrimary} scrolled={1} animateStroke={true} animateFill={true} inverse={false} id="droplet2" d="M920 1573.19C920 1578.05 916.194 1582 911.5 1582C906.806 1582 903 1578.05 903 1573.19C903 1568.32 911.5 1559 911.5 1559C911.5 1559 920 1568.32 920 1573.19Z" fill="#FFF5EA" />
 
       </g>
   }
@@ -332,7 +291,7 @@ export default function Story1Logo({ scrollMin, scrollMax, setIntroAnimated, spe
 
   return (<>
     <AnimateSVG alt='miloweiler photography logo animation'
-      scrollMin={scrollMin} scrollMax={scrollMax} speed={speed} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth}>
+      scrollMin={scrollMin} scrollMax={scrollMax} speed={speed} setSvgHeight={setSvgHeight} setSvgTop={setSvgTop} setSvgWidth={setSvgWidth}>
 
       {getContent(mobile)}
 

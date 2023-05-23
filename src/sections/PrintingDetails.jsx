@@ -50,8 +50,8 @@ export default function PrintingDetails({ printingData }) {
         <ContactB className={'printing-child'} />
       </div>
       <div className='flex-col flex h-full gap-2 sm:gap-4 lg:gap-6 justify-center'>
-        <SanityImage className='rounded-t-2xl contact-image2 opacity-0' image={printingData.image1.image.asset} alt={printingData.image1.alt[locale]} />
-        <SanityImage className='rounded-b-2xl contact-image3 opacity-0' image={printingData.image2.image.asset} alt={printingData.image2.alt[locale]} />
+        <SanityImage priority className='rounded-t-2xl contact-image2 opacity-0' image={printingData.image1.image.asset} alt={printingData.image1.alt[locale]} />
+        <SanityImage priority className='rounded-b-2xl contact-image3 opacity-0' image={printingData.image2.image.asset} alt={printingData.image2.alt[locale]} />
       </div>
     </LayoutSection>)
 }

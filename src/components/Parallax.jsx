@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Parallax({ children, scope, className, trigger, start, small, ...props }) {
+export default function Parallax({ children, scope, className, trigger, start, end, small, ...props }) {
   const ctx = useRef(null)
   
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Parallax({ children, scope, className, trigger, start, s
           trigger: trigger,
           // start: width < 648 ? '30% 20%' : 'center 20%',
           start: start,
-          // end: "max",
+          end: end,
           invalidateOnRefresh: true,
           scrub: 2,
           markers: false,

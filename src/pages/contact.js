@@ -20,9 +20,9 @@ import Logo from '@/components/Logo'
 // import { gsap } from 'gsap/dist/gsap'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
-import { ReactLenis } from '@studio-freight/react-lenis'
+import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import { gsap, ScrollTrigger } from "gsap/dist/all";
-
+// import { useRouter } from 'next/router';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
@@ -32,9 +32,11 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let pageMobile = width < 648;
   let darkMode = false
   // console.log(contactFormData)
-
+  // const router = useRouter();
   let tl = useRef()
   let ctx = useRef()
+
+
 
   let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
@@ -148,7 +150,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ReactLenis root options={{duratino:0.9, wheelMultiplier:0.9}}>
+      {/* duration:0.9,  */}
+      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative contact-page overflow-x-hidden'}>
           <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
             <Logo darkMode={darkMode} className='w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40' />
@@ -186,8 +189,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                   <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
                     {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                     {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                    <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
-                    <SanityImage intrinsic className='w-full xs:w-4/5 sm:w-1/3  translate-x-48 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
+                    <SanityImage intrinsic priority className='w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
+                    <SanityImage intrinsic priority className='w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
                   </div>
                 </div>
               </LayoutSection>

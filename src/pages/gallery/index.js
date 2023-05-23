@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react'
 import client from '../../../lib/sanity'
+import Footer2 from '@/components/Footer2';
 
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
@@ -77,15 +78,16 @@ export default function Gallery({ projects }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`bg-gradient-to-br from-darkGrey to-[#070013] w-full min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <main className={`bg-gradient-to-br from-darkGrey to-[#070013] w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <PageWrapper darkMode={darkMode}>
           <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`uppercase font-lora text-center text-3xl py-4 `}>Gallery</h1>
 
-          <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-4'>
+          <div ref={gallery} className='w-full relative grid gap-1 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 p-1'>
             {projects.map((project, i) => <ProjectThumb gridStaggerAnimation={pushCardsOnClick} activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
             {/* {console.log(artificialProjects(20))} */}
           </div>
+          <Footer2 className={`relative`} noMotion noMargin />
 
         </PageWrapper>
       </main>

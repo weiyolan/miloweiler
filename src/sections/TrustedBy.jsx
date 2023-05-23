@@ -82,12 +82,12 @@ export default function TrustedBy({ trustedBy }) {
       <div ref={trusted} className='trusted-by relative w-full text-center'>
         <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle='Trusted By' subTitle={''} />
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
-        <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line'} />
+        <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line border-darkPrimary'} />
         <div className='artist-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
           {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} to={logo.link} /> })}
         </div>
         <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text='Companies' />
-        <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 company-line'} />
+        <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 company-line border-darkPrimary'} />
         <div className='company-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
           {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} to={logo.link} /> })}
         </div>

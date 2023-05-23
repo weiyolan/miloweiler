@@ -108,8 +108,8 @@ const Form = () => {
 
       <input type='hidden' name='form-name' value='ContactForm' />
       <p className='hidden'>
-        <label>{`${locale === 'en' ? "Don't fill this out if you're human:" : 'Ne pas remplir si vous êtes humain.'}`}</label>
-        <input name="bot-field" value={honey} onChange={(e) => setHoney(e.target.value)} />
+        
+        <label>{`${locale === 'en' ? "Don't fill this out if you're human:" : 'Ne pas remplir si vous êtes humain.'}`}<input name="bot-field" value={honey} onChange={(e) => setHoney(e.target.value)} /></label>
       </p>
 
       <div className={`grid gap-1 xs:gap-6 grid-cols-3 w-full relative min-w-[30vw] lg:min-w-fit auto-rows-min font-normal placeholder:text-xs min-[400px]:placeholder:text-sm ${darkMode ? 'text-primary placeholder:text-primary' : 'text-black placeholder:text-black'}`}>
@@ -164,7 +164,7 @@ const Form = () => {
           <textarea required data-lenis-prevent className={`block bg-black/10 
                 autofill:bg-black/10 valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
-              border-none border-transparent overscroll-contain
+              border-none border-transparent overscroll-contain 
               placeholder:text-black/50 hover:border-black/40
               focus:-outline-offset-2 focus:outline-black/20 p-2 w-full text-sm  h-[20vh] rounded-3xl`} id='message'
             type='text'
@@ -185,7 +185,7 @@ const Form = () => {
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent 
               placeholder:text-black/50  hover:border-black/40
-              focus:-outline-offset-2 focus:outline-black/20 p-2 w-full text-sm `} id='email'
+              focus:-outline-offset-2 focus:outline-black/20 p-2 w-full text-sm `} id='subject'
             type='text'
             placeholder="Question"
             value={subject}

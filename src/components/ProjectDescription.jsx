@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import ProjectDescriptionTop from './ProjectDescriptionTop'
 import ProjectDescriptionBottom from './ProjectDescriptionBottom'
 import { Observer } from 'gsap/dist/Observer'
-import useDimensions from '@/utils/useDimensions'
+// import useDimensions from '@/utils/useDimensions'
 gsap.registerPlugin(Observer)
 
 export default function ProjectDescription({ project, setPosition , mainPictureWidth}) {
