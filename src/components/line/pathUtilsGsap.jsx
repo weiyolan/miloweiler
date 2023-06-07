@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useAppContext } from "@utils/appContext.js"
 import { useSVGContext } from "@components/line/contextSVG"
 import { usePageContext } from "@utils/pageContext"
-
+import { gsap } from "gsap/dist/gsap"
+// import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // function getOffset(lengthArray, i) {
 //   let included = lengthArray.map((l, index) => index < i ? l : 0)
 //   let offset = included.reduce((prev, curr) => prev + curr)
@@ -10,7 +11,7 @@ import { usePageContext } from "@utils/pageContext"
 // }
 
 
-export function Path(props) {
+export function PathGSAP(props) {
   let {myRatio, prevRatio, scrollMin, scrollMax, animationSpeed} = useSVGContext();
   let {finished} = usePageContext();
 
@@ -33,6 +34,9 @@ export function Path(props) {
 
   const getPathProps = useCallback((props) => {
     let pathProps = { ...props }
+    // GSAP
+    delete pathProps.timeline1
+    //OLD
     delete pathProps.handleLength
     delete pathProps.print
     delete pathProps.lineSpeed
@@ -84,9 +88,10 @@ export function Path(props) {
     : (Math.min( Math.max(fakeScrolled*mySpeed, 0) , 1) * (props.inverse?1:-1) || 0)
 
   childProps.strokeDashoffset = (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*newOffset*(props?.transitStrokeAnimation?2:1)
-  props.print && console.log(newOffset)
-  props.print && console.log(childProps.strokeDashoffset)
-// CALCULATE PATHLENGTH 
+  // props.print && console.log(newOffset)
+  // props.print && console.log(childProps.strokeDashoffset)
+
+// ================== CALCULATE PATHLENGTH ==================
   useEffect(() => {
       let usePath = pathRef.current;
       let originalPath = props.useId!==undefined?document.querySelector(usePath.getAttribute('href')):usePath
@@ -114,13 +119,42 @@ export function Path(props) {
 
     },[props.double, props.print, props.useId])
 
-  useEffect(()=>{
-    if (pathLength>0) {
-      props.handleLength(pathLength, props.position)
-      props.print && console.log('handleLength ')
-    }
-  },[pathLength, props.position,])
+  // useEffect(()=>{
+  //   if (pathLength>0) {
+  //     props.handleLength(pathLength, props.position)
+  //     props.print && console.log('handleLength ')
+  //   }
+  // },[pathLength, props.position,])
 
+  //!!!!!!!!!! ====================GSAP====================!!!!!!!!!!
+  useEffect(()=>{
+    if (props.tweens !== undefined && props.tweens[0].timeline !== undefined) {
+
+      props.tweens.forEach((tween)=>{
+        let ratio = tween.ratio;
+        let newOffset = (Math.min( Math.max(ratio*mySpeed, 0) , 1) * (props.inverse?1:-1) || 0);
+        let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFF5EA';
+
+        // console.log((pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*newOffset*(props?.transitStrokeAnimation?2:1))
+        // console.log(tween.timeline)
+        if (tween.timeline.getById(tween.id)===undefined) {
+          tween.timeline
+          // .add(()=>setVisible(true),tween.position)
+          .set(`#${props.id}`,{
+            stroke:myStroke
+          }, tween.position)
+          .to(`#${props.id}`,
+            {id: tween.id,
+              strokeDashoffset: (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*newOffset*(props?.transitStrokeAnimation?2:1),
+              ...tween.attr
+            }, tween.position);
+
+          // console.log("added")
+          // // console.log(tween.timeline.getChildren())
+        }
+      })
+    }
+  },[props.tweens, pathLength])
   // useEffect(() => {
     // if (props.print) {
     // console.log('strokedashoffset')

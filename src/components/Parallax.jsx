@@ -39,13 +39,13 @@ export default function Parallax({ children, scope, className, trigger, start, e
         }
       })
         .to('.depth1', {
-          y: small?'-=150':'-=400',
+          y: small?'-=150':'-=300',
         })
         .to('.depth2', {
           y: small?'-=100':'-=200',
         }, '<')
         .to('.depth3', {
-          y: small?'-=50':'-=50',
+          y: small?'-=50':'-=100',
         }, '<')
     })
   }, [])

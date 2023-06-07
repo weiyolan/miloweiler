@@ -15,6 +15,7 @@ export default function StoryTitle({ textAppear, textDisappear }) {
   let durationAppear = 2;
   let durationDisappear = 1;
   let stagger = 0.3;
+  
   useEffect(() => {
     ctx.current.add(() => {
       // gsap.timeline(
@@ -65,21 +66,21 @@ export default function StoryTitle({ textAppear, textDisappear }) {
       //     }
       //   })
       //   .to('.depth3Title', {
-      //     opacity: 0,
+      //     // opacity: 0,
       //     y: '+=220',
       //     //  stagger:stagger,
       //     duration: durationDisappear,
       //     ease: 'power3.out'
       //   })
       //   .to('.depth2Title', {
-      //     opacity: 0,
+      //     // opacity: 0,
       //     y: '+=250',
       //     //  stagger:stagger,
       //     duration: durationDisappear,
       //     ease: 'power3.out'
       //   }, '<')
       //   .to('.depth1Title', {
-      //     opacity: 0,
+      //     // opacity: 0,
       //     y: '+=270',
       //     //  stagger:stagger,
       //     duration: durationDisappear,

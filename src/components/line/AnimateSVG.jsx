@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef, useCallback} from "react"
 import { useAppContext } from "@utils/appContext"
 // import { Path, TextAnimate} from '@utils/pathUtils'
 import { Path} from "@/components/line/pathUtils"
+import {PathGSAP} from "@/components/line/pathUtilsGsap"
 // import UseFlower from "./UseFlower"
 import { SVGWrapper } from "./contextSVG"
 import { usePageContext } from "@utils/pageContext"
@@ -53,7 +54,7 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
       let height = bbox.bottom - bbox.top;
       let width = bbox.width;
       let top = bbox.top;
-      if (height>=0 && height!==myHeight && setSvgHeight!==undefined) {
+      if (height>=0 && height.toFixed(1)!==myHeight?.toFixed(1) && setSvgHeight!==undefined) {
         setSvgHeight(height)
         setMyHeight(height)
         setSvgWidth(width)
@@ -110,12 +111,16 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
     const makeNewChildren = ()=> {
       let newChildren = React.Children.map(children.props.children, child => {
         let newChild;
-        if (React.isValidElement(child) && child.type === Path) {
+        if (React.isValidElement(child) && (child.type === Path)) {
           // console.log('fired')
       
           const {lengthFactor, ...rest} = child.props
           newChild = <Path {...rest} handleLength={(l,i) => handleLength(lengthFactor===undefined?1:lengthFactor,l,i)} key={alt[12,13] + `${mobile?'-mobile':'-desk'}`} />
-        } else {
+        } else if (React.isValidElement(child) && (child.type === PathGSAP)) {
+          const {lengthFactor, ...rest} = child.props
+          newChild = <PathGSAP {...rest} handleLength={(l,i) => handleLength(lengthFactor===undefined?1:lengthFactor,l,i)} key={alt[12,13] + `${mobile?'-mobile':'-desk'}`} />
+        } 
+        else {
           newChild = child
         }
         return newChild
@@ -128,7 +133,7 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
 
     return (
       <SVGWrapper handleLength={handleLength} myRatio={allRatios} prevRatio={allPrevRatios} scrollMin={scrollMin} scrollMax={scrollMax} animationSpeed={speed}>
-        <svg  ref={svgRef} alt={alt} style={{transform: `translate3d(-50%, 0px,0)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
+        <svg  ref={svgRef} alt={alt} style={{transform: `translate3d(-50%, 0, 0)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
           className={`absolute will-change-transform w-full left-1/2`}>
           {/* className={`absolute w-5/6 xs:w-4/6 sm:w-3/6 md:w-5/6 xl:w-3/5 max-w-6xl left-1/2`}> */}
           
