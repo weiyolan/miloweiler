@@ -13,7 +13,7 @@ import { PathGSAP } from "@/components/line/pathUtilsGsap"
 // import useStateRef from "@/utils/useStateRef"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Story1Logo({ scrollMin, scrollMax, masterTl, timeline, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
+export default function Story1Logo({ scrollMin, scrollMax, introAnimationTl, masterTl, timeline, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
 
   let { locale, scrolled, height: screenHeight } = useAppContext()
 
@@ -39,8 +39,9 @@ export default function Story1Logo({ scrollMin, scrollMax, masterTl, timeline, s
   // ============= INTRO ANIMATION =================
   useEffect(() => {
     // let tl;
-    ctx.current.add(() => {
-      let introAnimation = gsap.timeline({ id: 'introAnimation' })
+    // ctx.current.add(() => {
+      // let introAnimation = gsap.timeline({ id: 'introAnimation' })
+      introAnimationTl && introAnimationTl
         .to(fakeScroll1, {
           scroll: 800,
           duration: 3,
@@ -102,8 +103,8 @@ export default function Story1Logo({ scrollMin, scrollMax, masterTl, timeline, s
       // })
 
       // console.log(introAnimation.duration())
-    })
-  }, [])
+    // })
+  }, [introAnimationTl])
   // console.log(scrolled)
 
   // ============= SCROLL ANIMATION ==============

@@ -50,10 +50,11 @@ export default function Home({ }) {
   // let tl = useRef()
   let [masterTl, setMasterTl] = useState();
   let [showPage1Tl, setToTheMoonTl] = useState();
+  let [introAnimationTl, setIntroAnimationTl] = useState();
   // let [masterTl, setMasterTl] = useState();
   // let [masterTl, setMasterTl] = useState();
   // let [masterTl, setMasterTl] = useState();
-
+  let [pageLoaded,setPageLoaded]=useState(false)
   let [svgHeight, setSvgHeight] = useState(undefined)
   let [svgWidth, setSvgWidth] = useState(undefined)
   let [svgTop, setSvgTop] = useState(undefined) //For calculation of FadeDiv
@@ -522,7 +523,7 @@ export default function Home({ }) {
         invalidateOnRefresh: true,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -555,7 +556,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: true,
             preventOverlaps: true,
           }
@@ -568,7 +569,7 @@ export default function Home({ }) {
         invalidateOnRefresh: true,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -592,7 +593,7 @@ export default function Home({ }) {
         invalidateOnRefresh: true,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -609,12 +610,18 @@ export default function Home({ }) {
           })
       })
 
+      let introAnimationTl = gsap.timeline().paused(true);
+      setIntroAnimationTl(introAnimationTl)
       // setMasterTl(masterTl);
       // setMasterTl(tl1());
 
     })
     return () => { console.log('ctx reverted'); ctx.revert() }
   }, [svgHeight, screenHeight])
+
+  useEffect(()=>{
+    introAnimationTl && introAnimationTl.paused(false)
+  },[pageLoaded])
 
   // useEffect(() => {
   // console.log(showPage1Tl?.progress())
@@ -647,9 +654,9 @@ export default function Home({ }) {
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[110vh]' animationName={'page3'} className={'opacity-0 top-[20vh]'} />
           <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[110vh]' animationName={'page2'} className={'opacity-0 top-[20vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
-          <Background type='bottom' priority amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={' opacity-50 top-[-10vh]'} />
+          <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={' opacity-50 top-[-10vh]'} />
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
-          <Background type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={' top-0'} />
+          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={' top-0'} />
           {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}
 
           <Image
@@ -660,7 +667,7 @@ export default function Home({ }) {
             <div className='svgPage2Inner w-full h-full absolute top-0 '>
               {/* <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' /> */}
               {/*  timeline={masterTl} */}
-              <Story1Logo masterTl={masterTl} timeline={showPage1Tl} setSvgTop={setSvgTop} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0.15} />
+              <Story1Logo introAnimationTl={introAnimationTl} masterTl={masterTl} timeline={showPage1Tl} setSvgTop={setSvgTop} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0.15} />
               <Story2Waves timeline={masterTl} speed={1} scrollMin={0.14} scrollMax={0.16} />
             </div>
           </section>
