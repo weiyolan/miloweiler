@@ -20,6 +20,19 @@ export default defineType({
       options: { collapsible: true, collapsed: false }
     }
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subTitle: 'subTitle',
+      by: 'by',
+      date: 'date',
+      media:'mainImage',
+    },
+    prepare(selection) {
+      const { title, date, by, subTitle, media } = selection
+      return { title: getTitle(title,subTitle), subtitle: getSubTitle(by, date), media:media.image }
+    },
+  },
   fields: [
     defineField({
       name: 'title', title: 'Project Title', type: 'string', description: 'Title of your project baby!',
@@ -121,22 +134,10 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
   ],
-  preview: {
-    select: {
-      title: 'title',
-      subTitle: 'subTitle',
-      by: 'by',
-      date: 'date',
-    },
-    prepare(selection) {
-      const { title, date, by, subTitle } = selection
-      return { title: getTitle(title,subTitle), subtitle: getSubTitle(by, date) }
-    },
-  },
 })
 function getTitle(title, subTitle) {
   if (title === undefined  && subTitle === undefined) {
-    return 'Loading...'
+    return 'No title given'
   } else if (subTitle === undefined) {
     return `${title}`
   } else if (title === undefined) {
@@ -147,7 +148,7 @@ function getTitle(title, subTitle) {
 }
 function getSubTitle(by, date) {
   if (by===undefined && date===undefined) {
-    return 'Loading...'
+    return 'No date given'
   } else if (by === undefined) {
     return `${date.slice(0, 4)}`
   } else if (date === undefined) {
