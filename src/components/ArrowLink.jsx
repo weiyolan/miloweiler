@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React,{useState} from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 
-const ArrowLink = ({text, to, ext, inherit, inText, tabIndex, className}) => {
+const ArrowLink = ({text, to, ext, inherit, inText, tabIndex, className, arrowClassName}) => {
   let [hovering, setHovering] = useState(false)
 let {darkMode} = usePageContext(); 
 
@@ -16,7 +16,7 @@ let {darkMode} = usePageContext();
       onMouseEnter={()=>setHovering(true)}
       onMouseLeave={()=>setHovering(false)}>
         {text}
-        <Arrow inherit={inherit} hovering={hovering} />
+        <Arrow inherit={inherit} hovering={hovering} arrowClassName={arrowClassName}/>
       </span>
       </Link>
     )
@@ -29,7 +29,7 @@ let {darkMode} = usePageContext();
       onMouseEnter={()=>setHovering(true)}
       onMouseLeave={()=>setHovering(false)}>
         {text}
-        <Arrow  hovering={hovering} />
+        <Arrow hovering={hovering} arrowClassName={arrowClassName}/>
       </span>
     </Link>
   )
@@ -37,14 +37,14 @@ let {darkMode} = usePageContext();
 
 export default ArrowLink
 
-function Arrow ({hovering}) {
+function Arrow ({hovering,arrowClassName}) {
   return (
     <span className='block duration-300 relative w-10 h-5 overflow-hidden '>
       <span className={`absolute duration-300 top-1/2 left-0 -translate-y-1/2 ${hovering?'translate-x-1/4 scale-125 ':'-translate-x-[100%] opacity-0'}`}>
-      <BsArrowRightShort className={`text-inherit fill-inherit} text-xl`}/>
+      <BsArrowRightShort className={`text-inherit fill-inherit} text-xl ${arrowClassName?arrowClassName:''}`}/>
       </span>
       <span className={`absolute duration-300 top-1/2 left-0 -translate-y-1/2 ${hovering?'translate-x-full scale-105 opacity-0':''}`}>
-      <BsArrowRightShort className={`text-inherit fill-inherit text-xl`}/>
+      <BsArrowRightShort className={`text-inherit fill-inherit text-xl ${arrowClassName?arrowClassName:''}`}/>
       </span>
     </span>
   )

@@ -5,6 +5,8 @@ import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 // import Image from 'next/image'
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
+
 import BackgroundMoving from '@/components/line/BackgroundMoving'
 import { PageWrapper } from '@utils/pageContext'
 import { useAppContext } from '@utils/appContext'
@@ -21,9 +23,6 @@ import ScrollingDiv from '@/components/line/ScrollingDiv'
 import FadeDiv from '@/components/FadeDiv'
 
 // import SpireeStory from '../public/images/spireeStory.svg'
-import Story1Logo from '@/components/line/Story1Logo'
-import Story2Moon from '@/components/line/Story2Moon'
-
 
 // import Navbar from '@/components/navbar/Navbar'
 // import ShoppingCart from '@/components/cart/ShoppingCart'
@@ -35,7 +34,6 @@ import StoryTitle from '@/components/line/StoryTitle'
 import Image from 'next/image'
 import PageDescription from '@/components/line/PageDescription'
 import Page1Photos from '@/components/line/Page1Photos'
-import Story2Waves from '@/components/line/Story2Waves'
 import ScrollVisual from '@/components/line/ScrollVisual'
 import Footer2 from '@/components/Footer2'
 import ScrollVelocity from '@/components/ScrollVelocity'
@@ -44,19 +42,32 @@ import BackgroundSplit from '@/components/BackgroundSplit'
 import Page2Photos from '@/components/line/Page2Photos'
 import Page3Photos from '@/components/line/Page3Photos'
 
-gsap.registerPlugin(ScrollTrigger)
+import Story0Logo from '@/components/line/Story0Logo'
+import Story1Moon from '@/components/line/Story1Moon'
+import Story2Waves from '@/components/line/Story2Waves'
+import Story3Animals from '@/components/line/Story3Animals'
+import PageDescription4 from '@/components/line/PageDescription4'
+
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 export default function Home({ }) {
   const { scrolled, width: screenWidth, height: screenHeight, } = useAppContext();
   // let svgRef = useRef(null)
   // let ctx = useRef()
   // let tl = useRef()
-  let [masterTl, setMasterTl] = useState();
-  let [showPage1Tl, setToTheMoonTl] = useState();
   let [introAnimationTl, setIntroAnimationTl] = useState();
-  // let [masterTl, setMasterTl] = useState();
-  // let [masterTl, setMasterTl] = useState();
-  // let [masterTl, setMasterTl] = useState();
+
+  let [scrubTl0, setScrubTl0] = useState();
+  let [scrubTl1, setScrubTl1] = useState();
+  let [scrubTl2, setScrubTl2] = useState();
+  let [scrubTl3, setScrubTl3] = useState();
+  let [scrubTl4, setScrubTl4] = useState();
+
+  let [transitionTl1, setTransitionTl1] = useState();
+  let [transitionTl2, setTransitionTl2] = useState();
+  let [transitionTl3, setTransitionTl3] = useState();
+  let [transitionTl4, setTransitionTl4] = useState();
+
   let [pageLoaded, setPageLoaded] = useState(false)
   let [svgHeight, setSvgHeight] = useState(undefined)
   let [svgWidth, setSvgWidth] = useState(undefined)
@@ -112,9 +123,10 @@ export default function Home({ }) {
   // let viewBoxHeight = 5390
   let viewBoxHeight = 5142
   let svgScrubAmount = 100; //in px
-  // useEffect(() => {
-  //   // console.log(svgWidth, svgHeight, footerHeight)
-  // }, [svgWidth, svgHeight, footerHeight])
+
+  useEffect(() => {
+    console.log(svgWidth, svgHeight, footerHeight)
+  }, [svgWidth, svgHeight, footerHeight])
 
   // const addAnimation = useCallback((animation, index) => {
   //   tl && tl.add(animation, index);
@@ -182,7 +194,6 @@ export default function Home({ }) {
           y: `-${(0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
           // y: `-${(0.27810-0.09) * svgHeight + svgTop - (screenHeight / 2)}px`, //ABS -0.09%
         }, 0)
-
       .to(['.page1'], {
         y: '-30vh',
         opacity: 1,
@@ -198,18 +209,14 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out',
       }, 0)
-      .to(['.page1feet'],
-        // {y: '-70%'},
-        {
-          y: '-63%',
-          ease: 'power2.out',
-          duration: 1
-        }
-        , 0.5)
       .to(['.page1feet'], {
+        y: '-63%',
+        ease: 'power2.out',
         autoAlpha: 1,
-        duration: 1,
-      }, "<")
+        duration: 1
+      }
+        , 0.3)
+
     return tl
   }
   function showInfo1() {
@@ -249,7 +256,31 @@ export default function Home({ }) {
       }, 0.4)
     return tl
   }
+  function scrubPage1() {
+    let tl = gsap.timeline({ ease: 'power1.out' })
+    // .to('.page1',
+    //   {
+    //     y: '-=30px',
+    //     duration: 1,
+    //   }, 0)
+    // .to('.svgPage2Inner',
+    //   {
+    //     duration: 1,
+    //     y: `-${svgScrubAmount}px`,
+    //     // y: `-${(0.09) * svgHeight + svgTop - (screenHeight / 2)}px`,
+    //     // onStart: () => {console.log('start')},
+    //     // onComplete:()=>{console.log('complete')}
+    //   }, 0)
+    return tl
+  }
   // ============================= page2 =============================
+  let dropletStart = [
+    "M919.505 1619C918.963 1620.36 893.922 1622.61 894.5 1619.5C894.5 1615 904.232 1620.93 903.5 1618C901 1608 914.5 1611 911 1616.5C907.5 1622 921.213 1614.72 919.505 1619Z",
+    "M910.5 1619.25C910.5 1620.17 908.462 1621 906.58 1621C904.697 1621 903 1620.17 903 1619.25C903 1618.33 905.038 1618 906.92 1618C908.803 1618 910.5 1618.33 910.5 1619.25Z",
+  ]
+  let dropletEnd = [
+    "M909.985 2343.12C909.985 2344.04 907.947 2344.87 906.064 2344.87C904.182 2344.87 902.485 2344.04 902.485 2343.12C902.485 2342.2 904.523 2341.87 906.405 2341.87C908.288 2341.87 909.985 2342.2 909.985 2343.12Z",
+  ]
   function showPage2() {
     let tl = gsap.timeline()
       .to(['.svgPage2'],
@@ -263,6 +294,33 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
+      .to('#droplet', {
+        duration: 1.5,
+          y: () => { console.log(`${(0.1365) * svgHeight}px`); return `${(0.1365) * svgHeight}px` },
+      }, 0)
+      .to('#droplet', {
+        duration: 0.2,
+        attr: { d: dropletStart[0] },
+      }, 1.5)
+      .to('#droplet', {
+        duration: 0.2,
+        opacity: 0,
+        attr: { d: dropletStart[1] },
+      }, 1.7)
+
+      .to('#dropletEnd', {
+        y: '-30px',
+        opacity: 1,
+        duration: 0.4,
+        ease: 'expo.out',
+      }, 1.5)
+      .to('#dropletEnd', {
+        y: '0',
+        duration: 0.2,
+        opacity: 0,
+        ease: 'expo.in',
+        attr: { d: dropletEnd[0] },
+      }, 1.9)
     return tl
   }
   function showInfo2() {
@@ -301,11 +359,11 @@ export default function Home({ }) {
         duration: 1,
         ease: 'ease.out'
       }, 0)
-      .to('.page1feet',{
-          y: '-=300px',
-          ease: 'power2.out',
-          duration: 1
-      },0)
+      .to('.page1feet', {
+        y: '-=300px',
+        ease: 'power2.out',
+        duration: 1
+      }, 0)
       .to(['.page1feetContainer'],
         {
           // y: '-73%',
@@ -330,18 +388,50 @@ export default function Home({ }) {
       }, 0)
     return tl
   }
+  function scrubPage2() {
+    let tl = gsap.timeline({ ease: 'power1.out'})
+    .to('#fish', {duration:2})
+    
+    // .to('.page1',
+    //   {
+    //     y: '-=30px',
+    //     duration: 1,
+    //   }, 0)
+    // .to('.svgPage2Inner',
+    //   {
+    //     duration: 1,
+    //     y: `-${svgScrubAmount}px`,
+    //     // y: `-${(0.09) * svgHeight + svgTop - (screenHeight / 2)}px`,
+    //     // onStart: () => {console.log('start')},
+    //     // onComplete:()=>{console.log('complete')}
+    //   }, 0)
+    return tl
+  }
   // ============================= page3 =============================
   function showPage3() {
     let tl = gsap.timeline()
+     
+      // .to('#fish',{
+      //   x:'-=45',
+      //   y:'+=45',
+      //   rotate:'-=55deg',
+      //   duration:0.5,
+      //   ease:'none',
+      // },0.5) 
+      // .to('#fish2', {
+      //   attr: { d: "M475.518 2588.54C478.804 2593.13 481.217 2598.78 479.834 2605.44C476.525 2621.36 459.043 2608.71 464.693 2599.02C467.237 2594.65 471.581 2592.23 475.518 2588.54ZM475.518 2588.54C472.231 2583.95 468.068 2580.44 465.957 2578.05L485.422 2579.23L475.518 2588.54Z" },
+      //   duration: 0.5,
+      //   // ease:'none',
+      // }, 0.5)
       .to(['.svgPage2'],
         {
-          duration: 1,
+          duration: 2,
           y: `-${(0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page3'], {
-        y: '-30vh',
+        y: '-10vh',
         opacity: 1,
-        duration: 2,
+        duration: 4,
         ease: 'ease.out'
       }, 0)
     return tl
@@ -358,13 +448,13 @@ export default function Home({ }) {
         autoAlpha: 1,
         y: '-=5px',
         stagger: 0.2,
-        duration: 1,
+        // duration: 1,
       }, 0)
       .to('.page3photos', {
         autoAlpha: 1,
         stagger: 0.2,
-        duration: 1
-      }, 0.7)
+        // duration: 0.5,
+      },0.6)
     return tl
   }
   function hidePage2() {
@@ -421,6 +511,7 @@ export default function Home({ }) {
   function hidePage3() {
     let tl = gsap.timeline()
       // { y: '-10vh' },
+      // .to('#fish',{opacity:0})
       .to('.page3Inner', {
         opacity: 0,
         duration: 0.7,
@@ -438,6 +529,7 @@ export default function Home({ }) {
     let tl = gsap.timeline()
       .to('.page3descriptionContainer', {
         autoAlpha: 0,
+        overwrite:true,
         // y: '-=5px',
         // stagger: 0.2,
         duration: 0.5,
@@ -448,202 +540,64 @@ export default function Home({ }) {
       }, 0)
     return tl
   }
-    // ============================= page5 =============================
-    function showPage5() {
-      let tl = gsap.timeline()
-        .to(['.svgPage2'],
-          {
-            duration: 1,
-            y: `-${(0.8056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
-          }, 0)
-        .to(['.page5'], {
-          y: '-30vh',
-          opacity: 1,
-          duration: 2,
-          ease: 'ease.out'
-        }, 0)
-      return tl
-    }
-    function showInfo5() {
-      let tl = gsap.timeline()
-        .to('.page5description', {
-          autoAlpha: 1,
-          y: '-=5px',
-          stagger: 0.2,
+  // ============================= page5 =============================
+  function showPage5() {
+    let tl = gsap.timeline()
+      .to(['.svgPage2'],
+        {
           duration: 1,
+          y: `-${(0.9556) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS 
         }, 0)
-      return tl
-    }
-    function hidePage4() {
-      let tl = gsap.timeline()
-        // { y: '-10vh' },
-        .to('.page4Inner', {
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power.out'
-          // ease: 'ease.in'
-        }, 0)
-
-      return tl
-    }
-    function hideInfo4() {
-      let tl = gsap.timeline()
-        .to('.page4descriptionContainer', {
-          autoAlpha: 0,
-          // y: '-=5px',
-          // stagger: 0.2,
-          duration: 0.5,
-        }, 0)
-        .to('.page4photosContainer', {
-          autoAlpha: 0,
-          duration: 0.5,
-        }, 0)
-      return tl
-    }
-  function tl1() {
-    const tl1 = gsap.timeline({
-      scrollTrigger: {
-        // trigger: '.mainBackground',
-        start: 'bottom bottom',
-        ease: 'power2.inout',
-        invalidateOnRefresh: true,
-        scrub: 2,
-        markers: { startColor: 'white', indent: 100 },
-        onUpdate: self => {
-          // console.log(self.getVelocity())
-          velocity.current = self.getVelocity()
-        },
-        // pin:'.svgPage2'
-      }
-    })
-      .addLabel('page0Start', 0)
-      .addLabel('showPage1', 10)
-      // .add(showPage1, 'showPage1')
-      // .duration(100)
-      .to('.mainBackground', {
-        // opacity: 1,
-        duration: 100,
+      .to(['.page5'], {
+        y: '-30vh',
+        opacity: 1,
+        duration: 2,
+        ease: 'ease.out'
+      }, 0)
+    return tl
+  }
+  function showInfo5() {
+    let tl = gsap.timeline()
+    // .to('.page5description', {
+    //   autoAlpha: 1,
+    //   y: '-=5px',
+    //   stagger: 0.2,
+    //   duration: 1,
+    // }, 0)
+    return tl
+  }
+  function hidePage4() {
+    let tl = gsap.timeline()
+      // { y: '-10vh' },
+      .to('.page4Inner', {
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power.out'
+        // ease: 'ease.in'
       }, 0)
 
-    // .to('.svgPage2',{
-    //   y:`+${0.05*svgHeight}px`,
-    //   duration:10 ,
-    // },26)
-
-    // // .to(['.titleText'], {
-    // //   opacity: 1,
-    // //   stagger: 0.1,
-    // //   duration: 5,
-    // // }, 2)
-
-    // // .to(['.mainBackground'], {
-    // //   backgroundColor: `#990000`,
-    // // },3)
-
-
-
-
-    // // .to('.depth3Title', {
-    // //   opacity: 0,
-    // //   // y: '+=220',
-    // //   //  stagger:stagger,
-    // //   duration: 1,
-    // //   ease: 'power3.out'
-    // // }, '<10%')
-    // // .to('.depth2Title', {
-    // //   opacity: 0,
-    // //   // y: '+=250',
-    // //   //  stagger:stagger,
-    // //   duration: 1,
-    // //   ease: 'power3.out'
-    // // }, '<')
-    // // .to('.depth1Title', {
-    // //   opacity: 0,
-    // //   // y: '+=270',
-    // //   //  stagger:stagger,
-    // //   duration: 1,
-    // //   ease: 'power3.out'
-    // // }, '<')
-    // .to(['.pageIntro'], {
-    //   y: '-=50vh',
-    //   duration: 20,
-    //   ease: 'power2.out'
-    //   // ease: 'power2.inout',
+    return tl
+  }
+  function hideInfo4() {
+    let tl = gsap.timeline()
+      .to('.page4descriptionContainer', {
+        autoAlpha: 0,
+        // y: '-=5px',
+        // stagger: 0.2,
+        duration: 0.5,
+      }, 0)
+    // .to('.page4photosContainer', {
+    //   autoAlpha: 0,
+    //   duration: 0.5,
     // }, 0)
-
-    // .to(['.page1'], {
-    //   y: '-=40vh',
-    //   opacity: 1,
-    //   duration: 20,
-    //   // ease: 'power2.inout',
-    // }, 0)
-    // , 'page1Start-=20')
-    // // .to(['.page1stars'], {
-    // //   y: '-=40px',
-    // //   opacity: 1,
-    // //   // ease: 'power.inout',
-    // // }, '<')
-    // // .to(['.page1feet'], {
-    // //   y: '-=5vh',
-    // //   opacity: 1,
-    // //   // ease: 'power.out',
-    // // }, '<')
-    // // // .to(['.pageIntro'], {
-    // // //   opacity: 0,
-    // // //   // end: '+=50'
-    // // // })
-
-
-    // // .to(['.page1stars'], {
-    // //   y: '-=40px',
-    // // })
-    // //====================== PageTransition2 ======================
-
-    // .to(['.svgPage1', '.page1feet'], {
-    //   // y: `-=${0.15986 * svgHeight}px`, //REL
-    //   y: `-${(0.15986 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
-    //   duration: 10,
-    //   ease: 'power4.inout',
-    // }, 20)
-
-    // //====================== PageTransition3 ======================
-
-    // .to(['.svgPage1'], {
-    //   // y: `-=${0.15986 * svgHeight}px`, //REL
-    //   y: `-${(0.15986 * 2 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
-
-    //   duration: 10,
-    //   ease: 'power4.inout',
-    // }, 40)
-
-    // //====================== PageTransition4 ======================
-    // .to(['.svgPage1'], {
-    //   // y: `-=${0.15986 * svgHeight}px`, //REL
-    //   y: `-${(0.15986 * 3 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
-    //   duration: 10,
-    //   ease: 'power4.inout',
-    //   onStart: () => console.log('transition 4 started'),
-    //   onComplete: () => console.log('transition 4 complete')
-    // }, 60)
-
-    // //====================== PageTransition5 ======================
-    // .to(['.svgPage1'], {
-    //   // y: `-=${0.2328 * svgHeight }px`, //REL
-    //   y: `-${(0.2328 + 0.15986 * 3 + 0.28335) * svgHeight + svgTop - screenHeight / 2}px`, //ABS
-    //   duration: 10,
-    //   ease: 'power4.inout',
-    //   onStart: () => console.log('transition 5 started'),
-    //   onComplete: () => console.log('transition 5 completed'),
-    // }, 80)
-    return tl1
+    return tl
   }
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       // .add(introText(), 0)
-
       let transition1 = showPage1().paused(true).add(hideIntro(), 0).add(showInfo1(), 1).progress(0)
-      setToTheMoonTl(transition1);
+      setTransitionTl1(transition1);
       ScrollTrigger.create({
         start: `bottom bottom-=${0.81 * screenHeight}`,
         end: `bottom bottom-=${0.81 * screenHeight}`,
@@ -656,7 +610,7 @@ export default function Home({ }) {
           gsap.to(transition1, {
             overwrite: true,
             progress: 1,
-            duration: 3,
+            duration: 5,
             ease: "power1.out",
           }),
         onLeave: () => {
@@ -670,25 +624,9 @@ export default function Home({ }) {
             ease: "power1.out"
           })
       })
-      let animation1 = scrubIntro(false).paused(true).progress(0);
-      setMasterTl(animation1);
-      gsap.to(animation1,
-        // {progress:0}, 
-        {
-          progress: 1,
-          // ease:'ease.out',
-          ease: 'none',
-          scrollTrigger: {
-            id: 'starScrub',
-            start: 'bottom bottom',
-            end: () => `+=${0.8 * screenHeight}px`,
-            scrub: 1,
-            markers: true,
-            invalidateOnRefresh: true,
-            preventOverlaps: true,
-          }
-        });
-      let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1).progress(0)
+
+      let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1.9).progress(0)
+      setTransitionTl2(transition2)
       ScrollTrigger.create({
         start: `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
         end: `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -700,7 +638,7 @@ export default function Home({ }) {
           gsap.to(transition2, {
             overwrite: true,
             progress: 1,
-            duration: 3,
+            duration: 6,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -712,7 +650,8 @@ export default function Home({ }) {
           })
       })
 
-      let transition3 = showPage3().paused(true).add(hidePage2(), 0).add(hideInfo2(), 0).add(showInfo3(), 1).progress(0)
+      let transition3 = showPage3().paused(true).add(hidePage2(), 0).add(hideInfo2(), 0).add(showInfo3(), 4).progress(0)
+      setTransitionTl3(transition3)
       ScrollTrigger.create({
         start: `bottom+=${2 * screenHeight} bottom-=${0.81 * screenHeight}`,
         end: `bottom+=${2 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -724,7 +663,7 @@ export default function Home({ }) {
           gsap.to(transition3, {
             overwrite: true,
             progress: 1,
-            duration: 3,
+            duration: 8,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -768,6 +707,7 @@ export default function Home({ }) {
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
         markers: true,
+        id:'page5',
         onEnter: () =>
           gsap.to(transition5, {
             overwrite: true,
@@ -784,11 +724,63 @@ export default function Home({ }) {
           })
       })
 
+      let animation0 = scrubIntro().paused(true).progress(0);
+      setScrubTl0(animation0);
+      gsap.to(animation0,
+        // {progress:0}, 
+        {
+          progress: 1,
+          // ease:'ease.out',
+          ease: 'none',
+          scrollTrigger: {
+            id: 'starScrub',
+            start: 'bottom bottom',
+            end: () => `+=${0.8 * screenHeight}px`,
+            scrub: 1,
+            markers: true,
+            invalidateOnRefresh: true,
+            // preventOverlaps: true,
+          }
+        });
+
+      let animation1 = scrubPage1().paused(true).progress(0);
+      setScrubTl1(animation1);
+      gsap.to(animation1,
+        {
+          progress: 1,
+          ease: 'none',
+          scrollTrigger: {
+            id: 'moonScrub',
+            start: `bottom+=${1.2 * screenHeight} bottom`,
+            end: () => `+=${0.6 * screenHeight}px`,
+            scrub: 1,
+            markers: true,
+            invalidateOnRefresh: true,
+            // preventOverlaps: true,
+          }
+        });
+
+      let animation2 = scrubPage2().paused(true).progress(0);
+      setScrubTl2(animation2);
+      gsap.to(animation2,
+        {
+          progress: 1,
+          ease: 'none',
+          scrollTrigger: {
+            id: 'animalScrub',
+            start: `bottom+=${2.2 * screenHeight} bottom`,
+            end: () => `+=${0.6 * screenHeight}px`,
+            scrub: 1,
+            markers: true,
+            invalidateOnRefresh: true,
+            // preventOverlaps: true,
+          }
+        });
 
       let introAnimationTl = gsap.timeline().paused(true);
       setIntroAnimationTl(introAnimationTl)
-      // setMasterTl(masterTl);
-      // setMasterTl(tl1());
+
+      // setScrubTl0(tl1());
 
     })
     return () => { ctx.revert() }
@@ -799,8 +791,8 @@ export default function Home({ }) {
   }, [pageLoaded])
 
   // useEffect(() => {
-  // console.log(showPage1Tl?.progress())
-  // }, [showPage1Tl?.progress()])
+  // console.log(transitionTl1?.progress())
+  // }, [transitionTl1?.progress()])
 
   return (
     <>
@@ -828,25 +820,28 @@ export default function Home({ }) {
 
           <BackgroundSplit type='both' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.jpg' src2='/images/mainpageStudio2Cut.jpg' height='h-[110vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
-          <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[110vh]' animationName={'page3'} className={'opacity-0 top-[25vh]'} />
+          <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[110vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[110vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
-          <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={' opacity-50 top-[-10vh]'} />
+          <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
-          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={' top-0'} />
+          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
           {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}
 
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.7vw] top-1/2 -translate-y-[63%]`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.7vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
           <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)' }} className='svgPage2 flex w-[115.86vw] left-1/2  mx-auto fixed top-[calc(200px)] ' >
             <div className='svgPage2Inner w-full h-full absolute top-0 '>
               {/* <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' /> */}
-              {/*  timeline={masterTl} */}
-              <Story1Logo introAnimationTl={introAnimationTl} masterTl={masterTl} timeline={showPage1Tl} setSvgTop={setSvgTop} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0.15} />
-              {/* <Story2Waves timeline={masterTl} speed={1} scrollMin={0.14} scrollMax={0.16} /> */}
+              {/*  timeline={scrubTl0} */}
+              <Story0Logo introAnimationTl={introAnimationTl} setSvgTop={setSvgTop} setSvgHeight={setSvgHeight} setSvgWidth={setSvgWidth} speed={1} scrollMin={0} scrollMax={0.15} />
+              <Story1Moon scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
+              <Story2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} />
+              <Story3Animals transitionTl={transitionTl3}/>
+
             </div>
           </section>
           {/* style={{top:heightToScroll||svgHeight}} */}
@@ -856,7 +851,7 @@ export default function Home({ }) {
           {/* 265px */}
           <StoryTitle />
 
-          <PageDescription animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
+          <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
           <Page3Photos />
           <PageDescription animateName='page3description' className={`text-left bottom-8 left-8`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
@@ -864,7 +859,7 @@ export default function Home({ }) {
           <Page2Photos />
           <PageDescription animateName='page2description' className={`text-right top-8 right-8`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
-          <Page1Photos />
+          <Page1Photos timeline={scrubTl1} />
           <PageDescription animateName='page1description' className={`text-left top-8 left-8`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
 

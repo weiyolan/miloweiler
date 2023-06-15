@@ -5,7 +5,7 @@ import Parallax from '../Parallax'
 import gsap from 'gsap/dist/gsap'
 // import { Observer } from 'gsap/dist/Observer'
 
-export default function Page1Photos({ className, animateName }) {
+export default function Page1Photos({ className, animateName, timeline }) {
 
   useEffect(() => {
     gsap.utils.toArray(".page1photos").forEach(photo => {
@@ -20,7 +20,7 @@ export default function Page1Photos({ className, animateName }) {
 
   return (
     // <>
-    <Parallax scope='btsPhotos' start='100% 100%' className={`page1photosContainer fixed w-screen h-screen top-0 text-primary ${className ? className : ''}`}>
+    <Parallax small duration={2.8} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-screen h-screen top-0 text-primary ${className ? className : ''}`}>
       <div className='page1photosContainerInner w-full h-full'>
         <Page1Image alt='' src='/images/page1photo11.jpg' width='265' height='366' className={`scale0 depth1  w-[6vw] absolute left-[27%] top-[37%]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />
         <Page1Image alt='' src='/images/page1photo2.jpg' width='265' height='366' className={`scale0 depth3   w-[7.5vw] absolute left-[33%] top-[57%]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />

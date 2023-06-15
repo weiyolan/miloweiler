@@ -35,6 +35,9 @@ module.exports = {
         // 'gray': '#8492a6',
         // 'gray-light': '#d3dce6',
       },
+      backgroundImage: {
+        'blackWhite': "linear-gradient(to right, black 50%, #FFF5EA 50%)",
+      },
       boxShadow: {
         'top-xl': '0 -20px 25px -5px rgb(0 0 0 / 0.1), 0 -8px 10px -6px rgb(0 0 0 / 0.1)',
         'top-2xl': '0 -25px 50px -12px rgb(0 0 0 / 0.25)',
