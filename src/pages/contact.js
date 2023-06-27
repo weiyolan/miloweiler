@@ -22,6 +22,7 @@ import Logo from '@/components/Logo'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import { gsap, ScrollTrigger } from "gsap/dist/all";
+import Navigation from '@/components/Navigation'
 // import { useRouter } from 'next/router';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -222,6 +223,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
             </Layout>
             <Footer />
+            <Navigation />
           </PageWrapper>
         </main>
       </ReactLenis>

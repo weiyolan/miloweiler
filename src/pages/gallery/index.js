@@ -8,6 +8,7 @@ import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react'
 import client from '../../../lib/sanity'
 import Footer2 from '@/components/Footer2';
+import Navigation from '@/components/Navigation';
 
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
@@ -19,7 +20,7 @@ export default function Gallery({ projects }) {
 
   useEffect(() => {
     // console.log('context')
-    ctx.current = gsap.context(() => {}, gallery); // nothing initially (we'll add() to the context when endX changes)
+    ctx.current = gsap.context(() => { }, gallery); // nothing initially (we'll add() to the context when endX changes)
     return () => ctx.current.revert();
   }, [ctx]);
 
@@ -28,7 +29,7 @@ export default function Gallery({ projects }) {
     ctx.current.add(() => {
       gsap.to(".inactiveCard", {
         scale: 0.6,
-        duration:0.3,
+        duration: 0.3,
         // y: 20,
         // yoyo: true, 
         // repeat: -1, 
@@ -89,6 +90,7 @@ export default function Gallery({ projects }) {
           </div>
           <Footer2 className={`relative`} noMotion noMargin />
 
+          <Navigation />
         </PageWrapper>
       </main>
     </>
@@ -98,7 +100,7 @@ export default function Gallery({ projects }) {
 export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, subTitle, by, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
   // console.log(projects)
-  
+
   // function artificialProjects (length) {
   //   console.log(Math.floor(Math.random()*projects.length))
   //   let artificialArray = new Array(length).fill(0).map(()=>{
@@ -109,7 +111,7 @@ export async function getStaticProps() {
   //   })
   //   return artificialArray
   // }
-  
+
   return {
     props: {
       // projects: artificialProjects(40)

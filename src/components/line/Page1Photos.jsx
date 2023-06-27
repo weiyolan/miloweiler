@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ArrowLink from '../ArrowLink'
+// import ArrowLink from '../ArrowLink'
 import Image from 'next/image'
 import Parallax from '../Parallax'
 import gsap from 'gsap/dist/gsap'

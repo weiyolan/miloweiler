@@ -13,7 +13,7 @@ import { PathGSAP } from "@/components/line/pathUtilsGsap"
 // import useStateRef from "@/utils/useStateRef"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
+export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, speed, id, banner }) {
 
   let { locale, scrolled, height: screenHeight } = useAppContext()
 
@@ -224,8 +224,8 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
 
 
   return (<>
-    <AnimateSVG alt='miloweiler photography logo animation'
-      scrollMin={scrollMin} scrollMax={scrollMax} speed={speed} setSvgHeight={setSvgHeight} setSvgTop={setSvgTop} setSvgWidth={setSvgWidth}>
+    <AnimateSVG alt='miloweiler photography logo animation' id={id}
+      scrollMin={scrollMin} scrollMax={scrollMax} speed={speed}>
 
       {getContent(mobile)}
 

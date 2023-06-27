@@ -9,7 +9,7 @@ import { usePageContext } from "@utils/pageContext"
 import { useDimensions } from "@/utils/useDimensions"
 // import useGoodChildren from "./useGoodChildren"
 
-export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, setSvgHeight, setSvgWidth, setSvgTop, print}) { 
+export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, setSvgHeight, setSvgWidth, setSvgTop, print, id}) { 
 
     let [allLengths, setAllLengths] = useState([])
     let [allOffsetLengths, setAllOffsetLengths] = useState([])
@@ -17,15 +17,15 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
     let [allPrevRatios, setAllPrevRatios] = useState([])
     let { scrolled } = useAppContext()
     let [located, setLocated] = useState(false)
-    let [myHeight, setMyHeight] = useState(undefined)
-    let {viewBox, setAnimationLocation, mobile} = usePageContext()
+    // let [myHeight, setMyHeight] = useState(undefined)
+    let {viewBox, mobile} = usePageContext() //setAnimationLocation
     // let [newChildren, setNewChildren] = useState(undefined)
 
     // let newChildren = useGoodChildren(children.props.children, handleLength)
 
     let animationRef = useRef(null)
 
-    let svgRef = useRef(null)
+    // let svgRef = useRef(null)
 
    
     // const {width, height} = useDimensions(svgRef, true)
@@ -48,41 +48,41 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
     },[setAllLengths,setAllOffsetLengths])
 
 
+    // function handleSize(){
+    //   let bbox = svgRef.current.getBoundingClientRect()
+    //   let height = bbox.bottom - bbox.top;
+    //   let width = bbox.width;
+    //   let top = bbox.top;
+    //   if (height>=0 && height.toFixed(0)!==myHeight?.toFixed(0) && setSvgHeight!==undefined) {
+    //     setSvgHeight(height)
+    //     setMyHeight(height)
+    //     setSvgWidth(width)
+    //     setSvgTop(top)
+    //     // console.log('effect fired!')
+    //   }
+    // }
 
-    function handleSize(){
-      let bbox = svgRef.current.getBoundingClientRect()
-      let height = bbox.bottom - bbox.top;
-      let width = bbox.width;
-      let top = bbox.top;
-      if (height>=0 && height.toFixed(1)!==myHeight?.toFixed(1) && setSvgHeight!==undefined) {
-        setSvgHeight(height)
-        setMyHeight(height)
-        setSvgWidth(width)
-        setSvgTop(top)
-        // console.log('effect fired!')
-      }
-    }
+    // useEffect(()=>{
 
-    useEffect(()=>{
+    //   window.addEventListener('resize', handleSize)
+    //   window.addEventListener('load', handleSize)
 
-      window.addEventListener('resize', handleSize)
+    //   handleSize()
 
-      handleSize()
-
-      return window.removeEventListener('resize', handleSize)
-    },[ viewBox, children, setSvgHeight])
+    //   return ()=>{window.removeEventListener('resize', handleSize);window.removeEventListener('load',handleSize)}
+    // },[viewBox, setSvgTop, children, setSvgHeight])
 
 
-    useEffect(()=>{
-      if (scrolled>scrollMin && scrolled < scrollMax && !located) {
-        const {top, bottom} = animationRef.current.getBoundingClientRect();
-        const {top: svgStart} = svgRef.current.getBoundingClientRect();
-        setLocated(true)
-        setAnimationLocation({top: top-svgStart, bottom: bottom-svgStart})
-      } else if ((scrolled<scrollMin || scrolled > scrollMax) && located) {
-        setLocated(false)
-      }
-    },[scrolled, scrollMin, scrollMax, setLocated])
+    // useEffect(()=>{
+    //   if (scrolled>scrollMin && scrolled < scrollMax && !located) {
+    //     const {top, bottom} = animationRef.current.getBoundingClientRect();
+    //     const {top: svgStart} = svgRef.current.getBoundingClientRect();
+    //     setLocated(true)
+    //     setAnimationLocation({top: top-svgStart, bottom: bottom-svgStart})
+    //   } else if ((scrolled<scrollMin || scrolled > scrollMax) && located) {
+    //     setLocated(false)
+    //   }
+    // },[scrolled, scrollMin, scrollMax, setLocated])
 
 
     useEffect(() => {
@@ -133,7 +133,7 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
 
     return (
       <SVGWrapper handleLength={handleLength} myRatio={allRatios} prevRatio={allPrevRatios} scrollMin={scrollMin} scrollMax={scrollMax} animationSpeed={speed}>
-        <svg  ref={svgRef} alt={alt} style={{transform: `translate3d(-50%, 0, 0)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
+        <svg id={id} alt={alt} style={{transform: `translate3d(-50%, 0, 0)`}} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg"
           className={`absolute will-change-transform w-full left-1/2`}>
           {/* className={`absolute w-5/6 xs:w-4/6 sm:w-3/6 md:w-5/6 xl:w-3/5 max-w-6xl left-1/2`}> */}
           
