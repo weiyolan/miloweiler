@@ -57,7 +57,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}
-          className={`imageFill${name ? name : ''}`}
+          className={`imageFill${name ? name : ''} ${className?className:''}`}
           src={src}
           onLoad={onLoad}
           loader={loader}

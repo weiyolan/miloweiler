@@ -27,12 +27,17 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   }
   function handleMouseUp({ currentTarget }) {
     // ctx.current.add(() => {
-    gsap.to(currentTarget, { scale: 1.02, duration: 0.5, ease: 'expo.out' })
+    gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' })
     // })
   }
-  function handleMouseLeave({ currentTarget }) {
+  function handleMouseEnter() {
     // ctx.current.add(() => {
-    gsap.to(currentTarget, { scale: 1.0, duration: 0.5, ease: 'expo.out' })
+    gsap.to(`.projectThumb${index}`, { scale: 1.02, duration: 0.5, ease: 'expo.out' })
+    // })
+  }
+  function handleMouseLeave() {
+    // ctx.current.add(() => {
+    gsap.to(`.projectThumb${index}`, { scale: 1.0, duration: 0.5, ease: 'expo.out' })
     // })
   }
 
@@ -73,21 +78,22 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
 
   return (
-    <Link onClick={(e) => {width<1024 && e.preventDefault()}} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className='scale-50 opacity-0 select-none' ref={projectThumb}>
+    <Link onClick={(e) => {width<1024 && e.preventDefault()}} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className='scale-50 opacity-0 select-none rounded-sm overflow-hidden' ref={projectThumb}>
       <div
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
-        onMouseEnter={(target) => { setHover(true); handleMouseUp(target) }}
-        onMouseLeave={(target) => { setHover(false); handleMouseLeave(target) }}
-        className={`relative cursor-pointer text-primary before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
+        onMouseEnter={() => { setHover(true); handleMouseEnter() }}
+        onMouseLeave={() => { setHover(false); handleMouseLeave() }}
+        className={`relative cursor-pointer  text-primary before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
 
         <div className={`absolute top-0 left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
         </div>
 
         <div className='absolute w-full h-full top-0 left-0 '>
 
-          <SanityImage onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 30vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} />
+          <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 30vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} 
+                  />
           {/* {console.log(project.mainImage)} */}
           <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between p-2 sm:p-4`}>
             <h2 className={`text-left font-lora text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>

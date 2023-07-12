@@ -920,7 +920,7 @@ export default function Home({ }) {
 
           <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
-          <Page3Photos />
+          {/* <Page3Photos /> */}
           {/* //page3 photos behind svg */}
           <PageDescription animateName='page3description' className={`text-left bottom-12 left-12`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
