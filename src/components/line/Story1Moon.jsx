@@ -53,12 +53,7 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
   ]
 
   useEffect(() => {
-    scrubTl1 && scrubTl1
-      .set('#droplet', {
-        scale: 0,
-        // opacity:0,
-        transformOrigin: '50% 50%',
-      })
+    let tl = gsap.timeline()
       .to('#droplet', {
         opacity: 1,
         scale: 1,
@@ -87,6 +82,14 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
         transformOrigin: '50% 50%',
         duration: 0.5,
       })
+
+    scrubTl1 && scrubTl1
+      .set('#droplet', {
+      scale: 0,
+      // opacity:0,
+      transformOrigin: '50% 50%',
+    })
+      .add(tl, 0)
   }, [scrubTl1])
 
   let colorPrimary = "#FFF5EA";
@@ -119,7 +122,7 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
         {/* <path id="droplet5b" d="M910.5 1619.25C910.5 1620.17 908.462 1621 906.58 1621C904.697 1621 903 1620.17 903 1619.25C903 1618.33 905.038 1618 906.92 1618C908.803 1618 910.5 1618.33 910.5 1619.25Z" fill="#FF0000"/> */}
         <path className={`opacity-0`} id="dropletEnd" d="M909.985 2338.74C909.985 2341.96 907.132 2344.87 904.496 2344.87C901.86 2344.87 899.485 2341.96 899.485 2338.74C899.485 2335.52 902.338 2334.37 904.974 2334.37C907.609 2334.37 909.985 2335.52 909.985 2338.74Z" fill="#FFF5EA" />
         {/* <path className={`opacity-0`} id="droplet7" d="M909.985 2343.12C909.985 2344.04 907.947 2344.87 906.064 2344.87C904.182 2344.87 902.485 2344.04 902.485 2343.12C902.485 2342.2 904.523 2341.87 906.405 2341.87C908.288 2341.87 909.985 2342.2 909.985 2343.12Z" fill="#FF0000"/> */}
-        
+
         {/* INDICATOR OF DROPLET FALL HEIGHT */}
         {/* <path id="dropHeight" d="M907 2343L907 1618" stroke="#FF0000" strokeWidth="2" /> */}
       </g>

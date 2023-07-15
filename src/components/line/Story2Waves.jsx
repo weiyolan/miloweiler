@@ -72,6 +72,11 @@ export default function Story2Waves({ scrollMin, scrollMax, scrubTl, transitionT
         // opacity:0,
         duration: 0.5,
       }, 1.55)
+      .to('#fish', {
+        // attr: { d: "M565.227 2597.19C563.57 2597.02 562.174 2594.36 560.974 2592.75C558.103 2588.9 562.437 2590.43 563.474 2593.58C563.941 2594.99 565.183 2595.6 565.227 2597.19ZM565.227 2597.19C566.885 2597.36 562.534 2595.08 563.474 2595.08L561.974 2593.58L565.227 2597.19Z" },
+        opacity:0,
+        duration: 0.05,
+      }, 1.95)
   }, [scrubTl])
 
   return (<>

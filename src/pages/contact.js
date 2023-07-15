@@ -23,6 +23,7 @@ import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import { gsap, ScrollTrigger } from "gsap/dist/all";
 import Navigation from '@/components/Navigation'
+import Footer2 from '@/components/Footer2'
 // import { useRouter } from 'next/router';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -161,7 +162,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           // ctx={ctx} tl={tl}
           >
             <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
-              <h1 className='invisible h-0'>Contact Page</h1>
+              <h1 className='invisible uppercase font-lora text-center text-3xl '>Contact Page</h1>
 
               {/* =======CONTACT DETAILS======== */}
               <ContactDetails contactDetails={contactDetailsData} />
@@ -222,7 +223,9 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               </LayoutSection>
 
             </Layout>
-            <Footer />
+            {/* <Footer /> */}
+            <Footer2 className={`relative mt-8`} noMotion noMargin />
+
             <Navigation />
           </PageWrapper>
         </main>

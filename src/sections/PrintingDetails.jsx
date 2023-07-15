@@ -41,7 +41,7 @@ export default function PrintingDetails({ printingData }) {
   const { locale } = useAppContext();
   return (
     <LayoutSection left>
-      <div ref={parent} key='printing' className='printing-parent flex flex-col h-full justify-center'>
+      <div ref={parent} key='printing' id='printing' className='printing-parent flex flex-col h-full justify-center'>
         <SubTitle child='printing' mainTitle={printingData.title[locale]} subTitle={printingData.text[locale]} left />
         <AccentTitle className='printing-child' text={printingData.subTitle[locale]} />
         <ul className='list-disc pl-8'>

@@ -285,6 +285,20 @@ export default function Home({ }) {
   }
   function scrubPage1() {
     let tl = gsap.timeline({ ease: 'power1.out' })
+      .to('.page1Inner', {
+        y: '-5vh',
+        duration: 2.8,
+        // ease: 'power.out'
+        // duration:1,
+        // ease: 'ease.in'
+      }, 0)
+      .to('.page1starsInner', {
+        y: '-5vh',
+        duration: 2.8,
+        // ease: 'power.out'
+        // duration:1,
+        // ease: 'ease.in'
+      }, 0)
     // .to('.page1',
     //   {
     //     y: '-=30px',
@@ -419,7 +433,10 @@ export default function Home({ }) {
   function scrubPage2() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('#fish', { duration: 2 })
-
+      .to('.page2Inner', {
+        y: '-5vh',
+        duration: 2,
+      }, 0)
     // .to('.page1',
     //   {
     //     y: '-=30px',
@@ -516,6 +533,9 @@ export default function Home({ }) {
   }
   function scrubPage3() {
     let tl = gsap.timeline({ ease: 'power1.out' })
+      .to('.page3Inner', {
+        y: '-5vh',
+      }, 0)
     // .to('#anus', { duration: 2 })
 
     // .to('.page1',
@@ -588,6 +608,13 @@ export default function Home({ }) {
       .to('.page3photosContainer', {
         autoAlpha: 0,
         duration: 0.5,
+      }, 0)
+    return tl
+  }
+  function scrubPage4() {
+    let tl = gsap.timeline({ ease: 'power1.out' })
+      .to('.page4Inner', {
+        y: '-5vh',
       }, 0)
     return tl
   }
@@ -845,6 +872,23 @@ export default function Home({ }) {
           }
         });
 
+      let animation4 = scrubPage4().paused(true).progress(0);
+      setScrubTl4(animation4);
+      gsap.to(animation4,
+        {
+          progress: 1,
+          ease: 'none',
+          scrollTrigger: {
+            id: 'studioScrub',
+            start: `bottom+=${4.2 * screenHeight} bottom`,
+            end: () => `+=${0.6 * screenHeight}px`,
+            scrub: 1,
+            markers: true,
+            invalidateOnRefresh: false,
+            // preventOverlaps: true,
+          }
+        });
+
       let introAnimationTl = gsap.timeline().paused(true);
       setIntroAnimationTl(introAnimationTl)
 
@@ -884,9 +928,9 @@ export default function Home({ }) {
         >
 
           <BackgroundSplit type='both' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
-          <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.jpg' src2='/images/mainpageStudio2Cut.jpg' height='h-[110vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
-          <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[110vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
-          <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[110vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
+          <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.jpg' src2='/images/mainpageStudio2Cut.jpg' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
+          <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
+          <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
           <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
@@ -908,7 +952,8 @@ export default function Home({ }) {
               <Story1Moon scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
               <Story2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} />
               <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} />
-              <Story4Kakje /> 
+              <Story4Kakje />
+
             </div>
           </section>
           {/* style={{top:heightToScroll||svgHeight}} */}
@@ -920,7 +965,7 @@ export default function Home({ }) {
 
           <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
-          {/* <Page3Photos /> */}
+          <Page3Photos />
           {/* //page3 photos behind svg */}
           <PageDescription animateName='page3description' className={`text-left bottom-12 left-12`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 

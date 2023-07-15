@@ -23,8 +23,8 @@ let newPath = [
 export default function Page3Photos({ className, animateName }) {
 
   useEffect(() => {
-    gsap.utils.toArray(".svgClips").forEach((photo,i) => {
-      let hover = gsap.to(photo, { attr:{d:newPath[2-i]}, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
+    gsap.utils.toArray(".svgClips").forEach((photo, i) => {
+      let hover = gsap.to(photo, { attr: { d: newPath[2 - i] }, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
       let click = gsap.to(photo, { scale: 1.05, duration: 0.1, paused: true, ease: "power1.inOut", overwrite: true });
       photo.addEventListener("mouseenter", () => hover.play());
       photo.addEventListener("mouseleave", () => hover.reverse());
@@ -39,34 +39,39 @@ export default function Page3Photos({ className, animateName }) {
         {/* <PageImage n={0} alt='' src='/images/mainpageArt1.jpg' className={` top-[55%] left-[75%] scale-[1.09] -translate-x-1/2 -translate-y-32`} />  */}
         {/* <PageImage n={1} alt='' src='/images/mainpageArt2.jpg' className={` top-[38%] left-[48%] scale-[0.82] -translate-x-1/2 -translate-y-32`} />  */}
         {/* <PageImage n={2} alt='' src='/images/mainpageArt3.jpg' className={` top-[20%] left-[23%] scale-[0.98] -translate-x-1/2 -translate-y-32`} />  */}
-        <NewPageImage n={2} alt='' src='/images/mainpageArt3.jpg' ratio={2250/1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} />
-        <NewPageImage n={1} alt='' src='/images/mainpageArt2.jpg' ratio={2/3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} />
-        <NewPageImage n={0} alt='' src='/images/mainpageArt1.jpg' ratio={2/3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} />
-
+        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} />
+        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} />
+        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} />
+{/* translate-y-64
+translate-y-28
+translate-y-36 */}
       </div>
     </div>
   )
 }
 
-function NewPageImage({ className, n, ratio, ...props }) {
+function ArtImage({ className, n, ratio, svgClipsPosition, imagePosition, ...props }) {
   return (
     <div
-      style={{ clipPath: `path(${paths[n]})` }}
+      // style={{ clipPath: `path(${paths[n]})` }}
       // style={{ clipPath: `url(#svgClip${n})` }}
       // style={{left:`calc(${n} * 1/3)`}}
-      className={`absolute ${className} border-red-400 cursor-pointer border page3photos overflow-visible select-none`}>
-      {/* <svg width={0} height="0" viewBox='0 0 1 1' className=''>
-        <clipPath id={`svgClip${n}`} className='svgClips  translate-x-[20vw] translate-y-80' clipPathUnits="objectBoundingBox">
-          <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" className='' />
-        </clipPath>
-      </svg> */}
-      <div className={`absolute bg-slate-300 w-[60vw] h-[calc(60vw*0.666)] -translate-y-24`}>
+      className={`absolute  opacity-0 invisible  page3photos ${imagePosition} select-none`}>
+
+      <div className={`relative ${className}  `}>
+        {/* w-[60vw] h-[calc(60vw*0.666)] */}
         <Image
-          // style={{ clipPath: `url(#svgClip${n})` }}
+          style={{ clipPath: `url(#svgClip${n})` }}
           // width={1500} height={n === 2 ? 1000 : 2250}
           fill
-          className={`absolute object-cover object-center`} sizes='100vw' {...props} />
+          className={`absolute object-cover object-center  cursor-pointer`} sizes='100vw' {...props} />
+        <svg width={0} height="0" viewBox='0 0 1 1' className=''>
+          <clipPath id={`svgClip${n}`} className={`svgClips ${svgClipsPosition} `} clipPathUnits="objectBoundingBox">
+            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" className='' />
+          </clipPath>
+        </svg>
       </div>
+
     </div>
   )
 }
