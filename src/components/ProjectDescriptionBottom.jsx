@@ -8,7 +8,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
   const { locale, width, height } = useAppContext()
   const { darkMode, descriptionOpen, setDescriptionOpen } = usePageContext()
   let [hovering,setHovering] = useState(false)
-
+  let [loaded, setLoaded] = useState(false)
   let textRef = useRef(null)
   const descriptionRef = useRef(null)
   let { width: textWidth, height: textHeight, top: textTop } = useDimensions(textRef)
@@ -19,7 +19,8 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
   const ctx = useRef(gsap.context(() => { }));
 
   useEffect(() => {
-    return () => ctx.current.revert();
+    setLoaded(true)
+    return () => {ctx.current.revert();setLoaded(false)};
   }, []);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
         // x: selected === id ? 200 : 0,
         yPercent: descriptionOpen ? -100 : 0,
         // height:'auto',
+        autoAlpha:loaded?1:0,
         // borderRadius: descriptionOpen ? 0 : '0px 0px 30px 30px',
         y: descriptionOpen ? (hovering?8:0) : (-height+descriptionTop + (hovering?-8:0)),
         // translateY: () => width < 350 ? 40 : 56,
@@ -38,7 +40,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
         onComplete: () => setAnimateDescription(false)
       });
     });
-  }, [descriptionBottom, descriptionOpen, hovering]);
+  }, [descriptionBottom, descriptionOpen, hovering, loaded]);
 
   useEffect(() => {
     setPosition({ width: descriptionWidth, height: descriptionHeight, top:descriptionTop, bottom:descriptionBottom })
@@ -52,20 +54,20 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
   }, [textTop])
 
 
-  function handleEnter({ currentTarget }) {
-    if (!descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: 0, translateY: '-=8', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
-    } else if (descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: -100, translateY: '+=4', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
-    }
-  }
-  function handleLeave({ currentTarget }) {
-    if (!descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: 0, translateY: -64, backgroundColor: 'rgba(0,0,0,0.4)', scale: 1, ease: 'expo.out', duration: 0.7 })
-    } else if (descriptionOpen) {
-      gsap.to(currentTarget, { yPercent: -100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)', scale: 1, ease: 'expo.out', duration: 0.7 })
-    }
-  }
+  // function handleEnter({ currentTarget }) {
+  //   if (!descriptionOpen) {
+  //     gsap.to(currentTarget, { yPercent: 0, translateY: '-=8', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //   } else if (descriptionOpen) {
+  //     gsap.to(currentTarget, { yPercent: -100, translateY: '+=4', backgroundColor: 'rgba(0,0,0,0.5)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //   }
+  // }
+  // function handleLeave({ currentTarget }) {
+  //   if (!descriptionOpen) {
+  //     gsap.to(currentTarget, { yPercent: 0, translateY: -64, backgroundColor: 'rgba(0,0,0,0.4)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //   } else if (descriptionOpen) {
+  //     gsap.to(currentTarget, { yPercent: -100, translateY: 0, backgroundColor: 'rgba(0,0,0,0.6)', scale: 1, ease: 'expo.out', duration: 0.7 })
+  //   }
+  // }
   function handleClick({ currentTarget }) {
     if (!descriptionOpen) {
       setDescriptionOpen(true)
@@ -79,7 +81,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
 
   return (
 
-    <div ref={descriptionRef} className='description-box relative w-full bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer -translate-y-16 rounded-t-[40px] pt-4 px-10 pb-10'
+    <div ref={descriptionRef} className='description-box opacity-0 invisible relative w-full -translate-y-16 bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer rounded-t-[40px] pt-4 px-10 pb-10'
       // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
       onMouseEnter={()=>setHovering(true)}
       onMouseLeave={()=>setHovering(false)}

@@ -13,7 +13,7 @@ export default function ProjectDescription({ project, setPosition , mainPictureW
   const { width } = useAppContext()
   const { setDescriptionOpen, descriptionOpen } = usePageContext()
   let [descriptionPosition, setDescriptionPosition] = useState(undefined)
-
+  let [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     // console.log(descriptionPosition?.bottom)

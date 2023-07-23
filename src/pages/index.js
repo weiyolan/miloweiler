@@ -49,7 +49,10 @@ import Story2Waves from '@/components/line/Story2Waves'
 import Story3Animals from '@/components/line/Story3Animals'
 import PageDescription4 from '@/components/line/PageDescription4'
 import Navigation from '@/components/Navigation'
-import Story4Kakje from '@/components/line/Story4Kakje'
+import Story4Kakje from '@/components/line/Story5Milo'
+import Page3KakScrub from '@/components/line/Page3KakScrub'
+import Story5Milo from '@/components/line/Story5Milo'
+import Page4Kakje from '@/components/line/Page4Kakje'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
@@ -65,11 +68,13 @@ export default function Home({ }) {
   let [scrubTl2, setScrubTl2] = useState();
   let [scrubTl3, setScrubTl3] = useState();
   let [scrubTl4, setScrubTl4] = useState();
+  let [scrubTl5, setScrubTl5] = useState();
 
   let [transitionTl1, setTransitionTl1] = useState();
   let [transitionTl2, setTransitionTl2] = useState();
   let [transitionTl3, setTransitionTl3] = useState();
   let [transitionTl4, setTransitionTl4] = useState();
+  let [transitionTl5, setTransitionTl5] = useState();
 
   let [pageLoaded, setPageLoaded] = useState(false)
   let [svgHeight, setSvgHeight] = useState(undefined)
@@ -287,14 +292,14 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page1Inner', {
         y: '-5vh',
-        duration: 2.8,
+        duration: 3.3,
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
       }, 0)
       .to('.page1starsInner', {
         y: '-5vh',
-        duration: 2.8,
+        duration: 3.3,
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
@@ -479,10 +484,7 @@ export default function Home({ }) {
         duration: 4,
         ease: 'ease.out'
       }, 0)
-      .set('#anus', {
-        y: () => { return `${0.004 * svgHeight * svgWidthFactor}px` },
-        x: () => { return `${0.01 * svgWidth}px` },
-      }, 0)
+
     return tl
   }
   function showInfo3() {
@@ -535,6 +537,7 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page3Inner', {
         y: '-5vh',
+        duration: 100,
       }, 0)
     // .to('#anus', { duration: 2 })
 
@@ -567,6 +570,7 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
+      
     return tl
   }
   function showInfo4() {
@@ -616,6 +620,9 @@ export default function Home({ }) {
       .to('.page4Inner', {
         y: '-5vh',
       }, 0)
+      .to('.svgKakje',{
+        y: '-5vh',
+      },0)
     return tl
   }
   // ============================= page5 =============================
@@ -632,6 +639,7 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
+      
     return tl
   }
   function showInfo5() {
@@ -670,7 +678,17 @@ export default function Home({ }) {
     // }, 0)
     return tl
   }
-
+  function scrubPage5() {
+    let tl = gsap.timeline({ ease: 'power1.out' })
+      .to('.page5Inner', {
+        y: '-5vh',
+        duration:153,
+      }, 0)
+      // .to('.svgKakje',{
+      //   y: '-5vh',
+      // },0)
+    return tl
+  }
   useEffect(() => {
     let ctx = gsap.context(() => {
       // .add(introText(), 0)
@@ -683,7 +701,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -711,7 +729,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -736,7 +754,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -754,18 +772,19 @@ export default function Home({ }) {
       })
 
       let transition4 = showPage4().paused(true).add(hidePage3(), 0).add(hideInfo3(), 0).add(showInfo4(), 1).progress(0)
+      setTransitionTl4(transition4)
       ScrollTrigger.create({
         start: `bottom+=${3 * screenHeight} bottom-=${0.81 * screenHeight}`,
         end: `bottom+=${3 * screenHeight} bottom-=${0.81 * screenHeight}`,
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition4, {
             overwrite: true,
             progress: 1,
-            duration: 3,
+            duration: 4,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -778,13 +797,14 @@ export default function Home({ }) {
       })
 
       let transition5 = showPage5().paused(true).add(hidePage4(), 0).add(hideInfo4(), 0).add(showInfo5(), 1).progress(0)
+      // setTransitionTl5(transition5)
       ScrollTrigger.create({
         start: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
         end: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
@@ -815,7 +835,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -832,7 +852,7 @@ export default function Home({ }) {
             start: `bottom+=${1.2 * screenHeight} bottom`,
             end: () => `+=${0.6 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -849,7 +869,7 @@ export default function Home({ }) {
             start: `bottom+=${2.2 * screenHeight} bottom`,
             end: () => `+=${0.6 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -866,7 +886,7 @@ export default function Home({ }) {
             start: `bottom+=${3.2 * screenHeight} bottom`,
             end: () => `+=${0.6 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -883,7 +903,24 @@ export default function Home({ }) {
             start: `bottom+=${4.2 * screenHeight} bottom`,
             end: () => `+=${0.6 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
+            invalidateOnRefresh: false,
+            // preventOverlaps: true,
+          }
+        });
+
+        let animation5 = scrubPage5().paused(true).progress(0);
+      setScrubTl5(animation5);
+      gsap.to(animation5,
+        {
+          progress: 1,
+          ease: 'none',
+          scrollTrigger: {
+            id: 'finalScrub',
+            start: `bottom+=${5.2 * screenHeight} bottom`,
+            end: () => `+=${0.6 * screenHeight}px`,
+            scrub: 1,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -917,7 +954,7 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} light-scrollbar */}
-      <main style={{ height: '600vh' }} className={`w-full mainBackground relative bg-black`} >
+      <main style={{ height: '700vh' }} className={`w-full mainBackground relative bg-black`} >
 
         <PageWrapper
           darkMode={true}
@@ -928,8 +965,13 @@ export default function Home({ }) {
         >
 
           <BackgroundSplit type='both' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
-          <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.jpg' src2='/images/mainpageStudio2Cut.jpg' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
+          <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
+          {/*h-100vh no specification needed   */}
+          <Background type='both' amount={0} src='/images/mainpageArt1.jpg' animationName={'artPhoto0'} className={'opacity-0'} />
+          <Background type='both' amount={0} src='/images/mainpageArt2.jpg' animationName={'artPhoto1'} className={'opacity-0'} />
+          <Background type='both' amount={0} src='/images/mainpageArt3.jpg' animationName={'artPhoto2'} className={'opacity-0'} />
+
           <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
           <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
@@ -952,7 +994,8 @@ export default function Home({ }) {
               <Story1Moon scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
               <Story2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} />
               <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} />
-              <Story4Kakje />
+              {/* <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} /> */}
+              <Story5Milo scrubTl={scrubTl5} transitionTl={transitionTl3} />
 
             </div>
           </section>
@@ -963,10 +1006,12 @@ export default function Home({ }) {
           {/* 265px */}
           <StoryTitle />
 
+          <Page4Kakje scrubTl={scrubTl3} transitionTl={transitionTl4} />
           <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
           <Page3Photos />
           {/* //page3 photos behind svg */}
+          <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription animateName='page3description' className={`text-left bottom-12 left-12`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
           <Page2Photos />
@@ -974,7 +1019,6 @@ export default function Home({ }) {
 
           <Page1Photos timeline={scrubTl1} />
           <PageDescription animateName='page1description' className={`text-left top-12 left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
-
 
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}

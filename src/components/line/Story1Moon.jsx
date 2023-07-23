@@ -53,7 +53,14 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
   ]
 
   useEffect(() => {
-    let tl = gsap.timeline()
+    // let tl = gsap.timeline()
+
+    scrubTl1 && scrubTl1
+      .set('#droplet', {
+        scale: 0,
+        opacity: 0,
+        transformOrigin: '50% 50%',
+      }, 0)
       .to('#droplet', {
         opacity: 1,
         scale: 1,
@@ -62,34 +69,32 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
       }, 0)
       .to('#droplet', {
         attr: { d: drops[1] },
-        duration: 0.5,
-      })
+        duration: 0.6,
+        ease:'none',
+      }, 0.3 + 0 * 0.6)
       .to('#droplet', {
         attr: { d: drops[2] },
-        duration: 0.5,
-      })
+        duration: 0.6,
+        ease:'none',
+      }, 0.3 + 1 * 0.6)
       .to('#droplet', {
         attr: { d: drops[3] },
-        duration: 0.5,
-      })
+        duration: 0.6,
+        ease:'none',
+      }, 0.3 + 2 * 0.6)
       .to('#droplet', {
         attr: { d: drops[4] },
-        duration: 0.5,
-      })
+        duration: 0.6,
+        ease:'none',
+      }, 0.3 + 3 * 0.6)
       .to('#droplet', {
         attr: { d: drops[5] },
         scale: 1.5,
         transformOrigin: '50% 50%',
-        duration: 0.5,
-      })
-
-    scrubTl1 && scrubTl1
-      .set('#droplet', {
-      scale: 0,
-      // opacity:0,
-      transformOrigin: '50% 50%',
-    })
-      .add(tl, 0)
+        duration: 0.6,
+        ease:'none',
+      }, 0.3 + 4 * 0.6)
+    // .add(tl, 0)
   }, [scrubTl1])
 
   let colorPrimary = "#FFF5EA";

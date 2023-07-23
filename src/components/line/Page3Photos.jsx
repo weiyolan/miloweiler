@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import ArrowLink from '../ArrowLink'
+import React, { useEffect, useRef, useState } from 'react'
+// import ArrowLink from '../ArrowLink'
 import Image from 'next/image'
-import Parallax from '../Parallax'
-import FadeDiv from '../FadeDiv'
+// import Parallax from '../Parallax'
+// import FadeDiv from '../FadeDiv'
 // import { Observer } from 'gsap/dist/Observer'
 import gsap from 'gsap/dist/gsap'
 
@@ -13,21 +13,19 @@ let paths = [
 ];
 
 let newPath = [
-  "M0 0H0.25H0.5H1V0.25V0.375V0.5H0.5H0.25H0.125H0V0.375V0.25V0Z",
-  "M0 0H0.25H0.5H1V0.25V0.375V0.5H0.5H0.25H0.125H0V0.375V0.25V0Z",
-  "M0 0H0.25H0.5H1V0.25V0.375V0.5H0.5H0.25H0.125H0V0.375V0.25V0Z"
+ {viewBox:"0 0 5 2",d:"M2.05133 0.866664C1.80316 0.715726 1.62859 0.697084 0.787876 0.731749C-0.135672 0.769841 -0.163066 0.765846 0.273657 0.656864C0.527358 0.593544 1.09159 0.537756 1.52751 0.532885C1.96344 0.527959 2.52389 0.461418 2.77298 0.38489C3.22594 0.245725 4.94624 -0.0467484 4.99936 0.00637134C5.01484 0.021864 4.74669 0.109131 4.40346 0.200318C3.28833 0.496537 2.78969 0.710491 2.9012 0.844874C3.07526 1.05464 2.38928 1.07223 2.05133 0.866664Z"}
+ , {viewBox:"0 0 4 3", d:"M0.0215005 1.73612C0.0215005 1.31225 0.175012 0.761698 0.360363 0.519074C0.527401 0.300407 0.966285 0.185771 2.13113 0.0565454C2.97324 -0.0368821 3.0256 -0.0310224 3.42112 0.200806C3.64787 0.333705 3.89641 0.520765 3.97346 0.616512C4.0505 0.712246 3.95401 0.670423 3.75903 0.52355C3.55132 0.367098 3.27808 0.256532 3.09914 0.256532C2.7583 0.256532 2.58536 0.429709 2.79411 0.561967C2.95383 0.663141 2.88417 0.675482 2.28896 0.651483C2.04486 0.641595 1.79149 0.589207 1.72591 0.534969C1.51578 0.361192 1.02078 0.55294 0.711838 0.9278C0.548621 1.12584 0.415079 1.32107 0.415079 1.36164C0.415079 1.40223 0.32649 1.58077 0.218195 1.75839C0.218195 1.75839 0.0694039 2.08135 0.0213244 2.08135C-0.0267582 2.08135 0.0215008 1.886 0.0215005 1.73612Z"}
+ , {viewBox:"0 0 4 2", d:"M1.44367 1.84057C1.17696 1.71087 1.09651 1.63415 1.16003 1.57007C1.27743 1.45162 1.18132 1.39592 0.460447 1.1647C0.141484 1.06238 -0.0587602 0.975643 0.015463 0.97194C0.215293 0.96198 1.21958 1.28797 1.2768 1.38138C1.30393 1.42568 1.42923 1.46192 1.55523 1.46192C1.72532 1.46192 1.88253 1.35436 2.16565 1.04427C2.44848 0.734491 2.73022 0.541603 3.2565 0.297451C3.64675 0.11641 3.98094 -0.0166816 3.99915 0.0016962C4.01736 0.0200613 3.74055 0.241329 3.38402 0.493395C2.72522 0.959137 2.21904 1.50204 2.21904 1.74289C2.21904 1.81602 2.26211 1.87585 2.31476 1.87585C2.36742 1.87585 2.38664 1.89992 2.35748 1.92934C2.23535 2.05257 1.79085 2.00938 1.44367 1.84057Z"}
 ]
-
-
 
 export default function Page3Photos({ className, animateName }) {
 
   useEffect(() => {
     gsap.utils.toArray(".svgClips").forEach((photo, i) => {
-      let hover = gsap.to(photo, { attr: { d: newPath[2 - i] }, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
+      let hovering = gsap.to(photo, { attr: { d: newPath[2 - i] }, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
       let click = gsap.to(photo, { scale: 1.05, duration: 0.1, paused: true, ease: "power1.inOut", overwrite: true });
-      photo.addEventListener("mouseenter", () => hover.play());
-      photo.addEventListener("mouseleave", () => hover.reverse());
+      photo.addEventListener("mouseenter", () => hovering.play());
+      photo.addEventListener("mouseleave", () => hovering.reverse());
       photo.addEventListener("mousedown", () => click.play());
       photo.addEventListener("mouseup", () => click.reverse());
     });
@@ -39,10 +37,14 @@ export default function Page3Photos({ className, animateName }) {
         {/* <PageImage n={0} alt='' src='/images/mainpageArt1.jpg' className={` top-[55%] left-[75%] scale-[1.09] -translate-x-1/2 -translate-y-32`} />  */}
         {/* <PageImage n={1} alt='' src='/images/mainpageArt2.jpg' className={` top-[38%] left-[48%] scale-[0.82] -translate-x-1/2 -translate-y-32`} />  */}
         {/* <PageImage n={2} alt='' src='/images/mainpageArt3.jpg' className={` top-[20%] left-[23%] scale-[0.98] -translate-x-1/2 -translate-y-32`} />  */}
-        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} />
-        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} />
-        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} />
-{/* translate-y-64
+        {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} /> */}
+        {/* <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} /> */}
+        {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} /> */}
+        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-20vh]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} />
+        {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-200px]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} /> */}
+        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-30vh]`} className={'w-[calc(0.752*30vw)] -translate-x-1/2 left-1/2 top-[42%]'} />
+        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-35vh]`} className={'w-[calc(0.89*30vw)] left-[20%] top-[23%] -translate-x-1/2'} />
+        {/* translate-y-64
 translate-y-28
 translate-y-36 */}
       </div>
@@ -50,42 +52,99 @@ translate-y-36 */}
   )
 }
 
-function ArtImage({ className, n, ratio, svgClipsPosition, imagePosition, ...props }) {
+function ArtImage({ className, n, imagePosition, ...props }) {
+ let [hovering, setHovering] = useState(false)
+
+ const ctx = useRef(gsap.context(() => { }));
+
+ useEffect(() => {
+   return () => ctx.current.revert();
+ }, []);
+
+useEffect(()=>{
+  // artPhoto1
+  // artPhoto2
+  // artPhoto3
+
+  ctx.current.add(()=>{
+    gsap.to(`.artPhoto${n}`,{
+      opacity:hovering?1:0,
+      duration:0.8,
+    })
+    // gsap.to(['.page3description'],{
+    //   autoAlpha:hovering?0:1,
+    //   duration:0.4
+    // })
+
+    // gsap.to([0,1,2].filter((item)=>item!==n).map((nr)=>{return `.page3photos${nr}`}),{
+    //   autoAlpha:hovering?0:1,
+    //   duration:0.3,
+    // })
+  })
+
+},[hovering])
+
   return (
     <div
       // style={{ clipPath: `path(${paths[n]})` }}
       // style={{ clipPath: `url(#svgClip${n})` }}
       // style={{left:`calc(${n} * 1/3)`}}
-      className={`absolute  opacity-0 invisible  page3photos ${imagePosition} select-none`}>
+      className={`absolute opacity-0 invisible drop-shadow-2xl page3photos page3photos${n} ${className} select-none`}>
 
-      <div className={`relative ${className}  `}>
-        {/* w-[60vw] h-[calc(60vw*0.666)] */}
-        <Image
-          style={{ clipPath: `url(#svgClip${n})` }}
-          // width={1500} height={n === 2 ? 1000 : 2250}
-          fill
-          className={`absolute object-cover object-center  cursor-pointer`} sizes='100vw' {...props} />
-        <svg width={0} height="0" viewBox='0 0 1 1' className=''>
-          <clipPath id={`svgClip${n}`} className={`svgClips ${svgClipsPosition} `} clipPathUnits="objectBoundingBox">
-            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" className='' />
+      {/* <div className={`relative ${className}`}> */}
+      {/* w-[60vw] h-[calc(60vw*0.666)] */}
+      <Image
+        style={{ clipPath: `url(#svgClip${n})` }}
+        // width={1500} height={n === 2 ? 1000 : 2250}
+        fill
+        onMouseEnter={()=>setHovering(true)}
+        onMouseLeave={()=>setHovering(false)}
+        className={`object-cover ${imagePosition} cursor-pointer`} sizes='30vw' {...props} />
+
+      {/* <svg viewBox={`${viewBox}`}> */}
+      <svg viewBox='0 0 1 1'>
+        <clipPath id={`svgClip${n}`} className={`svgClips`} clipPathUnits="objectBoundingBox">
+          <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" className='' />
+        </clipPath>
+      </svg>
+      {/* </div> */}
+
+    </div>
+  )
+}
+
+function ArtImage2({ className, n, ...props }) {
+  return (
+    <div className={`absolute opacity-0 invisible  page3photos drop-shadow-2xl select-none ${className}`}>
+      {/* <div className={`relative border-red-500 border-2 ${className} w-fit`}> */}
+      <Image style={{ clipPath: `url(#svgClip${n})` }}
+        width={1500} height={n === 2 ? 1000 : 2250} className={`relative object-cover w-[20vw] select-none hovering:cursor-pointer `} sizes='(max-width: 640px) 50vw, 25vw' {...props} />
+      {/* </div> */}
+
+      <svg className='w-0 h-0' viewbox='0 0 1 1'>
+        <defs>
+          <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
+            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
           </clipPath>
-        </svg>
-      </div>
-
+        </defs>
+      </svg>
     </div>
   )
 }
 
 function PageImage({ className, n, ...props }) {
   return (
-    <div className={`absolute  ${className}`}>
-      <svg width={0} height="0">
-        <clipPath id={`svgClip${n}`} className='cursor-pointer translate-y-32 hover:scale-105 ' clipPathUnits="objectBoundingBox">
-          <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
-        </clipPath>
-      </svg>
+    <div className={`absolute drop-shadow-2xl border-red-500 border-2 ${className}`}>
       <Image style={{ clipPath: `url(#svgClip${n})` }}
-        width={1500} height={n === 2 ? 1000 : 2250} className='w-[25vw] page3photos select-none  hover:cursor-pointer opacity-0 invisible  drop-shadow-2xl ' sizes='(max-width: 640px) 50vw, 25vw' {...props} />
+        width={1500} height={n === 2 ? 1000 : 2250} className='relative w-[20vw] h-auto page3photos select-none object-cover hovering:cursor-pointer opacity-0 invisible ' sizes='(max-width: 640px) 50vw, 25vw' {...props} />
+
+      <svg className='' viewbox='0 0 1 1'>
+        <defs>
+          <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
+            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
+          </clipPath>
+        </defs>
+      </svg>
     </div>
   )
 }

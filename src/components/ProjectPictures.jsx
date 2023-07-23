@@ -17,9 +17,9 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
   let container = useRef(null)
   const { width } = useAppContext()
   // let [ctx, setCts] = useState(gsap.context(() => { }, container.current))
-  const ctx = useRef(null);
+  // const ctx = useRef(null);
   const grid = useRef(null);
-  const tl = useRef(null);
+  // const tl = useRef(null);
   // let scrollTween = useRef()
 
   // useEffect(() => {

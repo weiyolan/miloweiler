@@ -30,7 +30,7 @@ export default function Project({ project, slug, slugs }) {
   const { width, height } = useAppContext()
   // let [loaded, setLoaded] = useState(false)
   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
-  let [clicked, setClicked] = useState(false)
+  // let [clicked, setClicked] = useState(false)
   let [descriptionOpen, setDescriptionOpen] = useState(false)
   let [indicatorPosition, setIndicatorPosition] = useState(null)
   let [descriptionPosition, setDescriptionPosition] = useState(null)
@@ -111,7 +111,7 @@ export default function Project({ project, slug, slugs }) {
       .set(`.mainPicture-${index2}`, {
         x: () => direction === 'left' ? `${xAmount}` : `-${xAmount}`,
         scale: scaleAmount,
-        borderRadius: 70,
+        borderRadius: 0,
         // autoAlpha: 0,
       })
       .to(`.mainPicture-${index1}`,
@@ -119,7 +119,7 @@ export default function Project({ project, slug, slugs }) {
           x: () => direction === 'left' ? `-=${xAmount}` : `+=${xAmount}`,
           scale: scaleAmount,
           autoAlpha: 0,
-          borderRadius: 70,
+          borderRadius: 0,
           ease: 'expo.out',
           // ease:'power4.out',
           duration: 0.7,
@@ -204,7 +204,7 @@ export default function Project({ project, slug, slugs }) {
     if (currentItem === -1) {
       // handleVisibility(true, 0) // Cannot hurt to provide safety against no visibility although should not happen apriori.
       // handleVisibility(0) // Cannot hurt to provide safety against no visibility although should not happen apriori.
-      console.log('currentItem is -1!')
+      // console.log('currentItem is -1!')
     } else {
       let nextItem = currentItem === visibleItem.length - 1 ? 0 : currentItem + 1;
       // handleVisibility(true, nextItem)
@@ -220,7 +220,7 @@ export default function Project({ project, slug, slugs }) {
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
       // handleVisibility(0)
-      console.log('currentItem is -1!')
+      // console.log('currentItem is -1!')
       // handleVisibility(true, 0)
     } else {
       let nextItem = currentItem === 0 ? visibleItem.length - 1 : currentItem - 1;
@@ -329,10 +329,10 @@ export default function Project({ project, slug, slugs }) {
   )
 }
 
-function GetItems(project, slug) {
-  let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
-  return [visibleItem, setVisibleItem]
-}
+// function GetItems(project, slug) {
+//   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
+//   return [visibleItem, setVisibleItem]
+// }
 
 export async function getStaticPaths() {
   const projects = await client.fetch(`*[_type == "project"]{slug}`);
