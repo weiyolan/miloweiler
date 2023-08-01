@@ -2,43 +2,19 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import Head from 'next/head'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 
-// import Image from 'next/image'
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 
-import BackgroundMoving from '@/components/line/BackgroundMoving'
 import { PageWrapper } from '@utils/pageContext'
 import { useAppContext } from '@utils/appContext'
-// import { useDimensions } from '@/utils/useDimensions'
-
-// import Title from '@/components/atoms/Title'
-// import Layout from '@/components/sections/Layout'
-// import Footer from '@/components/sections/Footer'
-
-// import ButtonBig from '@components/atoms/ButtonBig'
-
-// import ScrollVisual from '@/components/scroll/ScrollVisual'
-import ScrollingDiv from '@/components/line/ScrollingDiv'
-import FadeDiv from '@/components/FadeDiv'
-
-// import SpireeStory from '../public/images/spireeStory.svg'
-
-// import Navbar from '@/components/navbar/Navbar'
-// import ShoppingCart from '@/components/cart/ShoppingCart'
-import Button from '@/components/Button'
 import Background from '@/components/Background'
-import Parallax from '@/components/Parallax'
-import StoryText from '@/components/line/StoryText'
 import StoryTitle from '@/components/line/StoryTitle'
 import Image from 'next/image'
 import PageDescription from '@/components/line/PageDescription'
 import Page1Photos from '@/components/line/Page1Photos'
 import ScrollVisual from '@/components/line/ScrollVisual'
-import Footer2 from '@/components/Footer2'
-import ScrollVelocity from '@/components/ScrollVelocity'
-import { flushSync } from 'react-dom'
 import BackgroundSplit from '@/components/BackgroundSplit'
 import Page2Photos from '@/components/line/Page2Photos'
 import Page3Photos from '@/components/line/Page3Photos'
@@ -49,10 +25,10 @@ import Story2Waves from '@/components/line/Story2Waves'
 import Story3Animals from '@/components/line/Story3Animals'
 import PageDescription4 from '@/components/line/PageDescription4'
 import Navigation from '@/components/Navigation'
-import Story4Kakje from '@/components/line/Story5Milo'
 import Page3KakScrub from '@/components/line/Page3KakScrub'
-import Story5Milo from '@/components/line/Story5Milo'
 import Page4Kakje from '@/components/line/Page4Kakje'
+import PageDescription5 from '@/components/line/PageDescription5'
+import Page5Milo from '@/components/line/Page5Milo'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
@@ -538,6 +514,7 @@ export default function Home({ }) {
       .to('.page3Inner', {
         y: '-5vh',
         duration: 100,
+        // duration: 2.5,
       }, 0)
     // .to('#anus', { duration: 2 })
 
@@ -570,7 +547,7 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
-      
+
     return tl
   }
   function showInfo4() {
@@ -619,10 +596,12 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page4Inner', {
         y: '-5vh',
+        duration:2.8,
       }, 0)
-      .to('.svgKakje',{
+      .to('.svgKakje', {
         y: '-5vh',
-      },0)
+        duration:2.8,
+      }, 0)
     return tl
   }
   // ============================= page5 =============================
@@ -639,23 +618,33 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
-      
+      .to('.svgMilo',{
+        y: '-30vh',
+        duration: 2,
+        ease: 'ease.out'
+      },0)
     return tl
   }
   function showInfo5() {
     let tl = gsap.timeline()
-    // .to('.page5description', {
-    //   autoAlpha: 1,
-    //   y: '-=5px',
-    //   stagger: 0.2,
-    //   duration: 1,
-    // }, 0)
+    .to('.page5description', {
+      autoAlpha: 1,
+      y: '-=5px',
+      stagger: 0.2,
+      duration: 1,
+    }, 0)
     return tl
   }
   function hidePage4() {
     let tl = gsap.timeline()
       // { y: '-10vh' },
       .to('.page4Inner', {
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power.out'
+        // ease: 'ease.in'
+      }, 0)
+      .to('.svgKakje', {
         opacity: 0,
         duration: 0.7,
         ease: 'power.out'
@@ -680,13 +669,13 @@ export default function Home({ }) {
   }
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
-      .to('.page5Inner', {
-        y: '-5vh',
-        duration:153,
-      }, 0)
-      // .to('.svgKakje',{
-      //   y: '-5vh',
-      // },0)
+    // .to('.page5Inner', {
+    //   y: '-5vh',
+    //   duration:153,
+    // }, 0)
+    // .to('.svgKakje',{
+    //   y: '-5vh',
+    // },0)
     return tl
   }
   useEffect(() => {
@@ -797,7 +786,7 @@ export default function Home({ }) {
       })
 
       let transition5 = showPage5().paused(true).add(hidePage4(), 0).add(hideInfo4(), 0).add(showInfo5(), 1).progress(0)
-      // setTransitionTl5(transition5)
+      setTransitionTl5(transition5)
       ScrollTrigger.create({
         start: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
         end: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -810,7 +799,7 @@ export default function Home({ }) {
           gsap.to(transition5, {
             overwrite: true,
             progress: 1,
-            duration: 3,
+            duration: 4,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -849,8 +838,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'moonScrub',
-            start: `bottom+=${1.2 * screenHeight} bottom`,
-            end: () => `+=${0.6 * screenHeight}px`,
+            start: `bottom+=${1.05 * screenHeight} bottom`,
+            end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
@@ -866,8 +855,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'animalScrub',
-            start: `bottom+=${2.2 * screenHeight} bottom`,
-            end: () => `+=${0.6 * screenHeight}px`,
+            start: `bottom+=${2.05 * screenHeight} bottom`,
+            end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
@@ -883,8 +872,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'kakScrub',
-            start: `bottom+=${3.2 * screenHeight} bottom`,
-            end: () => `+=${0.6 * screenHeight}px`,
+            start: `bottom+=${3.05 * screenHeight} bottom`,
+            end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
@@ -900,8 +889,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'studioScrub',
-            start: `bottom+=${4.2 * screenHeight} bottom`,
-            end: () => `+=${0.6 * screenHeight}px`,
+            start: `bottom+=${4.05 * screenHeight} bottom`,
+            end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
@@ -909,7 +898,7 @@ export default function Home({ }) {
           }
         });
 
-        let animation5 = scrubPage5().paused(true).progress(0);
+      let animation5 = scrubPage5().paused(true).progress(0);
       setScrubTl5(animation5);
       gsap.to(animation5,
         {
@@ -917,8 +906,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'finalScrub',
-            start: `bottom+=${5.2 * screenHeight} bottom`,
-            end: () => `+=${0.6 * screenHeight}px`,
+            start: `bottom+=${5.05 * screenHeight} bottom`,
+            end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
@@ -954,7 +943,7 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} light-scrollbar */}
-      <main style={{ height: '700vh' }} className={`w-full mainBackground relative bg-black`} >
+      <main style={{ height: '700vh' }} className={`w-full light-scrollbar mainBackground relative bg-black`} >
 
         <PageWrapper
           darkMode={true}
@@ -964,7 +953,7 @@ export default function Home({ }) {
           mobile={mobile}
         >
 
-          <BackgroundSplit type='both' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
+          <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           {/*h-100vh no specification needed   */}
@@ -995,7 +984,7 @@ export default function Home({ }) {
               <Story2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} />
               <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} />
               {/* <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} /> */}
-              <Story5Milo scrubTl={scrubTl5} transitionTl={transitionTl3} />
+              {/* <Story5Milo scrubTl={scrubTl5} transitionTl={transitionTl3} /> */}
 
             </div>
           </section>
@@ -1006,7 +995,11 @@ export default function Home({ }) {
           {/* 265px */}
           <StoryTitle />
 
-          <Page4Kakje scrubTl={scrubTl3} transitionTl={transitionTl4} />
+          {/* <div className='w-1/2 h-screen page5descriptionContainer left-1/2 fixed'> */}
+          <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
+          <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          {/* </div> */}
+          <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
           <Page3Photos />
@@ -1025,7 +1018,7 @@ export default function Home({ }) {
           {/* </section> */}
           <Navigation />
         </PageWrapper>
-        <ScrollVisual velocity={velocity.current} />
+        {/* <ScrollVisual velocity={velocity.current} /> */}
         {/* <ScrollVelocity  /> */}
       </main >
       {/* </ReactLenis> */}

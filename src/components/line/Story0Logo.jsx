@@ -53,7 +53,7 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
         // }, '<+=0.5')
         .to(['#rayMaskCircle'], {
           r: 260,
-          stagger:{amount:1,ease:'power2.in'},
+          stagger:{amount:1,ease:'none'},
           // stagger: 0.10,
           duration: 1,
           // ease: 'power2.out',
