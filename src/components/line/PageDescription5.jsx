@@ -14,9 +14,9 @@ export default function PageDescription5({ info, link, className, animateName, t
 
         <p className={`${animateName} text-center w-2/3 min-[1800px]:w-1/3 font-pop font-normal my-3 invisible opacity-0`}>{info.text}</p>
         <div className='flex flex-col justify-start items-center gap-2 '>
-          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Visit gallery'} to={''} tabIndex='0' />
-          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Work together'} to={''} tabIndex='0' />
-          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Decorate your wall'} to={''} tabIndex='0' />
+          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Visit gallery'} to={'/gallery'} tabIndex='0' />
+          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Work together'} to={'/contact'} tabIndex='0' />
+          <ArrowLink arrowClassName={`text-primary`} containerClass='w-fit ml-4' className={`${animateName} invisible opacity-0`} inText text={'Decorate your wall'} to={'/contact#printing'} tabIndex='0' />
         </div>
       </div>
     </div>

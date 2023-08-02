@@ -5,15 +5,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
+import FadeDiv from './FadeDiv'
 
 gsap.registerPlugin(Observer)
 
 export default function Navigation() {
-  let {darkMode} = usePageContext()
+  let { darkMode } = usePageContext()
   let [loaded, setLoaded] = useState(false)
   let [scrollingDown, setScrollingDown] = useState(false)
+  let [scrollPaused, setScrollPaused] = useState(false)
   // let [scrolled, setScrolled] = useState(false)
-
+  let observer = useRef(undefined)
   const ctx = useRef(gsap.context(() => { }));
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function Navigation() {
   }
 
   useEffect(() => {
-    let observer = Observer.create({
+    observer.current = Observer.create({
       target: window,         // can be any element (selector text is fine)
       // ignore: ".project-pictures, .project-grid, .imageFill",
       type: "scroll",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
@@ -51,8 +53,14 @@ export default function Navigation() {
       },
       lockAxis: true,
     })
-    return () => { observer.disable() }
+    return () => { observer.current.disable() }
   }, [scrollingDown])
+
+  // useEffect(()=>{
+  //   if (observer.current.velocityY === 0 && !scrollPaused) {console.log('paused')}
+  // },[observer?.current?.velocityY])
+
+  // console.log(observer?.current?.velocityY)
 
   // function firstAppearTl() {
   //   let appearTl = gsap.timeline().to('.navButton', {
@@ -94,22 +102,25 @@ export default function Navigation() {
         y: () => scrollingDown ? -80 : 0,
         duration: 1,
         ease: 'expo.out',
-        rotate:()=>scrollingDown?'5deg':0,
-        delay:()=>scrollingDown?0.15:0,
+        rotate: () => scrollingDown ? '5deg' : 0,
+        delay: () => scrollingDown ? 0.15 : 0,
       })
     });
   }, [loaded, scrollingDown]);
 
 
   return (
+    // <FadeDiv className='w-full relative'>
+    // <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full top-0 justify-center flex navBar  `} type={'leftRight'} amount={30}>
     <div className={`fixed w-full top-0 justify-center flex navBar`}>
-      <div className={`${darkMode?'bg-[#FFF5EA]/1':'bg-[#FFF5EA]/20'} backdrop-blur-sm w-full h-[100%] rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
+      <div className={`${darkMode ? 'bg-[#FFF5EA]/1' : 'bg-[#FFF5EA]/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />
         <Button text='Contact' to='/contact' />
       </div>
     </div>
+    // {/* // </FadeDiv> */ }
   )
 }
 

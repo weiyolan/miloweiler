@@ -47,36 +47,41 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         transformOrigin: '50% 50%',
       }, 0) 
       .to('#kakje0', {
+        opacity:1,
+        duration: 0.2,
+        ease: 'none',
+      }, 0)
+      .to('#kakje0', {
         attr: { d: kakjes[0] },
         duration: 0.7,
         ease: 'none',
-      }, 1)
+      }, 1-1)
       .to('#kakje0', {
         attr: { d: kakjes[1] },
         duration: 0.15,
         ease: 'none',
-      }, 1.7)
+      }, 1.7-1)
       .to('#kakje0', {
         attr: { d: kakjes[2] },
         duration: 0.15,
         ease: 'none',
-      }, 1.85)
+      }, 1.85-1)
       .to('#kakje0', {
         attr: { d:kakjes[3] },
         duration: 0.15,
         ease: 'none',
-      }, 2)
+      }, 2-1)
       .to('#kakje0', {
         attr: { d:kakjes[4] },
         duration: 0.15,
         ease: 'none',
-      }, 2.15)
+      }, 2.15-1)
       .to('#kakje0', {
         // attr: { d:kakjes[4] },
         opacity:0,
         duration: 0.15,
         ease: 'none',
-      }, 2.3)
+      }, 2.3-1)
       // .to('#kakje0', {
       //   // attr: { d:kakjes[4] },
       //   opacity:0,
@@ -87,7 +92,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         opacity: 1,
         scale: 1,
         duration: 0.1,
-      }, 2)
+      }, 2-1)
       .to(['#splashL2'], {
         motionPath: {
           path: '#alongPathL2',
@@ -100,7 +105,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         // x:-40,
         duration: 0.5,
         transformOrigin: '50% 50%',
-      }, 2)
+      }, 2-1)
       .to(['#splashL1'], {
         motionPath: {
           path: '#alongPathL1',
@@ -115,7 +120,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         ease: 'power.out',
         duration: 0.5,
         transformOrigin: '50% 50%',
-      }, 2)
+      }, 2-1)
       .to(['#splashR1'], {
         motionPath: {
           path: '#alongPathR1',
@@ -129,7 +134,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         ease: 'power.out',
         duration: 0.5,
         transformOrigin: '50% 50%',
-      }, 2)
+      }, 2-1)
       .to(['#splashR2'], {
         motionPath: {
           path: '#alongPathR2',
@@ -144,17 +149,17 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
         ease: 'power.out',
         duration: 0.5,
         transformOrigin: '50% 50%',
-      }, 2)
+      }, 2-1)
       .to(['#splashL1', '#splashL2', '#splashR1', '#splashR2'], {
         // opacity: 0,
         scale: 0,
         duration: 0.2,
-      }, 2.3)
+      }, 2.3-1)
       .to(['#splashL1', '#splashL2', '#splashR1', '#splashR2'], {
         opacity: 0,
         // scale: 0,
         duration: 0.05,
-      }, 2.45)
+      }, 2.45-1)
       
   }, [transitionTl,scrubTl])
 
@@ -201,7 +206,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
     timeline: scrubTl,
     ratio: 0.99,
     attr: { duration: 0.6, ease: 'none', y: 100 },
-    position: 1.4
+    position: 1.4-1
   }
 
   let bounceAppear = {
@@ -209,7 +214,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
     timeline: scrubTl,
     ratio: 0.995,
     attr: { duration: 0.3, ease: 'none', },
-    position: 2.2,
+    position: 2.2-1,
   }
 
   let bounceDisappear = {
@@ -217,7 +222,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
     timeline: scrubTl,
     ratio: 0.995,
     attr: { duration: 0.1, stroke: 'transparent', },
-    position: 2.4,
+    position: 2.4-1,
   }
 
 //==============FROM CENTER============
@@ -251,7 +256,7 @@ export default function Page4Kakje({ scrollMin, scrollMax, scrubTl, transitionTl
   return (<>
 
     <svg style={{ left: `calc(50vw + 50vw*${myPosition.x})`, bottom: `${myPosition.y * 100}%` }} className='fixed -translate-x-1/2 w-[11%] svgKakje' viewBox="0 0 146 259" fill="none" >
-      <path className={``} id="kakje0" d="M87.5657 29.4585C87.5655 31.4585 85.0658 33.2904 87.5657 34.5C90.5658 35.9516 89.9328 36.5 92.5 36.5C96.0622 36.5 94.5654 33.9926 94.5654 31.5C94.5654 28.146 96.0655 28.5 96.5654 27C97.1354 25.2897 96.0654 24.4585 96.5654 22.9585C96.7235 22.4842 98.5 22 98 19.5C97.7158 18.0792 98.0654 15.5418 96.5654 14C95.0654 12.4582 96.2789 10.5651 94.0654 9.45859C92.0654 8.4588 90.3031 9.00798 89.5654 11.9585C89.0654 13.9584 88.0654 12.0003 88.5654 18C88.6844 19.428 89.0653 22.5144 87.5654 23.5144C86.6015 24.157 88.5656 24.8403 88.5654 25.9585C88.5652 27.41 87.5659 26.9584 87.5657 29.4585Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <path className={`opacity-0`} id="kakje0" d="M87.5657 29.4585C87.5655 31.4585 85.0658 33.2904 87.5657 34.5C90.5658 35.9516 89.9328 36.5 92.5 36.5C96.0622 36.5 94.5654 33.9926 94.5654 31.5C94.5654 28.146 96.0655 28.5 96.5654 27C97.1354 25.2897 96.0654 24.4585 96.5654 22.9585C96.7235 22.4842 98.5 22 98 19.5C97.7158 18.0792 98.0654 15.5418 96.5654 14C95.0654 12.4582 96.2789 10.5651 94.0654 9.45859C92.0654 8.4588 90.3031 9.00798 89.5654 11.9585C89.0654 13.9584 88.0654 12.0003 88.5654 18C88.6844 19.428 89.0653 22.5144 87.5654 23.5144C86.6015 24.157 88.5656 24.8403 88.5654 25.9585C88.5652 27.41 87.5659 26.9584 87.5657 29.4585Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" />
       
       
       {/* <path className={`opacity-0`} id="kakje1" d="M81.7814 138.431C81.9756 148.5 79.2881 151.119 75.1363 150.829C74.4897 149.759 67.0895 151.404 72.7684 145.693C78.4474 139.981 72.3013 141.752 74.0464 134.892C75.7916 128.033 70.6815 130.787 73.3771 124.525C76.0726 118.263 78.1833 122.243 81.6808 125.106C85.1782 127.969 81.5871 128.363 81.7814 138.431Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}

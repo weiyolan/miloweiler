@@ -29,6 +29,7 @@ import Page3KakScrub from '@/components/line/Page3KakScrub'
 import Page4Kakje from '@/components/line/Page4Kakje'
 import PageDescription5 from '@/components/line/PageDescription5'
 import Page5Milo from '@/components/line/Page5Milo'
+import { ScrollDown } from '@/components/ScrollDown'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
@@ -59,7 +60,7 @@ export default function Home({ }) {
   // let [titleHeight, setTitleHeight] = useState(undefined)
   // let [svgViewHeight, setSvgViewHeight] = useState(undefined) //For calculation of FadeDiv
 
-  let velocity = useRef(0)
+  // let velocity = useRef(0)
   // let [scrollingDivHeight, setScrollingDivHeight] = useState(undefined)
 
   let [footerHeight, setFooterHeight] = useState(undefined)
@@ -161,36 +162,45 @@ export default function Home({ }) {
   }
   function introText() {
     let tl = gsap.timeline()
-      .to(['.depth3Title', '.depth1Title', '.depth2Title'], {
-        opacity: 1,
+      .to(['.titleText1'], {
+        autoAlpha: 1,
         // y: '-=5',
         stagger: {
-          amount: 0.15
+          amount: 0.1
         },
-        duration: 0.15,
-        ease: 'power3.out'
+        duration: 0.2,
+        ease: 'none'
       }, 0)
-      .to('.depth3Title', {
-        y: '-=20',
-        duration: 1,
-      }, 0)
-      .to('.depth2Title', {
-        y: '-=25',
-        duration: 1,
-      }, 0)
-      .to('.depth1Title', {
-        y: '-=30',
-        duration: 1,
-      }, 0)
-      .to(['.depth3Title', '.depth1Title', '.depth2Title'], {
-        opacity: 0,
+      .to(['.titleText2'], {
+        autoAlpha: 1,
         // y: '-=5',
-        // stagger: {
-        //   amount: 0.1
-        // },
-        duration: 0.1,
-        ease: 'power3.out'
-      }, 0.90)
+        stagger: {
+          amount: 0.1
+        },
+        duration: 0.2,
+        ease: 'none'
+      }, 0.2)
+    // .to('.depth3Title', {
+    //   y: '-=20',
+    //   duration: 1,
+    // }, 0)
+    // .to('.depth2Title', {
+    //   y: '-=25',
+    //   duration: 1,
+    // }, 0)
+    // .to('.depth1Title', {
+    //   y: '-=30',
+    //   duration: 1,
+    // }, 0)
+    // .to(['.depth3Title', '.depth1Title', '.depth2Title'], {
+    //   autoAlpha: 0,
+    //   // y: '-=5',
+    //   // stagger: {
+    //   //   amount: 0.1
+    //   // },
+    //   duration: 0.1,
+    //   ease: 'power3.out'
+    // }, 0.90)
     return tl
   }
   // ============================= page1 =============================
@@ -257,8 +267,20 @@ export default function Home({ }) {
           ease: 'power.out'
           // ease: 'power2.inout',
         }, 0)
+      .to('.titleContainer', {
+        // autoAlpha: 0,
+        y: '-30vh',
+        duration: 1
+        // ease: 'ease.in'
+      }, 0)
+      .to('.titleContainer', {
+        autoAlpha: 0,
+        // y:'-30vh',
+        duration: 0.3
+        // ease: 'ease.in'
+      }, 0.2)
       .to('.pageIntroInner', {
-        opacity: 0,
+        autoAlpha: 0,
         duration: 0.7,
         // ease: 'ease.in'
       }, 0.4)
@@ -596,11 +618,11 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page4Inner', {
         y: '-5vh',
-        duration:2.8,
+        duration: 2.8,
       }, 0)
       .to('.svgKakje', {
         y: '-5vh',
-        duration:2.8,
+        duration: 2.8,
       }, 0)
     return tl
   }
@@ -618,21 +640,21 @@ export default function Home({ }) {
         duration: 2,
         ease: 'ease.out'
       }, 0)
-      .to('.svgMilo',{
+      .to('.svgMilo', {
         y: '-30vh',
         duration: 2,
         ease: 'ease.out'
-      },0)
+      }, 0)
     return tl
   }
   function showInfo5() {
     let tl = gsap.timeline()
-    .to('.page5description', {
-      autoAlpha: 1,
-      y: '-=5px',
-      stagger: 0.2,
-      duration: 1,
-    }, 0)
+      .to('.page5description', {
+        autoAlpha: 1,
+        y: '-=5px',
+        stagger: 0.2,
+        duration: 1,
+      }, 0)
     return tl
   }
   function hidePage4() {
@@ -690,7 +712,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -718,7 +740,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -743,7 +765,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -768,7 +790,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition4, {
             overwrite: true,
@@ -793,7 +815,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
@@ -811,7 +833,7 @@ export default function Home({ }) {
           })
       })
 
-      let animation0 = scrubIntro().paused(true).progress(0);
+      let animation0 = scrubIntro().paused(true).add(introText(), 0).progress(0);
       setScrubTl0(animation0);
       gsap.to(animation0,
         // {progress:0}, 
@@ -824,7 +846,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -841,7 +863,7 @@ export default function Home({ }) {
             start: `bottom+=${1.05 * screenHeight} bottom`,
             end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -858,7 +880,7 @@ export default function Home({ }) {
             start: `bottom+=${2.05 * screenHeight} bottom`,
             end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -875,7 +897,7 @@ export default function Home({ }) {
             start: `bottom+=${3.05 * screenHeight} bottom`,
             end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -892,7 +914,7 @@ export default function Home({ }) {
             start: `bottom+=${4.05 * screenHeight} bottom`,
             end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -909,7 +931,7 @@ export default function Home({ }) {
             start: `bottom+=${5.05 * screenHeight} bottom`,
             end: () => `+=${0.75 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -935,7 +957,7 @@ export default function Home({ }) {
   return (
     <>
       <Head>
-        <title>Meet Astrid | Spirée 2023</title>
+        <title>Milo Weiler Photography | My Fantastic Four</title>
         <meta name="description" content=" " />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -993,7 +1015,6 @@ export default function Home({ }) {
 
           {/* LEGS */}
           {/* 265px */}
-          <StoryTitle />
 
           {/* <div className='w-1/2 h-screen page5descriptionContainer left-1/2 fixed'> */}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
@@ -1013,6 +1034,8 @@ export default function Home({ }) {
           <Page1Photos timeline={scrubTl1} />
           <PageDescription animateName='page1description' className={`text-left top-12 left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
+          <StoryTitle scrubTl={scrubTl0} />
+          <ScrollDown />
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}
           {/* </section> */}
