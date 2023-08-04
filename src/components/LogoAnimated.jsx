@@ -9,11 +9,11 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
   useEffect(() => {
     transitionTl && transitionTl
       .to(['.rayMaskCircle2'], {
-        r:1109,
-        stagger:{amount:1, ease:'power2.in'},
+        r: 1109,
+        stagger: { amount: 1, ease: 'power2.in' },
         // stagger: 0.10,
         duration: 1.5,
-      },1)
+      }, 1)
 
   }, [transitionTl])
 
@@ -23,7 +23,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
       <g id="Logo">
         <path id="sunMoon" d="M745.088 1091.08C752.081 1021.73 784.297 956.487 836.892 905.166C862.97 879.719 888.805 861.584 922.767 844.885C1026.53 793.866 1147.46 800.428 1240.07 862.104C1261.93 876.661 1286.81 899.122 1300.76 916.902C1304.15 921.213 1307.32 924.74 1307.81 924.74C1308.86 924.74 1313.58 897.591 1315.34 881.427C1317.17 864.647 1316.83 824.628 1314.71 806.729C1307.1 742.555 1284.76 686.775 1245.37 633.594C1232.95 616.837 1198.7 581.962 1182.18 569.266C1114.83 517.5 1034.81 491.441 952.917 494.605C927.788 495.576 925.652 495.801 902.668 499.891C829.772 512.862 767.192 545.731 714.217 598.872C662.993 650.257 629.312 715.734 616.98 787.904C601.359 879.32 623.869 976.946 677.79 1051.64C692.365 1071.83 722.27 1104.06 738.102 1116.65L743.127 1120.65L743.412 1112.77C743.568 1108.44 744.323 1098.68 745.088 1091.08ZM1004.43 1196.54C1052.21 1191.01 1098.57 1175.86 1140.09 1152.2C1190.04 1123.75 1237.06 1077.67 1266.75 1028.09C1267.75 1026.42 1259.37 1015.91 1248.02 1004.6C1193.78 950.55 1112.4 929.459 1034.38 949.237C994.863 959.256 958.309 979.636 928.598 1008.22C883.679 1051.42 859.328 1108.11 859.328 1169.46C859.328 1180.57 859.606 1182.16 861.748 1183.31C868.657 1187.01 904.268 1194.16 932.817 1197.6C943.816 1198.92 989.714 1198.24 1004.43 1196.54ZM1016.36 1379.85C988.696 1372.35 967.78 1363.24 946.871 1349.6C891.316 1313.34 856.597 1258.27 848.58 1193.68C838.601 1113.28 874.442 1031.77 942.239 980.659C978.039 953.672 1023.16 935.48 1064.72 931.278C1076.43 930.095 1111.53 930.145 1122.39 931.361C1153.68 934.865 1186.83 946.166 1214.26 962.68C1294.94 1011.26 1334.63 1100.83 1316.5 1193.4C1314.1 1205.67 1307.13 1228.01 1302.31 1238.91C1301.17 1241.5 1300.49 1243.62 1300.8 1243.62C1301.81 1243.62 1314.97 1221.7 1320.09 1211.49C1332.86 1186.03 1342.78 1154.74 1347.53 1124.98C1350.62 1105.64 1350.65 1065.99 1347.58 1047.14C1341.2 1007.89 1327.99 973.434 1306.97 941.205C1265.01 876.886 1194.01 832.464 1113.09 819.906C1094.6 817.038 1056.22 816.054 1037.32 817.965C941.52 827.649 856.448 877.568 804.2 954.759C749.481 1035.6 739.172 1132.13 776.043 1218.41C808.194 1293.64 876.898 1351.2 960.411 1372.87C979.652 1377.86 1006.68 1382.02 1023.89 1382.63C1025.62 1382.7 1022.23 1381.44 1016.36 1379.85ZM1004.42 1397.1C993.332 1396.23 967.555 1391.35 953.126 1387.4C904.35 1374.04 860.711 1348.93 825.404 1313.92C778.631 1267.55 751.387 1210.7 744.934 1146.02L743.401 1130.64L737.611 1125.97C726.243 1116.8 699.276 1089.6 688.352 1076.29C632.936 1008.78 604.363 929.278 604.327 842.509C604.286 743.446 642.297 651.734 712.297 582.005C772.025 522.507 845.656 487.238 932.817 476.375C948.829 474.379 994.335 474.387 1010.7 476.388C1048.34 480.989 1079.08 488.856 1112 502.311C1262.59 563.853 1354.79 718.378 1337.82 880.8C1336.04 897.846 1332.36 918.053 1327.89 935.231C1325.43 944.719 1324.45 950.621 1325.2 951.543C1327.72 954.667 1340.7 981.593 1344.79 992.186C1350.79 1007.7 1356.23 1027.95 1359.39 1046.52C1362.46 1064.57 1363.64 1100.88 1361.71 1118.08C1359.02 1142.1 1352.54 1169.74 1344.78 1190.35C1328.3 1234.11 1289.88 1279.42 1246.39 1306.38C1240.65 1309.94 1235.68 1312.57 1235.34 1312.23C1235 1311.89 1235.88 1311 1237.3 1310.24C1241.86 1307.8 1261.25 1284.84 1270.77 1270.61C1311.39 1209.93 1319.56 1135.57 1292.69 1071.06C1286.49 1056.18 1280.16 1044.74 1278.88 1046.12C1278.36 1046.68 1273.2 1053.45 1267.43 1061.15C1231.96 1108.43 1188.61 1144.85 1137.29 1170.47C1084.42 1196.87 1030.45 1209.71 972.388 1209.71C935.181 1209.71 903.816 1205.17 863.496 1193.92C861.301 1193.31 860.851 1193.62 861.239 1195.48C861.506 1196.75 862.641 1202.6 863.762 1208.47C868.097 1231.16 879.985 1259.67 893.597 1280C933.518 1339.64 1000.07 1374.19 1075.03 1374.19C1091.4 1374.19 1115.44 1371.95 1122.65 1369.75C1128.98 1367.82 1109.69 1376.95 1099.06 1380.92C1070.47 1391.58 1027.56 1398.92 1004.42 1397.1Z" fill={fill} />
         <g id="Mask group">
-          <mask id="mask0_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask0_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask0_209_615)">
@@ -31,7 +31,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_2">
-          <mask id="mask1_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask1_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_2" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask1_209_615)">
@@ -51,7 +51,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_3">
-          <mask id="mask2_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask2_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_3" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask2_209_615)">
@@ -59,7 +59,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_4">
-          <mask id="mask3_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask3_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_4" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask3_209_615)">
@@ -76,7 +76,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_5">
-          <mask id="mask4_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask4_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_5" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask4_209_615)">
@@ -84,7 +84,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_6">
-          <mask id="mask5_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask5_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_6" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask5_209_615)">
@@ -103,7 +103,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_7">
-          <mask id="mask6_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask6_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_7" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask6_209_615)">
@@ -111,7 +111,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_8">
-          <mask id="mask7_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask7_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_8" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask7_209_615)">
@@ -129,7 +129,7 @@ export default function LogoAnimated({ className, darkMode, transitionTl }) {
           </g>
         </g>
         <g id="Mask group_9">
-          <mask id="mask8_209_615" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
+          <mask id="mask8_209_615" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-147" y="-271" width="2218" height="2218">
             <circle className='rayMaskCircle2' id="rayMask_9" cx="962" cy="838" r="400" fill={fill} />
           </mask>
           <g mask="url(#mask8_209_615)">

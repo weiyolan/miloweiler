@@ -24,17 +24,17 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   let [myPosition, setMyPosition] = useState({ x: 0.73, y: 0.38 })
 
 
-  let letterTween =
-  {
-    timeline: scrubTl,
-    ratio: 1,
-    attr: {
-      duration: 100,
-      // ease: 'ease.inout',
-      // onStart:()=>{console.log('start One')} 
-    },
-    position: 0
-  }
+  // let letterTween =
+  // {
+  //   timeline: scrubTl,
+  //   ratio: 1,
+  //   attr: {
+  //     duration: 100,
+  //     // ease: 'ease.inout',
+  //     // onStart:()=>{console.log('start One')} 
+  //   },
+  //   position: 0
+  // }
 
 
   // useEffect(() => {

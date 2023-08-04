@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import Head from 'next/head'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+// import '../styles/globals.css'
 
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -160,47 +161,69 @@ export default function Home({ }) {
         }, 0)
     return tl
   }
-  function introText() {
+  // function introTextScrub() {
+  //   let tl = gsap.timeline()
+  //     .to(['.titleText1'], {
+  //       autoAlpha: 1,
+  //       // y: '-=5',
+  //       stagger: {
+  //         amount: 0.1
+  //       },
+  //       duration: 0.2,
+  //       ease: 'none'
+  //     }, 0)
+  //     .to(['.titleText2'], {
+  //       autoAlpha: 1,
+  //       // y: '-=5',
+  //       stagger: {
+  //         amount: 0.1
+  //       },
+  //       duration: 0.2,
+  //       ease: 'none'
+  //     }, 0.2)
+  //   // .to('.depth3Title', {
+  //   //   y: '-=20',
+  //   //   duration: 1,
+  //   // }, 0)
+  //   // .to('.depth2Title', {
+  //   //   y: '-=25',
+  //   //   duration: 1,
+  //   // }, 0)
+  //   // .to('.depth1Title', {
+  //   //   y: '-=30',
+  //   //   duration: 1,
+  //   // }, 0)
+  //   // .to(['.depth3Title', '.depth1Title', '.depth2Title'], {
+  //   //   autoAlpha: 0,
+  //   //   // y: '-=5',
+  //   //   // stagger: {
+  //   //   //   amount: 0.1
+  //   //   // },
+  //   //   duration: 0.1,
+  //   //   ease: 'power3.out'
+  //   // }, 0.90)
+  //   return tl
+  // }
+  function introTextAnimation() {
     let tl = gsap.timeline()
-      .to(['.titleText1'], {
-        autoAlpha: 1,
-        // y: '-=5',
-        stagger: {
-          amount: 0.1
-        },
-        duration: 0.2,
-        ease: 'none'
-      }, 0)
-      .to(['.titleText2'], {
-        autoAlpha: 1,
-        // y: '-=5',
-        stagger: {
-          amount: 0.1
-        },
-        duration: 0.2,
-        ease: 'none'
-      }, 0.2)
-    // .to('.depth3Title', {
-    //   y: '-=20',
-    //   duration: 1,
-    // }, 0)
-    // .to('.depth2Title', {
-    //   y: '-=25',
-    //   duration: 1,
-    // }, 0)
-    // .to('.depth1Title', {
-    //   y: '-=30',
-    //   duration: 1,
-    // }, 0)
-    // .to(['.depth3Title', '.depth1Title', '.depth2Title'], {
-    //   autoAlpha: 0,
-    //   // y: '-=5',
-    //   // stagger: {
-    //   //   amount: 0.1
-    //   // },
-    //   duration: 0.1,
-    //   ease: 'power3.out'
-    // }, 0.90)
+      // .to(['.titleText1'], {
+      //   autoAlpha: 1,
+      //   // y: '-=5',
+      //   stagger: {
+      //     amount: 0.1
+      //   },
+      //   duration: 0.5,
+      //   ease: 'none'
+      // }, 0)
+      // .to(['.titleText2'], {
+      //   autoAlpha: 1,
+      //   // y: '-=5',
+      //   stagger: {
+      //     amount: 0.1
+      //   },
+      //   duration: 0.5,
+      //   ease: 'none'
+      // }, 1)
     return tl
   }
   // ============================= page1 =============================
@@ -566,7 +589,7 @@ export default function Home({ }) {
       .to(['.page4'], {
         y: '-30vh',
         opacity: 1,
-        duration: 2,
+        duration: 1,
         ease: 'ease.out'
       }, 0)
 
@@ -618,11 +641,11 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page4Inner', {
         y: '-5vh',
-        duration: 2.8,
+        duration: 1.6,
       }, 0)
       .to('.svgKakje', {
         y: '-5vh',
-        duration: 2.8,
+        duration: 1.6,
       }, 0)
     return tl
   }
@@ -833,7 +856,7 @@ export default function Home({ }) {
           })
       })
 
-      let animation0 = scrubIntro().paused(true).add(introText(), 0).progress(0);
+      let animation0 = scrubIntro().paused(true).progress(0);
       setScrubTl0(animation0);
       gsap.to(animation0,
         // {progress:0}, 
@@ -860,8 +883,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'moonScrub',
-            start: `bottom+=${1.05 * screenHeight} bottom`,
-            end: () => `+=${0.75 * screenHeight}px`,
+            start: `bottom+=${0.85 * screenHeight} bottom`,
+            end: () => `+=${0.9 * screenHeight}px`,
             scrub: 1,
             markers: true,
             invalidateOnRefresh: false,
@@ -877,8 +900,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'animalScrub',
-            start: `bottom+=${2.05 * screenHeight} bottom`,
-            end: () => `+=${0.75 * screenHeight}px`,
+            start: `bottom+=${1.85 * screenHeight} bottom`,
+            end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
             markers: true,
             invalidateOnRefresh: false,
@@ -894,8 +917,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'kakScrub',
-            start: `bottom+=${3.05 * screenHeight} bottom`,
-            end: () => `+=${0.75 * screenHeight}px`,
+            start: `bottom+=${2.85 * screenHeight} bottom`,
+            end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
             markers: true,
             invalidateOnRefresh: false,
@@ -911,8 +934,8 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'studioScrub',
-            start: `bottom+=${4.05 * screenHeight} bottom`,
-            end: () => `+=${0.75 * screenHeight}px`,
+            start: `bottom+=${3.85 * screenHeight} bottom`,
+            end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
             markers: true,
             invalidateOnRefresh: false,
@@ -928,17 +951,17 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'finalScrub',
-            start: `bottom+=${5.05 * screenHeight} bottom`,
-            end: () => `+=${0.75 * screenHeight}px`,
+            start: `bottom+=${4.85 * screenHeight} bottom`,
+            end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
             markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
         });
-
-      let introAnimationTl = gsap.timeline().paused(true);
-      setIntroAnimationTl(introAnimationTl)
+        // .add(introText(), 0)
+      let newAnimationTl = introTextAnimation().paused(true);
+      setIntroAnimationTl(newAnimationTl)
 
       // setScrubTl0(tl1());
 
@@ -947,7 +970,7 @@ export default function Home({ }) {
   }, [svgHeight, screenHeight, svgTop])
 
   useEffect(() => {
-    introAnimationTl && introAnimationTl.paused(false)
+    introAnimationTl && introAnimationTl.paused(!pageLoaded)
   }, [pageLoaded])
 
   // useEffect(() => {
@@ -964,8 +987,8 @@ export default function Home({ }) {
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
-      {/* style={{ height: heightToScroll + 'px' }} light-scrollbar */}
-      <main style={{ height: '700vh' }} className={`w-full light-scrollbar mainBackground relative bg-black`} >
+      {/* style={{ height: heightToScroll + 'px' }} */}
+      <main style={{ height: '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
 
         <PageWrapper
           darkMode={true}
@@ -993,7 +1016,7 @@ export default function Home({ }) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.7vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.5vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
 
 
@@ -1034,8 +1057,8 @@ export default function Home({ }) {
           <Page1Photos timeline={scrubTl1} />
           <PageDescription animateName='page1description' className={`text-left top-12 left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
-          <StoryTitle scrubTl={scrubTl0} />
-          <ScrollDown />
+          <StoryTitle shadow scrubTl={scrubTl0} />
+          {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}
           {/* </section> */}

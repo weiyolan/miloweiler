@@ -99,7 +99,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
         </h1>
         <h2>
           <Span text='by' />
-          {` ${project?.by?.[0]}`}
+          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
         </h2>
       </div>
       {/* <Line className={`border-spacing-2 `}/> */}

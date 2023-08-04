@@ -11,28 +11,36 @@ gsap.registerPlugin(Observer)
 
 export default function Navigation() {
   let { darkMode } = usePageContext()
-  let [loaded, setLoaded] = useState(false)
-  let [scrollingDown, setScrollingDown] = useState(false)
-  let [scrollPaused, setScrollPaused] = useState(false)
-  // let [scrolled, setScrolled] = useState(false)
+  let [scrollingDown, setScrollingDown] = useState(true) //removed bar onLoad and then animate in.
+  let [animationBuffered, setAnimationBuffered] = useState(true)
   let observer = useRef(undefined)
   const ctx = useRef(gsap.context(() => { }));
 
   useEffect(() => {
-    setLoaded(true)
+    setScrollingDown(false)
     return () => { ctx.current.revert() };
   }, []);
 
-  function handleDown() {
-    if (!scrollingDown) {
-      setScrollingDown(true)
+  useEffect(() => {
+    let timer;
+    if (!animationBuffered) {
+      timer = setTimeout(() => { setAnimationBuffered(true)}, 300 )
     }
+    return () => clearTimeout(timer)
+  }, [animationBuffered])
+
+  function handleDown() {
+    if (!scrollingDown ) {
+      setScrollingDown(true)
+      setAnimationBuffered(false)
+    } 
   }
 
   function handleUp() {
-    if (scrollingDown) {
+    if (scrollingDown ) {
       setScrollingDown(false)
-    }
+      setAnimationBuffered(false)
+    } 
   }
 
   useEffect(() => {
@@ -41,20 +49,27 @@ export default function Navigation() {
       // ignore: ".project-pictures, .project-grid, .imageFill",
       type: "scroll",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
+      onStopDelay: 3,
+      tolerance:70,
+      onStop: () => {
+        handleUp()
+      },
       onDown: () => {
-        // console.log('down');
-        // setAnimating(true)
+        handleDown()
+      },
+      onDownEnd: () => {
         handleDown()
       },
       onUp: () => {
-        // console.log('up');
-        // // setAnimating(true)
+        handleUp()
+      },
+      onUpEnd: () => {
         handleUp()
       },
       lockAxis: true,
     })
     return () => { observer.current.disable() }
-  }, [scrollingDown])
+  }, [scrollingDown, animationBuffered])
 
   // useEffect(()=>{
   //   if (observer.current.velocityY === 0 && !scrollPaused) {console.log('paused')}
@@ -106,8 +121,7 @@ export default function Navigation() {
         delay: () => scrollingDown ? 0.15 : 0,
       })
     });
-  }, [loaded, scrollingDown]);
-
+  }, [scrollingDown]);
 
   return (
     // <FadeDiv className='w-full relative'>
@@ -118,6 +132,7 @@ export default function Navigation() {
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />
         <Button text='Contact' to='/contact' />
+        {/* <Button text={`${observer.current.velocityY}`} to=''/> */}
       </div>
     </div>
     // {/* // </FadeDiv> */ }

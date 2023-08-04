@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, speed, id, banner }) {
 
-  let { locale, scrolled, height: screenHeight } = useAppContext()
+  let { locale, scrolled } = useAppContext()
 
   let { mobile } = usePageContext()
   const ctx = useRef(gsap.context(() => { }));
@@ -39,7 +39,7 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
           duration: 3,
           ease: 'power2.out',
           onUpdate: () => { setFakeScroll1({ ...fakeScroll1 }) }
-        })
+        },0)
         .set(animateSun, {
           animate: true,
           // duration: 3,
@@ -82,6 +82,24 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
           // onStart: () => { setIntroAnimated(true) },
           onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
         }, '<30%')
+        .to(['.titleText1'], {
+          autoAlpha: 1,
+          // y: '-=5',
+          stagger: {
+            each: 0.12
+          },
+          duration: 0.6,
+          ease: 'none'
+        }, 0.5)
+        .to(['.titleText2'], {
+          autoAlpha: 1,
+          // y: '-=5',
+          stagger: {
+            each: 0.07
+          },
+          duration: 0.6,
+          ease: 'none'
+        }, 1.7)
         .delay(0.2)
       // .to('#fullLeg',{opacity:1})
       // .to(fakeScroll45, {

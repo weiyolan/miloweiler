@@ -154,7 +154,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       </Head>
       {/* duration:0.9,  */}
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={'bg-gradient-to-br from-primary to-[#FFEAD6] relative contact-page overflow-x-hidden'}>
+        {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
+        <main className={'bg-[#FFEAD6] relative contact-page overflow-x-hidden'}>
           <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
             <Logo darkMode={darkMode} className='w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40' />
           </div>
@@ -199,24 +200,24 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
               {/* ======INSPIRATION======== */}
               <LayoutSection center>
-                <div className='w-full text-center'>
+                <div className='w-full text-center mb-4'>
                   <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
                   {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
                   <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12'>
                     <div className='flex-1 flex flex-col justify-start'>
-                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle1[locale]}</h3>
+                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5'>{inspirationData.subTitle1[locale]}</h3>
                       <p ref={textRef} className='text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                         {inspirationData.text1[locale]}
                       </p>
-                      <ArrowLink inText className='ml-8 w-fit mt-2' text='Go to homepage' to='/' />
+                      <ArrowLink inText className='ml-8 w-fit mt-5' text='Go to homepage' to='/' />
                     </div>
                     <div className='flex-1 flex flex-col justify-start'>
-                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-4'>{inspirationData.subTitle2[locale]}</h3>
+                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5'>{inspirationData.subTitle2[locale]}</h3>
                       <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
                         className='text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
                         {inspirationData.text2[locale]}
                       </p>
-                      <ArrowLink inText className='ml-8 w-fit self-center text-center mt-2' text='Visit my gallery' to='/' />
+                      <ArrowLink inText className='ml-8 w-fit self-center text-center mt-5' text='Visit my gallery' to='/' />
                     </div>
                   </div>
                 </div>

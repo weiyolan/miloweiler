@@ -81,14 +81,15 @@ export default function Gallery({ projects }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        {/* from-darkGrey to-[#070013] */}
-      <main className={`bg-gradient-to-br from-primary to-[#FFEAD6]  w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+        {/* from-darkGrey to-[#070013]
+        bg-gradient-to-br from-primary to-[#FFEAD6]  */}
+      <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <PageWrapper darkMode={darkMode}>
           <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
           <h1 className={`invisible uppercase font-lora text-center text-3xl`}>Gallery</h1>
 
           <div ref={gallery} className='w-4/5 mx-auto relative grid gap-8 py-8 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 '>
-            {projects.map((project, i) => <ProjectThumb gridStaggerAnimation={pushCardsOnClick} activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
+            {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
             {/* {console.log(artificialProjects(20))} */}
           </div>
           <Footer2 className={`relative`} noMotion noMargin />

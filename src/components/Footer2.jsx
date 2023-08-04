@@ -8,6 +8,7 @@ import AccentTitle from "./AccentTitle";
 import { useAppContext } from "@/utils/appContext";
 import { usePageContext } from "@/utils/pageContext";
 import SubTitle from "./SubTitle";
+import Layout from "./Layout";
 
 const socialList = {
   en: [{ text: 'Instagram', ext: true, link: 'https://www.instagram.com/miloweiler/' }, { text: 'Unsplash', ext: true, link: 'https://unsplash.com/@miloweiler' }, { text: 'LinkedIn', ext: true, link: 'https://www.linkedin.com/in/milo-weiler-set-and-behind-the-scenes-photographer' }],
@@ -60,54 +61,55 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
   let { mobile } = usePageContext();
   let breakPointSmall = 640;
 
-  let footerRef = useRef(null)
+  // let footerRef = useRef(null)
 
   let [dimensions, setDimensions] = useState({ width: undefined, height: undefined })
 
-  useEffect(() => {
-    function handleSize() {
-      const { width, y } = footerRef.current.getBoundingClientRect();
-      const height = footerRef.current.offsetHeight;
-      let styles = window.getComputedStyle(footerRef.current);
-      let margin = parseFloat(styles['marginTop']) +
-        parseFloat(styles['marginBottom']);
-      if (height > 0) {
-        // Math.ceil(height + margin);
-        setDimensions({ width: width, height: Math.ceil(height + margin), normalHeight: height, top: y, bottom: y + height });
-        // print && console.log('dimensions setted: ' + 'width: ' + width+' , height: '+ height+ ', top: '+y+', bottom: '+(y + height) )
-      }
-    }
+  // useEffect(() => {
+  //   function handleSize() {
+  //     const { width, y } = footerRef.current.getBoundingClientRect();
+  //     const height = footerRef.current.offsetHeight;
+  //     let styles = window.getComputedStyle(footerRef.current);
+  //     let margin = parseFloat(styles['marginTop']) +
+  //       parseFloat(styles['marginBottom']);
+  //     if (height > 0) {
+  //       // Math.ceil(height + margin);
+  //       setDimensions({ width: width, height: Math.ceil(height + margin), normalHeight: height, top: y, bottom: y + height });
+  //       // print && console.log('dimensions setted: ' + 'width: ' + width+' , height: '+ height+ ', top: '+y+', bottom: '+(y + height) )
+  //     }
+  //   }
 
-    window.addEventListener("resize", handleSize);
-    handleSize()
-    return () => window.removeEventListener("resize", handleSize);
-    // print && console.log(dimensions?.height === undefined || )
+  //   window.addEventListener("resize", handleSize);
+  //   handleSize()
+  //   return () => window.removeEventListener("resize", handleSize);
+  //   // print && console.log(dimensions?.height === undefined || )
 
-  }, [mobile])
+  // }, [mobile])
 
 
 
-  useEffect(() => {
-      // console.log(dimensions.height)
-      if (dimensions?.height > 0 && setFooterHeight) {
-      setFooterHeight(dimensions.height)
-    } else if (dimensions.normalHeight > 0 && setFooterNormalHeight !== undefined) {
-      setFooterNormalHeight(dimensions.normalHeight)
-    }
-  }, [dimensions])
+  // useEffect(() => {
+  //   // console.log(dimensions.height)
+  //   if (dimensions?.height > 0 && setFooterHeight) {
+  //     setFooterHeight(dimensions.height)
+  //   } else if (dimensions.normalHeight > 0 && setFooterNormalHeight !== undefined) {
+  //     setFooterNormalHeight(dimensions.normalHeight)
+  //   }
+  // }, [dimensions])
 
-  function getContent() {
-    return (
-      <>
+
+  return (
+    <Layout style={{ ...style }} className={`relative bg-darkGrey   ${noMargin ? '' : 'mt-4 md:mt-10'}`}>
+      <section
+        className={`relative lg:px-16 xl:px-24  max-w-7xl pt-2 px-4 pb-2 lg:pt-4 w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row items-center sm:items-start justify-between max-w-6xl mx-auto'>
-
 
           <Links mobile={mobile} title='Navigate' list={navigateList[locale]} />
           <Links mobile={mobile} title='Socials' list={socialList[locale]} />
 
-          <div className='flex flex-col items-center gap-2 sm:items-start'>
-            <SubTitle darkMode={true} noMargin small className='pt-2' center mainTitle='Stay In Touch' />
-          </div>
+          {/* <div className='flex flex-col items-center gap-2 sm:items-start'>
+          <SubTitle darkMode={true} noMargin small className='pt-2' center mainTitle='Stay In Touch' />
+        </div> */}
 
           {(!mobile || (mobile && setFooterHeight === undefined)) && <Links mobile={mobile} title='Contact' list={contactList[locale]} />}
           {(!mobile || (mobile && setFooterHeight === undefined)) && <Links mobile={mobile} title='Legal' list={legalList[locale]} />}
@@ -116,49 +118,24 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
         <div role='presentation' className='w-full text-xs text-center mt-2 text-primary font-thin'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
-            {financialInfo[locale].map((val, i) => { return (<li role='presentation' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '∘ '}${val}`}</li>) })}
+            {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '∘ '}${val}`}</li>) })}
+            <li className="pl-1 ">
+              ∘ Powered By <Link className="underline" href={'https://www.ywdesign.co'} rel="noopener noreferrer">ywdesign.co</Link>
+            </li>
           </ul>
         </div>
+      </section>
 
-
-      </>
-
-    )
-  }
-
-  if (noMotion) {
-    return (
-      <section
-        ref={footerRef}
-        style={{ ...style }}
-        className={`${style?.position === undefined ? 'relative' : ''} backdrop-blur bg-darkGrey ${noMargin ? '' : 'mt-4 md:mt-10'} pt-2 px-4 pb-2 lg:pt-4 w-full ${className}`}>
-
-        {getContent()}
-
-      </section>)
-  }
-
-  // ========================== MAIN FOOTER CONTENT HERE =======================
-  return (
-    <section ref={footerRef}
-      initial={{ y: `${width < breakPointSmall ? 100 : 200}` }}
-      whileInView={{ y: 0, transition: { type: 'spring', stiffness: 200, damping: 25 } }}
-      viewport={{ once: true }}
-      style={style}
-      className={`${style?.position === undefined ? 'relative' : ''} backdrop-blur bg-darkGrey ${noMargin ? '' : 'mt-4 md:mt-10'} pt-2 px-4 pb-2 lg:pt-4   w-full ${className}`}>
-
-      {getContent()}
- 
-
-    </section>
+    </Layout>
   )
+
 }
 
 function Links({ title, list, mobile }) {
   return (
     // <div className={`${position === 'center' ? 'text-center ' : position === 'left' ? 'text-left ' : 'text-right '}  align-start px-0`}>
     <div className={`text-center sm:text-left `}>
-      <SubTitle small noMargin className='pt-2' left mainTitle={title} darkMode={true}/>
+      <SubTitle small noMargin className='pt-2' left mainTitle={title} darkMode={true} />
       <List mobile={mobile} list={list} />
     </div>
   )

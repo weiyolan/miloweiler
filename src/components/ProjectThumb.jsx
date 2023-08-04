@@ -103,7 +103,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
             </h2>
             <div className='text-right font-lora'>
               <Span text='by' />
-              {` ${project?.by?.[0]}`}
+              {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
             {width < 1024 &&
               <Link  href={`./gallery/${project.slug.current}`}

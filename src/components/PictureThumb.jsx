@@ -1,9 +1,13 @@
 import { useAppContext } from '@/utils/appContext'
 import React, { useEffect, useRef, useState } from 'react'
 import SanityImage from './SanityImage'
-import { gsap } from 'gsap'
+import { gsap } from 'gsap/dist/gsap'
 import { usePageContext } from '@/utils/pageContext'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import Logo from './Logo'
+import LogoAnimated from './LogoAnimated'
+import LogoLoading from './Spinner'
+import Spinner from './Spinner'
 // import Link from 'next/link'
 gsap.registerPlugin(ScrollTrigger)
 
@@ -55,15 +59,15 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   useEffect(() => {
     // console.log(visible)
     ctx.current.add(() => {
-      gsap.to(myThumb.current, {
+      gsap.to(`#pictureThumb${index}`, {
         // outlineColor: visible ? `${palette.vibrant.background}FF`:`${palette.vibrant.background}00` ,
-        marginLeft:width<1024?(visible ?12:0):0,
-        marginRight:width<1024?(visible ?12:0):0,
-        marginTop:width<1024?0:(visible ?24:0),
-        marginBottom:width<1024?0:(visible ?24:0),
+        marginLeft: width < 1024 ? (visible ? 12 : 0) : 0,
+        marginRight: width < 1024 ? (visible ? 12 : 0) : 0,
+        marginTop: width < 1024 ? 0 : (visible ? 24 : 0),
+        marginBottom: width < 1024 ? 0 : (visible ? 24 : 0),
         // scale:width<1024?1:visible?1.1:1,
         // margin: '5 0 5 0' , 
-        y:width<1024?(visible ?-6:0):0,
+        y: width < 1024 ? (visible ? -6 : 0) : 0,
         // x:width<1024?0:(visible ?+20:0),
         // scale:1,
         ease: 'power1.inout',
@@ -130,11 +134,11 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
 
   return (
     // <Link href={`./gallery/${project.slug.current}`}>
-    <div ref={myThumb}
-      style={{ }}
+    <div
+      style={{}}
       id={`pictureThumb${index}`}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
-      className={`picture-thumb scale-50 opacity-0  relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2   ${visible ? '' : ''}  
+      className={`picture-thumb  relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2 ${visible ? '' : ''}  
       before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
@@ -142,9 +146,13 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       onMouseDown={mouseDown}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}>
-      <div className='absolute w-full h-full top-0 left-0 '  >
-        <SanityImage onLoad={() => { setLoaded(true) }} print={!index ? true : false} blur sizes='(max-width: 700px) 20vw, 13vw' fill containerClass={'rounded-none '} image={image} alt={alt} />
+
+      <div ref={myThumb} className='absolute scale-50 opacity-0 w-full h-full top-0 left-0 '  >
+        <SanityImage onLoad={() => {setLoaded(true) }} print={!index ? true : false} blur sizes='(max-width: 700px) 20vw, 13vw' fill containerClass={'rounded-none '} image={image} alt={alt} />
       </div>
+      {!loaded &&
+          <Spinner cube className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
+        }
     </div>
     // </Link>
 

@@ -41,31 +41,32 @@ export default function App({ Component, pageProps }) {
 
   // })
 
-  useEffect(() => {
-    // console.log('start')
-    // console.log(router.pathname)
-    // const body = document.querySelector('body');
-    // console.log(body.style)
+  // ============ Change Scrollbar For different pages =================
+  // useEffect(() => {
+  //   // console.log('start')
+  //   // console.log(router.pathname)
+  //   // const body = document.querySelector('body');
+  //   // console.log(body.style)
 
-    const handleRouteChange = (url) => {
-      const body = document.querySelector('body');
-      // const { pathname } = new URL(url);
-      // console.log(router.pathname  === '/contact')
-      // Add or remove the desired className based on the pathname
-      if (router.pathname === '/contact') {
-        body.classList.add('dark-scrollbar');
-      } else if (router.pathname === '/' || router.pathname === '') {
-        body.classList.add('no-scrollbar');
-      }
-    };
+  //   const handleRouteChange = (url) => {
+  //     const body = document.querySelector('body');
+  //     // const { pathname } = new URL(url);
+  //     // console.log(router.pathname  === '/contact')
+  //     // Add or remove the desired className based on the pathname
+  //     if (router.pathname === '/contact') {
+  //       body.classList.add('dark-scrollbar');
+  //     } else if (router.pathname === '/' || router.pathname === '') {
+  //       body.classList.add('no-scrollbar');
+  //     }
+  //   };
 
-    handleRouteChange()
+  //   handleRouteChange()
 
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router]);
+  //   router.events.on('routeChangeComplete', handleRouteChange);
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange);
+  //   };
+  // }, [router]);
 
   useEffect(() => {
     let ratio = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight)

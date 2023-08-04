@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Parallax({ children, scope, className, trigger, timeline, duration, start, end, small, xs, ...props }) {
+export default function Parallax({ children, scope, className, trigger, timeline, duration, start, end, small, xs, xs2, ...props }) {
   const ctx = useRef(null)
 
   useEffect(() => {
@@ -53,15 +53,15 @@ export default function Parallax({ children, scope, className, trigger, timeline
   useEffect(() => {
     timeline && timeline
       .to('.depth1', {
-        y: xs? '-=55' : small ? '-=150' : '-=300',
+        y: xs? '-=55' : xs2? '-=' + (55 + 20) +'px' : small ? '-=150' : '-=300',
         duration:duration,
       }, 0)
       .to('.depth2', {
-        y: xs? '-=45' : small ? '-=100' : '-=200',
+        y: xs? '-=45' : xs2? '-=' + (45 + 20) +'px' : small ? '-=100' : '-=200',
         duration:duration,
       }, 0)
       .to('.depth3', {
-        y: xs? '-=35' : small ? '-=50' : '-=100',
+        y: xs? '-=35' : xs2? '-=' + (35 + 20) +'px' : small ? '-=50' : '-=100',
         duration:duration,
       }, 0)
   }, [timeline])

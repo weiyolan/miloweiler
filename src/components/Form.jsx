@@ -159,7 +159,7 @@ const Form = () => {
             onChange={(e) => { setEmail(e.target.value) }} />
         </div>
 
-        <div className='form-el inline-flex flex-col w-full col-start-1 col-span-3 '>
+        <div data-lenis-prevent className='form-el inline-flex flex-col w-full col-start-1 col-span-3 '>
           <label className=' cursor-pointer whitespace-nowrap font-semibold text-xs inline-flex max-w-fit mb-2 ml-1' htmlFor='message'>{`${locale === 'en' ? 'Message' : "Message"}`}</label>
           <textarea required data-lenis-prevent className={`block bg-black/10 
                 autofill:bg-black/10 valid:scale-[0.99] 
