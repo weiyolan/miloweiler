@@ -735,7 +735,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -763,7 +763,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -788,7 +788,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -813,7 +813,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition4, {
             overwrite: true,
@@ -838,7 +838,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
@@ -869,7 +869,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -886,7 +886,7 @@ export default function Home({ }) {
             start: `bottom+=${0.85 * screenHeight} bottom`,
             end: () => `+=${0.9 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -903,7 +903,7 @@ export default function Home({ }) {
             start: `bottom+=${1.85 * screenHeight} bottom`,
             end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -920,7 +920,7 @@ export default function Home({ }) {
             start: `bottom+=${2.85 * screenHeight} bottom`,
             end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -937,7 +937,7 @@ export default function Home({ }) {
             start: `bottom+=${3.85 * screenHeight} bottom`,
             end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -954,7 +954,7 @@ export default function Home({ }) {
             start: `bottom+=${4.85 * screenHeight} bottom`,
             end: () => `+=${0.95 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
