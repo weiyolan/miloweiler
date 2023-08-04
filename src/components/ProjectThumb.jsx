@@ -4,6 +4,7 @@ import SanityImage from './SanityImage'
 import { gsap } from 'gsap'
 import Link from 'next/link'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import Spinner from './Spinner'
 gsap.registerPlugin(ScrollTrigger)
 export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
   const { locale } = useAppContext()
@@ -78,7 +79,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
 
   return (
-    <Link onClick={(e) => {width<1024 && e.preventDefault()}} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className='scale-50 opacity-0 select-none rounded-sm overflow-hidden' ref={projectThumb}>
+    <Link onClick={(e) => { width < 1024 && e.preventDefault() }} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className=' select-none rounded-sm overflow-hidden' >
       <div
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
@@ -87,13 +88,17 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
         className={`relative cursor-pointer  text-primary before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
 
-        <div className={`absolute top-0 left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
+        <div className={`absolute top-0  left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
+          {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
         </div>
 
-        <div className='absolute w-full h-full top-0 left-0 '>
+        <div ref={projectThumb} className='scale-50 opacity-0 absolute w-full h-full top-0 left-0 '>
 
-          <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 30vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]} 
-                  />
+          <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 30vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
+          />
+
+
+
           {/* {console.log(project.mainImage)} */}
           <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between p-2 sm:p-4`}>
             <h2 className={`text-left font-lora text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
@@ -106,7 +111,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
               {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
             {width < 1024 &&
-              <Link  href={`./gallery/${project.slug.current}`}
+              <Link href={`./gallery/${project.slug.current}`}
                 className={` absolute w-full h-full left-0 top-0 text-7xl font-pop text-primary font-thin flex items-center justify-center transition-all duration-500 ${hover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
                 +
               </Link>

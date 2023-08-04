@@ -1041,21 +1041,21 @@ export default function Home({ }) {
 
           {/* <div className='w-1/2 h-screen page5descriptionContainer left-1/2 fixed'> */}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
-          <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
           {/* </div> */}
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
-          <PageDescription4 animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
+          <PageDescription4 shadow animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
           <Page3Photos />
           {/* //page3 photos behind svg */}
           <Page3KakScrub scrubTl={scrubTl3} />
-          <PageDescription animateName='page3description' className={`text-left bottom-12 left-12`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
+          <PageDescription shadow animateName='page3description' className={`text-left bottom-12 left-12`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
           <Page2Photos />
-          <PageDescription animateName='page2description' className={`text-right top-12 right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
+          <PageDescription shadow animateName='page2description' className={`text-right top-12 right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           <Page1Photos timeline={scrubTl1} />
-          <PageDescription animateName='page1description' className={`text-left top-12 left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
+          <PageDescription shadow animateName='page1description' className={`text-left top-12 left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <StoryTitle shadow scrubTl={scrubTl0} />
           {/* <ScrollDown /> */}

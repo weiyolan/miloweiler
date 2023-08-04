@@ -6,21 +6,21 @@ import { usePageContext } from '@/utils/pageContext';
 export default function Spinner({ className, darkMode, cube }) {
   let { darkMode: pageDarkMode } = usePageContext();
 
-  darkMode = darkMode !== undefined ? darkMode : pageDarkMode
+  let newDarkMode = darkMode !== undefined ? darkMode : pageDarkMode
 
-  let fill = darkMode ? '#FFF5EA' : '#000'
+  let fill = newDarkMode ? '#FFF5EA' : '#000000'
 
   return (
     <>
       <div className={` ${className ? className : ''}`}>
         {cube ?
           <div className='cubeSpinner w-4 h-4'>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
+            <div style={{ backgroundColor: fill + '11', borderColor: newDarkMode?'#FFF5EA':'black', border:1.5, borderStyle:'solid' }} />
           </div>
           :
           <div className={'spinner w-8 h-8 relative'}>
