@@ -40,10 +40,10 @@ export default function Page3Photos({ className, animateName }) {
         {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} /> */}
         {/* <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} /> */}
         {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} /> */}
-        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-20vh]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} />
+        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-5vh] lg:object-[50%,-20vh]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} />
         {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-200px]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} /> */}
-        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-30vh]`} className={'w-[calc(0.752*30vw)] -translate-x-1/2 left-1/2 top-[42%]'} />
-        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-35vh]`} className={'w-[calc(0.89*30vw)] left-[20%] top-[23%] -translate-x-1/2'} />
+        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-10vh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*30vw)] -translate-x-1/2 left-1/2 top-[42%]'} />
+        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12vh] lg:object-[50%,-35vh]`} className={'w-[calc(0.89*30vw)] left-[20%] top-[23%] -translate-x-1/2'} />
         {/* translate-y-64
 translate-y-28
 translate-y-36 */}
@@ -113,38 +113,38 @@ useEffect(()=>{
   )
 }
 
-function ArtImage2({ className, n, ...props }) {
-  return (
-    <div className={`absolute opacity-0 invisible  page3photos drop-shadow-2xl select-none ${className}`}>
-      {/* <div className={`relative border-red-500 border-2 ${className} w-fit`}> */}
-      <Image style={{ clipPath: `url(#svgClip${n})` }}
-        width={1500} height={n === 2 ? 1000 : 2250} className={`relative object-cover w-[20vw] select-none hovering:cursor-pointer `} sizes='(max-width: 640px) 50vw, 25vw' {...props} />
-      {/* </div> */}
+// function ArtImage2({ className, n, ...props }) {
+//   return (
+//     <div className={`absolute opacity-0 invisible  page3photos drop-shadow-2xl select-none ${className}`}>
+//       {/* <div className={`relative border-red-500 border-2 ${className} w-fit`}> */}
+//       <Image style={{ clipPath: `url(#svgClip${n})` }}
+//         width={1500} height={n === 2 ? 1000 : 2250} className={`relative object-cover w-[20vw] select-none hovering:cursor-pointer `} sizes='(max-width: 640px) 50vw, 25vw' {...props} />
+//       {/* </div> */}
 
-      <svg className='w-0 h-0' viewbox='0 0 1 1'>
-        <defs>
-          <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
-            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
-          </clipPath>
-        </defs>
-      </svg>
-    </div>
-  )
-}
+//       <svg className='w-0 h-0' viewbox='0 0 1 1'>
+//         <defs>
+//           <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
+//             <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
+//           </clipPath>
+//         </defs>
+//       </svg>
+//     </div>
+//   )
+// }
 
-function PageImage({ className, n, ...props }) {
-  return (
-    <div className={`absolute drop-shadow-2xl border-red-500 border-2 ${className}`}>
-      <Image style={{ clipPath: `url(#svgClip${n})` }}
-        width={1500} height={n === 2 ? 1000 : 2250} className='relative w-[20vw] h-auto page3photos select-none object-cover hovering:cursor-pointer opacity-0 invisible ' sizes='(max-width: 640px) 50vw, 25vw' {...props} />
+// function PageImage({ className, n, ...props }) {
+//   return (
+//     <div className={`absolute drop-shadow-2xl border-red-500 border-2 ${className}`}>
+//       <Image style={{ clipPath: `url(#svgClip${n})` }}
+//         width={1500} height={n === 2 ? 1000 : 2250} className='relative w-[20vw] h-auto page3photos select-none object-cover hovering:cursor-pointer opacity-0 invisible ' sizes='(max-width: 640px) 50vw, 25vw' {...props} />
 
-      <svg className='' viewbox='0 0 1 1'>
-        <defs>
-          <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
-            <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
-          </clipPath>
-        </defs>
-      </svg>
-    </div>
-  )
-}
+//       <svg className='' viewbox='0 0 1 1'>
+//         <defs>
+//           <clipPath id={`svgClip${n}`} className='' clipPathUnits="objectBoundingBox">
+//             <path id={`bird${n}`} d={paths[n]} fill="#0E0C0C" />
+//           </clipPath>
+//         </defs>
+//       </svg>
+//     </div>
+//   )
+// }

@@ -16,14 +16,14 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
     let [allRatios, setAllRatios] = useState([])
     let [allPrevRatios, setAllPrevRatios] = useState([])
     let { scrolled } = useAppContext()
-    let [located, setLocated] = useState(false)
+    // let [located, setLocated] = useState(false)
     // let [myHeight, setMyHeight] = useState(undefined)
     let {viewBox, mobile} = usePageContext() //setAnimationLocation
     // let [newChildren, setNewChildren] = useState(undefined)
 
     // let newChildren = useGoodChildren(children.props.children, handleLength)
 
-    let animationRef = useRef(null)
+    // let animationRef = useRef(null)
 
     // let svgRef = useRef(null)
 
@@ -137,7 +137,8 @@ export default function AnimateSVG({children, scrollMin, scrollMax, speed, alt, 
           className={`absolute will-change-transform w-full left-1/2`}>
           {/* className={`absolute w-5/6 xs:w-4/6 sm:w-3/6 md:w-5/6 xl:w-3/5 max-w-6xl left-1/2`}> */}
           
-          <g ref={animationRef}>
+          {/* <g ref={animationRef}> */}
+          <g >
         
         
             {/* {console.log(goodChildren.map(child=>child.type===Path))} */}

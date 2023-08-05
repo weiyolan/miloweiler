@@ -9,57 +9,45 @@ import FadeDiv from './FadeDiv'
 
 gsap.registerPlugin(Observer)
 
-export default function Navigation() {
+export default function NavigationMobile() {
   let { darkMode } = usePageContext()
   let [hiding, setHiding] = useState(true) //removed bar onLoad and then animate in.
   const ctx = useRef(gsap.context(() => { }));
 
   useEffect(() => {
-    setHiding(false)
+    // setHiding(false)
     return () => { ctx.current.revert() };
   }, []);
 
   function hideBar() {
     if (!hiding) {
       setHiding(true)
-    } 
+    }
   }
 
   function showBar() {
     if (hiding) {
       setHiding(false)
-    } 
+    }
   }
 
   useEffect(() => {
     let observer = Observer.create({
       target: window,         // can be any element (selector text is fine)
-      // ignore: ".project-pictures, .project-grid, .imageFill",
-      type: "scroll",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      ignore: ".navButton, .navLine, .navBar, .navBackground",
+      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
-      onStopDelay: 1.5,
-      tolerance:70,
-      onStop: () => {
-        showBar()
-      },
-      onDown: () => {
+
+      onClick: () => {
         hideBar()
       },
-      // onDownEnd: () => {
-      //   hideBar()
-      // },
-      onUp: () => {
-        hideBar()
-      },
-      // onUpEnd: () => {
-      //   hideBar()
-      // },
+
       lockAxis: true,
     })
     return () => { observer.disable() }
   }, [hiding])
 
-  function handleMouseMove (e) {
+  function handleMouseMove(e) {
     if (e.y <= 60) {
       // console.log(e.y)
       showBar()
@@ -68,7 +56,7 @@ export default function Navigation() {
 
   useEffect(() => {
     document.addEventListener('mousemove', handleMouseMove)
-    return () => { document.removeEventListener('mousemove',handleMouseMove) }
+    return () => { document.removeEventListener('mousemove', handleMouseMove) }
   }, [])
   // useEffect(()=>{
   //   if (observer.current.velocityY === 0 && !scrollPaused) {console.log('paused')}
@@ -112,11 +100,16 @@ export default function Navigation() {
         // duration: 0.5,
       });
       gsap.to('.navBackground', {
-        autoAlpha: () => hiding ? 0 : 1,
-        y: () => hiding ? -80 : 0,
+        // autoAlpha: () => hiding ? 0 : 1,
+        // :::::::::::===============================
+        y: () => hiding ? +40 : 0,
+        yPercent: ()=>hiding?-100:0,
+        // :::::::::::===============================
+        x: () => hiding ? -40 : 0,
+        xPercent: ()=>hiding?100:0,
         duration: 1,
         ease: 'expo.out',
-        rotate: () => hiding ? '5deg' : 0,
+        // rotate: () => hiding ? '5deg' : 0,
         delay: () => hiding ? 0.15 : 0,
       })
     });
@@ -125,8 +118,8 @@ export default function Navigation() {
   return (
     // <FadeDiv className='w-full relative'>
     // <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full top-0 justify-center flex navBar  `} type={'leftRight'} amount={30}>
-    <div className={`fixed w-full top-0 justify-center flex navBar`}>
-      <div className={`${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
+    <div className={`fixed w-full h-0 top-0 navBar`}>
+      <div className={`${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-md w-screen h-screen top-0 absolute navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />

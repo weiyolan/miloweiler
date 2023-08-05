@@ -227,7 +227,7 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
 
 //==============FROM CENTER============
   // let originalY = 0.630861
-  let originalY = 0.61
+  let originalY = width<800?0.62:0.61
   let originalX = 0.4896694
   let r2 = 2420 / 3006
   let r1 = width / (height * 2)
