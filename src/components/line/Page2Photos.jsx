@@ -20,7 +20,7 @@ export default function Page2Photos({ className, animateName }) {
   }, [])
 
   return (
-    <FadeDiv amount={10} className={'w-[75vw] overflow-hidden page2photosContainer fixed h-[20vh] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'} type='leftRight' >
+    <FadeDiv amount={10} className={'w-[75vw] overflow-hidden page2photosContainer fixed h-[20vh] left-1/2 -translate-x-1/2 top-2/3 md:top-1/2 -translate-y-1/2'} type='leftRight' >
       <div className={`flex w-[140vw] h-full page2photosContainerInner`}>
         <PageImage alt='' src='/images/page1photo11.jpg' className={``} style={{}} />
         <PageImage alt='' src='/images/page1photo2.jpg' className={``} style={{}} />

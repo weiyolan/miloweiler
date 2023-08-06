@@ -9,7 +9,7 @@ import AnimateSVG from "./AnimateSVG"
 // import AnimateSVGBanner from "./AnimateSVGBanner"
 import { gsap } from "gsap/dist/gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
-import { PathGSAP } from "@/components/line/pathUtilsGsap"
+// import { PathGSAP } from "@/components/line/pathUtilsGsap"
 // import useStateRef from "@/utils/useStateRef"
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,7 +61,8 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
       }, '<30%')
       .to(['.titleText1'], {
         opacity: 1,
-        // y: '-=5',
+        scale:1,
+        transformOrigin: '50% 50%',
         stagger: {
           each: 0.12
         },
@@ -70,7 +71,8 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
       }, 0.5)
       .to(['.titleText2'], {
         opacity: 1,
-        // y: '-=5',
+        scale:1,
+        transformOrigin: '50% 50%',
         stagger: {
           each: 0.07
         },

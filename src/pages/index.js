@@ -166,8 +166,8 @@ export default function Home({ }) {
         duration: 1,
         y: `-${svgScrubAmount}px`,
       }, 0)
-      .to('.titleContainer', {
-        y: '-40px',
+      .to('.titleContainerInner', {
+        y: mobile?'-120px': '-40px',
         duration: 1,
       }, 0)
     return tl
@@ -262,13 +262,13 @@ export default function Home({ }) {
           ease: 'power.out'
           // ease: 'power2.inout',
         }, 0)
-      .to('.titleContainerInner', {
+      .to('.titleContainer', {
         // autoAlpha: 0,
         y: '-30vh',
         duration: 1,
         ease: 'power.out'
       }, 0)
-      .to(['.titleContainerInner'], {
+      .to(['.titleContainer'], {
         autoAlpha: 0,
         // y:'-30vh',
         duration: 0.3
@@ -320,12 +320,25 @@ export default function Home({ }) {
   let dropletEnd = [
     "M909.985 2343.12C909.985 2344.04 907.947 2344.87 906.064 2344.87C904.182 2344.87 902.485 2344.04 902.485 2343.12C902.485 2342.2 904.523 2341.87 906.405 2341.87C908.288 2341.87 909.985 2342.2 909.985 2343.12Z",
   ]
+
+  let dropletStartMobile = [
+    "M297.021 1333.05C296.5 1334.36 272.454 1336.52 273.009 1333.53C273.009 1329.21 282.355 1334.91 281.652 1332.09C279.251 1322.49 292.215 1325.37 288.854 1330.65C285.493 1335.93 298.661 1328.94 297.021 1333.05Z",
+    "M288.373 1333.29C288.373 1334.18 286.416 1334.97 284.609 1334.97C282.801 1334.97 281.171 1334.18 281.171 1333.29C281.171 1332.41 283.128 1332.09 284.936 1332.09C286.744 1332.09 288.373 1332.41 288.373 1333.29Z",
+  ]
+  let dropletEndMobile = [
+    "M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z",
+  ]
+
+  // <path id="droplet5" d="M297.021 1333.05C296.5 1334.36 272.454 1336.52 273.009 1333.53C273.009 1329.21 282.355 1334.91 281.652 1332.09C279.251 1322.49 292.215 1325.37 288.854 1330.65C285.493 1335.93 298.661 1328.94 297.021 1333.05Z" fill="#FF0000"/>
+{/* <path id="droplet5b" d="M288.373 1333.29C288.373 1334.18 286.416 1334.97 284.609 1334.97C282.801 1334.97 281.171 1334.18 281.171 1333.29C281.171 1332.41 283.128 1332.09 284.936 1332.09C286.744 1332.09 288.373 1332.41 288.373 1333.29Z" fill="#FF0000"/> */}
+{/* <path id="droplet7" d="M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z" fill="#FF0000"/> */}
+
   function showPage2() {
     let tl = gsap.timeline()
       .to(['.svgPage2'],
         {
           duration: 1,
-          y: () => { return `-${(0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          y: () => { return `-${(mobile?0.35798:0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page2'], {
         y: '-30vh',
@@ -336,16 +349,16 @@ export default function Home({ }) {
       .to('#droplet', {
         duration: 1.5,
         // y: () => { return `${0.1365*svgHeight*1538/screenWidth}px` }, 
-        y: () => { return `${0.141 * svgHeight * svgWidthFactor}px` },
+        y: () => { return `${(mobile?0.115:0.141 )* svgHeight * svgWidthFactor}px` },
       }, 0)
       .to('#droplet', {
         duration: 0.2,
-        attr: { d: dropletStart[0] },
+        attr: { d: mobile?dropletStartMobile[0] :dropletStart[0] },
       }, 1.5)
       .to('#droplet', {
         duration: 0.2,
         opacity: 0,
-        attr: { d: dropletStart[1] },
+        attr: { d: mobile?dropletStartMobile[1] :dropletStart[1] },
       }, 1.7)
       .to('#dropletEnd', {
         y: '-30px',
@@ -358,7 +371,7 @@ export default function Home({ }) {
         duration: 0.2,
         opacity: 0,
         ease: 'expo.in',
-        attr: { d: dropletEnd[0] },
+        attr: { d: mobile?dropletEndMobile[0] :dropletEnd[0] },
       }, 1.9)
 
     return tl
@@ -472,7 +485,7 @@ export default function Home({ }) {
       .to(['.svgPage2'],
         {
           duration: 2,
-          y: `-${(0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          y: `-${(mobile?0.51:0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page3'], {
         y: '-10vh',
@@ -1027,15 +1040,16 @@ export default function Home({ }) {
           <Page3Photos />
           {/* //page3 photos behind svg */}
           <Page3KakScrub scrubTl={scrubTl3} />
-          <PageDescription shadow animateName='page3description' className={`text-left bottom-12 lg:bottom-16 left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
+          <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
           <Page2Photos />
-          <PageDescription shadow animateName='page2description' className={`text-right top-16 lg:top-12 right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
+          <PageDescription shadow animateName='page2description' className={`text-right top-10 md:top-16 lg:top-12 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           <Page1Photos timeline={scrubTl1} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-12 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
-
+          
           <StoryTitle shadow scrubTl={scrubTl0} ctx={titleCtx} />
+
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}

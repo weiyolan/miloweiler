@@ -70,28 +70,6 @@ export default function Navigation() {
     document.addEventListener('mousemove', handleMouseMove)
     return () => { document.removeEventListener('mousemove',handleMouseMove) }
   }, [])
-  // useEffect(()=>{
-  //   if (observer.current.velocityY === 0 && !scrollPaused) {console.log('paused')}
-  // },[observer?.current?.velocityY])
-
-  // console.log(observer?.current?.velocityY)
-
-  // function firstAppearTl() {
-  //   let appearTl = gsap.timeline().to('.navButton', {
-  //     opacity: () => loaded ? 1 : 0,
-  //     // y: width < 1024 ? (visible ? -6 : 0) : 0,
-  //     // x:width<1024?0:(visible ?+20:0),
-  //     // scale:1,
-  //     // ease: 'power1.inout',
-  //     stagger:0.1,
-  //     // stagger: {
-  //     //   each: 0.1,
-  //     // },
-  //     duration: 1.5,
-  //     ease: 'expo.out',
-  //     // duration: 0.5,
-  //   });
-  // }
 
   useEffect(() => {
     // console.log(visible)
