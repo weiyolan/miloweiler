@@ -76,13 +76,13 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
 
 
   return (
-    <div style={{ transform: 'translate3d(0,0,0)' }} className='w-full h-screen  titleContainer fixed'>
+    <div style={{ transform: 'translate3d(0,0,0)' }} className='w-full h-screen top-0 titleContainer fixed'>
       <Parallax xs scope={'Title'} timeline={scrubTl} duration={1} className={`titleContainerInner w-full h-full relative`}>
         <h1 className='font-lora text-6xl text-primary absolute left-16 bottom-24 scale-150 hidden'>
           I am a Photographer specialised in behind the scenes, documentary, fine art and studio photography.
         </h1>
 
-        <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] md:right-[2%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg">
           <Text className={'cursor-default depth2 depth3Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontFamily="Lora" fontSize="52.5204" letterSpacing="0em">
             <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="40.0711212" y="107.722">
               My style is
@@ -120,7 +120,7 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
           </Text>
         </svg>
 
-        <svg className={`rotate-[0.0001deg] absolute left-[10%] bottom-[15%] md:bottom-[10%] w-[60%] md:w-[30vw] `} viewBox="0 0 551 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={`rotate-[0.0001deg] absolute left-[10%] bottom-[15%] md:left-[6%] md:bottom-[10%] w-[60%] md:w-[30vw] `} viewBox="0 0 551 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <Text className={`cursor-default depth3 depth3Title titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontFamily="Lora" fontSize="42.2727" letterSpacing="0em">
             <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="0" y="230.472">
               I&#x2019;m a

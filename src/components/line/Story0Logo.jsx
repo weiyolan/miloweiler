@@ -23,7 +23,7 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
   let [introEnded, setIntroEnded] = useState(false)
 
   let [fakeScroll1, setFakeScroll1] = useState({ scroll: 0 })
-  let [fakeScroll45, setFakeScroll45] = useState({ scroll: 0 })
+  // let [fakeScroll45, setFakeScroll45] = useState({ scroll: 0 })
   // let [animateStroke1, setAnimateStroke1] = useState({ animate: false })
 
   useEffect(() => {
@@ -50,15 +50,15 @@ export default function Story0Logo({ scrollMin, scrollMax, introAnimationTl, spe
         // ease: 'power2.out',
       }, '-=1.2')
       // BEAM
-      .to(fakeScroll45, {
-        scroll: 100,
-        ease: 'power3.out',
-        // ease: 'back',
-        duration: 2,
-        yoyo: 'repeat',
-        // onStart: () => { setIntroAnimated(true) },
-        onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
-      }, '<30%')
+      // .to(fakeScroll45, {
+      //   scroll: 100,
+      //   ease: 'power3.out',
+      //   // ease: 'back',
+      //   duration: 2,
+      //   yoyo: 'repeat',
+      //   // onStart: () => { setIntroAnimated(true) },
+      //   onUpdate: () => { setFakeScroll45({ ...fakeScroll45 }) }
+      // }, '<30%')
       .to(['.titleText1'], {
         opacity: 1,
         scale:1,

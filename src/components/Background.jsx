@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useAppContext } from "@utils/appContext"
 import FadeDiv from './FadeDiv'
 
-export default function Background({ src, type, moves, priority, amount, height, maxMoves, className, animationName,setPageLoaded }) {
+export default function Background({ src, type, moves, priority, amount, height, maxMoves, className, animationName, setPageLoaded }) {
 
   return (
     <div style={{ transform: "translate3d(0, 0, 0)" }}   className={`fixed w-full ${height ? height : 'h-screen'} ${animationName ? animationName : ''}  ${className ? className : ''}`} >

@@ -65,7 +65,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
     , <path key={10} id="punt" d="M923.291 464.309V464.299" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
   ]
 
-  //==============FROM CENTER, Y INVERSERD============
+  //==============X FROM CENTER, Y INVERSED FROM TOP============
   // let originalY = 0.630861
   let originalY = 1 - 0.39112
   let originalX = 0.7362

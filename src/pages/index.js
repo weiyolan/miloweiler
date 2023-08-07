@@ -33,6 +33,10 @@ import Page5Milo from '@/components/line/Page5Milo'
 // import { ScrollDown } from '@/components/ScrollDown'
 import NavigationMobile from '@/components/NavigationMobile'
 import MobileScrollbar from '@/components/MobileScrollbar'
+import Page0Logo from '@/components/line/Page0Logo'
+import Page1Moon from '@/components/line/Page1Moon'
+import Page2Waves from '@/components/line/Page2Waves'
+import Page3Animals from '@/components/line/Page3Animals'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -63,7 +67,8 @@ export default function Home({ }) {
   let [svgTop, setSvgTop] = useState(undefined) //For calculation of FadeDiv
   // let [titleHeight, setTitleHeight] = useState(undefined)
   // let [svgViewHeight, setSvgViewHeight] = useState(undefined) //For calculation of FadeDiv
-  let [mobile, setMobile] = useState(undefined)
+
+  // let [mobile, setMobile] = useState(undefined)
 
   // let velocity = useRef(0)
   let titleCtx = useRef(gsap.context(() => { }))
@@ -84,16 +89,21 @@ export default function Home({ }) {
   // let [textAppear, setTextAppear] = useState({ textAppear: false })
   // let [textDisappear, setTextDisappear] = useState({ textDisappear: false })
 
-  useEffect(() => {
-    setMobile(screenWidth < 768)
+  // useEffect(() => {
+  //   setMobile(screenWidth < 768)
+  // }, [screenWidth])
+  let mobile = screenWidth < 768
 
-  }, [screenWidth])
   // let finishingScroll = mobile ? 0.95 : 0.995 // Same as ending of animation
-  let finishingScroll = 2 // impossible, so will never activate
+  // let finishingScroll = 2 // impossible, so will never activate
 
-  useEffect(() => {
-    if (scrolled >= finishingScroll && !finished) { setFinished(true) }
-  }, [scrolled])
+  // // useEffect(() => {
+  // //   if (scrolled >= finishingScroll && !finished) { setFinished(true) }
+  // // }, [scrolled])
+  // // useEffect(() => {
+  // if (scrolled >= finishingScroll && !finished) { setFinished(true) }
+  // // }, [scrolled])
+
 
   // useEffect(() => {
   //   gsap.to(window, { scrollTo: 0 })
@@ -104,7 +114,6 @@ export default function Home({ }) {
   //   // window.addEventListener('resize', keepScroll)
   //   // return ()=> window.removeEventListener('resize', keepScroll)
   // }, [])
-
 
 
   // -------WITH TITLE AND FOOTER -------------
@@ -127,13 +136,13 @@ export default function Home({ }) {
   // console.log(height, svgHeight, height/svgHeight, svgWidthFactor) 
   // }, [svgWidth, svgHeight, footerHeight, svgTop])
 
-  useEffect(() => {
-    let newSvgTop = document.getElementById('referenceSvg').getBoundingClientRect().top;
-    // console.log(newSvgTop, svgHeight)
-    if (newSvgTop?.toFixed(0) !== svgTop?.toFixed(0)) {
-      setSvgTop(newSvgTop)
-    }
-  }, [svgWidth, svgHeight, footerHeight, mobile])
+  // useEffect(() => {
+  //   let newSvgTop = document.getElementById('referenceSvg').getBoundingClientRect().top;
+  //   // console.log(newSvgTop, svgHeight)
+  //   if (newSvgTop?.toFixed(0) !== svgTop?.toFixed(0)) {
+  //     setSvgTop(newSvgTop)
+  //   }
+  // }, [svgWidth, svgHeight, footerHeight, mobile])
 
   useEffect(() => {
     function handleSize() {
@@ -142,7 +151,8 @@ export default function Home({ }) {
       let width = bbox.width;
       // let top = bbox.top;
 
-      // console.log(height)
+      console.log('RESIZE')
+      console.log(height)
 
       if (height >= 0 && height.toFixed(0) !== svgHeight?.toFixed(0) && setSvgHeight !== undefined) {
         setSvgHeight(height)
@@ -158,13 +168,17 @@ export default function Home({ }) {
     return () => { window.removeEventListener('resize', handleSize) }
   }, [mobile])
 
+  // useEffect(() => {
+  //   handleSize()
+  // }, [])
+
   function scrubIntro() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.pageIntro', {
         y: '-10vh',
         duration: 1,
       }, 0)
-      .to('.svgPage2Inner', {
+      .to(['.introSvgInner', '.page1svg'], {
         duration: 1,
         y: `-${svgScrubAmount}px`,
       }, 0)
@@ -200,11 +214,13 @@ export default function Home({ }) {
   // ============================= page1 =============================
   function showPage1() { // SCALE = 2s
     let tl = gsap.timeline()
-      .to(['.svgPage2'],
+      // .to(['.svgPage2'],
+      .to(['.page1svg'],
         {
           duration: 1,
-          y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
-          // y: `-${(0.27810-0.09) * svgHeight + svgTop - (screenHeight / 2)}px`, //ABS -0.09%
+          yPercent: -56,
+          // y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          // y: `-30vh`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page1'], {
         y: '-30vh',
@@ -264,11 +280,18 @@ export default function Home({ }) {
           ease: 'power.out'
           // ease: 'power2.inout',
         }, 0)
-      .to('.titleContainer', {
+      .to(['.titleContainer'], {
         // autoAlpha: 0,
         y: '-30vh',
         duration: 1,
         ease: 'power.out'
+      }, 0)
+      .to(['.introSvg'], {
+        y: mobile ? '-85vh' : '-160vh',
+        autoAlpha: 0,
+        // y:'-30vh',
+        duration: 0.7
+        // ease: 'ease.in'
       }, 0)
       .to(['.titleContainer'], {
         autoAlpha: 0,
@@ -316,11 +339,12 @@ export default function Home({ }) {
   }
   // ============================= page2 =============================
   let dropletStart = [
-    "M919.505 1619C918.963 1620.36 893.922 1622.61 894.5 1619.5C894.5 1615 904.232 1620.93 903.5 1618C901 1608 914.5 1611 911 1616.5C907.5 1622 921.213 1614.72 919.505 1619Z",
-    "M910.5 1619.25C910.5 1620.17 908.462 1621 906.58 1621C904.697 1621 903 1620.17 903 1619.25C903 1618.33 905.038 1618 906.92 1618C908.803 1618 910.5 1618.33 910.5 1619.25Z",
+    "M923 1965.57C923 1974.08 916.125 1981 907.645 1981C899.166 1981 895 1974.08 895 1965.57C895 1957.05 910.355 1933.72 910.355 1941.6C910.355 1949.48 923 1958.24 923 1965.57Z",
+    "M924.794 1977.1C924.04 1978.91 889.21 1981.91 890.014 1977.77C890.014 1971.77 903.55 1979.67 902.532 1975.77C899.055 1962.43 917.833 1966.43 912.964 1973.77C908.096 1981.1 927.17 1971.39 924.794 1977.1Z",
+    "M912.143 1977.77C912.143 1978.87 909.232 1979.86 906.543 1979.86C903.853 1979.86 901.429 1978.87 901.429 1977.77C901.429 1976.68 904.34 1976.29 907.029 1976.29C909.719 1976.29 912.143 1976.68 912.143 1977.77Z",
   ]
   let dropletEnd = [
-    "M909.985 2343.12C909.985 2344.04 907.947 2344.87 906.064 2344.87C904.182 2344.87 902.485 2344.04 902.485 2343.12C902.485 2342.2 904.523 2341.87 906.405 2341.87C908.288 2341.87 909.985 2342.2 909.985 2343.12Z",
+    "M912.143 1979.5C912.143 1980.81 909.232 1982 906.543 1982C903.853 1982 901.429 1980.81 901.429 1979.5C901.429 1978.19 904.34 1977.71 907.029 1977.71C909.719 1977.71 912.143 1978.19 912.143 1979.5Z",
   ]
 
   let dropletStartMobile = [
@@ -331,16 +355,17 @@ export default function Home({ }) {
     "M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z",
   ]
 
-  // <path id="droplet5" d="M297.021 1333.05C296.5 1334.36 272.454 1336.52 273.009 1333.53C273.009 1329.21 282.355 1334.91 281.652 1332.09C279.251 1322.49 292.215 1325.37 288.854 1330.65C285.493 1335.93 298.661 1328.94 297.021 1333.05Z" fill="#FF0000"/>
-  {/* <path id="droplet5b" d="M288.373 1333.29C288.373 1334.18 286.416 1334.97 284.609 1334.97C282.801 1334.97 281.171 1334.18 281.171 1333.29C281.171 1332.41 283.128 1332.09 284.936 1332.09C286.744 1332.09 288.373 1332.41 288.373 1333.29Z" fill="#FF0000"/> */ }
-  {/* <path id="droplet7" d="M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z" fill="#FF0000"/> */ }
-
   function showPage2() {
     let tl = gsap.timeline()
       .to(['.svgPage2'],
         {
           duration: 1,
           y: () => { return `-${(mobile ? 0.35798 : 0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+        }, 0)
+      .to(['.page1svg'],
+        {
+          duration: 1,
+          yPercent: -88,
         }, 0)
       .to(['.page2'], {
         y: '-30vh',
@@ -350,17 +375,20 @@ export default function Home({ }) {
       }, 0)
       .to('#droplet', {
         duration: 1.5,
-        // y: () => { return `${0.1365*svgHeight*1538/screenWidth}px` }, 
-        y: () => { return `${(mobile ? 0.115 : 0.141) * svgHeight * svgWidthFactor}px` },
+        // y: () => { return `${(mobile ? 0.115 : 0.141) * svgHeight * svgWidthFactor}px` },
+        y: 0,
+        attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
+        scale: 1,
+        transformOrigin: '50% 50%',
       }, 0)
       .to('#droplet', {
         duration: 0.2,
-        attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
+        attr: { d: mobile ? dropletStartMobile[1] : dropletStart[1] },
       }, 1.5)
       .to('#droplet', {
         duration: 0.2,
         opacity: 0,
-        attr: { d: mobile ? dropletStartMobile[1] : dropletStart[1] },
+        attr: { d: mobile ? dropletStartMobile[2] : dropletStart[2] },
       }, 1.7)
       .to('#dropletEnd', {
         y: '-30px',
@@ -419,8 +447,13 @@ export default function Home({ }) {
         ease: 'power2.out',
         duration: 1
       }, 0)
+      .to('.page1svgInner', {
+        y: '-30vh',
+        duration: 1,
+      }, 0)
       .to(['.page1feetContainer'],
         {
+          // y: '-30vh',
           // y: '-73%',
           // y: '-=300px',
           autoAlpha: 0,
@@ -959,7 +992,8 @@ export default function Home({ }) {
 
     })
     return () => { ctx.revert() }
-  }, [svgHeight, screenHeight, svgTop])
+  }, [svgHeight])
+  // screenHeight, ,svgTop , 
 
   useEffect(() => {
     introAnimationTl && introAnimationTl.paused(!pageLoaded)
@@ -1008,20 +1042,16 @@ export default function Home({ }) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.5vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.4vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
-          {/*  */}
+
           {/* {console.log(svgHeight, 0.101 * svgHeight)} */}
           <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
-            <div className='svgPage2Inner w-full h-full absolute top-0 '>
-              {/* <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' /> */}
-              {/*  timeline={scrubTl0} */}
-              <Story0Logo id={'referenceSvg'} introAnimationTl={introAnimationTl} speed={1} scrollMin={0} scrollMax={0.15} />
-              <Story1Moon scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
-              <Story2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} />
-              <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} />
-              {/* <Story3Animals scrubTl={scrubTl3} transitionTl={transitionTl3} /> */}
-              {/* <Story5Milo scrubTl={scrubTl5} transitionTl={transitionTl3} /> */}
+            <div className='svgPage2Inner w-full h-full relative top-0 '>
+              {/* <Story0Logo id={'referenceSvg'} introAnimationTl={introAnimationTl} speed={1} scrollMin={0} scrollMax={0.15} /> */}
+              {/* <Story1Moon  scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} /> */}
+              {/* <Story2Waves  scrubTl={scrubTl2} transitionTl={transitionTl2} /> */}
+              <Story3Animals id={'referenceSvg'} scrubTl={scrubTl3} transitionTl={transitionTl3} />
 
             </div>
           </section>
@@ -1031,24 +1061,27 @@ export default function Home({ }) {
           {/* LEGS */}
           {/* 265px */}
 
-          {/* <div className='w-1/2 h-screen page5descriptionContainer left-1/2 fixed'> */}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
           <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
-          {/* </div> */}
+
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 shadow animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
-
+          
+          <Page3Animals style={{}} animationName={'page3svg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} scrubTl={scrubTl3} transitionTl={transitionTl3}/>
           <Page3Photos />
-          {/* //page3 photos behind svg */}
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
+          <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2svg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}/>
           <Page2Photos />
           <PageDescription shadow animateName='page2description' className={`text-right top-10 md:top-16 lg:top-12 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
+          {/* -73.7% */}
+          <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1svg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
           <Page1Photos timeline={scrubTl1} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-12 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
+          <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
           <StoryTitle shadow scrubTl={scrubTl0} ctx={titleCtx} />
 
           {/* <ScrollDown /> */}

@@ -43,7 +43,7 @@ let wavesMobile = [
   "M106.068 1837.65C89.19 1833.23 92.125 1819.78 85.478 1816.84C78.831 1813.89 72.847 1817.92 65.442 1813.66C58.036 1809.4 59.8 1802.11 54.188 1797.66C48.576 1793.22 44.015 1796.33 37.246 1792.84C31.928 1790.1 28.105 1784.66 24 1782",
 ]
 
-export default function Story2Waves({ scrollMin, scrollMax, scrubTl, transitionTl, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
+export default function Story2Waves({ scrollMin, scrollMax, scrubTl, transitionTl, speed, setSvgHeight, setSvgWidth, setSvgTop, banner , id}) {
 
   let { locale, scrolled } = useAppContext()
 
@@ -99,7 +99,7 @@ export default function Story2Waves({ scrollMin, scrollMax, scrubTl, transitionT
   }, [scrubTl])
 
   return (<>
-    <AnimateSVG alt='miloweiler photography logo animation'
+    <AnimateSVG alt='miloweiler photography logo animation' id={id}
       scrollMin={scrollMin} scrollMax={scrollMax} speed={speed} setSvgHeight={setSvgHeight} setSvgTop={setSvgTop} setSvgWidth={setSvgWidth}>
 
       {mobile ?

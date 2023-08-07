@@ -29,7 +29,7 @@ let dropsMobile = [
   "M293.175 1327.23C293.175 1331.9 289.52 1335.69 285.013 1335.69C280.505 1335.69 278.291 1331.9 278.291 1327.23C278.291 1322.56 286.453 1309.77 286.453 1314.09C286.453 1318.41 293.175 1323.21 293.175 1327.23Z",
 ]
 
-export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, transitionTl, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
+export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, id, transitionTl, speed, setSvgHeight, setSvgWidth, setSvgTop, banner }) {
 
   // let { locale, scrolled, height: screenHeight } = useAppContext()
 
@@ -162,7 +162,7 @@ export default function Story1Moon({ scrollMin, scrollMax, scrubTl0, scrubTl1, t
 
 
   return (<>
-    <AnimateSVG alt='miloweiler photography logo animation'
+    <AnimateSVG alt='miloweiler photography logo animation' id={id}
       scrollMin={scrollMin} scrollMax={scrollMax} speed={speed} setSvgHeight={setSvgHeight} setSvgTop={setSvgTop} setSvgWidth={setSvgWidth}>
 
       {getContent(mobile)}
