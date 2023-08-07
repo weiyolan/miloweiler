@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Parallax from '@/components/Parallax'
+import { usePageContext } from '@/utils/pageContext'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function StoryTitle({ scrubTl, shadow, ctx }) {
@@ -145,6 +146,7 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
 function Text(props) {
   let myText = useRef(null)
   let ctx = useRef(gsap.context(() => { }))
+  let {mobile} = usePageContext()
   let [hovering, setHovering] = useState(false)
   useEffect(() => { return () => ctx.current.revert() }, [])
 

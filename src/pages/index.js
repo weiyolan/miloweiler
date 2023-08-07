@@ -30,8 +30,10 @@ import Page3KakScrub from '@/components/line/Page3KakScrub'
 import Page4Kakje from '@/components/line/Page4Kakje'
 import PageDescription5 from '@/components/line/PageDescription5'
 import Page5Milo from '@/components/line/Page5Milo'
-import { ScrollDown } from '@/components/ScrollDown'
+// import { ScrollDown } from '@/components/ScrollDown'
 import NavigationMobile from '@/components/NavigationMobile'
+import MobileScrollbar from '@/components/MobileScrollbar'
+
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
@@ -167,7 +169,7 @@ export default function Home({ }) {
         y: `-${svgScrubAmount}px`,
       }, 0)
       .to('.titleContainerInner', {
-        y: mobile?'-120px': '-40px',
+        y: mobile ? '-120px' : '-40px',
         duration: 1,
       }, 0)
     return tl
@@ -201,7 +203,7 @@ export default function Home({ }) {
       .to(['.svgPage2'],
         {
           duration: 1,
-          y: `-${(mobile?0.206633:0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
           // y: `-${(0.27810-0.09) * svgHeight + svgTop - (screenHeight / 2)}px`, //ABS -0.09%
         }, 0)
       .to(['.page1'], {
@@ -330,15 +332,15 @@ export default function Home({ }) {
   ]
 
   // <path id="droplet5" d="M297.021 1333.05C296.5 1334.36 272.454 1336.52 273.009 1333.53C273.009 1329.21 282.355 1334.91 281.652 1332.09C279.251 1322.49 292.215 1325.37 288.854 1330.65C285.493 1335.93 298.661 1328.94 297.021 1333.05Z" fill="#FF0000"/>
-{/* <path id="droplet5b" d="M288.373 1333.29C288.373 1334.18 286.416 1334.97 284.609 1334.97C282.801 1334.97 281.171 1334.18 281.171 1333.29C281.171 1332.41 283.128 1332.09 284.936 1332.09C286.744 1332.09 288.373 1332.41 288.373 1333.29Z" fill="#FF0000"/> */}
-{/* <path id="droplet7" d="M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z" fill="#FF0000"/> */}
+  {/* <path id="droplet5b" d="M288.373 1333.29C288.373 1334.18 286.416 1334.97 284.609 1334.97C282.801 1334.97 281.171 1334.18 281.171 1333.29C281.171 1332.41 283.128 1332.09 284.936 1332.09C286.744 1332.09 288.373 1332.41 288.373 1333.29Z" fill="#FF0000"/> */ }
+  {/* <path id="droplet7" d="M288.373 1953.4C288.373 1954.29 286.416 1955.08 284.609 1955.08C282.801 1955.08 281.171 1954.29 281.171 1953.4C281.171 1952.52 283.128 1952.2 284.936 1952.2C286.744 1952.2 288.373 1952.52 288.373 1953.4Z" fill="#FF0000"/> */ }
 
   function showPage2() {
     let tl = gsap.timeline()
       .to(['.svgPage2'],
         {
           duration: 1,
-          y: () => { return `-${(mobile?0.35798:0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          y: () => { return `-${(mobile ? 0.35798 : 0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page2'], {
         y: '-30vh',
@@ -349,16 +351,16 @@ export default function Home({ }) {
       .to('#droplet', {
         duration: 1.5,
         // y: () => { return `${0.1365*svgHeight*1538/screenWidth}px` }, 
-        y: () => { return `${(mobile?0.115:0.141 )* svgHeight * svgWidthFactor}px` },
+        y: () => { return `${(mobile ? 0.115 : 0.141) * svgHeight * svgWidthFactor}px` },
       }, 0)
       .to('#droplet', {
         duration: 0.2,
-        attr: { d: mobile?dropletStartMobile[0] :dropletStart[0] },
+        attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
       }, 1.5)
       .to('#droplet', {
         duration: 0.2,
         opacity: 0,
-        attr: { d: mobile?dropletStartMobile[1] :dropletStart[1] },
+        attr: { d: mobile ? dropletStartMobile[1] : dropletStart[1] },
       }, 1.7)
       .to('#dropletEnd', {
         y: '-30px',
@@ -371,7 +373,7 @@ export default function Home({ }) {
         duration: 0.2,
         opacity: 0,
         ease: 'expo.in',
-        attr: { d: mobile?dropletEndMobile[0] :dropletEnd[0] },
+        attr: { d: mobile ? dropletEndMobile[0] : dropletEnd[0] },
       }, 1.9)
 
     return tl
@@ -469,7 +471,6 @@ export default function Home({ }) {
   // ============================= page3 =============================
   function showPage3() {
     let tl = gsap.timeline()
-
       // .to('#fish',{
       //   x:'-=45',
       //   y:'+=45',
@@ -485,7 +486,7 @@ export default function Home({ }) {
       .to(['.svgPage2'],
         {
           duration: 2,
-          y: `-${(mobile?0.51:0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+          y: `-${(mobile ? 0.51 : 0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
       .to(['.page3'], {
         y: '-10vh',
@@ -784,7 +785,7 @@ export default function Home({ }) {
           gsap.to(transition3, {
             overwrite: true,
             progress: 1,
-            duration: 4,
+            duration: mobile ? 6 : 4,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -1009,8 +1010,8 @@ export default function Home({ }) {
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
               alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.5vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
-{/*  */}
-{/* {console.log(svgHeight, 0.101 * svgHeight)} */}
+          {/*  */}
+          {/* {console.log(svgHeight, 0.101 * svgHeight)} */}
           <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
             <div className='svgPage2Inner w-full h-full absolute top-0 '>
               {/* <Image alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`page1feet opacity-0 w-[17.27vw] fixed right-[6.7vw] top-[28.5vh]`} style={{}} sizes='(max-width: 648px) 60vw, 25vw' /> */}
@@ -1047,17 +1048,17 @@ export default function Home({ }) {
 
           <Page1Photos timeline={scrubTl1} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-12 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
-          
+
           <StoryTitle shadow scrubTl={scrubTl0} ctx={titleCtx} />
 
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}
           {/* </section> */}
-          {mobile?<NavigationMobile/>:<Navigation />}
+          {mobile ? <NavigationMobile /> : <Navigation />}
         </PageWrapper>
         {/* <ScrollVisual velocity={velocity.current} /> */}
-        {/* <ScrollVelocity  /> */}
+        {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>}
       </main >
       {/* </ReactLenis> */}
     </>
