@@ -178,7 +178,7 @@ export default function Home({ }) {
         y: '-10vh',
         duration: 1,
       }, 0)
-      .to(['.introSvgInner', '.page1svg'], {
+      .to(['.introSvgInner', '.page1MoonSvgInner'], {
         duration: 1,
         y: `-${svgScrubAmount}px`,
       }, 0)
@@ -215,10 +215,11 @@ export default function Home({ }) {
   function showPage1() { // SCALE = 2s
     let tl = gsap.timeline()
       // .to(['.svgPage2'],
-      .to(['.page1svg'],
+      .to(['.page1MoonSvg'],
         {
           duration: 1,
-          yPercent: -56,
+          y: `${svgScrubAmount}px`, //Cancelling out the scrub from before.
+          yPercent: -59,
           // y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
           // y: `-30vh`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
@@ -357,15 +358,15 @@ export default function Home({ }) {
 
   function showPage2() {
     let tl = gsap.timeline()
-      .to(['.svgPage2'],
+      // .to(['.svgPage2'],
+      //   {
+      //     duration: 1,
+      //     y: () => { return `-${(mobile ? 0.35798 : 0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+      //   }, 0)
+      .to(['.page1MoonSvg'],
         {
           duration: 1,
-          y: () => { return `-${(mobile ? 0.35798 : 0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
-        }, 0)
-      .to(['.page1svg'],
-        {
-          duration: 1,
-          yPercent: -88,
+          yPercent: -100,
         }, 0)
       .to(['.page2'], {
         y: '-30vh',
@@ -447,10 +448,10 @@ export default function Home({ }) {
         ease: 'power2.out',
         duration: 1
       }, 0)
-      .to('.page1svgInner', {
-        y: '-30vh',
-        duration: 1,
-      }, 0)
+      // .to('.page1MoonSvgInner', {
+      //   y: '-30vh',
+      //   duration: 1,
+      // }, 0)
       .to(['.page1feetContainer'],
         {
           // y: '-30vh',
@@ -504,23 +505,20 @@ export default function Home({ }) {
   // ============================= page3 =============================
   function showPage3() {
     let tl = gsap.timeline()
-      // .to('#fish',{
-      //   x:'-=45',
-      //   y:'+=45',
-      //   rotate:'-=55deg',
-      //   duration:0.5,
-      //   ease:'none',
-      // },0.5) 
-      // .to('#fish2', {
-      //   attr: { d: "M475.518 2588.54C478.804 2593.13 481.217 2598.78 479.834 2605.44C476.525 2621.36 459.043 2608.71 464.693 2599.02C467.237 2594.65 471.581 2592.23 475.518 2588.54ZM475.518 2588.54C472.231 2583.95 468.068 2580.44 465.957 2578.05L485.422 2579.23L475.518 2588.54Z" },
-      //   duration: 0.5,
-      //   // ease:'none',
-      // }, 0.5)
-      .to(['.svgPage2'],
-        {
-          duration: 2,
-          y: `-${(mobile ? 0.51 : 0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
-        }, 0)
+
+      // .to(['.svgPage2'],
+      //   {
+      //     duration: 2,
+      //     y: `-${(mobile ? 0.51 : 0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+      //   }, 0)
+      // .to('.page1MoonSvg',{
+      //   y:
+      // })
+      .to('.page3AnimalsSvg',{
+        duration: 2,
+        y: '-40vh',
+        ease: 'ease.out'
+      },0)
       .to(['.page3'], {
         y: '-10vh',
         opacity: 1,
@@ -560,6 +558,13 @@ export default function Home({ }) {
         ease: 'power.out'
         // ease: 'ease.in'
       }, 0)
+      .to(['.page2WavesSvgInner'],
+        {
+          opacity: 0,
+          duration: 1,
+          y: `-80vh`,
+          ease: 'power.out',
+        }, 0)
 
     return tl
   }
@@ -578,7 +583,7 @@ export default function Home({ }) {
   }
   function scrubPage3() {
     let tl = gsap.timeline({ ease: 'power1.out' })
-      .to('.page3Inner', {
+      .to(['.page3Inner','.page3AnimalsSvgInner'], {
         y: '-5vh',
         duration: 100,
         // duration: 2.5,
@@ -634,9 +639,14 @@ export default function Home({ }) {
       .to('.page3Inner', {
         opacity: 0,
         duration: 0.7,
-        ease: 'power.out'
+        ease: 'power.out',
         // ease: 'ease.in'
       }, 0)
+      .to('.page3AnimalsSvg',{
+        y:'-80vh',
+        duration:0.7,
+        ease: 'power.out',
+      },0)
       .to('.page3photosContainer', {
         autoAlpha: 0,
         duration: 0.5,
@@ -1066,23 +1076,23 @@ export default function Home({ }) {
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 shadow animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
-          
-          <Page3Animals style={{}} animationName={'page3svg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} scrubTl={scrubTl3} transitionTl={transitionTl3}/>
+
+          <Page3Animals style={{top:`calc(90%)`}} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed  -translate-y-1/2 left-1/2 -translate-x-1/2`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
           <Page3Photos />
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
-          <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2svg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}/>
+          <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
           <Page2Photos />
           <PageDescription shadow animateName='page2description' className={`text-right top-10 md:top-16 lg:top-12 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           {/* -73.7% */}
-          <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1svg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
+          <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
           <Page1Photos timeline={scrubTl1} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-12 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
-          <StoryTitle shadow scrubTl={scrubTl0} ctx={titleCtx} />
+          <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
 
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
