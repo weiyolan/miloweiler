@@ -5,6 +5,7 @@
 html {
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: none; 
+  background-color: #000000;
   /* For lenis scroll-library */
 }
 
