@@ -626,7 +626,7 @@ export default function Home({ }) {
         ease: 'power.out',
       }, 0)
       .to('.page3AnimalsSvgInner', {
-        y: '-100vh',
+        y: '-140vh',
         yPercent: -50,
         duration: 0.7,
         ease: 'power.out',
