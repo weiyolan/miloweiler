@@ -47,6 +47,7 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
         duration: 3,
         // overwrite: true,
         // ease: 'ease.out',
+        ease: "slow(0.1, 0.4, false)",
       },
       position: 0.5
     },

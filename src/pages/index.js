@@ -144,29 +144,29 @@ export default function Home({ }) {
   //   }
   // }, [svgWidth, svgHeight, footerHeight, mobile])
 
-  useEffect(() => {
-    function handleSize() {
-      let bbox = document.getElementById('referenceSvg').getBoundingClientRect()
-      let height = bbox.bottom - bbox.top;
-      let width = bbox.width;
-      // let top = bbox.top;
+  // useEffect(() => {
+  //   function handleSize() {
+  //     let bbox = document.getElementById('referenceSvg').getBoundingClientRect()
+  //     let height = bbox.bottom - bbox.top;
+  //     let width = bbox.width;
+  //     // let top = bbox.top;
 
-      console.log('RESIZE')
-      console.log(height)
+  //     console.log('RESIZE')
+  //     console.log(height)
 
-      if (height >= 0 && height.toFixed(0) !== svgHeight?.toFixed(0) && setSvgHeight !== undefined) {
-        setSvgHeight(height)
-        setSvgWidth(width)
-      }
-      // if (top?.toFixed(0) !== svgTop?.toFixed(0)) {
-      //   setSvgTop(top)
-      // }
-    }
+  //     if (height >= 0 && height.toFixed(0) !== svgHeight?.toFixed(0) && setSvgHeight !== undefined) {
+  //       setSvgHeight(height)
+  //       setSvgWidth(width)
+  //     }
+  //     // if (top?.toFixed(0) !== svgTop?.toFixed(0)) {
+  //     //   setSvgTop(top)
+  //     // }
+  //   }
 
-    window.addEventListener('resize', handleSize)
-    handleSize()
-    return () => { window.removeEventListener('resize', handleSize) }
-  }, [mobile])
+  //   window.addEventListener('resize', handleSize)
+  //   handleSize()
+  //   return () => { window.removeEventListener('resize', handleSize) }
+  // }, [mobile])
 
   // useEffect(() => {
   //   handleSize()
@@ -219,7 +219,7 @@ export default function Home({ }) {
         {
           duration: 1,
           y: `${svgScrubAmount}px`, //Cancelling out the scrub from before.
-          yPercent: -59,
+          yPercent: -61.3,
           // y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
           // y: `-30vh`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
@@ -366,7 +366,7 @@ export default function Home({ }) {
       .to(['.page1MoonSvg'],
         {
           duration: 1,
-          yPercent: -100,
+          yPercent: (-100 -0.23864*34.176 +1),
         }, 0)
       .to(['.page2'], {
         y: '-30vh',
@@ -558,7 +558,7 @@ export default function Home({ }) {
         ease: 'power.out'
         // ease: 'ease.in'
       }, 0)
-      .to(['.page2WavesSvgInner'],
+      .to(['.page2WavesSvgInner','#droplet','#dropletEnd'],
         {
           opacity: 0,
           duration: 1,
@@ -588,31 +588,17 @@ export default function Home({ }) {
         duration: 100,
         // duration: 2.5,
       }, 0)
-    // .to('#anus', { duration: 2 })
 
-    // .to('.page1',
-    //   {
-    //     y: '-=30px',
-    //     duration: 1,
-    //   }, 0)
-    // .to('.svgPage2Inner',
-    //   {
-    //     duration: 1,
-    //     y: `-${svgScrubAmount}px`,
-    //     // y: `-${(0.09) * svgHeight + svgTop - (screenHeight / 2)}px`,
-    //     // onStart: () => {console.log('start')},
-    //     // onComplete:()=>{console.log('complete')}
-    //   }, 0)
     return tl
   }
   // ============================= page4 =============================
   function showPage4() {
     let tl = gsap.timeline()
-      .to(['.svgPage2'],
-        {
-          duration: 1,
-          y: `-${(0.8056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
-        }, 0)
+      // .to(['.svgPage2'],
+      //   {
+      //     duration: 1,
+      //     y: `-${(0.8056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
+      //   }, 0)
       .to(['.page4'], {
         y: '-30vh',
         opacity: 1,
@@ -642,8 +628,8 @@ export default function Home({ }) {
         ease: 'power.out',
         // ease: 'ease.in'
       }, 0)
-      .to('.page3AnimalsSvg',{
-        y:'-80vh',
+      .to('.page3AnimalsSvgInner',{
+        y:'-100vh',
         duration:0.7,
         ease: 'power.out',
       },0)
@@ -688,11 +674,11 @@ export default function Home({ }) {
   // ============================= page5 =============================
   function showPage5() {
     let tl = gsap.timeline()
-      .to(['.svgPage2'],
-        {
-          duration: 1,
-          y: `-${(1) * svgHeight + svgTop - svgScrubAmount - (screenHeight)}px`, //ABS 
-        }, 0)
+      // .to(['.svgPage2'],
+      //   {
+      //     duration: 1,
+      //     y: `-${(1) * svgHeight + svgTop - svgScrubAmount - (screenHeight)}px`, //ABS 
+      //   }, 0)
       .to(['.page5'], {
         y: '-30vh',
         opacity: 1,
@@ -759,6 +745,7 @@ export default function Home({ }) {
     // },0)
     return tl
   }
+
   useEffect(() => {
     let ctx = gsap.context(() => {
       // .add(introText(), 0)
@@ -770,7 +757,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -798,7 +785,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -823,7 +810,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -848,7 +835,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () =>
           gsap.to(transition4, {
             overwrite: true,
@@ -873,7 +860,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
@@ -904,7 +891,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -921,7 +908,7 @@ export default function Home({ }) {
             start: `bottom+=${0.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -938,7 +925,7 @@ export default function Home({ }) {
             start: `bottom+=${1.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -955,7 +942,7 @@ export default function Home({ }) {
             start: `bottom+=${2.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -972,7 +959,7 @@ export default function Home({ }) {
             start: `bottom+=${3.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -989,7 +976,7 @@ export default function Home({ }) {
             start: `bottom+=${4.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -1002,7 +989,7 @@ export default function Home({ }) {
 
     })
     return () => { ctx.revert() }
-  }, [svgHeight])
+  }, [screenWidth])
   // screenHeight, ,svgTop , 
 
   useEffect(() => {
@@ -1052,21 +1039,17 @@ export default function Home({ }) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.4vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`will-change-transform page1feet invisible opacity-0 select-none w-[17.27vw] fixed right-[6.48vw] top-1/2 -translate-y-[23%]`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
 
-          {/* {console.log(svgHeight, 0.101 * svgHeight)} */}
-          <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
+          {/* <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
             <div className='svgPage2Inner w-full h-full relative top-0 '>
-              {/* <Story0Logo id={'referenceSvg'} introAnimationTl={introAnimationTl} speed={1} scrollMin={0} scrollMax={0.15} /> */}
-              {/* <Story1Moon  scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} /> */}
-              {/* <Story2Waves  scrubTl={scrubTl2} transitionTl={transitionTl2} /> */}
+              <Story0Logo id={'referenceSvg'} introAnimationTl={introAnimationTl} speed={1} scrollMin={0} scrollMax={0.15} />
+              <Story1Moon  scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
+              <Story2Waves  scrubTl={scrubTl2} transitionTl={transitionTl2} />
               <Story3Animals id={'referenceSvg'} scrubTl={scrubTl3} transitionTl={transitionTl3} />
-
             </div>
-          </section>
-          {/* style={{top:heightToScroll||svgHeight}} */}
-          {/* <Footer2 className={`relative`} noMotion noMargin setFooterNormalHeight={setFooterHeight} /> */}
+          </section> */}
 
           {/* LEGS */}
           {/* 265px */}
