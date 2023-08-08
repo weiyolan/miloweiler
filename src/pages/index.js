@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
-import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+// import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 // import '../styles/globals.css'
 
 import { gsap } from 'gsap/dist/gsap'
@@ -20,10 +20,10 @@ import BackgroundSplit from '@/components/BackgroundSplit'
 import Page2Photos from '@/components/line/Page2Photos'
 import Page3Photos from '@/components/line/Page3Photos'
 
-import Story0Logo from '@/components/line/Story0Logo'
-import Story1Moon from '@/components/line/Story1Moon'
-import Story2Waves from '@/components/line/Story2Waves'
-import Story3Animals from '@/components/line/Story3Animals'
+// import Story0Logo from '@/components/line/Story0Logo'
+// import Story1Moon from '@/components/line/Story1Moon'
+// import Story2Waves from '@/components/line/Story2Waves'
+// import Story3Animals from '@/components/line/Story3Animals'
 import PageDescription4 from '@/components/line/PageDescription4'
 import Navigation from '@/components/Navigation'
 import Page3KakScrub from '@/components/line/Page3KakScrub'
@@ -505,7 +505,6 @@ export default function Home({ }) {
   // ============================= page3 =============================
   function showPage3() {
     let tl = gsap.timeline()
-
       // .to(['.svgPage2'],
       //   {
       //     duration: 2,
@@ -621,17 +620,14 @@ export default function Home({ }) {
   }
   function hidePage3() {
     let tl = gsap.timeline()
-      // { y: '-10vh' },
-      // .to('#fish',{opacity:0})
       .to('.page3Inner', {
         opacity: 0,
         duration: 0.7,
         ease: 'power.out',
-        // ease: 'ease.in'
       }, 0)
       .to('.page3AnimalsSvgInner', {
         y: '-100vh',
-        yPercent: -100,
+        yPercent: -50,
         duration: 0.7,
         ease: 'power.out',
       }, 0)
@@ -639,7 +635,6 @@ export default function Home({ }) {
         autoAlpha: 0,
         duration: 0.5,
       }, 0)
-
     return tl
   }
   function hideInfo3() {
@@ -759,7 +754,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition1, {
             overwrite: true,
@@ -787,7 +782,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition2, {
             overwrite: true,
@@ -812,7 +807,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition3, {
             overwrite: true,
@@ -837,7 +832,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () =>
           gsap.to(transition4, {
             overwrite: true,
@@ -862,7 +857,7 @@ export default function Home({ }) {
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
@@ -893,7 +888,7 @@ export default function Home({ }) {
             start: 'bottom bottom',
             end: () => `+=${0.8 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -910,7 +905,7 @@ export default function Home({ }) {
             start: `bottom+=${0.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -927,7 +922,7 @@ export default function Home({ }) {
             start: `bottom+=${1.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -944,7 +939,7 @@ export default function Home({ }) {
             start: `bottom+=${2.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -961,7 +956,7 @@ export default function Home({ }) {
             start: `bottom+=${3.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -978,7 +973,7 @@ export default function Home({ }) {
             start: `bottom+=${4.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
@@ -1055,6 +1050,7 @@ export default function Home({ }) {
           <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
           <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
+          <Page3Animals style={{ top: `calc(90%)`, transform: 'translate3d(-50%,-50%,0)' }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed  left-1/2 `} scrubTl={scrubTl3} transitionTl={transitionTl3} />
 
           {/* LEGS */}
           {/* 265px */}
@@ -1065,7 +1061,6 @@ export default function Home({ }) {
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 shadow animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
-          <Page3Animals style={{ top: `calc(90%)` }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed  -translate-y-1/2 left-1/2 -translate-x-1/2`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
           <Page3Photos />
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
