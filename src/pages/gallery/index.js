@@ -100,7 +100,7 @@ export default function Gallery({ projects }) {
 
             <Footer2 className={`relative`} noMotion noMargin />
 
-            <Navigation />
+            {mobile ? <NavigationMobile /> : <Navigation />}
           </PageWrapper>
         </main>
       </ReactLenis>

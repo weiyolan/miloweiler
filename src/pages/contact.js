@@ -24,6 +24,7 @@ import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import { gsap, ScrollTrigger } from "gsap/dist/all";
 import Navigation from '@/components/Navigation'
 import Footer2 from '@/components/Footer2'
+import NavigationMobile from '@/components/NavigationMobile'
 // import { useRouter } from 'next/router';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,7 +47,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
-
       gsap.to('.contact-image0', { opacity: 1, duration: 1.2, delay: 0.5, })
       gsap.to('.contact-image1', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
       gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
@@ -144,6 +144,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
     return () => ctx.current.revert()
   }, [width])
 
+
   return (
     <>
       <Head>
@@ -227,7 +228,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             {/* <Footer /> */}
             <Footer2 className={`relative mt-8`} noMotion noMargin />
 
-            <Navigation />
+            {pageMobile ? <NavigationMobile /> : <Navigation />}
           </PageWrapper>
         </main>
       </ReactLenis>

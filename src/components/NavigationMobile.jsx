@@ -22,16 +22,34 @@ export default function NavigationMobile() {
 
   // =================================OPEN/CLOSE=================================
   useEffect(() => {
-    let observer = Observer.create({
+    let observer1 = Observer.create({
       target: ".navToggle",        // can be any element (selector text is fine)
       ignore:[window] ,
       type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
-      onClick: () => {
+      onClick: (e) => {
         setHiding(!hiding)
       },
     })
-    return () => { observer.disable() }
+    let observer2 = Observer.create({
+      target: ".navButtons",        // can be any element (selector text is fine)
+      ignore:[window] ,
+      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      preventDefault: false,
+      onClick: (e) => {
+        setHiding(!hiding)
+      },
+    })
+    let observer3 = Observer.create({
+      target: ".navBackground",        // can be any element (selector text is fine)
+      ignore:[window] ,
+      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      preventDefault: false,
+      onClick: (e) => {
+        setHiding(!hiding)
+      },
+    })
+    return () => { observer1.disable();observer2.disable();observer3.disable() }
   }, [hiding])
 
   useEffect(() => {
@@ -52,9 +70,9 @@ export default function NavigationMobile() {
         delay: () => hiding ? 0.2 : 0,
       });
       gsap.to('.navBackground', {
-        y: () => hiding ? +40 : 0,
+        y: () => hiding ? +50 : 0,
         yPercent: ()=>hiding?-100:0,
-        x: () => hiding ? -40 : 0,
+        x: () => hiding ? -50 : 0,
         xPercent: ()=>hiding?100:0,
         duration: 1,
         ease: 'expo.out',
@@ -65,8 +83,8 @@ export default function NavigationMobile() {
 
   return (
     <div className={`navBar fixed w-full h-0 top-0 `}>
-      <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-2xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
-      <div className={`navButtons flex  flex-col w-[screen] h-[calc(100vh-40px)] relative items-end gap-5 mt-[40px] px-4 py-2  `}>
+      <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
+      <div className={`navButtons flex  flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />
         <Button text='Contact' to='/contact' />
@@ -108,7 +126,7 @@ function Button({ text, to }) {
   }, [hover, selected])
 
   return (
-    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`navButton navButton${text}  relative opacity-0 visible md:text-xl lg:text-2xl  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}
+    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`navButton navButton${text}  relative opacity-0 visible text-2xl md:text-xl lg:text-2xl  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}
       href={`${to}`}
     // onClick={() => handleClick(to)}
     // title={`Go to the ${text} page`}

@@ -33,10 +33,12 @@ export default function ContactDetails({ contactDetails }) {
   const { locale } = useAppContext();
   // console.log(contactDetails.image)
   return (
-    <LayoutSection right className={` flex-col sm:flex-row relative`}>
-      <SanityImage move style={{objectPosition:'top'}} containerClass='w-[46vw] xs:w-2/5 h-48 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0 opacity-0' 
-      priority absolute={width < 648} fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
-      <div id='contactSection' className='relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
+    <LayoutSection right className={`flex-col sm:flex-row relative`}>
+
+      <SanityImage move style={{ objectPosition: 'top' }} containerClass='w-[46vw] -mt-6 xs:mt-0 xs:w-2/5 min-h-[40vh] xs:min-h-0 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0 opacity-0'
+        priority absolute={false} fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
+
+      <div id='contactSection' className=' relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
         <SubTitle child='contact' mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`contact-child`} />
         <p className='font-pop font-normal text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>

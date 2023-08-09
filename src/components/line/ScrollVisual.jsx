@@ -2,7 +2,7 @@ import { useAppContext } from '@/utils/appContext'
 import React from 'react'
 
 
-const ScrollVisual = ({ velocit }) => {
+const ScrollVisual = ({ velocity }) => {
   const { scrolled } = useAppContext()
 
   return (

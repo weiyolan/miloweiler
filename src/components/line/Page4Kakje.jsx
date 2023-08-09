@@ -255,7 +255,7 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
 
   return (<>
 
-    <svg style={{ left: `calc(50vw + 50vw*${myPosition.x})`, bottom: `${myPosition.y * 100}%` }} className='fixed -translate-x-1/2 w-[11%] svgKakje' viewBox="0 0 146 259" fill="none" >
+    <svg style={{ left: `calc(50vw + 50vw*${myPosition.x})`, bottom: `${myPosition.y * 100}%` }} className='fixed -translate-x-1/2 w-[30%] md:w-[11%] svgKakje' viewBox="0 0 146 259" fill="none" >
       <path className={`opacity-0`} id="kakje0" d="M87.5657 29.4585C87.5655 31.4585 85.0658 33.2904 87.5657 34.5C90.5658 35.9516 89.9328 36.5 92.5 36.5C96.0622 36.5 94.5654 33.9926 94.5654 31.5C94.5654 28.146 96.0655 28.5 96.5654 27C97.1354 25.2897 96.0654 24.4585 96.5654 22.9585C96.7235 22.4842 98.5 22 98 19.5C97.7158 18.0792 98.0654 15.5418 96.5654 14C95.0654 12.4582 96.2789 10.5651 94.0654 9.45859C92.0654 8.4588 90.3031 9.00798 89.5654 11.9585C89.0654 13.9584 88.0654 12.0003 88.5654 18C88.6844 19.428 89.0653 22.5144 87.5654 23.5144C86.6015 24.157 88.5656 24.8403 88.5654 25.9585C88.5652 27.41 87.5659 26.9584 87.5657 29.4585Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" />
       
       

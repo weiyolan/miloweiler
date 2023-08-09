@@ -96,7 +96,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
 
   return (<>
 
-    <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed ${width / height > 2.025 ? 'w-[55%]' : 'w-[60%]'} h-auto svgMilo`} width="925" height="504" viewBox="0 0 925 504" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed ${width / height > 2.025 ? 'w-[55%]' : 'w-[60%]'} h-auto svgMilo ${scrolled>0.79?'will-change-transform':''}`} width="925" height="504" viewBox="0 0 925 504" fill="none" xmlns="http://www.w3.org/2000/svg">
       {mobile ?
         <g id='mobile'>
           {/* <Path scrolled={fakeScroll1} drawDuration='1' position={0} inverse={false} id="toAstridMob" d="M351 170C351 332.5 61.9999 266.5 20.5009 410C3.06634 470.287 61.5011 539 118 515" stroke="#FFFAEA" strokeWidth="2" strokeLinecap="round" /> */}

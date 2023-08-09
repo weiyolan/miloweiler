@@ -16,16 +16,17 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
   //     .fit('clip');
   // };
 
-  let options={width:1000,quality:100}
+  // let options={width:1000,quality:100}
 
-  let result = useNextSanityImage(client, image._ref, options);
-  if (print) {
+  // let result = useNextSanityImage(client, image._ref, options);
+  // if (print) {
     // console.log(result.loader)
     // console.log(image)
     // console.log(result.src)
     // console.log(loader({width:500,quality:10}))
-  }
+  // }
   let landscape = width / height > 1;
+
   // if (thumb) {
   //   width = width / 4;
   //   height = height / 4;
@@ -53,7 +54,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   if (fill) {
     return (
-      <div data-imagecontainer={move ? 'true' : 'false'} className={`select-none h-full w-full ${absolute ? 'absolute' : 'relative'} rounded-2xl overflow-hidden ${containerClass} `}>
+      <div data-imagecontainer={move ? 'true' : 'false'} className={`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden ${containerClass&&containerClass}`}>
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}
