@@ -79,14 +79,14 @@ export default function Home({ }) {
     return () => titleCtx.current.revert()
   }, [])
 
-  let [footerHeight, setFooterHeight] = useState(undefined)
+  // let [footerHeight, setFooterHeight] = useState(undefined)
   // let [animationLocation, setAnimationLocation] = useState({ top: undefined, bottom: undefined })
   // let [textLocation, setTextLocation] = useState({ top: undefined, bottom: undefined })
 
   // let [moveTracker, setMoveTracker] = useState(0) //Tracker to move background when animation moves
   // let [maxMoveTracker, setMaxMoveTracker] = useState(0) //Tracker to move background when animation moves
 
-  let [finished, setFinished] = useState(false)
+  // let [finished, setFinished] = useState(false)
   // let [introAnimated, setIntroAnimated] = useState(false)
   // let [textAppear, setTextAppear] = useState({ textAppear: false })
   // let [textDisappear, setTextDisappear] = useState({ textDisappear: false })
