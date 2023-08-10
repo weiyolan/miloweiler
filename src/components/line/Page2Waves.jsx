@@ -123,7 +123,7 @@ export default function Page2Waves({ className, style, scrubTl, transitionTl, an
             </defs>
           </svg>
 
-          <svg className={`${animationName}Inner w-full h-full absolute top-[10vh]`} alt='fish animation' width="569" height="511" viewBox="0 0 569 511" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`${animationName}Inner w-full h-full absolute top-[10lvh]`} alt='fish animation' width="569" height="511" viewBox="0 0 569 511" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g className="fishGroup ">
               <PathGSAPStandalone tweens={fishTweens} inverse={true} transitStrokeAnimation transitPortion={0.52} id="toFish" d="M373.923 497.58L386.298 484.19C383.456 484.45 378.901 485.48 373.923 485.64C367.923 485.64 361.584 484.05 356.022 479.1C345.923 470.12 361.923 458.12 370.179 470.73C372.692 474.57 372.434 478.13 372.037 484.19C370.3 510.68 391.465 505.08 398.423 500.62C415.603 489.61 401.694 471 408.731 464.96C415.768 458.91 429.067 478.13 440.71 468.72" stroke={colorPrimary} strokeWidth="2" />
               <path opacity={0} id="fish" d="M371.407 485.33C365.796 484.75 359.964 482.8 355.9 477.35C346.177 464.31 367.238 459.62 370.749 470.28C372.33 475.08 371.259 479.94 371.407 485.33ZM371.407 485.33C377.022 485.91 382.415 485.13 385.598 485.13L371.81 498.92L371.407 485.33Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" />

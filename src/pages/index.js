@@ -127,9 +127,9 @@ export default function Home({ }) {
   // let heightToScroll = svgHeight + footerHeight
   let viewBoxWidth = mobile ? 569 : 1782;
   // real movile viewbox height = 3335
-  let viewBoxHeight = mobile ? 5246 : 5142;
+  let viewBoxHeight = mobile ? 1572 : 1982;
   let svgScrubAmount = 100; //in px
-  // let svgWidthFactor = viewBoxWidth / svgWidth || 1;
+  // let svgWidthFactor = viewBoxWidth / (1.157*screenWidth) || 1;
 
   // useEffect(() => {
   // console.log(svgWidth, svgHeight, svgWidth/screenWidth)
@@ -383,7 +383,9 @@ export default function Home({ }) {
         // y: () => { return `${(mobile ? 0.39 : 0.141) * svgHeight * svgWidthFactor}px` },
         // y: () => { return `${(mobile ? 0.39 : 0.141) * (mobile?2.76:1.11) * svgWidth * svgWidthFactor}px` },
         //                   dropDownDistance * heightWidthRatio * sceenWidthRatio * screenWidth      
-        y: () => { return `${mobile ? 0.59 * 2.76 * 1.157 * screenWidth : 0.36 * 1.11 * 1.15 * screenWidth}px` },
+        // y: () => { return `${mobile ? (0.59 * 2.76 * 1.157 * screenWidth * svgWidthFactor) : (0.38 * 1.11  * screenWidth * 1.157 * svgWidthFactor)}px` },
+        // y: () => { return `${mobile ? (0.59 * 2.76 * viewBoxWidth) : (0.38 * 1.11  * viewBoxWidth)}px` },
+        y: () => { return `${mobile ? (0.375 * viewBoxHeight) : (0.355 * viewBoxHeight)}px` },
         // y: 0,
         // attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
         ease: 'power.out',
@@ -1042,7 +1044,7 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
-      <main style={{ height: mobile ? '700lvh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
 
         <PageWrapper
           darkMode={true}
@@ -1073,7 +1075,7 @@ export default function Home({ }) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[lvh] fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[50lvh] fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
 
           {/* <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
@@ -1085,13 +1087,13 @@ export default function Home({ }) {
               </div>
             </section> */}
 
-          <Page3Animals style={{ top: `calc(90%)`, transform: 'translate3d(-50%,0,0)' }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed left-1/2 ${scrolled > 0.44 && scrolled < 0.7 ? 'will-change-transform' : ''}`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
+          <Page3Animals style={{ top: `calc(90lvh)`, transform: 'translate3d(-50%,0,0)' }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed left-1/2 ${scrolled > 0.44 && scrolled < 0.7 ? 'will-change-transform' : ''}`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
           <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-[50lvh] md:top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
           <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-[50lvh] md:top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
 
 
-          {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80%] invisible opacity-0 bg-darkPrimary/80 `} />}
+          {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
           <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
 
