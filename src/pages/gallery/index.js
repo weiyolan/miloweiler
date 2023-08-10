@@ -10,6 +10,7 @@ import client from '../../../lib/sanity'
 import Footer2 from '@/components/Footer2';
 import Navigation from '@/components/Navigation';
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+import NavigationMobile from '@/components/NavigationMobile';
 
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
