@@ -119,7 +119,7 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
   // }, [width, height])
 
   return (
-    <div style={{ left: `calc(50%)`, top: `calc(50% + ${mobile ? 115.86 * 1.125 * 0.13 : 115.86 * 0.26543 * 0.3}vw)`, ...style }} className={`${animationName} ${className && className}`}>
+    <div style={{ left: `calc(50%)`, top: `calc(50lvh + ${mobile ? 115.86 * 1.125 * 0.13 : 115.86 * 0.26543 * 0.3}vw)`, ...style }} className={`${animationName} ${className && className}`}>
 
       {mobile ?
         <svg alt={'Moon animation'} className={`${animationName}Inner w-full h-full relative top-[0]`} width="569" height="1572" viewBox="0 0 569 1574" fill="none" xmlns="http://www.w3.org/2000/svg">

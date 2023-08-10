@@ -112,7 +112,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   return (
     <div className='page5MiloSvg fixed top-0 w-full h-full'>
       {mobile ?
-        <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed w-[90%] h-auto -translate-x-[64.3%] svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="389" height="474" viewBox="0 0 389 474" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`fixed w-[90%] h-auto -translate-x-[64.3%] svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="389" height="474" viewBox="0 0 389 474" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="miloTekeningMobile">
             {lettersMobile.map((letter, i) => {
               // console.log(letter.props)

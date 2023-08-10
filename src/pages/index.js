@@ -1073,7 +1073,7 @@ export default function Home({ }) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-1/2 fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[lvh] fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
 
           {/* <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
@@ -1086,9 +1086,9 @@ export default function Home({ }) {
             </section> */}
 
           <Page3Animals style={{ top: `calc(90%)`, transform: 'translate3d(-50%,0,0)' }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed left-1/2 ${scrolled > 0.44 && scrolled < 0.7 ? 'will-change-transform' : ''}`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
-          <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
+          <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-[50lvh] md:top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
           <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
-          <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
+          <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-[50lvh] md:top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
 
 
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80%] invisible opacity-0 bg-darkPrimary/80 `} />}
