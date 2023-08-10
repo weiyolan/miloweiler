@@ -342,8 +342,8 @@ export default function Home({ }) {
   }
   // ============================= page2 =============================
 
+  // "M923 1965.57C923 1974.08 916.125 1981 907.645 1981C899.166 1981 895 1974.08 895 1965.57C895 1957.05 910.355 1933.72 910.355 1941.6C910.355 1949.48 923 1958.24 923 1965.57Z",
   let dropletStartUp = [
-    // "M923 1965.57C923 1974.08 916.125 1981 907.645 1981C899.166 1981 895 1974.08 895 1965.57C895 1957.05 910.355 1933.72 910.355 1941.6C910.355 1949.48 923 1958.24 923 1965.57Z",
     "M924.794 1258.1C924.04 1259.91 889.21 1262.91 890.014 1258.77C890.014 1252.77 903.55 1260.67 902.532 1256.77C899.055 1243.43 917.833 1247.43 912.964 1254.77C908.096 1262.1 927.17 1252.39 924.794 1258.1Z",
     "M912.143 1258.77C912.143 1259.87 909.232 1260.86 906.543 1260.86C903.853 1260.86 901.429 1259.87 901.429 1258.77C901.429 1257.68 904.34 1257.29 907.029 1257.29C909.719 1257.29 912.143 1257.68 912.143 1258.77Z",
   ]
@@ -351,8 +351,8 @@ export default function Home({ }) {
     "M912.143 1979.5C912.143 1980.81 909.232 1982 906.543 1982C903.853 1982 901.429 1980.81 901.429 1979.5C901.429 1978.19 904.34 1977.71 907.029 1977.71C909.719 1977.71 912.143 1978.19 912.143 1979.5Z",
   ]
 
+  // "M294.499 1561.52C294.499 1567.02 290.194 1571.48 284.884 1571.48C279.575 1571.48 276.967 1567.02 276.967 1561.52C276.967 1556.01 286.581 1540.94 286.581 1546.03C286.581 1551.12 294.499 1556.78 294.499 1561.52Z",
   let dropletStartMobileUp = [
-    // "M294.499 1561.52C294.499 1567.02 290.194 1571.48 284.884 1571.48C279.575 1571.48 276.967 1567.02 276.967 1561.52C276.967 1556.01 286.581 1540.94 286.581 1546.03C286.581 1551.12 294.499 1556.78 294.499 1561.52Z",
     "M297.021 951.275C296.5 952.581 272.454 954.741 273.009 951.755C273.009 947.434 282.355 953.128 281.652 950.315C279.251 940.712 292.215 943.593 288.854 948.874C285.493 954.156 298.661 947.165 297.021 951.275Z",
     "M288.374 951.2C288.374 952.084 286.417 952.881 284.61 952.881C282.801 952.881 281.172 952.084 281.172 951.2C281.172 950.317 283.129 950 284.936 950C286.744 950 288.374 950.317 288.374 951.2Z",
   ]
@@ -370,6 +370,7 @@ export default function Home({ }) {
       .to(['.page1MoonSvg'],
         {
           duration: 1,
+          y: `${svgScrubAmount}px`, //same as before.
           yPercent: (-100 - 0.23864 * 34.176 + 1),
         }, 0)
       .to(['.page2'], {
@@ -780,7 +781,8 @@ export default function Home({ }) {
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "ease.out"
+            ease: "ease.out",
+            onStart: () => gsap.getById('transition3Out')?.progress(1),
           }),
       })
 
@@ -798,7 +800,7 @@ export default function Home({ }) {
             id: 'transition2In',
             overwrite: true,
             progress: 1,
-            duration: 6,
+            duration: 5,
             ease: "power1.out",
           }),
         onLeaveBack: () =>
@@ -807,7 +809,8 @@ export default function Home({ }) {
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "ease.out"
+            ease: "ease.out",
+            onStart: () => gsap.getById('transition4Out')?.progress(1),
           })
       })
 
@@ -820,21 +823,27 @@ export default function Home({ }) {
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
         markers: false,
-        onEnter: () =>
+        onEnter: () => {
           gsap.to(transition3, {
             id: 'transition3In',
             overwrite: true,
             progress: 1,
             duration: mobile ? 6 : 4,
             ease: "power1.out",
-          }),
+            onStart: () => gsap.getById('transition1In')?.progress(1),
+          });
+
+          // gsap.getById('transition1In')?.progress(1)
+          // console.log(gsap.getById('transition1In')?.progress())
+        },
         onLeaveBack: () =>
           gsap.to(transition3, {
             id: 'transition3Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "ease.out"
+            ease: "ease.out",
+            onStart: () => gsap.getById('transition5Out')?.progress(1),
           })
       })
 
@@ -847,14 +856,16 @@ export default function Home({ }) {
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
         markers: false,
-        onEnter: () =>
+        onEnter: () => {
           gsap.to(transition4, {
             id: 'transition4In',
             overwrite: true,
             progress: 1,
             duration: 4,
             ease: "power1.out",
-          }),
+            onStart: () => gsap.getById('transition2In')?.progress(1),
+          });
+        },
         onLeaveBack: () =>
           gsap.to(transition4, {
             id: 'transition4Out',
@@ -882,6 +893,7 @@ export default function Home({ }) {
             progress: 1,
             duration: 4,
             ease: "power1.out",
+            onStart: () => gsap.getById('transition3In')?.progress(1),
           }),
         onLeaveBack: () =>
           gsap.to(transition5, {
