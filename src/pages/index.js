@@ -745,11 +745,11 @@ export default function Home({ }) {
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page5Inner', {
-        y: '-5vh',
+        y: mobile?'-10vh':'-5vh',
         duration: 133,
       }, 0)
       .to('.page5MiloSvg', {
-        y: '-5vh',
+        y: mobile?'-10vh':'-5vh',
         duration: 133,
       }, 0)
     return tl
