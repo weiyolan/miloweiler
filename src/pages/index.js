@@ -735,13 +735,14 @@ export default function Home({ }) {
   }
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
-    // .to('.page5Inner', {
-    //   y: '-5vh',
-    //   duration:153,
-    // }, 0)
-    // .to('.svgKakje',{
-    //   y: '-5vh',
-    // },0)
+    .to('.page5Inner', {
+      y: '-5vh',
+      duration:153,
+    }, 0)
+    .to('.page5MiloSvg',{
+      y: '-5vh',
+      duration:153,
+    },0)
     return tl
   }
 
@@ -1020,7 +1021,7 @@ export default function Home({ }) {
           mobile={mobile}
         >
           {/* <div className={'fixedColor fixed top-0 opacity-100 bg-red-500 w-full h-full'}/> */}
-          <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[110vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />
+          {mobile?<Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-right-top'} animationName={'page5'} className={'opacity-0 top-[25vh] '} />:<BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           {/*h-100vh no specification needed   */}
@@ -1059,18 +1060,18 @@ export default function Home({ }) {
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
 
 
-          <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
           <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
-          <PageDescription4 shadow animateName='page4description' className={`text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
+          <PageDescription4 shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
 
           <Page3Photos />
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
           <Page2Photos />
-          <PageDescription shadow animateName='page2description' className={`text-right top-10 md:top-16 lg:top-12 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
+          <PageDescription shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-12 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           {/* -73.7% */}
           <Page1Photos timeline={scrubTl1} />
@@ -1085,7 +1086,7 @@ export default function Home({ }) {
           {mobile ? <NavigationMobile /> : <Navigation />}
         </PageWrapper>
         {/* <ScrollVisual /> */}
-        {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>}
+        {/* {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>} */}
       </main >
       {/* </ReactLenis> */}
     </>

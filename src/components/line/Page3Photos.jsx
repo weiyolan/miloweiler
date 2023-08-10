@@ -40,10 +40,10 @@ export default function Page3Photos({ className, animateName }) {
         {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} /> */}
         {/* <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} /> */}
         {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} /> */}
-        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-5vh] lg:object-[50%,-20vh]`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)]  left-[80%] top-[60%] md:top-[50%] -translate-x-1/2'} />
+        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-5vh] lg:object-[50%,-20vh]`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50%]  md:left-[80%] md:top-[50%] -translate-x-1/2'} />
         {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-200px]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} /> */}
-        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-10vh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)] left-1/2 top-[42%] -translate-x-1/2'} />
-        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12vh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[20%] top-[10%] md:top-[23%] -translate-x-1/2'} />
+        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-10vh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35%] md:left-1/2 md:top-[42%] -translate-x-1/2'} />
+        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12vh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10%] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
         {/* translate-y-64
 translate-y-28
 translate-y-36 */}
@@ -51,6 +51,7 @@ translate-y-36 */}
     </div>
   )
 }
+
 
 function ArtImage({ className, n, imagePosition, ...props }) {
  let [hovering, setHovering] = useState(false)

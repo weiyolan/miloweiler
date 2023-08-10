@@ -16,7 +16,8 @@ import { Toaster } from 'react-hot-toast';
 const poppins = Poppins({
   subsets: ['latin'],
   variable: '--font-poppins',
-  display: 'swap',
+  // display: 'swap',  
+  display: 'optional',  
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 })
 const lora = Lora({
@@ -75,13 +76,15 @@ export default function App({ Component, pageProps }) {
     return () => { window.removeEventListener('scroll', handleScroll) }
   }, [])
 
+
+  // console.log(poppins)
   return (
     <>
       {/* <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"/> */}
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
-
+{/* ${poppins.variable} */}
       <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full h-[100dvh] `}>
         <Component {...pageProps} />
         <Toaster />
