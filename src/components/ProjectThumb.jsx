@@ -79,7 +79,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
 
   return (
-    <Link onClick={(e) => { width < 1024 && e.preventDefault() }} href={width < 1024 ? {} : `./gallery/${project.slug.current}`} className=' select-none rounded-sm overflow-hidden' >
+    <div className='select-none overflow-hidden' >
       <div
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
@@ -97,11 +97,8 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 30vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
-
-
-          {/* {console.log(project.mainImage)} */}
           <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between p-2 sm:p-4`}>
-            <h2 className={`text-left font-lora text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
+            <h2 className={`text-left font-lora text-base md:text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
               {/* {console.log(project)} */}
               {project.title}
               {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -110,17 +107,15 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
               <Span text='by' />
               {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
-            {width < 1024 &&
-              <Link href={`./gallery/${project.slug.current}`}
-                className={` absolute w-full h-full left-0 top-0 text-7xl font-pop text-primary font-thin flex items-center justify-center transition-all duration-500 ${hover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
-                +
-              </Link>
-            }
+
+            <Link href={`./gallery/${project.slug.current}`}
+              className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-pop text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
+              +
+            </Link>
           </div>
         </div>
-
       </div>
-    </Link>
+    </div>
 
   )
 }

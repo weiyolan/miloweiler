@@ -44,6 +44,7 @@ const Path = ({ open, darkMode, openD, closeD, openOp, closeOp, ...props }) => {
       gsap.to(pathRef.current, {
         attr: { d: ()=>open ? openD : closeD },
         duration: 0.3,
+        ease:'expo.out',
       })
 
       openOp !== closeOp &&
@@ -51,6 +52,7 @@ const Path = ({ open, darkMode, openD, closeD, openOp, closeOp, ...props }) => {
           strokeOpacity: ()=>open ? openOp : closeOp,
           duration: 0.3,
           x: ()=>open ?'-100%':0 ,
+          ease:'expo.out',
         })
       // gsap.to(pathRef.current, {
       // rotate: open ? 90 : -90,

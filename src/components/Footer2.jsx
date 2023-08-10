@@ -111,8 +111,8 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
           <SubTitle darkMode={true} noMargin small className='pt-2' center mainTitle='Stay In Touch' />
         </div> */}
 
-          {(!mobile || (mobile && setFooterHeight === undefined)) && <Links mobile={mobile} title='Contact' list={contactList[locale]} />}
-          {(!mobile || (mobile && setFooterHeight === undefined)) && <Links mobile={mobile} title='Legal' list={legalList[locale]} />}
+          <Links mobile={mobile} title='Contact' list={contactList[locale]} />
+          <Links mobile={mobile} title='Legal' list={legalList[locale]} />
 
         </div>
 
@@ -135,7 +135,7 @@ function Links({ title, list, mobile }) {
   return (
     // <div className={`${position === 'center' ? 'text-center ' : position === 'left' ? 'text-left ' : 'text-right '}  align-start px-0`}>
     <div className={`text-center sm:text-left `}>
-      <SubTitle small noMargin className='pt-2' left mainTitle={title} darkMode={true} />
+      <SubTitle small noMargin className='pt-2 md:text-left text-center' left={mobile?false:true} mainTitle={title} darkMode={true} />
       <List mobile={mobile} list={list} />
     </div>
   )

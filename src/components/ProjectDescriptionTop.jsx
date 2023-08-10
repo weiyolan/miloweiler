@@ -2,7 +2,7 @@ import { useAppContext } from '@/utils/appContext'
 import { usePageContext } from '@/utils/pageContext'
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import Line from './Line'
+// import Line from './Line'
 import FadeDiv from '@components/FadeDiv'
 import useDimensions from '@/utils/useDimensions'
 
@@ -93,6 +93,8 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
     }
   }
 
+  // console.log(maxTextHeight, textHeight, height, textTop, textHeight > height - textTop)
+
   return (
 
     <div ref={descriptionRef} className='description-box relative w-full min-h-screen font-lora flex flex-col justify-start bg-black/40 shadow-2xl backdrop-blur cursor-pointer rounded-b-[30px] gap-4 translate-y-10 mobm:translate-y-14 py-10 mobm:py-14 px-4 xs:px-8'
@@ -108,7 +110,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
         </h1>
         <h2>
           <Span text='by' />
-          {` ${project?.by?.[0]}`}
+          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
         </h2>
       </div>
 
@@ -125,7 +127,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
       </div>
 
       {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-pop font-extralight text-justify whitespace-pre-wrap"> */}
-      <FadeDiv style={{ height: maxTextHeight || '50%' }} type='bottom' amount={15} className={`${textHeight > height - textTop ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
+      <FadeDiv style={{ height: maxTextHeight || '50%' }} type='bottom' amount={15} className={`${textHeight > maxTextHeight ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
         {/* <h3 className="font-lora text-xl">About: </h3> */}
         <p ref={textRef} className={`pb-10 ${textHeight > maxTextHeight ? 'pr-2 ignore-swipe' : ''} whitespace-pre-wrap text-sm mobm:text-base lg:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>{project?.description?.[locale] || ''}</p>
       </FadeDiv>
@@ -143,7 +145,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
         </div>
         <div className='cursor-pointer'>
           <Span text='by' />
-          {` ${project?.by?.[0]}`}
+          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
         </div>
       </div>
     </div>

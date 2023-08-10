@@ -282,8 +282,8 @@ export default function Project({ project, slug, slugs }) {
                   {/* </div> */}
                   <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
                   <ProjectDescription setPosition={setDescriptionPosition} project={project} mainPictureWidth={mainPictureWidth} />
-
-                </div>}
+                </div>
+              }
 
               {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
             </div>
@@ -297,7 +297,6 @@ export default function Project({ project, slug, slugs }) {
               <div>
                 Back to gallery
                 <Line className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
-
               </div>
             </Link>
             <div className={`flex font-pop text-xs mobm:text-sm font-extralight gap-4`}>
@@ -306,14 +305,12 @@ export default function Project({ project, slug, slugs }) {
                 <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
                 <div>Previous
                   <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
-
                 </div>
               </Link>
               <Link title='Next project' className={` group transition-all flex items-center gap-1 w-fit h-fit
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
                 <div>Next
                   <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
-
                 </div>
                 <AiFillCaretRight className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
               </Link>
