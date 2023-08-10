@@ -87,7 +87,7 @@ export default function Gallery({ projects }) {
         <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
           <PageWrapper darkMode={darkMode}>
             <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
-            <h1 className={` font-lora text-center font-medium text-3xl mb-2 pt-3 d:mb-0 md:invisible `}>Gallery</h1>
+            <h1 className={` font-lora text-center font-semibold text-3xl mb-2 pt-3 d:mb-0 md:invisible `}>Gallery</h1>
 
             <div ref={gallery} className='w-full md:w-4/5 mx-auto relative grid gap-1 p-1 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 '>
               {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}

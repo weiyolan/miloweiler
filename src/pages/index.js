@@ -38,6 +38,7 @@ import Page1Moon from '@/components/line/Page1Moon'
 import Page2Waves from '@/components/line/Page2Waves'
 import Page3Animals from '@/components/line/Page3Animals'
 import ScrollVisual from '@/components/line/ScrollVisual'
+import FadeDiv from '@/components/FadeDiv'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -63,9 +64,9 @@ export default function Home({ }) {
   let [transitionTl5, setTransitionTl5] = useState();
 
   let [pageLoaded, setPageLoaded] = useState(false)
-  let [svgHeight, setSvgHeight] = useState(undefined)
-  let [svgWidth, setSvgWidth] = useState(undefined)
-  let [svgTop, setSvgTop] = useState(undefined) //For calculation of FadeDiv
+  // let [svgHeight, setSvgHeight] = useState(undefined)
+  // let [svgWidth, setSvgWidth] = useState(undefined)
+  // let [svgTop, setSvgTop] = useState(undefined) //For calculation of FadeDiv
   // let [titleHeight, setTitleHeight] = useState(undefined)
   // let [svgViewHeight, setSvgViewHeight] = useState(undefined) //For calculation of FadeDiv
 
@@ -128,7 +129,7 @@ export default function Home({ }) {
   // real movile viewbox height = 3335
   let viewBoxHeight = mobile ? 5246 : 5142;
   let svgScrubAmount = 100; //in px
-  let svgWidthFactor = viewBoxWidth / svgWidth || 1;
+  // let svgWidthFactor = viewBoxWidth / svgWidth || 1;
 
   // useEffect(() => {
   // console.log(svgWidth, svgHeight, svgWidth/screenWidth)
@@ -220,7 +221,7 @@ export default function Home({ }) {
         {
           duration: 1,
           y: `${svgScrubAmount}px`, //Cancelling out the scrub from before.
-          yPercent: mobile?-47 :-61.3,
+          yPercent: mobile ? -47 : -61.3,
           // y: `-${(mobile ? 0.206633 : 0.27810) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
           // y: `-30vh`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
         }, 0)
@@ -240,7 +241,7 @@ export default function Home({ }) {
         ease: 'ease.out',
       }, 0)
       .to(['.page1feet'], {
-        y: mobile?'-54%':'-63%',
+        y: mobile ? '-54%' : '-63%',
         ease: 'power2.out',
         autoAlpha: 1,
         duration: 1
@@ -340,19 +341,20 @@ export default function Home({ }) {
     return tl
   }
   // ============================= page2 =============================
-  let dropletStart = [
-    "M923 1965.57C923 1974.08 916.125 1981 907.645 1981C899.166 1981 895 1974.08 895 1965.57C895 1957.05 910.355 1933.72 910.355 1941.6C910.355 1949.48 923 1958.24 923 1965.57Z",
-    "M924.794 1977.1C924.04 1978.91 889.21 1981.91 890.014 1977.77C890.014 1971.77 903.55 1979.67 902.532 1975.77C899.055 1962.43 917.833 1966.43 912.964 1973.77C908.096 1981.1 927.17 1971.39 924.794 1977.1Z",
-    "M912.143 1977.77C912.143 1978.87 909.232 1979.86 906.543 1979.86C903.853 1979.86 901.429 1978.87 901.429 1977.77C901.429 1976.68 904.34 1976.29 907.029 1976.29C909.719 1976.29 912.143 1976.68 912.143 1977.77Z",
+
+  let dropletStartUp = [
+    // "M923 1965.57C923 1974.08 916.125 1981 907.645 1981C899.166 1981 895 1974.08 895 1965.57C895 1957.05 910.355 1933.72 910.355 1941.6C910.355 1949.48 923 1958.24 923 1965.57Z",
+    "M924.794 1258.1C924.04 1259.91 889.21 1262.91 890.014 1258.77C890.014 1252.77 903.55 1260.67 902.532 1256.77C899.055 1243.43 917.833 1247.43 912.964 1254.77C908.096 1262.1 927.17 1252.39 924.794 1258.1Z",
+    "M912.143 1258.77C912.143 1259.87 909.232 1260.86 906.543 1260.86C903.853 1260.86 901.429 1259.87 901.429 1258.77C901.429 1257.68 904.34 1257.29 907.029 1257.29C909.719 1257.29 912.143 1257.68 912.143 1258.77Z",
   ]
   let dropletEnd = [
     "M912.143 1979.5C912.143 1980.81 909.232 1982 906.543 1982C903.853 1982 901.429 1980.81 901.429 1979.5C901.429 1978.19 904.34 1977.71 907.029 1977.71C909.719 1977.71 912.143 1978.19 912.143 1979.5Z",
   ]
 
-  let dropletStartMobile = [
-    "M294.499 1561.52C294.499 1567.02 290.194 1571.48 284.884 1571.48C279.575 1571.48 276.967 1567.02 276.967 1561.52C276.967 1556.01 286.581 1540.94 286.581 1546.03C286.581 1551.12 294.499 1556.78 294.499 1561.52Z",
-    "M297.021 1568.84C296.5 1570.15 272.454 1572.31 273.009 1569.32C273.009 1565 282.355 1570.7 281.652 1567.88C279.251 1558.28 292.215 1561.16 288.854 1566.44C285.493 1571.72 298.661 1564.73 297.021 1568.84Z",
-    "M288.374 1569.08C288.374 1569.97 286.417 1570.76 284.61 1570.76C282.801 1570.76 281.172 1569.97 281.172 1569.08C281.172 1568.2 283.129 1567.88 284.936 1567.88C286.744 1567.88 288.374 1568.2 288.374 1569.08Z",
+  let dropletStartMobileUp = [
+    // "M294.499 1561.52C294.499 1567.02 290.194 1571.48 284.884 1571.48C279.575 1571.48 276.967 1567.02 276.967 1561.52C276.967 1556.01 286.581 1540.94 286.581 1546.03C286.581 1551.12 294.499 1556.78 294.499 1561.52Z",
+    "M297.021 951.275C296.5 952.581 272.454 954.741 273.009 951.755C273.009 947.434 282.355 953.128 281.652 950.315C279.251 940.712 292.215 943.593 288.854 948.874C285.493 954.156 298.661 947.165 297.021 951.275Z",
+    "M288.374 951.2C288.374 952.084 286.417 952.881 284.61 952.881C282.801 952.881 281.172 952.084 281.172 951.2C281.172 950.317 283.129 950 284.936 950C286.744 950 288.374 950.317 288.374 951.2Z",
   ]
   let dropletEndMobile = [
     "M288.374 1570.4C288.374 1571.29 286.417 1572.08 284.61 1572.08C282.801 1572.08 281.172 1571.29 281.172 1570.4C281.172 1569.52 283.129 1569.2 284.936 1569.2C286.744 1569.2 288.374 1569.52 288.374 1570.4Z",
@@ -377,21 +379,27 @@ export default function Home({ }) {
         ease: 'ease.out'
       }, 0)
       .to('#droplet', {
+        // y: () => { return `${(mobile ? 0.39 : 0.141) * svgHeight * svgWidthFactor}px` },
+        // y: () => { return `${(mobile ? 0.39 : 0.141) * (mobile?2.76:1.11) * svgWidth * svgWidthFactor}px` },
+        //                   dropDownDistance * heightWidthRatio * sceenWidthRatio * screenWidth      
+        y: () => { return `${mobile ? 0.59 * 2.76 * 1.157 * screenWidth : 0.36 * 1.11 * 1.15 * screenWidth}px` },
+        // y: 0,
+        // attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
+        ease: 'power.out',
+        // scale: 1,
+        // transformOrigin: '50% 50%',
         duration: 1.5,
-        // y: () => { return `${(mobile ? 0.115 : 0.141) * svgHeight * svgWidthFactor}px` },
-        y: 0,
-        attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
-        scale: 1,
-        transformOrigin: '50% 50%',
       }, 0)
       .to('#droplet', {
         duration: 0.2,
-        attr: { d: mobile ? dropletStartMobile[1] : dropletStart[1] },
+        attr: { d: mobile ? dropletStartMobileUp[1 - 1] : dropletStartUp[1 - 1] },
+        ease: 'none',
       }, 1.5)
       .to('#droplet', {
         duration: 0.2,
         opacity: 0,
-        attr: { d: mobile ? dropletStartMobile[2] : dropletStart[2] },
+        attr: { d: mobile ? dropletStartMobileUp[2 - 1] : dropletStartUp[2 - 1] },
+        ease: 'none',
       }, 1.7)
       .to('#dropletEnd', {
         y: '-30px',
@@ -405,7 +413,7 @@ export default function Home({ }) {
         opacity: 0,
         ease: 'expo.in',
         attr: { d: mobile ? dropletEndMobile[0] : dropletEnd[0] },
-      }, 1.9)
+      }, 1.8)
 
     return tl
   }
@@ -735,14 +743,14 @@ export default function Home({ }) {
   }
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
-    .to('.page5Inner', {
-      y: '-5vh',
-      duration:153,
-    }, 0)
-    .to('.page5MiloSvg',{
-      y: '-5vh',
-      duration:153,
-    },0)
+      .to('.page5Inner', {
+        y: '-5vh',
+        duration: 133,
+      }, 0)
+      .to('.page5MiloSvg', {
+        y: '-5vh',
+        duration: 133,
+      }, 0)
     return tl
   }
 
@@ -760,21 +768,20 @@ export default function Home({ }) {
         markers: false,
         onEnter: () =>
           gsap.to(transition1, {
+            id: 'transition1In',
             overwrite: true,
             progress: 1,
             duration: 5,
             ease: "power1.out",
           }),
-        onLeave: () => {
-          // ScrollTrigger.getById('starScrub').disable(false)
-        },
         onLeaveBack: () =>
           gsap.to(transition1, {
+            id: 'transition1Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "power1.out"
-          })
+            ease: "ease.out"
+          }),
       })
 
       let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1.9).progress(0)
@@ -788,6 +795,7 @@ export default function Home({ }) {
         markers: false,
         onEnter: () =>
           gsap.to(transition2, {
+            id: 'transition2In',
             overwrite: true,
             progress: 1,
             duration: 6,
@@ -795,10 +803,11 @@ export default function Home({ }) {
           }),
         onLeaveBack: () =>
           gsap.to(transition2, {
+            id: 'transition2Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "power1.out"
+            ease: "ease.out"
           })
       })
 
@@ -813,6 +822,7 @@ export default function Home({ }) {
         markers: false,
         onEnter: () =>
           gsap.to(transition3, {
+            id: 'transition3In',
             overwrite: true,
             progress: 1,
             duration: mobile ? 6 : 4,
@@ -820,10 +830,11 @@ export default function Home({ }) {
           }),
         onLeaveBack: () =>
           gsap.to(transition3, {
+            id: 'transition3Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "power1.out"
+            ease: "ease.out"
           })
       })
 
@@ -838,6 +849,7 @@ export default function Home({ }) {
         markers: false,
         onEnter: () =>
           gsap.to(transition4, {
+            id: 'transition4In',
             overwrite: true,
             progress: 1,
             duration: 4,
@@ -845,10 +857,11 @@ export default function Home({ }) {
           }),
         onLeaveBack: () =>
           gsap.to(transition4, {
+            id: 'transition4Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "power1.out"
+            ease: "ease.out"
           })
       })
 
@@ -864,6 +877,7 @@ export default function Home({ }) {
         id: 'page5',
         onEnter: () =>
           gsap.to(transition5, {
+            id: 'transition5In',
             overwrite: true,
             progress: 1,
             duration: 4,
@@ -871,11 +885,12 @@ export default function Home({ }) {
           }),
         onLeaveBack: () =>
           gsap.to(transition5, {
+            id: 'transition5Out',
             overwrite: true,
             progress: 0,
             duration: 1,
-            ease: "power1.out"
-          })
+            ease: "ease.out"
+          }),
       })
 
       let animation0 = scrubIntro().paused(true).progress(0);
@@ -991,6 +1006,10 @@ export default function Home({ }) {
     return () => { ctx.revert() }
   }, [screenWidth])
   // screenHeight, ,svgTop , 
+  // useEffect(() => {
+
+  // }
+  // }, [scrolled])
 
   useEffect(() => {
     introAnimationTl && introAnimationTl.paused(!pageLoaded)
@@ -1011,17 +1030,17 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
-      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      <main style={{ height: mobile ? '700lvh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
 
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           // svgWidth={""} 
-          finished={false}
+          // finished={false}
           mobile={mobile}
         >
           {/* <div className={'fixedColor fixed top-0 opacity-100 bg-red-500 w-full h-full'}/> */}
-          {mobile?<Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-right-top'} animationName={'page5'} className={'opacity-0 top-[25vh] '} />:<BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
+          {mobile ? <Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-right-top'} animationName={'page5'} className={'opacity-0 top-[25vh] '} /> : <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           {/*h-100vh no specification needed   */}
@@ -1060,8 +1079,9 @@ export default function Home({ }) {
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
 
 
-          <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80%] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
+          <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />

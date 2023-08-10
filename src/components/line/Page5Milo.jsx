@@ -81,8 +81,9 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
 
   //==============X FROM CENTER, Y INVERSED FROM TOP============
   // let originalY = 0.630861
-  let originalY = mobile ? 1 - 0.38970 : 1 - 0.41
-  let originalX = mobile ? 0.629 : 0.7362
+  // let originalY = mobile ? 1 - 0.38970 : 1 - 0.41
+  let originalY = mobile ? 1 - 0.40 : 1 - 0.41
+  let originalX = mobile ? 0.60 : 0.7362
   let r2 = mobile ? 434 / 816 : 618 / 816
   let r1 = mobile ? width / (height) : width / (height * 2)
 
@@ -111,7 +112,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   return (
     <div className='page5MiloSvg fixed top-0 w-full h-full'>
       {mobile ?
-        <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed w-[95%] h-auto -translate-x-[64.3%] svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="389" height="474" viewBox="0 0 389 474" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed w-[90%] h-auto -translate-x-[64.3%] svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="389" height="474" viewBox="0 0 389 474" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="miloTekeningMobile">
             {lettersMobile.map((letter, i) => {
               // console.log(letter.props)
@@ -120,7 +121,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
                 timeline: scrubTl,
                 ratio: 1,
                 attr: {
-                  duration: i === 0 ? 100 : 5,
+                  duration: i === 0 ? 80 : 5,
                   // ease: 'ease.inout',
                   // onStart:()=>{console.log('start One')} 
                 },
