@@ -125,7 +125,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
                   // ease: 'ease.inout',
                   // onStart:()=>{console.log('start One')} 
                 },
-                position: i === 0 ? 0 : 100 + 6 * (i - 1),
+                position: i === 0 ? 0 : 80 + 6 * (i - 1),
               }]} />
             })}
 

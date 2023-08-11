@@ -312,14 +312,14 @@ export default function Home({ }) {
   function scrubPage1() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page1Inner', {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 3.3,
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
       }, 0)
       .to('.page1starsInner', {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 3.3,
         // ease: 'power.out'
         // duration:1,
@@ -385,7 +385,7 @@ export default function Home({ }) {
         //                   dropDownDistance * heightWidthRatio * sceenWidthRatio * screenWidth      
         // y: () => { return `${mobile ? (0.59 * 2.76 * 1.157 * screenWidth * svgWidthFactor) : (0.38 * 1.11  * screenWidth * 1.157 * svgWidthFactor)}px` },
         // y: () => { return `${mobile ? (0.59 * 2.76 * viewBoxWidth) : (0.38 * 1.11  * viewBoxWidth)}px` },
-        y: () => { return `${mobile ? (0.375 * viewBoxHeight) : (0.355 * viewBoxHeight)}px` },
+        y: () => { return `${mobile ? (0.38 * viewBoxHeight) : (0.355 * viewBoxHeight)}px` },
         // y: 0,
         // attr: { d: mobile ? dropletStartMobile[0] : dropletStart[0] },
         ease: 'power.out',
@@ -497,7 +497,7 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('#fish', { duration: 2 })
       .to('.page2Inner', {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 2,
       }, 0)
     // .to('.page1',
@@ -597,7 +597,7 @@ export default function Home({ }) {
   function scrubPage3() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to(['.page3Inner', '.page3AnimalsSvgInner'], {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 100,
         // duration: 2.5,
       }, 0)
@@ -672,11 +672,11 @@ export default function Home({ }) {
   function scrubPage4() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page4Inner', {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 1.6,
       }, 0)
       .to('.svgKakje', {
-        y: '-5vh',
+        y: mobile?'-10lvh':'-5vh',
         duration: 1.6,
       }, 0)
     return tl
@@ -747,12 +747,12 @@ export default function Home({ }) {
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page5Inner', {
-        y: mobile?'-10vh':'-5vh',
-        duration: 133,
+        y: mobile?'-10lvh':'-5vh',
+        duration: mobile?139:159,
       }, 0)
       .to('.page5MiloSvg', {
-        y: mobile?'-10vh':'-5vh',
-        duration: 133,
+        y: mobile?'-10lvh':'-5vh',
+        duration: mobile?139:159,
       }, 0)
     return tl
   }
@@ -1003,9 +1003,9 @@ export default function Home({ }) {
           scrollTrigger: {
             id: 'finalScrub',
             start: `bottom+=${4.90 * screenHeight} bottom`,
-            end: () => `+=${0.85 * screenHeight}px`,
+            end: () => `+=${1.15 * screenHeight}px`,
             scrub: 1,
-            markers: false,
+            markers: true,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
