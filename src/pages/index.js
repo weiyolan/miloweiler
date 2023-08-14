@@ -1005,7 +1005,7 @@ export default function Home({ }) {
             start: `bottom+=${4.90 * screenHeight} bottom`,
             end: () => `+=${1.15 * screenHeight}px`,
             scrub: 1,
-            markers: true,
+            markers: false,
             invalidateOnRefresh: false,
             // preventOverlaps: true,
           }
