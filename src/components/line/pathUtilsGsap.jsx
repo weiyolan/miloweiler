@@ -490,17 +490,23 @@ export function PathGSAPStandalone(props) {
         // console.log((pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*myNewOffset*(props?.transitStrokeAnimation?2:1))
         // console.log(tween.timeline)
         if (tween.timeline.getById(tween.id)===undefined) {
-          tween.timeline
-          // .add(()=>setVisible(true),tween.position)
-          .set(`#${props.id}`,{
-            stroke:myStroke
-          }, tween.position)
-          .to(`#${props.id}`,
-            {id: tween.id,
-              strokeDashoffset: (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*myNewOffset*(props?.transitStrokeAnimation?2:1),
-              ...tween.attr
-            }, tween.position);
-
+          
+          if (tween.ratio) {
+            tween.timeline
+              .set(`#${props.id}`,{
+                stroke:myStroke
+                }, tween.position)
+              .to(`#${props.id}`,{
+                id: tween.id,
+                strokeDashoffset: (pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*myNewOffset*(props?.transitStrokeAnimation?2:1),
+                ...tween.attr
+                }, tween.position)
+          } else {
+            tween.timeline.to(`#${props.id}`,
+              {id: tween.id,
+                ...tween.attr
+              }, tween.position)
+          }
           // console.log("added")
           // // console.log(tween.timeline.getChildren())
         }

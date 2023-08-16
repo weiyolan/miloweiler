@@ -32,7 +32,7 @@ import PageDescription5 from '@/components/line/PageDescription5'
 import Page5Milo from '@/components/line/Page5Milo'
 // import { ScrollDown } from '@/components/ScrollDown'
 import NavigationMobile from '@/components/NavigationMobile'
-import MobileScrollbar from '@/components/MobileScrollbar'
+// import MobileScrollbar from '@/components/MobileScrollbar'
 import Page0Logo from '@/components/line/Page0Logo'
 import Page1Moon from '@/components/line/Page1Moon'
 import Page2Waves from '@/components/line/Page2Waves'
@@ -411,7 +411,7 @@ export default function Home({ }) {
         ease: 'expo.out',
       }, 1.5)
       .to('#dropletEnd', {
-        y: '0',
+        y: 0,
         duration: 0.2,
         opacity: 0,
         ease: 'expo.in',
@@ -1089,8 +1089,8 @@ export default function Home({ }) {
 
           <Page3Animals style={{ top: `calc(90lvh)`, transform: 'translate3d(-50%,0,0)' }} animationName={'page3AnimalsSvg'} className={`w-[115.86vw] fixed left-1/2 ${scrolled > 0.44 && scrolled < 0.7 ? 'will-change-transform' : ''}`} scrubTl={scrubTl3} transitionTl={transitionTl3} />
           <Page2Waves scrubTl={scrubTl2} transitionTl={transitionTl2} style={{}} animationName={'page2WavesSvg'} className={`w-[115.86vw] fixed top-[50lvh] md:top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`} />
-          <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] mx-auto fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
-          <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-[50lvh] md:top-1/2 mx-auto fixed'} introAnimationTl={introAnimationTl} />
+          <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] left-1/2  fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
+          <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-[50lvh] md:top-1/2  fixed'} introAnimationTl={introAnimationTl} />
 
 
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}

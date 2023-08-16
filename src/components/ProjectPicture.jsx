@@ -53,7 +53,7 @@ function MainPicture({ visible, image, alt, prevVisibility, nextVisibility, inde
   // index===6 && console.log(mainPictureHeight, (width-2*paddingLeft)/ar - 2)
 
   return (
-    <div ref={mainPicRef} style={{ '--my-shadow-color': `${image.asset.metadata.palette.darkMuted.background}`, height: width < 1024 ? Math.min(mainPictureHeight, (pictureWidth - 2 * paddingLeft) / ar - 2) || '0' : '80vh' }}
+    <div ref={mainPicRef} style={{ '--my-shadow-color': `${image?.asset?.metadata?.palette?.darkMuted?.background}`, height: width < 1024 ? Math.min(mainPictureHeight, (pictureWidth - 2 * paddingLeft) / ar - 2) || '0' : '80vh' }}
       className={`absolute flex justify-center items-center max-w-[1500px] max-h-[80vh] w-full rounded-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 px-2 pt-4 xs:px-4 md:px-32 lg:px-56 lg:m-0 `}>
       <SanityImage
         className={`mainPicture-${index} will-change-transform opacity-0 invisible shadow-2xl shadow-black/50 `} // shadow-[var(--my-shadow-color)]
