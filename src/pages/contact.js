@@ -38,8 +38,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let tl = useRef()
   let ctx = useRef()
 
-
-
   let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   useLayoutEffect(() => {
@@ -140,6 +138,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
     }, '.contact-page')
+
     return () => ctx.current.revert()
   }, [width])
 

@@ -35,7 +35,7 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
   }, {
     id: `lineLeftAppear`, // timeline: transitionTl,
     timeline: introAnimationTl,
-    ratio: mobile ? 0.51 : 0.8,
+    ratio: mobile ? 0.59 : 0.8,
     attr: { duration: 3, ease: 'power2.out' },
     position: 0,
   }]

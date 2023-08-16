@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useEffect, } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
-import { useAppContext } from "@utils/appContext.js"
-import { Path, TextAnimate } from '@/components/line/pathUtils'
+// import { useAppContext } from "@utils/appContext.js"
+// import { Path, TextAnimate } from '@/components/line/pathUtils'
 // import { SVGWrapper } from "./contextSVG"
 import { usePageContext } from "@utils/pageContext"
 // import { PageWrapper } from "@context/pageContext"
-import AnimateSVG from "./AnimateSVG"
+// import AnimateSVG from "./AnimateSVG"
 // import AnimateSVGBanner from "./AnimateSVGBanner"
-import { gsap } from "gsap/dist/gsap"
-import { PathGSAP, PathGSAPStandalone } from "./pathUtilsGsap"
+// import { gsap } from "gsap/dist/gsap"
+import { PathGSAPStandalone } from "./pathUtilsGsap"
 // import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // import useStateRef from "@/utils/useStateRef"
 // gsap.registerPlugin(ScrollTrigger)
@@ -96,17 +96,17 @@ export default function Page3KakScrub({ className, scrubTl }) {
       {/* <path id="kak4" d="M19.5002 62.0001C20.9998 58.0001 17.8152 57.3585 20.8091 52.1656C22.0061 49.3585 24.6249 47.4909 30.5 53.0001C32.8091 55.1654 25.8776 57.0594 26.5999 64.1002C26.9999 68 24.5001 68.9184 24.5001 73C24.5001 78.5 20.3171 77.5502 17.5242 73.9968C14.7313 70.4433 17.8885 66.2989 19.5002 62.0001Z" fill="#FF0000"/> */}
 
       <PathGSAPStandalone inverse tweens={[{ id: `speed1AnimationAppear`, ...tweenAppear },
-      // { id: `speed1AnimationDisapp`, ...tweenDisapp }
+        // { id: `speed1AnimationDisapp`, ...tweenDisapp }
       ]}
         transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 1} id={'speed1'} d="M23.11 103.5C22.11 81 28.11 39.5 33.61 29" />
 
       <PathGSAPStandalone inverse tweens={[{ id: `speed2AnimationAppear`, ...tweenAppear },
-      // { id: `speed2AnimationDisapp`, ...tweenDisapp }
+        // { id: `speed2AnimationDisapp`, ...tweenDisapp }
       ]}
         transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 2} id={'speed2'} d="M13.5002 117.5C12.5002 95 18.5002 53.5 24.0002 43" />
 
       <PathGSAPStandalone inverse tweens={[{ id: `speed3AnimationAppear`, ...tweenAppear },
-      // { id: `speed3AnimationDisapp`, ...tweenDisapp }
+        // { id: `speed3AnimationDisapp`, ...tweenDisapp }
       ]}
         transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 3} id={'speed3'} d="M8.11005 90.5C7.11005 68 13.11 26.5 18.61 16" />
 

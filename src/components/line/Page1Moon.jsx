@@ -56,7 +56,7 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
       id: "fullLegScrub2",
       ratio: mobile ? 0.15 : 0.12,
       attr: {
-        duration: 1
+        duration: 0.98
       },
       position: 0
     },

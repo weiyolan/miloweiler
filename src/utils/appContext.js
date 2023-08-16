@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 const AppContext = createContext();
 
 export function AppWrapper({ children, scrolled , className}) {
-  let { width, height } = useWindowSize();
+  let { width, height, mobileHeight } = useWindowSize();
   let { locale } = useRouter();
   // const [navIsOpen, toggleNav] = useCycle(false, true);
   // const [cartIsOpen, toggleCart] = useCycle(false, true);
@@ -26,6 +26,7 @@ export function AppWrapper({ children, scrolled , className}) {
       value={{
         width: width,
         height: height,
+        mobileHeight: mobileHeight,
         locale: locale,
         // mobile:width<768,
         // breakPointSmall: breakPointSmall,

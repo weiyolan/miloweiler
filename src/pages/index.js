@@ -39,12 +39,14 @@ import Page2Waves from '@/components/line/Page2Waves'
 import Page3Animals from '@/components/line/Page3Animals'
 import ScrollVisual from '@/components/line/ScrollVisual'
 import FadeDiv from '@/components/FadeDiv'
+import Line from '@/components/Line'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Home({ }) {
-  const { scrolled, width: screenWidth, height: screenHeight, } = useAppContext();
+  const { scrolled, width: screenWidth, height: screenHeight, // mobileHeight: screenHeight,
+  } = useAppContext();
   // let svgRef = useRef(null)
   // let ctx = useRef()
   // let tl = useRef()
@@ -76,7 +78,12 @@ export default function Home({ }) {
   let titleCtx = useRef(gsap.context(() => { }))
 
   useEffect(() => {
-    return () => titleCtx.current.revert()
+    // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
+    ScrollTrigger.config({ ignoreMobileResize: true })
+    return () => {
+      // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(false)
+      titleCtx.current.revert();
+    }
   }, [])
 
   // let [footerHeight, setFooterHeight] = useState(undefined)
@@ -171,22 +178,25 @@ export default function Home({ }) {
   // }, [mobile])
 
   // useEffect(() => {
-  //   handleSize()
-  // }, [])
+  //   console.log(screenHeight)
+  // }, [screenHeight])
 
   function scrubIntro() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.pageIntro', {
         y: '-10vh',
         duration: 1,
+        ease:'none',
       }, 0)
       .to(['.introSvgInner', '.page1MoonSvgInner'], {
         duration: 1,
         y: `-${svgScrubAmount}px`,
+        ease:'none',
       }, 0)
       .to('.titleContainerInner', {
         y: mobile ? '-120px' : '-40px',
         duration: 1,
+        ease:'none',
       }, 0)
     return tl
   }
@@ -312,15 +322,17 @@ export default function Home({ }) {
   function scrubPage1() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page1Inner', {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
         duration: 3.3,
+        ease:'none',
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
       }, 0)
       .to('.page1starsInner', {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
         duration: 3.3,
+        ease:'none',
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
@@ -497,8 +509,9 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('#fish', { duration: 2 })
       .to('.page2Inner', {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
         duration: 2,
+        ease:'none',
       }, 0)
     // .to('.page1',
     //   {
@@ -555,7 +568,7 @@ export default function Home({ }) {
         stagger: 0.2,
         // duration: 1,
       }, 0)
-      .to('.page3photos', {
+      .to(['.page3photos0','.page3photos1','.page3photos2'], {
         autoAlpha: 1,
         stagger: 0.2,
         // duration: 0.5,
@@ -597,8 +610,9 @@ export default function Home({ }) {
   function scrubPage3() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to(['.page3Inner', '.page3AnimalsSvgInner'], {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
         duration: 100,
+        ease:'none',
         // duration: 2.5,
       }, 0)
 
@@ -672,12 +686,15 @@ export default function Home({ }) {
   function scrubPage4() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page4Inner', {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
         duration: 1.6,
+        ease:'none',
       }, 0)
       .to('.svgKakje', {
-        y: mobile?'-10lvh':'-5vh',
+        y: mobile ? '-10lvh' : '-5vh',
+        yPercent: -100, //
         duration: 1.6,
+        ease:'none',
       }, 0)
     return tl
   }
@@ -747,12 +764,14 @@ export default function Home({ }) {
   function scrubPage5() {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page5Inner', {
-        y: mobile?'-10lvh':'-5vh',
-        duration: mobile?139:159,
+        y: mobile ? '-10lvh' : '-5vh',
+        duration: mobile ? 119 : 159,
+        ease:'none',
       }, 0)
       .to('.page5MiloSvg', {
-        y: mobile?'-10lvh':'-5vh',
-        duration: mobile?139:159,
+        y: mobile ? '-10lvh' : '-5vh',
+        duration: mobile ? 119 : 159,
+        ease:'none',
       }, 0)
     return tl
   }
@@ -788,11 +807,13 @@ export default function Home({ }) {
           }),
       })
 
+
       let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1.9).progress(0)
       setTransitionTl2(transition2)
       ScrollTrigger.create({
-        start: `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
-        end: `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
+        start: () => `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
+        // end: (self)=>self.start,
+        end: () => `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
@@ -881,8 +902,8 @@ export default function Home({ }) {
       let transition5 = showPage5().paused(true).add(hidePage4(), 0).add(hideInfo4(), 0).add(showInfo5(), 1).progress(0)
       setTransitionTl5(transition5)
       ScrollTrigger.create({
-        start: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
-        end: `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
+        start: () => `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
+        end: () => `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
         invalidateOnRefresh: false,
         toggleActions: 'play none reverse none',
         preventOverlaps: true,
@@ -917,11 +938,12 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'starScrub',
-            start: 'bottom bottom',
-            end: () => `+=${0.8 * screenHeight}px`,
+            start: () => 'bottom bottom',
+            end: () => `+=${0.79 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -934,11 +956,12 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'moonScrub',
-            start: `bottom+=${0.90 * screenHeight} bottom`,
+            start: () => `bottom+=${0.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -951,11 +974,12 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'animalScrub',
-            start: `bottom+=${1.90 * screenHeight} bottom`,
+            start: () => `bottom+=${1.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -968,11 +992,12 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'kakScrub',
-            start: `bottom+=${2.90 * screenHeight} bottom`,
+            start: () => `bottom+=${2.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -985,11 +1010,12 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'studioScrub',
-            start: `bottom+=${3.90 * screenHeight} bottom`,
+            start: () => `bottom+=${3.90 * screenHeight} bottom`,
             end: () => `+=${0.85 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -1002,11 +1028,14 @@ export default function Home({ }) {
           ease: 'none',
           scrollTrigger: {
             id: 'finalScrub',
-            start: `bottom+=${4.90 * screenHeight} bottom`,
-            end: () => `+=${1.15 * screenHeight}px`,
+            start: () => `bottom+=${4.90 * screenHeight} bottom`,
+            // end: () => `+=${0.85 * screenHeight}px`,
+            end: () => `+=${1.1 * screenHeight}px`,
+            // end: () => `+=${1 * screenHeight}px`,
             scrub: 1,
             markers: false,
             invalidateOnRefresh: false,
+            overwrite: true,
             // preventOverlaps: true,
           }
         });
@@ -1044,8 +1073,7 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
-      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
-
+      <main style={{ height: mobile ? '700svh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -1053,8 +1081,9 @@ export default function Home({ }) {
           // finished={false}
           mobile={mobile}
         >
+
           {/* <div className={'fixedColor fixed top-0 opacity-100 bg-red-500 w-full h-full'}/> */}
-          {mobile ? <Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-right-top'} animationName={'page5'} className={'opacity-0 top-[25vh] '} /> : <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
+          {mobile ? <Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-center'} animationName={'page5'} className={'opacity-0 top-[25vh] '} /> : <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           {/*h-100vh no specification needed   */}
@@ -1068,6 +1097,7 @@ export default function Home({ }) {
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
           <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
           {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}
+          {/* <Line className={'absolute w-full top-[650vh]'} /> */}
 
           {/* LEGS */}
           {/* 265px */}
@@ -1095,7 +1125,7 @@ export default function Home({ }) {
 
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
-          <PageDescription5 shadow transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           <PageDescription4 shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />

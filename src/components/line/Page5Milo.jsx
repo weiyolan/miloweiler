@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
-import { Path, TextAnimate } from '@/components/line/pathUtils'
+// import { Path, TextAnimate } from '@/components/line/pathUtils'
 // import { SVGWrapper } from "./contextSVG"
 import { usePageContext } from "@utils/pageContext"
 // import { PageWrapper } from "@context/pageContext"
-import AnimateSVG from "./AnimateSVG"
+// import AnimateSVG from "./AnimateSVG"
 // import AnimateSVGBanner from "./AnimateSVGBanner"
-import { gsap } from "gsap/dist/gsap"
-import { PathGSAP, PathGSAPStandalone } from "./pathUtilsGsap"
+// import { gsap } from "gsap/dist/gsap"
+import { PathGSAPStandalone } from "./pathUtilsGsap"
 // import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // import useStateRef from "@/utils/useStateRef"
 // gsap.registerPlugin(ScrollTrigger)
@@ -49,7 +49,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   }, [scrubTl])
 
   let colorPrimary = "#FFF5EA";
-  let n = 0;
+  // let n = 0;
 
   let letters = [
     <path key={0} id="m" d="M4.42839 2.70259C0.42839 2.70259 -0.071311 38.202 2.92869 38.202C5.92869 38.202 10.5561 5.20266 7.42828 5.20266C3.42828 5.20266 2.94565 35.202 7.42828 35.202C11.9109 35.202 16.4287 9.70267 11.4287 9.70267C6.42869 9.70267 7.92869 28.702 17.4287 25.202C27.7505 21.3993 159.429 -27.2987 236.929 25.2017C323.058 83.5479 206.066 218.461 298.429 298.201C354.929 346.98 428.245 284.421 519.929 268.201C606.956 252.804 750.391 269.641 710.929 359.701C662.929 469.244 310.429 470.201 298.429 395.201C290.45 345.335 371.929 333.701 335.929 395.201C300.437 455.833 352.429 509.201 419.929 492.201C489.579 474.659 503.929 511.701 568.429 500.201C632.929 488.701 632.514 464.676 673.429 468.701C703.929 471.701 723.429 496.701 741.929 476.201C755.129 463.001 772.01 470.993 774.01 476.493C769.152 465.01 773.631 446.335 778.931 446.335C783.171 446.335 785.913 458.575 786.754 464.694C786.229 459.731 786.616 449.653 792.37 449.048C799.562 448.291 799.373 470.373 799.562 472.581" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -83,7 +83,7 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   // let originalY = 0.630861
   // let originalY = mobile ? 1 - 0.38970 : 1 - 0.41
   let originalY = mobile ? 1 - 0.40 : 1 - 0.41
-  let originalX = mobile ? 0.60 : 0.7362
+  let originalX = mobile ? 0.63 : 0.7362
   let r2 = mobile ? 434 / 816 : 618 / 816
   let r1 = mobile ? width / (height) : width / (height * 2)
 
@@ -108,7 +108,6 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
     // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
 
     if (Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
-      console.log('changed')
       setMyPosition({ x: getX(), y: getY() })
     }
   }, [width, height])
@@ -127,11 +126,11 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
                 timeline: scrubTl,
                 ratio: 1,
                 attr: {
-                  duration: i === 0 ? 80 : 5,
-                  // ease: 'ease.inout',
+                  duration: i === 0 ? 60 : 5,
+                  ease: 'none',
                   // onStart:()=>{console.log('start One')} 
                 },
-                position: i === 0 ? 0 : 80 + 6 * (i - 1),
+                position: i === 0 ? 0 : (60 + 5 * (i - 1)),
               }]} />
             })}
 
@@ -150,10 +149,10 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
                 ratio: 1,
                 attr: {
                   duration: i === 0 ? 100 : 5,
-                  // ease: 'ease.inout',
+                  ease: 'none',
                   // onStart:()=>{console.log('start One')} 
                 },
-                position: i === 0 ? 0 : 100 + 6 * (i - 1),
+                position: i === 0 ? 0 : (100 + 6 * (i - 1)),
               }]} />
             })}
 
