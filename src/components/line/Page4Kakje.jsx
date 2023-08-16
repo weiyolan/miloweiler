@@ -251,7 +251,7 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
   useEffect(() => {
     let newX = getX()
 
-    console.log(Math.abs(newX - myPosition.x) / myPosition.x)
+    // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
 
     if (Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
       console.log('changed')

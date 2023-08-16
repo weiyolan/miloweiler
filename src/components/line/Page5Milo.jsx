@@ -103,8 +103,14 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
 
   useEffect(() => {
 
-    setMyPosition({ x: getX(), y: getY() })
+    let newX = getX()
 
+    // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
+
+    if (Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
+      console.log('changed')
+      setMyPosition({ x: getX(), y: getY() })
+    }
   }, [width, height])
   //==============FROM CENTER============
 
