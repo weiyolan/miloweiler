@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity'
+import {BlockElementIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'contactPageCDS',
   title: 'Contact Details Section',
   type: 'document',
+  icon: BlockElementIcon,
   fields: [
     // defineField({
     //   name: 'title', hidden:false, title: 'Title', type: 'string',

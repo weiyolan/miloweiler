@@ -15,13 +15,13 @@ import { PathGSAPStandalone } from "./pathUtilsGsap"
 
 
 
-export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl, speed, id }) {
+export default function Page5Milo({ scrubTl }) {
 
   let { locale, scrolled, width, height } = useAppContext()
   let [refresh, setRefresh] = useState(0)
   let { mobile } = usePageContext()
   // const ctx = useRef(gsap.context(() => { }));
-  let [myPosition, setMyPosition] = useState({ x: 0.73, y: 0.38 })
+  let [myPosition, setMyPosition] = useState({ x: 0.73, y: 0.34 })
 
 
   // let letterTween =
@@ -51,42 +51,56 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   let colorPrimary = "#FFF5EA";
   // let n = 0;
 
+  // let letters = [
+  //   <path key={0}  id="m2" d="M1499 123.257C1498.81 121.047 1499 98.9671 1491.81 99.7271C1486.06 100.327 1485.67 110.407 1486.19 115.367C1485.35 109.247 1482.61 97.0073 1478.37 97.0073C1473.07 97.0073 1468.59 115.688 1473.45 127.168C1471.45 121.668 1458.7 113.968 1445.5 127.168C1431.85 142.29 1425 131.078 1408 127.168C1381 120.957 1381.5 135.636 1350 143C1325.37 148.759 1293 136 1231.5 140.5C1170 145 1110.71 165.74 1048.5 115.367C1000.5 76.5 965.859 104.216 930 124C904.802 137.902 854.99 146.675 814 138.5C778.463 131.413 750.923 109.628 735 91.5005C711.394 64.6264 671.5 62.4998 653.5 81.4996C645.921 89.5 649.816 101.565 657 103C664.017 104.401 676.111 91.7227 668.5 76.5C658 55.5 620.5 74.7348 602 59.4999C588.5 48.3825 590.5 27.9997 604.5 29.9998C617.074 31.7961 620.235 56.9997 598.5 67.8673C582.378 75.9281 569.736 71.1382 564 81.4996C554.747 98.2144 564 113 549 121C535.617 128.137 515.424 114.088 482.5 113C449.862 111.921 429.392 127.961 435 134.727C446 148 473.5 110.727 435 99.7272C396.5 88.7272 388.725 115.925 338.5 115.367C288.275 114.809 293.5 56.0148 230.5 81.4996C171.5 105.366 92.5 61.0003 -36.5 62.0001" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={1}  id="i" d="M1504.46 115.667C1504.81 119.957 1504.99 121.747 1505.03 122.107" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={2}  id="ib" d="M1502 102.357C1502.06 102.607 1502.38 102.867 1502.32 102.987" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={3}  id="l" d="M1508.25 95.2266C1509.63 104.317 1510.83 116.997 1511.46 120.277" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={4}  id="o" d="M1526.34 116.057C1525 120.317 1515.13 121.807 1517.31 113.917C1518.51 111.267 1520.59 109.917 1523.12 110.067C1526.67 110.277 1527.32 112.897 1526.34 116.057Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={5}  id="w" d="M1546.65 94.2266C1535.1 121.987 1543.75 131.577 1548.73 122.807C1552.72 115.797 1552.54 114.507 1551.95 114.737C1551.66 117.667 1555.2 122.427 1561.35 119.277C1568.89 115.417 1570.18 98.2669 1561.35 93.0269" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={6}  id="ei" d="M1568.73 113.286C1571.7 115.366 1575.93 110.316 1572.33 109.686C1568.73 109.056 1566.02 117.006 1572.33 118.516C1577.38 119.726 1580.83 114.857 1581.92 112.277C1582.34 113.767 1583.9 116.547 1585.01 117.257" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={7}  id="ei2" d="M1579.71 102.427C1580.57 103.287 1581.12 103.337 1581.29 103.247" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={8}  id="l2" d="M1583.05 88.6768C1584.62 104.527 1588 112.647 1589.49 114.737" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={9}  id="er" d="M1593.28 113.287C1600.02 110.887 1597.81 106.677 1595.5 107.677C1590.78 109.717 1592.81 115.867 1597.5 115.677C1603 115.177 1604 109.677 1603 107.677C1602 105.677 1605 112.677 1605 115.177C1605 115.177 1604.39 105.427 1613 109.177" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  //   <path key={10} id="punt" d="M1619.29 114.987V114.977" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+  // ]
+
   let letters = [
-    <path key={0} id="m" d="M4.42839 2.70259C0.42839 2.70259 -0.071311 38.202 2.92869 38.202C5.92869 38.202 10.5561 5.20266 7.42828 5.20266C3.42828 5.20266 2.94565 35.202 7.42828 35.202C11.9109 35.202 16.4287 9.70267 11.4287 9.70267C6.42869 9.70267 7.92869 28.702 17.4287 25.202C27.7505 21.3993 159.429 -27.2987 236.929 25.2017C323.058 83.5479 206.066 218.461 298.429 298.201C354.929 346.98 428.245 284.421 519.929 268.201C606.956 252.804 750.391 269.641 710.929 359.701C662.929 469.244 310.429 470.201 298.429 395.201C290.45 345.335 371.929 333.701 335.929 395.201C300.437 455.833 352.429 509.201 419.929 492.201C489.579 474.659 503.929 511.701 568.429 500.201C632.929 488.701 632.514 464.676 673.429 468.701C703.929 471.701 723.429 496.701 741.929 476.201C755.129 463.001 772.01 470.993 774.01 476.493C769.152 465.01 773.631 446.335 778.931 446.335C783.171 446.335 785.913 458.575 786.754 464.694C786.229 459.731 786.616 449.653 792.37 449.048C799.562 448.291 799.373 470.373 799.562 472.581" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={1} id="i" d="M808.46 464.994C808.814 469.284 808.986 471.071 809.028 471.429" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={2} id="ib" d="M806 451.682C806.063 451.934 806.379 452.186 806.315 452.313" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={3} id="l" d="M812.246 444.552C813.634 453.637 814.833 466.319 815.464 469.6" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={4} id="o" d="M830.335 465.382C829.005 469.642 819.133 471.127 821.313 463.237C822.512 460.587 824.586 459.235 827.118 459.388C830.669 459.603 831.322 462.224 830.335 465.382Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={5} id="w" d="M850.651 443.552C839.105 471.313 847.748 480.902 852.733 472.133C856.72 465.117 856.539 463.826 855.95 464.057C855.66 466.994 859.198 471.749 865.351 468.6C872.887 464.742 874.184 447.59 865.351 442.354" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={6} id="ei" d="M872.733 462.606C875.698 464.688 879.925 459.641 876.329 459.01C872.733 458.379 870.02 466.328 876.329 467.843C881.376 469.054 884.825 464.183 885.919 461.596C886.34 463.09 887.9 465.874 889.011 466.581" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={7} id="ei2" d="M883.711 451.754C884.569 452.612 885.12 452.658 885.288 452.574" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={8} id="l2" d="M887.055 438C888.619 453.849 891.997 461.975 893.49 464.057" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={9} id="er" d="M897.276 462.605C904.025 460.208 901.814 456 899.5 457C894.775 459.042 896.808 465.192 901.5 465C907 464.5 908 459 907 457C906 455 909 462 909 464.5C909 464.5 908.39 454.753 917 458.5" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    , <path key={10} id="punt" d="M923.291 464.309V464.299" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path key={0} id="m2" d="M1499 96.2573C1498.81 94.0473 1499 71.9671 1491.81 72.7271C1486.06 73.3271 1485.67 83.4072 1486.19 88.3672C1485.35 82.2472 1482.61 70.0073 1478.37 70.0073C1473.07 70.0073 1468.59 88.6875 1473.45 100.168C1471.45 94.6675 1458.7 86.9675 1445.5 100.168C1431.85 115.29 1425 104.078 1408 100.168C1381 93.9571 1381.5 108.636 1350 116C1325.37 121.759 1263.5 97.1675 1222.5 100.168C1181.5 103.168 1140.21 120.373 1078 70.0004C1030 31.1332 1000.36 22.5828 964.5 42.3669C905 75.1945 879.288 -11.0427 840.5 4.50014C785.034 26.726 816 164.5 655 184.5" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={1} id="i" d="M1504.46 88.9902C1504.81 93.2802 1504.99 95.0702 1505.03 95.4302" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={2} id="ib" d="M1502 75.6802C1502.06 75.9302 1502.38 76.1901 1502.32 76.3101" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={3} id="l" d="M1508.25 68.5498C1509.63 77.6398 1510.83 90.3201 1511.46 93.6001" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={4} id="o" d="M1526.34 89.3799C1525 93.6399 1515.13 95.1303 1517.31 87.2403C1518.51 84.5903 1520.59 83.2402 1523.12 83.3902C1526.67 83.6002 1527.32 86.2199 1526.34 89.3799Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={5} id="w" d="M1546.65 67.5498C1535.1 95.3098 1543.75 104.9 1548.73 96.1299C1552.72 89.1199 1552.54 87.8301 1551.95 88.0601C1551.66 90.9901 1555.2 95.7501 1561.35 92.6001C1568.89 88.7401 1570.18 71.5901 1561.35 66.3501" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={6} id="ei" d="M1568.73 86.6097C1571.7 88.6897 1575.93 83.6396 1572.33 83.0096C1568.73 82.3796 1566.02 90.3297 1572.33 91.8397C1577.38 93.0497 1580.83 88.1799 1581.92 85.5999C1582.34 87.0899 1583.9 89.8699 1585.01 90.5799" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={7} id="ei2" d="M1579.71 75.75C1580.57 76.61 1581.12 76.6598 1581.29 76.5698" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={8} id="l2" d="M1583.05 62C1584.62 77.85 1588 85.9701 1589.49 88.0601" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={9} id="er" d="M1593.28 86.61C1600.02 84.21 1597.81 80.0002 1595.5 81.0002C1590.78 83.0402 1592.81 89.1902 1597.5 89.0002C1603 88.5002 1604 83.0002 1603 81.0002C1602 79.0002 1605 86.0002 1605 88.5002C1605 88.5002 1604.39 78.7502 1613 82.5002" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
+    <path key={10} id="punt" d="M1619.29 88.3101V88.2998" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />,
   ]
 
   let lettersMobile = [
-    <path key={0} id="m" d="M252.715 1C248.715 1 248.216 36.4999 251.216 36.4999C254.216 36.4999 258.843 3.49994 255.715 3.49994C251.715 3.49994 251.233 33.4999 255.715 33.4999C260.198 33.4999 264.717 7.99996 259.717 7.99996C254.717 7.99996 256.217 26.9999 265.717 23.4999C276.038 19.6999 369.758 39.0354 384.987 20C394.987 7.50013 358.391 -0.92934 368.987 43.0001C413.487 227.5 364.003 365 251.216 317.5C129.503 266.24 29.2721 345.478 5.10882 305.51C-8.50021 283 20.6088 278.5 20.6086 301.51C20.6081 358.997 -26.501 484.561 49.9998 466.061C124.1 448.141 139.959 482.392 181.003 466.061C199.003 458.898 239.45 466.91 241.45 472.41C236.59 460.93 241.07 442.25 246.37 442.25C250.61 442.25 253.35 454.49 254.19 460.61C253.67 455.65 254.06 445.57 259.81 444.97C267 444.21 266.81 466.29 267 468.5" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={1} id="i" d="M272.46 460.99C272.81 465.28 272.99 467.07 273.03 467.43" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={2} id="ib" d="M270 447.68C270.06 447.93 270.38 448.19 270.32 448.31" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={3} id="l" d="M276.25 440.55C277.63 449.64 278.83 462.32 279.46 465.6" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={4} id="o" d="M294.34 461.38C293 465.64 283.13 467.13 285.31 459.24C286.51 456.59 288.59 455.24 291.12 455.39C294.67 455.6 295.32 458.22 294.34 461.38Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={5} id="w" d="M314.65 439.549C303.1 467.309 311.75 476.899 316.73 468.129C320.72 461.119 320.54 459.83 319.95 460.06C319.66 462.99 323.2 467.75 329.35 464.6C336.89 460.74 338.18 443.59 329.35 438.35" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={6} id="ei" d="M336.73 458.609C339.7 460.689 343.93 455.639 340.33 455.009C336.73 454.379 334.02 462.329 340.33 463.839C345.38 465.049 348.83 460.179 349.92 457.599C350.34 459.089 351.9 461.869 353.01 462.579" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={7} id="ei2" d="M347.71 447.75C348.57 448.61 349.12 448.66 349.29 448.57" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={8} id="l2" d="M351.05 434C352.62 449.85 356 457.97 357.49 460.06" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={9} id="er" d="M361.279 458.61C368.019 456.21 365.809 452 363.499 453C358.779 455.04 360.809 461.19 365.499 461C370.999 460.5 371.999 455 370.999 453C369.999 451 372.999 458 372.999 460.5C372.999 460.5 372.389 450.75 380.999 454.5" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
-    <path key={10} id="punt" d="M387.289 460.31V460.3" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
+    <path key={0}  id="m2" d="M1.5 127.5C68 127.5 61.5 10.4997 96 1.50011C111.256 -2.47949 89.6476 32.1156 96 65.9992C102 98.0033 124.391 123.882 140.5 98C179.5 35.3393 189.76 161.026 226.5 136.503C239.688 127.699 250.817 121.778 264.5 127.5C279.867 133.927 298.207 162.684 321.463 162.684C316.603 151.204 321.083 132.524 326.383 132.524C330.623 132.524 333.363 144.764 334.203 150.884C333.683 145.924 334.073 135.844 339.823 135.244C347.013 134.484 346.823 156.564 347.013 158.774" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={1}  id="i" d="M352.973 150.981C353.323 155.271 353.503 157.061 353.543 157.421" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={2}  id="ib" d="M350.513 137.671C350.573 137.921 350.893 138.181 350.833 138.301" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={3}  id="l" d="M356.763 130.541C358.143 139.631 359.343 152.311 359.973 155.591" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={4}  id="o" d="M374.853 151.371C373.513 155.631 363.643 157.121 365.823 149.231C367.023 146.581 369.103 145.231 371.633 145.381C375.183 145.591 375.833 148.211 374.853 151.371Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={5}  id="w" d="M395.162 129.541C383.612 157.301 392.262 166.891 397.242 158.121C401.232 151.111 401.052 149.821 400.462 150.051C400.172 152.981 403.712 157.741 409.862 154.591C417.402 150.731 418.692 133.581 409.862 128.341" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={6}  id="ei" d="M417.243 148.6C420.213 150.68 424.443 145.63 420.843 145C417.243 144.37 414.533 152.32 420.843 153.83C425.893 155.04 429.343 150.171 430.433 147.591C430.853 149.081 432.413 151.861 433.523 152.571" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={7}  id="ei2" d="M428.223 137.741C429.083 138.601 429.633 138.651 429.803 138.561" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={8}  id="l2" d="M431.562 123.991C433.133 139.841 436.512 147.961 438.002 150.051" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={9}  id="er" d="M441.792 148.601C448.532 146.201 446.322 141.991 444.012 142.991C439.292 145.031 441.322 151.181 446.012 150.991C451.512 150.491 452.512 144.991 451.512 142.991C450.512 140.991 453.512 147.991 453.512 150.491C453.512 150.491 452.902 140.741 461.512 144.491" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={10} id="punt" d="M467.802 150.301V150.291" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
   ]
 
   //==============X FROM CENTER, Y INVERSED FROM TOP============
   // let originalY = 0.630861
   // let originalY = mobile ? 1 - 0.38970 : 1 - 0.41
-  let originalY = mobile ? 1 - 0.40 : 1 - 0.41
-  let originalX = mobile ? 0.63 : 0.7362
-  let r2 = mobile ? 434 / 816 : 618 / 816
-  let r1 = mobile ? width / (height) : width / (height * 2)
-
+  let originalY = mobile ? 1 - 0.1 : 0.745
+  let originalX = mobile ? 0.65 : 0.7362
+  let r2 = mobile ? (434 / 816) : (618 / 816)
+  let r1 = mobile ? (width / (height)) : (width / (height * 2)
+  )
   function getY() {
     if (r2 / r1 < 1) {
       return 1 - (originalY - (1 - r2 / r1) / 2) * r1 / r2
@@ -102,64 +116,107 @@ export default function Page5Milo({ scrollMin, scrollMax, scrubTl, transitionTl,
   }
 
   useEffect(() => {
-
     let newX = getX()
+    console.log('oldPosition:',myPosition)
+    console.log(newX)
+    
 
     // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
+    if (mobile) {
+      // console.log('oldPosition:',myPosition)
+      // console.log(newX)
 
-    if (Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
+      // if (newX!==NaN && Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
+        setMyPosition({ x: newX, y: getY() })
+      // } else {return}
+    } else {
       setMyPosition({ x: getX(), y: getY() })
+      // console.log(myPosition)
+      // console.log({ x: getX(), y: getY() })
     }
   }, [width, height])
   //==============FROM CENTER============
 
 
   return (
-    <div className='page5MiloSvg fixed top-0 w-full h-full'>
-      {mobile ?
-        <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`fixed w-[90%] h-auto -translate-x-[64.3%] svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="389" height="474" viewBox="0 0 389 474" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g id="miloTekeningMobile">
-            {lettersMobile.map((letter, i) => {
-              // console.log(letter.props)
-              return <PathGSAPStandalone {...letter.props} key={i} tweens={[{
-                id: 'letterTween' + i,
-                timeline: scrubTl,
-                ratio: 1,
-                attr: {
-                  duration: i === 0 ? 60 : 5,
-                  ease: 'none',
-                  // onStart:()=>{console.log('start One')} 
-                },
-                position: i === 0 ? 0 : (60 + 5 * (i - 1)),
-              }]} />
-            })}
-
-          </g>
-        </svg>
-        :
-
-        <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}%)` }} className={`fixed ${width / height > 2.025 ? 'w-[55%]' : 'w-[60%]'} h-auto svgMilo ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="925" height="504" viewBox="0 0 925 504" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g id='desktopPage1'>
-            {/* <PathGSAPStandalone tweens={tweens} id="miloTekeningPath" d="M702.428 4636.7C698.428 4636.7 697.929 4672.2 700.929 4672.2C703.929 4672.2 708.556 4639.2 705.428 4639.2C701.428 4639.2 700.946 4669.2 705.428 4669.2C709.911 4669.2 714.429 4643.7 709.429 4643.7C704.429 4643.7 705.929 4662.7 715.429 4659.2C725.75 4655.4 857.429 4606.7 934.929 4659.2C1021.06 4717.55 904.066 4852.46 996.429 4932.2C1052.93 4980.98 1126.25 4918.42 1217.93 4902.2C1304.96 4886.8 1448.39 4903.64 1408.93 4993.7C1360.93 5103.24 1008.43 5104.2 996.429 5029.2C988.45 4979.33 1069.93 4967.7 1033.93 5029.2C998.437 5089.83 1050.43 5143.2 1117.93 5126.2C1187.58 5108.66 1201.93 5145.7 1266.43 5134.2C1330.93 5122.7 1330.51 5098.68 1371.43 5102.7C1401.93 5105.7 1421.43 5130.7 1439.93 5110.2C1453.13 5097 1470.01 5104.99 1472.01 5110.49C1467.15 5099.01 1471.63 5080.33 1476.93 5080.33C1481.17 5080.33 1483.91 5092.57 1484.75 5098.69C1484.23 5093.73 1484.62 5083.65 1490.37 5083.05C1497.56 5082.29 1497.37 5104.37 1497.56 5106.58M1506.52 5098.69C1506.87 5102.98 1507.05 5104.77 1507.09 5105.13M1510.31 5078.25C1511.69 5087.34 1512.89 5100.02 1513.52 5103.3M1549.36 5078.25C1537.81 5106.01 1546.46 5115.6 1551.44 5106.83C1553.73 5102.8 1554.65 5100.66 1554.9 5099.61M1554.9 5099.61C1555.09 5098.84 1554.91 5098.66 1554.66 5098.76C1554.72 5099.03 1554.8 5099.31 1554.9 5099.61ZM1554.9 5099.61C1555.85 5102.43 1558.63 5106.13 1564.06 5103.3C1571.57 5099.39 1572.89 5082.29 1564.06 5077.05M1571.44 5097.31C1574.41 5099.39 1578.63 5094.34 1575.04 5093.71C1571.44 5093.08 1568.73 5101.03 1575.04 5102.54C1580.09 5103.75 1583.53 5098.88 1584.63 5096.3C1585.05 5097.79 1586.61 5100.57 1587.72 5101.28M1582.42 5086.45C1583.28 5087.31 1583.83 5087.36 1584 5087.27M1585.76 5072.7C1587.33 5088.55 1590.71 5096.68 1592.2 5098.76M1595.98 5097.31C1596 5097.3 1596.01 5097.3 1596.02 5097.3M1596.02 5097.3C1602.73 5094.9 1599.77 5090.56 1597.88 5091.88C1596.73 5092.69 1595.44 5095.28 1596.02 5097.3ZM1596.02 5097.3C1596.39 5098.6 1597.54 5099.66 1600.02 5099.83C1606.16 5100.26 1606.82 5092.33 1605.7 5091.31M1605.7 5091.31C1605.67 5091.28 1605.74 5091.33 1605.7 5091.31ZM1605.7 5091.31C1605.74 5091.33 1605.67 5091.28 1605.7 5091.31ZM1605.7 5091.31C1606.82 5092.33 1607.41 5096.57 1607.64 5098.87M1607.64 5098.87C1607.65 5098.92 1607.65 5098.97 1607.66 5099.01M1607.64 5098.87C1607.36 5095.78 1608.61 5090.51 1615.92 5093.14M1504.06 5085.38C1504.12 5085.63 1504.44 5085.89 1504.38 5086.01M1622 5099.01V5099M1520.02 5097.94C1517.84 5105.83 1527.71 5104.34 1529.04 5100.08C1530.03 5096.92 1529.38 5094.3 1525.83 5094.09C1523.3 5093.94 1521.22 5095.29 1520.02 5097.94Z" stroke="#FFF5EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /> */}
-            {letters.map((letter, i) => {
-              // console.log(letter.props)
-              return <PathGSAPStandalone {...letter.props} key={i} tweens={[{
-                id: 'letterTween' + i,
-                timeline: scrubTl,
-                ratio: 1,
-                attr: {
-                  duration: i === 0 ? 100 : 5,
-                  ease: 'none',
-                  // onStart:()=>{console.log('start One')} 
-                },
-                position: i === 0 ? 0 : (100 + 6 * (i - 1)),
-              }]} />
-            })}
-
-          </g>
-        </svg>}
-
-
+    <div className={`page5MiloSvg fixed top-0 w-full h-full`}>
+      {mobile
+        ?
+        <div className="svgMilo fixed left-0 w-full h-full top-[30vh]">
+          {/* w-[69.5vw] */}
+          <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`absolute w-[40vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="171" height="199" viewBox="0 0 171 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="miloTekeningMobile1">
+              <PathGSAPStandalone id="m1" d="M4.42798 1.34537C0.42798 1.34537 -0.0710441 36.8453 2.92895 36.8453C5.92895 36.8453 10.5561 3.84531 7.42809 3.84531C3.42809 3.84531 2.94609 33.8453 7.42809 33.8453C11.9111 33.8453 16.4292 8.34532 11.4292 8.34532C6.42925 8.34532 9.7002 23.8452 17.4296 23.8452C46.7002 26.8455 96.2237 25.3458 86.7002 5.84584C83.0374 -1.65401 67.9957 -2.49706 65.7002 18.3459C60.4138 66.346 110.493 68.5543 118.7 108.346C123.33 130.795 106.238 152.002 81.7002 137.845C63.7002 127.461 77.1058 108.845 90.2002 120.845C107.51 136.708 69.5845 187.909 102.7 196.845C135.816 205.781 132 147.5 169.5 147.5" stroke="#FFF5EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                tweens={[{
+                  id: 'letterTweenMobile1',
+                  timeline: scrubTl,
+                  ratio: 1,
+                  attr: {
+                    duration: 30,
+                    ease: 'none',
+                    // onStart:()=>{console.log('start One')} 
+                  },
+                  position: 0,
+                }]}
+              />
+            </g>
+          </svg>
+          <svg className={`absolute bottom-[-8vh] right-[2vw] w-[110vw] h-auto ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="469" height="164" viewBox="0 0 469 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="miloTekeningMobile2">
+              {lettersMobile.map((letter, i) => {
+                // console.log(letter.props)
+                return <PathGSAPStandalone {...letter.props} key={i} tweens={[{
+                  id: 'letterTween' + i,
+                  timeline: scrubTl,
+                  ratio: 1,
+                  attr: {
+                    duration: i === 0 ? 60 : 4,
+                    ease: 'none',
+                  },
+                  position: i === 0 ? 30 : (90 + 4 * (i-1)),
+                }]} />
+              })}
+            </g>
+          </svg>
+        </div>
+        : <div className="svgMilo fixed left-0 w-full h-full top-[30vh]">
+          <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}vh)` }} className={`absolute -translate-y-full w-[69.5vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="1084" height="332" viewBox="0 0 1084 332" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="miloTekening1">
+              <PathGSAPStandalone id="m1" d="M4.42791 272.701C0.427905 272.701 -0.070996 308.202 2.929 308.202C5.929 308.202 10.5559 275.201 7.42791 275.201C3.42791 275.201 2.94591 305.202 7.42791 305.202C11.9109 305.202 16.429 279.701 11.429 279.701C6.429 279.701 9.00002 295.201 17.429 295.201C111.5 295.201 289.022 226.942 279 287.383C268.368 351.502 318.206 332.548 351.5 287.383C387.721 238.248 404.5 152.5 376 159.5C357.5 164.044 371.048 196.694 393.5 191C462.5 173.5 412.5 51 519.5 1.5" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                tweens={[{
+                  id: 'letterTweenM1',
+                  timeline: scrubTl,
+                  ratio: 1,
+                  attr: {
+                    duration: 50,
+                    ease: 'none',
+                  },
+                  position: 0,
+                }]}
+              />
+            </g>
+          </svg>
+          {/* w-[115.86vw] */}
+          <svg style={{}} className={`absolute w-[110vw] h-fit top-[calc(85vh+0vh)] left-1/2 -translate-x-1/2  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="1782" height="150" viewBox="0 0 1782 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="miloTekening2">
+              {letters.map((letter, i) => {
+                // console.log(letter.props)
+                return <PathGSAPStandalone {...letter.props} inverse={i === 0} key={i} tweens={[{
+                  id: 'letterTween' + i,
+                  timeline: scrubTl,
+                  ratio: 1,
+                  attr: {
+                    duration: i === 0 ? 50 : 5,
+                    ease: 'none',
+                    // onStart:()=>{console.log('start One')} 
+                  },
+                  position: i === 0 ? 50 : (100 + 6 * (i-1)),
+                }]} />
+              })}
+            </g>
+          </svg>
+        </div>
+      }
     </div>
   )
 }

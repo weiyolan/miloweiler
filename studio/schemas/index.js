@@ -14,6 +14,9 @@ import contactPageAOS from './contactPageAskOfferS'
 import contactPageGIS from './contactPageGetInspiredS'
 import contactPagePFS from './contactPagePortFolioS'
 
+import mainPageXXX from './mainPageXXX'
+
+
 import project from './project'
 
 export const schemaTypes = [
@@ -31,4 +34,5 @@ export const schemaTypes = [
   contactPageGIS,
   contactPageAOS,
   contactPagePFS,
+  mainPageXXX,
 ]

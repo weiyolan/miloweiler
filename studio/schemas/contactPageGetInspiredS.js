@@ -1,9 +1,10 @@
 import { defineField, defineType } from 'sanity'
-
+import {BlockElementIcon} from '@sanity/icons'
 export default defineType({
   name: 'contactPageGIS',
   title: 'Get Inspired Section',
   type: 'document',
+    icon: BlockElementIcon,
   fields: [
     defineField({ 
       name: 'title', title: 'Section Title', type: 'localeString',

@@ -2,31 +2,36 @@ import { defineField, defineType } from 'sanity'
 // import { BlockElementIcon } from '@sanity/icons'
 
 export default defineType({
-  name: 'contactPageTBS',
-  title: 'Trusted By Section',
+  name: 'mainPageXXX',
+  title: 'Get Inspired Section',
   type: 'document',
   // icon: BlockElementIcon,
   fields: [
     defineField({
       name: 'title', title: 'Section Title', type: 'localeString',
-      // options: {collapsible: true, collapsed: true},
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'artists', title: 'Artist Logos', type: 'array', of: [{ type: 'trustedByLogo' }],
-      // options: {collapsible: true, collapsed: true},
+      name: 'subTitle1', title: 'Subtitle 1', type: 'localeString',
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'companies', title: 'Company Logos', type: 'array', of: [{ type: 'trustedByLogo' }],
-      // options: {collapsible: true, collapsed: true},
+      name: 'subTitle2', title: 'Subtitle 2', type: 'localeString',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'text1', title: 'Text 1', type: 'localeText',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'text2', title: 'Text 2', type: 'localeText',
       validation: Rule => Rule.required()
     }),
   ],
   preview: {
     prepare() {
       // const {date, completion} = selection
-      return { title: 'Trusted By Section' }
+      return { title: 'Get Inspired Section' }
     },
   },
 })

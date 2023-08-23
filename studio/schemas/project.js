@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity'
+import { PresentationIcon } from '@sanity/icons'
 
 export default defineType({
   name: 'project',
-  title: 'Portfolio Project',
+  title: 'Gallery',
   type: 'document',
+  icon: PresentationIcon,
   groups: [
     {
       name: 'details',
@@ -15,8 +17,8 @@ export default defineType({
   ],
   fieldsets: [
     {
-      title: 'Project Details',
       name: 'details',
+      title: 'Project Details',
       options: { collapsible: true, collapsed: false }
     }
   ],

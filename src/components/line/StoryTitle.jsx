@@ -41,7 +41,7 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
         duration: 2,
       }, 1.2)
       gsap.to(['.depth2TitleInner'], {
-        y: '-=8px',
+        y: '+=8px',
         stagger: {
           each: 0.75,
           yoyo: true,
@@ -61,7 +61,7 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
         duration: 3,
       }, 0)
       gsap.to(['.depth1TitleInner'], {
-        y: '+=10px',
+        y: '-=10px',
         stagger: {
           each: 1.2,
           yoyo: true,
@@ -83,56 +83,56 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
         </h1>
 
         <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] md:right-[2%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <Text className={'cursor-default font-lora depth2 depth3Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="52.5204" letterSpacing="0em">
-            <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="40.0711212" y="107.722">
+          <Text animationName='depth3Title' className={'cursor-default font-lora depth2  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="52.5204" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="40.0711212" y="107.722">
               My style is
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth3 depth1Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="75" letterSpacing="0em">
-            <tspan className={`depth1TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="161.107" y="174.07">
+          <Text animationName='depth1Title' className={'cursor-default font-lora depth3  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="75" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="161.107" y="174.07">
               emotive
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth3 depth3Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="47.3029" letterSpacing="0em">
-            <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="353.311" y="237.609">
+          <Text animationName='depth3Title' className={'cursor-default font-lora depth3  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="47.3029" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="353.311" y="237.609">
               unique
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth1 depth2Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="75" letterSpacing="0em">
-            <tspan className={`depth2TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="92.4258" y="257.07">
+          <Text animationName='depth2Title' className={'cursor-default font-lora depth1  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="75" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="92.4258" y="257.07">
               &#38;
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth2 depth2Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="76" letterSpacing="0em">
-            <tspan className={`depth2TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="187.109" y="284.604">
+          <Text animationName='depth2Title' className={'cursor-default font-lora depth2  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="76" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="187.109" y="284.604">
               exp
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth3 depth3Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="50" letterSpacing="0em">
-            <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="118.287" y="326.278">
+          <Text animationName='depth3Title' className={'cursor-default font-lora depth3  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="50" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="118.287" y="326.278">
               erim
             </tspan>
           </Text>
-          <Text className={'cursor-default font-lora depth1 depth1Title titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="90.0862" letterSpacing="0em">
-            <tspan className={`depth1TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="238.206" y="362.472">
+          <Text animationName='depth1Title' className={'cursor-default font-lora depth1  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="90.0862" letterSpacing="0em">
+            <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="238.206" y="362.472">
               ental
             </tspan>
           </Text>
         </svg>
 
         <svg className={`rotate-[0.0001deg] absolute left-[10%] bottom-[15%] md:left-[6%] md:bottom-[10%] w-[60%] md:w-[30vw] `} viewBox="0 0 551 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <Text className={`cursor-default font-lora depth3 depth3Title titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="42.2727" letterSpacing="0em">
-            <tspan className={`depth3TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="0" y="230.472">
+          <Text animationName="depth3Title" className={`cursor-default font-lora depth3 titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="42.2727" letterSpacing="0em">
+            <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="0" y="230.472">
               I&#x2019;m a
             </tspan>
           </Text>
-          <Text className={`cursor-default font-lora depth1 depth1Title titleText  opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="87.8834" letterSpacing="0em">
-            <tspan className={`depth1TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="96" y="180.1653">
+          <Text animationName="depth1Title" className={`cursor-default font-lora depth1 titleText  opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="87.8834" letterSpacing="0em">
+            <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="96" y="180.1653">
               photo
             </tspan>
           </Text>
-          <Text className={`cursor-default font-lora depth2 depth2Title titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }}  fontSize="72.5438" letterSpacing="0em">
-            <tspan className={`depth2TitleInner ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="285" y="219.051">
+          <Text animationName="depth2Title" className={`cursor-default font-lora depth2 titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="72.5438" letterSpacing="0em">
+            <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="285" y="219.051">
               grapher
             </tspan>
           </Text>
@@ -143,10 +143,10 @@ export default function StoryTitle({ scrubTl, shadow, ctx }) {
 }
 
 
-function Text(props) {
+function Text({ animationName, className, ...props }) {
   let myText = useRef(null)
   let ctx = useRef(gsap.context(() => { }))
-  let {mobile} = usePageContext()
+  let { mobile } = usePageContext()
   let [hovering, setHovering] = useState(false)
   useEffect(() => { return () => ctx.current.revert() }, [])
 
@@ -162,8 +162,9 @@ function Text(props) {
   }, [hovering])
 
 
-  return (
-    <text ref={myText} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} {...props} />
+  return (<g className={`${animationName}Inner`}>
+    <text ref={myText} className={`${className} ${animationName}`} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} {...props} />
+  </g>
     // </text>
   )
 

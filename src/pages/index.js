@@ -79,7 +79,9 @@ export default function Home({ }) {
 
   useEffect(() => {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
-    ScrollTrigger.config({ ignoreMobileResize: true })
+    ScrollTrigger.config({   
+      // limitCallbacks: true,
+      ignoreMobileResize: true })
     return () => {
       // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(false)
       titleCtx.current.revert();
@@ -765,12 +767,12 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page5Inner', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: mobile ? 119 : 159,
+        duration: mobile ? 125 : 159,
         ease:'none',
       }, 0)
       .to('.page5MiloSvg', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: mobile ? 119 : 159,
+        duration: mobile ? 125 : 159,
         ease:'none',
       }, 0)
     return tl
@@ -1073,7 +1075,7 @@ export default function Home({ }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
-      <main style={{ height: mobile ? '700svh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -1124,7 +1126,7 @@ export default function Home({ }) {
 
 
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
-          <Page5Milo scrubTl={scrubTl5} transitionTl={transitionTl5} />
+          <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5} />
           <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />

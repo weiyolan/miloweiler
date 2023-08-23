@@ -1,4 +1,6 @@
 // import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
+import { MasterDetailIcon } from '@sanity/icons'
+import { BlockElementIcon } from '@sanity/icons'
 
 export const myStructure = (S, context) => {
   return (
@@ -6,43 +8,94 @@ export const myStructure = (S, context) => {
       .title('Content ~ Enjoy Broertje ❤️')
       .items([
         S.listItem()
+          .title('Main Page')
+          .icon(MasterDetailIcon)
+          .child(
+            S.list()
+              .title('Sections')
+              .items([
+                S.listItem()
+                  .title('1: Behind The Scenes')
+                  .icon(BlockElementIcon)
+                  .child(
+                    S.document()
+                      .schemaType('mainPageXXX')
+                      .documentId('mainPageXXX')),
+                S.listItem()
+                  .title('2: Documentary')
+                  .icon(BlockElementIcon)
+                  .child(
+                    S.document()
+                      .schemaType('mainPageXXX')
+                      .documentId('mainPageXXX')),
+                S.listItem()
+                  .title('3: Fine Art')
+                  .icon(BlockElementIcon)
+                  .child(
+                    S.document()
+                      .schemaType('mainPageXXX')
+                      .documentId('mainPageXXX')),
+                S.listItem()
+                  .title('4: Studio')
+                  .icon(BlockElementIcon)
+                  .child(
+                    S.document()
+                      .schemaType('mainPageXXX')
+                      .documentId('mainPageXXX')),
+                S.listItem()
+                  .title('Outro: Milo')
+                  .icon(BlockElementIcon)
+                  .child(
+                    S.document()
+                      .schemaType('mainPageXXX')
+                      .documentId('mainPageXXX')),
+              ])
+          ),
+        S.listItem()
           .title('Contact Page')
+          .icon(MasterDetailIcon)
           .child(
             S.list()
               .title('Sections')
               .items([
                 S.listItem()
                   .title('Contact Details')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPageCDS')
                       .documentId('contactPageCDS')),
                 S.listItem()
                   .title('Trusted By')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPageTBS')
                       .documentId('contactPageTBS')),
                 S.listItem()
                   .title('Contact Form')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPageAOS')
                       .documentId('contactPageAOS')),
                 S.listItem()
                   .title('Printing Service')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPagePSS')
                       .documentId('contactPagePSS')),
                 S.listItem()
                   .title('Portfolio')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPagePFS')
                       .documentId('contactPagePFS')),
                 S.listItem()
                   .title('Get Inspired')
+                  .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('contactPageGIS')
@@ -51,7 +104,7 @@ export const myStructure = (S, context) => {
           ),
         // S.divider(),
         ...S.documentTypeListItems().filter(
-          (listItem) => !['contactPageGIS','contactPageCDS','contactPageTBS','contactPageAOS','contactPagePSS','contactPagePFS',].includes(listItem.getId()))
+          (listItem) => !['contactPageGIS', 'contactPageCDS', 'contactPageTBS', 'contactPageAOS', 'contactPagePSS', 'contactPagePFS', 'mainPageXXX'].includes(listItem.getId()))
       ])
   )
 }
