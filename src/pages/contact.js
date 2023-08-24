@@ -152,7 +152,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* duration:0.9,  */}
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
+      <ReactLenis root options={{ wheelMultiplier: 0.9,print:false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
         <main className={'bg-[#FFEAD6] relative contact-page overflow-x-hidden'}>
           <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>

@@ -80,17 +80,17 @@ export default function Page5Milo({ scrubTl }) {
   ]
 
   let lettersMobile = [
-    <path key={0}  id="m2" d="M1.5 127.5C68 127.5 61.5 10.4997 96 1.50011C111.256 -2.47949 89.6476 32.1156 96 65.9992C102 98.0033 124.391 123.882 140.5 98C179.5 35.3393 189.76 161.026 226.5 136.503C239.688 127.699 250.817 121.778 264.5 127.5C279.867 133.927 298.207 162.684 321.463 162.684C316.603 151.204 321.083 132.524 326.383 132.524C330.623 132.524 333.363 144.764 334.203 150.884C333.683 145.924 334.073 135.844 339.823 135.244C347.013 134.484 346.823 156.564 347.013 158.774" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={1}  id="i" d="M352.973 150.981C353.323 155.271 353.503 157.061 353.543 157.421" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={2}  id="ib" d="M350.513 137.671C350.573 137.921 350.893 138.181 350.833 138.301" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={3}  id="l" d="M356.763 130.541C358.143 139.631 359.343 152.311 359.973 155.591" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={4}  id="o" d="M374.853 151.371C373.513 155.631 363.643 157.121 365.823 149.231C367.023 146.581 369.103 145.231 371.633 145.381C375.183 145.591 375.833 148.211 374.853 151.371Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={5}  id="w" d="M395.162 129.541C383.612 157.301 392.262 166.891 397.242 158.121C401.232 151.111 401.052 149.821 400.462 150.051C400.172 152.981 403.712 157.741 409.862 154.591C417.402 150.731 418.692 133.581 409.862 128.341" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={6}  id="ei" d="M417.243 148.6C420.213 150.68 424.443 145.63 420.843 145C417.243 144.37 414.533 152.32 420.843 153.83C425.893 155.04 429.343 150.171 430.433 147.591C430.853 149.081 432.413 151.861 433.523 152.571" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={7}  id="ei2" d="M428.223 137.741C429.083 138.601 429.633 138.651 429.803 138.561" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={8}  id="l2" d="M431.562 123.991C433.133 139.841 436.512 147.961 438.002 150.051" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={9}  id="er" d="M441.792 148.601C448.532 146.201 446.322 141.991 444.012 142.991C439.292 145.031 441.322 151.181 446.012 150.991C451.512 150.491 452.512 144.991 451.512 142.991C450.512 140.991 453.512 147.991 453.512 150.491C453.512 150.491 452.902 140.741 461.512 144.491" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
-    <path key={10} id="punt" d="M467.802 150.301V150.291" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={0}  id="m2" d="M1.5 131.779C68 131.779 17.2761 5.22355 63 1.79285C93.5 -0.49559 108.89 72.5 102 97.0053C98.9072 108.006 89.4544 110.008 85 104.505C78 95.8583 95 71.5053 130 73.5053C177 76.1911 160 163.053 209.5 140.781C223.96 134.275 233.817 126.056 247.5 131.779C262.867 138.206 281.207 166.963 304.463 166.963C299.603 155.483 304.083 136.803 309.383 136.803C313.623 136.803 316.363 149.043 317.203 155.163C316.683 150.203 317.073 140.123 322.823 139.523C330.013 138.763 329.823 160.843 330.013 163.053" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={1}  id="i" d="M335.973 155.26C336.323 159.55 336.503 161.34 336.543 161.7" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={2}  id="ib" d="M333.513 141.95C333.573 142.2 333.893 142.46 333.833 142.58" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={3}  id="l" d="M339.763 134.82C341.143 143.91 342.343 156.59 342.973 159.87" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={4}  id="o" d="M357.853 155.65C356.513 159.91 346.643 161.4 348.823 153.51C350.023 150.86 352.103 149.51 354.633 149.66C358.183 149.87 358.833 152.49 357.853 155.65Z" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={5}  id="w" d="M378.162 133.819C366.612 161.579 375.262 171.169 380.242 162.399C384.232 155.389 384.052 154.1 383.462 154.33C383.172 157.26 386.712 162.02 392.862 158.87C400.402 155.01 401.692 137.86 392.862 132.62" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={6}  id="ei" d="M400.243 152.879C403.213 154.959 407.443 149.909 403.843 149.279C400.243 148.649 397.533 156.599 403.843 158.109C408.893 159.319 412.343 154.449 413.433 151.869C413.853 153.359 415.413 156.139 416.523 156.849" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={7}  id="ei2" d="M411.223 142.02C412.083 142.88 412.633 142.93 412.803 142.84" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={8}  id="l2" d="M414.562 128.27C416.133 144.12 419.512 152.24 421.002 154.33" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={9}  id="er" d="M424.792 152.88C431.532 150.48 429.322 146.27 427.012 147.27C422.292 149.31 424.322 155.46 429.012 155.27C434.512 154.77 435.512 149.27 434.512 147.27C433.512 145.27 436.512 152.27 436.512 154.77C436.512 154.77 435.902 145.02 444.512 148.77" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
+    <path key={10} id="punt" d="M450.802 154.58V154.57" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>,
   ]
 
   //==============X FROM CENTER, Y INVERSED FROM TOP============
@@ -99,8 +99,8 @@ export default function Page5Milo({ scrubTl }) {
   let originalY = mobile ? 1 - 0.1 : 0.745
   let originalX = mobile ? 0.65 : 0.7362
   let r2 = mobile ? (434 / 816) : (618 / 816)
-  let r1 = mobile ? (width / (height)) : (width / (height * 2)
-  )
+  let r1 = mobile ? (width / (height)) : (width / (height * 2))
+
   function getY() {
     if (r2 / r1 < 1) {
       return 1 - (originalY - (1 - r2 / r1) / 2) * r1 / r2
@@ -111,26 +111,33 @@ export default function Page5Milo({ scrubTl }) {
     if (r2 / r1 < 1) {
       return originalX
     } else {
+      // console.log(r1)
       return (originalX - (1 - r1 / r2) / 2) * r2 / r1
     }
   }
 
   useEffect(() => {
     let newX = getX()
-    console.log('oldPosition:',myPosition)
-    console.log(newX)
-    
+    let newY = getY()
+
+    // console.log('oldPosition:', myPosition)
+    // console.log(newX, newY)
+
 
     // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
     if (mobile) {
       // console.log('oldPosition:',myPosition)
       // console.log(newX)
 
-      // if (newX!==NaN && Math.abs(newX - myPosition.x) / myPosition.x > 0.05) {
-        setMyPosition({ x: newX, y: getY() })
-      // } else {return}
+      if (Math.abs(newX - myPosition.x) / myPosition.x > 0.05 || Math.abs(newY - myPosition.y) / myPosition.y > 0.05) {
+        setMyPosition({ x: newX, y: newY })
+      }
+      // else if (Math.abs(newY - myPosition.y) / myPosition.y > 0.05) {
+      // setMyPosition(({ x, y }) => { return { x: x, y: newY } })
+      // } 
+      else { return }
     } else {
-      setMyPosition({ x: getX(), y: getY() })
+      setMyPosition({ x: newX, y: newY })
       // console.log(myPosition)
       // console.log({ x: getX(), y: getY() })
     }
@@ -142,9 +149,9 @@ export default function Page5Milo({ scrubTl }) {
     <div className={`page5MiloSvg fixed top-0 w-full h-full`}>
       {mobile
         ?
-        <div className="svgMilo fixed left-0 w-full h-full top-[30vh]">
+        <div className="svgMilo invisible opacity-0 fixed left-0 w-full h-full top-[30vh]">
           {/* w-[69.5vw] */}
-          <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`absolute w-[40vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="171" height="199" viewBox="0 0 171 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`absolute  w-[40vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="171" height="199" viewBox="0 0 171 199" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekeningMobile1">
               <PathGSAPStandalone id="m1" d="M4.42798 1.34537C0.42798 1.34537 -0.0710441 36.8453 2.92895 36.8453C5.92895 36.8453 10.5561 3.84531 7.42809 3.84531C3.42809 3.84531 2.94609 33.8453 7.42809 33.8453C11.9111 33.8453 16.4292 8.34532 11.4292 8.34532C6.42925 8.34532 9.7002 23.8452 17.4296 23.8452C46.7002 26.8455 96.2237 25.3458 86.7002 5.84584C83.0374 -1.65401 67.9957 -2.49706 65.7002 18.3459C60.4138 66.346 110.493 68.5543 118.7 108.346C123.33 130.795 106.238 152.002 81.7002 137.845C63.7002 127.461 77.1058 108.845 90.2002 120.845C107.51 136.708 69.5845 187.909 102.7 196.845C135.816 205.781 132 147.5 169.5 147.5" stroke="#FFF5EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 tweens={[{
@@ -152,7 +159,7 @@ export default function Page5Milo({ scrubTl }) {
                   timeline: scrubTl,
                   ratio: 1,
                   attr: {
-                    duration: 30,
+                    duration: 40,
                     ease: 'none',
                     // onStart:()=>{console.log('start One')} 
                   },
@@ -161,7 +168,7 @@ export default function Page5Milo({ scrubTl }) {
               />
             </g>
           </svg>
-          <svg className={`absolute bottom-[-8vh] right-[2vw] w-[110vw] h-auto ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="469" height="164" viewBox="0 0 469 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`absolute bottom-[-8vh] right-[2vw] w-[105vw] h-auto ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="452" height="168" viewBox="0 0 452 168" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekeningMobile2">
               {lettersMobile.map((letter, i) => {
                 // console.log(letter.props)
@@ -170,19 +177,19 @@ export default function Page5Milo({ scrubTl }) {
                   timeline: scrubTl,
                   ratio: 1,
                   attr: {
-                    duration: i === 0 ? 60 : 4,
+                    duration: i === 0 ? 70 : 4,
                     ease: 'none',
                   },
-                  position: i === 0 ? 30 : (90 + 4 * (i-1)),
+                  position: i === 0 ? 45 : (115 + 4 * (i - 1)),
                 }]} />
               })}
             </g>
           </svg>
         </div>
         : <div className="svgMilo fixed left-0 w-full h-full top-[30vh]">
-          <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}vh)` }} className={`absolute -translate-y-full w-[69.5vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="1084" height="332" viewBox="0 0 1084 332" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(30vh + ${myPosition.y * 100}vh)` }} className={`absolute -translate-y-full w-[69.5vw] h-auto  ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="1084" height="538" viewBox="0 0 1084 538" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekening1">
-              <PathGSAPStandalone id="m1" d="M4.42791 272.701C0.427905 272.701 -0.070996 308.202 2.929 308.202C5.929 308.202 10.5559 275.201 7.42791 275.201C3.42791 275.201 2.94591 305.202 7.42791 305.202C11.9109 305.202 16.429 279.701 11.429 279.701C6.429 279.701 9.00002 295.201 17.429 295.201C111.5 295.201 289.022 226.942 279 287.383C268.368 351.502 318.206 332.548 351.5 287.383C387.721 238.248 404.5 152.5 376 159.5C357.5 164.044 371.048 196.694 393.5 191C462.5 173.5 412.5 51 519.5 1.5" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              <PathGSAPStandalone id="m1" d="M4.42791 478.701C0.427905 478.701 -0.070996 514.202 2.929 514.202C5.929 514.202 10.5559 481.201 7.42791 481.201C3.42791 481.201 2.94591 511.202 7.42791 511.202C11.9109 511.202 16.429 485.701 11.429 485.701C6.429 485.701 9.00002 501.201 17.429 501.201C111.5 501.201 289.022 432.942 279 493.383C268.368 557.502 318.206 538.548 351.5 493.383C387.721 444.248 404.5 358.5 376 365.5C357.5 370.044 371.048 402.694 393.5 397C462.5 379.5 412.5 257 519.5 207.5C603.9 171.1 597.333 55 583.5 1.5" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 tweens={[{
                   id: 'letterTweenM1',
                   timeline: scrubTl,
@@ -210,7 +217,7 @@ export default function Page5Milo({ scrubTl }) {
                     ease: 'none',
                     // onStart:()=>{console.log('start One')} 
                   },
-                  position: i === 0 ? 50 : (100 + 6 * (i-1)),
+                  position: i === 0 ? 50 : (100 + 6 * (i - 1)),
                 }]} />
               })}
             </g>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from '@/components/line/pathUtils'

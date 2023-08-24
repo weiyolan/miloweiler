@@ -100,7 +100,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           <div className={`absolute h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex flex-col justify-between p-2 sm:p-4`}>
             <h2 className={`text-left font-lora text-base md:text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
               {/* {console.log(project)} */}
-              {project.title}
+              {project?.title}
               {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
             </h2>
             <div className='text-right font-lora'>
@@ -115,8 +115,21 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           </div>
         </div>
       </div>
+      
+      <div className='mt-2 text-left '>
+        
+      <h2 className={` font-lora text-base font-semibold md:text-xl invert-0 duration-500`}>
+              {/* {console.log(project)} */}
+              {project?.title}
+            </h2>
+      <h3 className='font-lora text-base md:text-xl font-semibold'>
+        {`By: ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
+      </h3>
+      <p>
+      {project?.description?.[locale] || ''}
+      </p>
+      </div>
     </div>
-
   )
 }
 function Detail({ title, text }) {

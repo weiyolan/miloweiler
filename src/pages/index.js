@@ -40,6 +40,7 @@ import Page3Animals from '@/components/line/Page3Animals'
 import ScrollVisual from '@/components/line/ScrollVisual'
 import FadeDiv from '@/components/FadeDiv'
 import Line from '@/components/Line'
+import ScrollDown from '@/components/ScrollDown'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -184,7 +185,9 @@ export default function Home({ }) {
   // }, [screenHeight])
 
   function scrubIntro() {
-    let tl = gsap.timeline({ ease: 'power1.out' })
+    let tl = gsap.timeline({ ease: 'power1.out',
+    //  onStart:()=>{gsap.getById('scrollDown').pause().progress(0)} 
+    })
       .to('.pageIntro', {
         y: '-10vh',
         duration: 1,
@@ -227,7 +230,7 @@ export default function Home({ }) {
   }
   // ============================= page1 =============================
   function showPage1() { // SCALE = 2s
-    let tl = gsap.timeline()
+    let tl = gsap.timeline({id:'showPage1Tl'})
       // .to(['.svgPage2'],
       .to(['.page1MoonSvg'],
         {
@@ -302,12 +305,18 @@ export default function Home({ }) {
         ease: 'power.out'
       }, 0)
       .to(['.introSvg'], {
-        y: mobile ? '-85vh' : '-160vh',
-        autoAlpha: 0,
+        y: mobile ? '-20lvh' : '-160vh',
+        yPercent: mobile?-100:0,
         // y:'-30vh',
         duration: 0.7
         // ease: 'ease.in'
       }, 0)
+      // .to(['.scrollDownSvg'], {
+      //   autoAlpha: 0,
+      //   yPercent:-50,
+      //   duration: 0.3
+      //   // ease: 'ease.in'
+      // }, 0)
       .to(['.titleContainer'], {
         autoAlpha: 0,
         // y:'-30vh',
@@ -319,13 +328,19 @@ export default function Home({ }) {
         duration: 0.7,
         // ease: 'ease.in'
       }, 0.4)
+      .to(['.introSvg'], {
+        autoAlpha: 0,
+        // y:'-30vh',
+        duration: 0.2
+        // ease: 'ease.in'
+      }, 0.9)
     return tl
   }
   function scrubPage1() {
-    let tl = gsap.timeline({ ease: 'power1.out' })
+    let tl = gsap.timeline({id:'moonScrubTl', ease: 'power1.out' })
       .to('.page1Inner', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: 3.3,
+        duration: 6.3,
         ease:'none',
         // ease: 'power.out'
         // duration:1,
@@ -333,12 +348,13 @@ export default function Home({ }) {
       }, 0)
       .to('.page1starsInner', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: 3.3,
+        duration: 6.3,
         ease:'none',
         // ease: 'power.out'
         // duration:1,
         // ease: 'ease.in'
       }, 0)
+      .addLabel('start',0)
     // .to('.page1',
     //   {
     //     y: '-=30px',
@@ -716,9 +732,11 @@ export default function Home({ }) {
       }, 0)
       .to('.svgMilo', {
         y: '-30vh',
+        autoAlpha:1,
         duration: 2,
         ease: 'ease.out'
       }, 0)
+      
     return tl
   }
   function showInfo5() {
@@ -767,12 +785,17 @@ export default function Home({ }) {
     let tl = gsap.timeline({ ease: 'power1.out' })
       .to('.page5Inner', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: mobile ? 125 : 159,
+        duration: mobile ? 145 : 159,
         ease:'none',
       }, 0)
       .to('.page5MiloSvg', {
         y: mobile ? '-10lvh' : '-5vh',
-        duration: mobile ? 125 : 159,
+        duration: mobile ? 145 : 159,
+        ease:'none',
+      }, 0)
+      .to('.svgMilo', {
+        opacity:1,
+        duration: 5,
         ease:'none',
       }, 0)
     return tl
@@ -947,7 +970,8 @@ export default function Home({ }) {
             invalidateOnRefresh: false,
             overwrite: true,
             // preventOverlaps: true,
-          }
+          },
+          onStart:()=>{gsap.getById('scrollDown')?.pause()}
         });
 
       let animation1 = scrubPage1().paused(true).progress(0);
@@ -956,6 +980,7 @@ export default function Home({ }) {
         {
           progress: 1,
           ease: 'none',
+          id:'moonScrubTlId',
           scrollTrigger: {
             id: 'moonScrub',
             start: () => `bottom+=${0.90 * screenHeight} bottom`,
@@ -1095,7 +1120,7 @@ export default function Home({ }) {
 
           <Background type='both' priority={mobile} amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
-          <Background type='bottom' priority={mobile} amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
+          <Background type='bottom' priority={true} amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
           <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
           {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}
@@ -1124,7 +1149,6 @@ export default function Home({ }) {
           <Page1Moon style={{ transform: 'translate3d(-50%,0,0)' }} animationName='page1MoonSvg' className={'flex w-[115.86vw] left-1/2  fixed'} scrubTl0={scrubTl0} scrubTl1={scrubTl1} transitionTl={transitionTl1} />
           <Page0Logo style={{ transform: 'translate3d(-50%,-46.5%,0)' }} className={'introSvg flex w-[115.86vw] left-1/2 top-[50lvh] md:top-1/2  fixed'} introAnimationTl={introAnimationTl} />
 
-
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5} />
           <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
@@ -1144,6 +1168,7 @@ export default function Home({ }) {
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-12 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
+          <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-1/2 bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx}/>
 
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}

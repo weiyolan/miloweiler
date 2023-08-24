@@ -20,7 +20,7 @@ export default function Page1Photos({ animateName, timeline }) {
 
   return (
     // <>
-    <Parallax xs duration={3.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-primary `}>
+    <Parallax xs duration={6.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-primary `}>
       <div className='page1photosContainerInner w-full h-full'>
         <Page1Image alt='' src='/images/page1photo6.jpg' width='265' height='366' className={`depth3btsPhotos  w-[calc(7.50vw+12vw)] xs:w-[calc(7.50vw+5vw)] md:w-[7.5vw] absolute left-[calc(40%+37%)] md:left-[40%] top-[calc(22lvh+5lvh)] md:top-[calc(22%+0%)]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />
         <Page1Image alt='' src='/images/page1photo12.jpg' width='265' height='366' className={`depth3btsPhotos w-[calc(5.00vw+12vw)] xs:w-[calc(5.00vw+5vw)]   md:w-[5vw] absolute left-[calc(62%-8%)] md:left-[62%]  top-[calc(28lvh-3lvh)] md:top-[calc(28%+0%)]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />
