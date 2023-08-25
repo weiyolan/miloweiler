@@ -154,25 +154,25 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
     </div>
   )
 }
-function Detail({ title, text }) {
+// function Detail({ title, text }) {
 
-  let string;
+//   let string;
 
-  if (text.length === 1) {
-    string = text[0]
-  } else if (text.length === 2) {
-    string = text[0] + ' and ' + text[1]
-  }
-  else {
-    // console.log(text)
-    let firsts = text.slice(0, -1)
-    string = firsts.join(', ') + ' and ' + text.slice(-1)
-  }
+//   if (text.length === 1) {
+//     string = text[0]
+//   } else if (text.length === 2) {
+//     string = text[0] + ' and ' + text[1]
+//   }
+//   else {
+//     // console.log(text)
+//     let firsts = text.slice(0, -1)
+//     string = firsts.join(', ') + ' and ' + text.slice(-1)
+//   }
 
-  return (
-    <h3 className='text-base mobm:text-xl leading-4'>{title + ': '}<Span detail text={string} /></h3>
-  )
-}
+//   return (
+//     <h3 className='text-base mobm:text-xl leading-4'>{title + ': '}<Span detail text={string} /></h3>
+//   )
+// }
 
 function Span({ text, detail }) {
   return <span className={`font-pop font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>

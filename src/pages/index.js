@@ -37,15 +37,16 @@ import Page0Logo from '@/components/line/Page0Logo'
 import Page1Moon from '@/components/line/Page1Moon'
 import Page2Waves from '@/components/line/Page2Waves'
 import Page3Animals from '@/components/line/Page3Animals'
-import ScrollVisual from '@/components/line/ScrollVisual'
+// import ScrollVisual from '@/components/line/ScrollVisual'
 import FadeDiv from '@/components/FadeDiv'
-import Line from '@/components/Line'
+// import Line from '@/components/Line'
 import ScrollDown from '@/components/ScrollDown'
+import client from '../../lib/sanity'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Home({ }) {
+export default function Home({ projects}) {
   const { scrolled, width: screenWidth, height: screenHeight, // mobileHeight: screenHeight,
   } = useAppContext();
   // let svgRef = useRef(null)
@@ -1162,11 +1163,11 @@ export default function Home({ }) {
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
-          <Page2Photos />
+          <Page2Photos projects={projects.filter((project)=>project.cat==='docu')} />
           <PageDescription shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           {/* -73.7% */}
-          <Page1Photos timeline={scrubTl1} />
+          <Page1Photos timeline={scrubTl1} projects={projects.filter((project)=>project.cat==='bts')} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
@@ -1188,11 +1189,10 @@ export default function Home({ }) {
 
 
 export async function getStaticProps() {
-  // const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
+  const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
 
   return {
-    props: {
-    }
+    props: {projects:projects}
   };
 }
 

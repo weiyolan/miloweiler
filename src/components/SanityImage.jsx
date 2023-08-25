@@ -2,7 +2,7 @@ import React from 'react'
 import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
-import { imageUrlBuilder} from '@sanity/image-url';
+// import { imageUrlBuilder} from '@sanity/image-url';
 
 export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, print, onLoad, containerClass, className, name, move, intrinsic, ...props }) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);

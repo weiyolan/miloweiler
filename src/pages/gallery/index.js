@@ -1,12 +1,12 @@
-import ArrowLink from '@/components/ArrowLink';
+// import ArrowLink from '@/components/ArrowLink';
 import Logo from '@/components/Logo';
 import ProjectThumb from '@/components/ProjectThumb';
 import { useAppContext } from '@/utils/appContext';
 import { PageWrapper } from '@/utils/pageContext';
 import { gsap } from 'gsap';
 import Head from 'next/head';
-import React, { useEffect, useRef, useState } from 'react'
-import client from '../../../lib/sanity'
+import React, { useEffect, useRef, useState } from 'react';
+import client from '../../../lib/sanity';
 import Footer2 from '@/components/Footer2';
 import Navigation from '@/components/Navigation';
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
