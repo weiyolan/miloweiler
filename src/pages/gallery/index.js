@@ -11,6 +11,7 @@ import Footer2 from '@/components/Footer2';
 import Navigation from '@/components/Navigation';
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import NavigationMobile from '@/components/NavigationMobile';
+import Layout from '@/components/Layout';
 
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
@@ -86,18 +87,19 @@ export default function Gallery({ projects }) {
         bg-gradient-to-br from-primary to-[#FFEAD6]  */}
         <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
           <PageWrapper darkMode={darkMode}>
-            <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
-            <h1 className={` font-lora text-center font-semibold text-3xl mb-2 pt-3 d:mb-0 md:invisible `}>Gallery</h1>
-
-            <div ref={gallery} className='w-full md:w-4/5 mx-auto relative grid gap-1 p-1 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 '>
-              {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
-            </div>
-            {/* <div className='flex gap-8 py-8 relative'>
+            <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
+              <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
+              <h1 className={` font-lora text-center font-semibold text-3xl mb-2 pt-3 md:invisible `}>Gallery</h1>
+              <h2> Have a look at my projects. </h2>
+              <div ref={gallery} className='w-full mx-auto relative grid gap-1 sm:gap-8 p-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 '>
+                {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
+              </div>
+              {/* <div className='flex gap-8 py-8 relative'>
               <div className='columns-1 w-1/5'>
                 {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
               </div>
             </div> */}
-
+            </Layout>
 
             <Footer2 className={`relative`} noMotion noMargin />
 
@@ -110,7 +112,7 @@ export default function Gallery({ projects }) {
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, subTitle, by, cat, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
+  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
   // console.log(projects)
 
   // function artificialProjects (length) {
