@@ -3,11 +3,12 @@ import { usePageContext } from '@/utils/pageContext'
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import useDimensions from '@/utils/useDimensions'
+import { AiFillCaretLeft } from 'react-icons/ai'
 
 export default function ProjectDescriptionBottom({ project, setPosition, setAnimateDescription }) {
   const { locale, width, height } = useAppContext()
   const { darkMode, descriptionOpen, setDescriptionOpen } = usePageContext()
-  let [hovering,setHovering] = useState(false)
+  let [hovering, setHovering] = useState(false)
   let [loaded, setLoaded] = useState(false)
   let textRef = useRef(null)
   const descriptionRef = useRef(null)
@@ -20,7 +21,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
 
   useEffect(() => {
     setLoaded(true)
-    return () => {ctx.current.revert();setLoaded(false)};
+    return () => { ctx.current.revert(); setLoaded(false) };
   }, []);
 
   useEffect(() => {
@@ -29,21 +30,39 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
         // x: selected === id ? 200 : 0,
         yPercent: descriptionOpen ? -100 : 0,
         // height:'auto',
-        autoAlpha:loaded?1:0,
+        autoAlpha: loaded ? 1 : 0,
         // borderRadius: descriptionOpen ? 0 : '0px 0px 30px 30px',
-        y: descriptionOpen ? (hovering?8:0) : (-height+descriptionTop + (hovering?-8:0)),
+        y: descriptionOpen ? (hovering ? 8 : 0) : (-height + descriptionTop + (hovering ? -8 : 0)),
         // translateY: () => width < 350 ? 40 : 56,
-        backgroundColor: hovering? 'rgba(0,0,0,0.5)' : descriptionOpen ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.4)',
+        backgroundColor: hovering ? 'rgba(0,0,0,0.5)' : descriptionOpen ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.4)',
         scale: 1,
         ease: 'expo.out',
         duration: 0.7,
         onComplete: () => setAnimateDescription(false)
       });
+
+      gsap.to('.arrowOpen', {
+        scale: hovering ? 1.1 : 1,
+        opacity: hovering ? 0.3 : 0.1,
+        ease: 'expo.out',
+        duration: 0.6,
+      });
+      gsap.to('.arrowOpen', {
+        y: descriptionOpen ? (hovering ? +6 : 0) : (hovering ? -6 : 0),
+        ease: 'elastic.out(1.5, 0.5)',
+        duration: 0.6,
+        // onComplete: () => setAnimateDescription(false)
+      });
+      gsap.to('.arrowOpenPath', {
+        attr: {d:descriptionOpen?"M17.884 19.1903L32.3511 2.48187C33.1922 1.51037 32.5021 0 31.2171 0H2.28292C0.997868 0 0.307762 1.51037 1.14894 2.48187L15.616 19.1903C16.2142 19.8812 17.2858 19.8812 17.884 19.1903Z":"M17.884 1.30968L32.3511 18.0181C33.1922 18.9896 32.5021 20.5 31.2171 20.5H2.28292C0.997868 20.5 0.307762 18.9896 1.14894 18.0181L15.616 1.30968C16.2142 0.618837 17.2858 0.618839 17.884 1.30968Z"},
+        ease: 'expo.out',
+        duration: 0.6,
+      });
     });
   }, [descriptionBottom, descriptionOpen, hovering, loaded]);
 
   useEffect(() => {
-    setPosition({ width: descriptionWidth, height: descriptionHeight, top:descriptionTop, bottom:descriptionBottom })
+    setPosition({ width: descriptionWidth, height: descriptionHeight, top: descriptionTop, bottom: descriptionBottom })
     // console.log(descriptionTop)
     // console.log(height)
   }, [descriptionBottom])
@@ -83,8 +102,8 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
 
     <div ref={descriptionRef} className='description-box opacity-0 invisible relative w-full -translate-y-16 bg-black/40 shadow-top-2xl backdrop-blur cursor-pointer rounded-t-[40px] pt-4 px-10 pb-10'
       // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
-      onMouseEnter={()=>setHovering(true)}
-      onMouseLeave={()=>setHovering(false)}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
       onClick={handleClick}
     >
 
@@ -99,9 +118,17 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
         </h1>
         <h2>
           <Span text='by' />
-          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
+          {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
         </h2>
       </div>
+
+      {/* <AiFillCaretLeft className='arrowOpen absolute rotate-90 top-1 left-1/2 -translate-x-1/2  opacity-30 w-10 h-10'/> */}
+      <svg className='arrowOpen absolute  top-1.5 left-1/2 -translate-x-1/2  opacity-30 w-8 h-8' width="33" height="21" viewBox="0 0 33 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path className='arrowOpenPath' d="M17.884 1.30968L32.3511 18.0181C33.1922 18.9896 32.5021 20.5 31.2171 20.5H2.28292C0.997868 20.5 0.307762 18.9896 1.14894 18.0181L15.616 1.30968C16.2142 0.618837 17.2858 0.618839 17.884 1.30968Z" fill="#D9D9D9" />
+        {/* <path d="M17.884 19.1903L32.3511 2.48187C33.1922 1.51037 32.5021 0 31.2171 0H2.28292C0.997868 0 0.307762 1.51037 1.14894 2.48187L15.616 19.1903C16.2142 19.8812 17.2858 19.8812 17.884 19.1903Z" fill="#D9D9D9"/> */}
+      </svg>
+
+      {/* <div></div> */}
       {/* <Line className={`border-spacing-2 `}/> */}
 
       <div className="flex flex-row gap-4 relative font-lora ">
@@ -119,7 +146,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
 
         <div className="w-full md:w-2/3 text-lg font-pop ignore-swipe font-extralight text-justify  whitespace-pre-wrap">
           {/* <h3 className="font-lora text-xl">About: </h3> */}
-          <p  ref={textRef} className='text-xs md:text-sm ignore-swipe first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>{project?.description?.[locale] || ''}</p>
+          <p ref={textRef} className='text-xs md:text-sm ignore-swipe first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>{project?.description?.[locale] || ''}</p>
         </div>
       </div>
     </div>

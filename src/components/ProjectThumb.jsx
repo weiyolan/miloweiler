@@ -141,8 +141,8 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           {/* <h3 className='font-lora text-base md:text-xl font-semibold'>
           {`By: ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
         </h3> */}
-          <p className='font-pop font-normal text-sm text-justify line-clamp-3'>
-            {project?.description && project.description?.[locale].slice(0,120) || ''}
+          <p className='font-pop font-normal text-sm line-clamp-3 '>
+            {project?.description?.[locale] && project.description[locale].slice(0,120) || ''}
             {/* {console.log(project?.description?.[locale].slice(0, 20))} */}
           </p>
         </Link>

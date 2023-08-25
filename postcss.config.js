@@ -1,6 +1,8 @@
 module.exports = {
   plugins: {
     tailwindcss: {},
-    autoprefixer: {},
+    autoprefixer: {},    
+    // require('@tailwindcss/deprecation-warnings'),
+
   },
 }

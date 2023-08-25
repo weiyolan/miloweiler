@@ -96,7 +96,7 @@ export default function ScrollDown({ className, style, ctx }) {
 
   return (
     // <div style={style} className={`${className && className}`} onClick={()=>{console.log( gsap.getById('showPage1Tl').scrollTrigger.labelToScroll("myLabel")});}}>
-    <div style={style} className={`${className && className}`} onClick={()=>{gsap.to(window, {duration:0.5,scrollTo:height})}}>
+    <div style={style} className={`${className && className}`} onClick={()=>{gsap.to(window, {duration:0.5,scrollTo:0.90  *height})}}>
       {/* <svg className={`scrollDownSvgInner w-full h-full relative top-0 `} width="17" height="109" viewBox="0 0 17 109" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.49951 1.03123C8.51676 0.479219 8.08325 0.0177384 7.53123 0.000487924C6.97922 -0.0167626 6.51774 0.41675 6.50049 0.968765L8.49951 1.03123ZM7.5 109L13.7758 99.3073L2.24381 98.7187L7.5 109ZM6.50049 0.968765C5.99673 17.0891 8.13972 25.9585 10.4281 32.6966C12.7217 39.4498 15 43.7156 15 51H17C17 43.2844 14.5283 38.5502 12.3219 32.0534C10.1103 25.5415 8.00327 16.9109 8.49951 1.03123L6.50049 0.968765ZM15 51C15 58.082 11.5019 62.0839 7.79289 65.7929C4.14908 69.4367 0 72.999 0 79H2C2 74.001 5.35092 71.0633 9.20711 67.2071C12.9981 63.4161 17 58.918 17 51H15ZM0 79C0 82.7846 1.63774 85.7768 3.23334 88.8661C4.84466 91.9858 6.50603 95.3459 6.96342 100.107L8.95426 99.9158C8.45808 94.7509 6.64003 91.1036 5.01032 87.9483C3.3649 84.7625 2 82.212 2 79H0Z" fill="#FFF5EA" />
       </svg> */}

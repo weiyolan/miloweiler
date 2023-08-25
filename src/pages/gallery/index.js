@@ -89,9 +89,9 @@ export default function Gallery({ projects }) {
           <PageWrapper darkMode={darkMode}>
             <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
               <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
-              <h1 className={` font-lora text-center font-semibold text-3xl mb-2 pt-3 md:invisible `}>Gallery</h1>
+              <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>Gallery</h1>
               <h2> Have a look at my projects. </h2>
-              <div ref={gallery} className='w-full mx-auto relative grid gap-1 sm:gap-8 p-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3  md:grid-cols-4 '>
+              <div ref={gallery} className='w-full mx-auto relative grid gap-4 sm:gap-8 py-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 '>
                 {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
               </div>
               {/* <div className='flex gap-8 py-8 relative'>
