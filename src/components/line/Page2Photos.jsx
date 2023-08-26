@@ -28,7 +28,7 @@ export default function Page2Photos({ className, animateName, projects }) {
 
     let newLscape = shuffle([...images])
 
-    newLscape && setImages(newLscape)
+    newLscape && setImages(newLscape.slice(0,12))
   }, [])
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Page2Photos({ className, animateName, projects }) {
 
   return (
     <FadeDiv amount={10} className={'w-[90%] md:w-[75vw] overflow-hidden page2photosContainer fixed h-[20lvh] md:h-[20vh] left-1/2 -translate-x-1/2 top-[66lvh] md:top-1/2 -translate-y-1/2'} type='leftRight' >
-      <div className={`flex w-[140vw] h-full page2photosContainerInner`}>
+      <div className={`flex w-[140vw] h-full page2photosContainerInner opacity-0 invisible `}>
         <PageImage alt='' slug={images[0].slug} image={images[0].image} src='/images/page1photo11.jpg' className={``} style={{}} />
         <PageImage alt='' slug={images[1].slug} image={images[1].image} src='/images/page1photo2.jpg' className={``} style={{}} />
         <PageImage alt='' slug={images[2].slug} image={images[2].image} src='/images/page1photo10.jpg' className={``} style={{}} />
@@ -64,7 +64,7 @@ export default function Page2Photos({ className, animateName, projects }) {
 
 function PageImage({ className, slug, ...props }) {
   return (
-    <div className={`relative flex-1 `}>
+    <div className={`relative flex-1`}>
       <Link href={`/gallery/${slug}`}>
         <SanityImage fill containerClass='rounded-none' className={`select-none page2photos opacity-0 invisible hover:cursor-pointer ${className} object-cover object-center`} sizes='(max-width: 640px) 50vw, 15vw' {...props} />
       </Link>

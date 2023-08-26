@@ -28,7 +28,7 @@ export default function Page1Photos({ animateName, timeline, projects }) {
     let newLscape = shuffle([...images.lscape])
     let newPortrait = shuffle([...images.portrait])
 
-    newLscape && setImages({ lscape: newLscape, portrait: newPortrait })
+    newLscape && setImages({ lscape: newLscape.slice(0,8), portrait: newPortrait.slice(0,4) })
   }, [])
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Page1Photos({ animateName, timeline, projects }) {
 
   return (
     // <>
-    <Parallax xs duration={6.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-primary `}>
+    <Parallax s duration={6.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-primary `}>
       <div className='page1photosContainerInner w-full h-full'>
         <Page1Image alt='' src='/images/page1photo6.jpg' image={images.lscape[0].image} slug={images.lscape[0].slug} width='265' height='366' className={`depth3btsPhotos  w-[calc(7.50vw+12vw)] xs:w-[calc(7.50vw+5vw)] md:w-[7.5vw] absolute left-[calc(40%+37%)] md:left-[40%] top-[calc(22lvh+5lvh)] md:top-[calc(22%+0%)]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />
         <Page1Image alt='' src='/images/page1photo12.jpg' image={images.lscape[1].image} slug={images.lscape[1].slug} width='265' height='366' className={`depth3btsPhotos w-[calc(5.00vw+12vw)] xs:w-[calc(5.00vw+5vw)]   md:w-[5vw] absolute left-[calc(62%-8%)] md:left-[62%]  top-[calc(28lvh-3lvh)] md:top-[calc(28%+0%)]`} style={{}} sizes='(max-width: 648px) 20vw, 10vw' />

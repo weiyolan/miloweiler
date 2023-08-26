@@ -108,19 +108,20 @@ export default function Page2Waves({ className, style, scrubTl, transitionTl, an
             {/* <g id="mobilePage" clipPath="url(#clip0_894_1488)"> */}
             {wavesMobile.map((wavePath, i) => <PathGSAPStandalone tweens={[{ timeline: transitionTl, id: `wave${i}Transition`, ratio: 1, attr: { duration: 1, ease: 'none' }, position: 1.4 + (i) * 0.1 }]}
               className='' transitStrokeAnimation transitPortion={0.6} scrolled={0} key={'wavePath' + i} id={'wavePath' + i} d={wavePath} />)}
-            <g className="fishGroup translate-y-24">
+            
+            {/* <g className="fishGroup translate-y-24">
               <PathGSAPStandalone tweens={fishTweens} inverse={true} transitStrokeAnimation transitPortion={0.52} id="toFish" d="M373.923 497.58L386.298 484.19C383.456 484.45 378.901 485.48 373.923 485.64C367.923 485.64 361.584 484.05 356.022 479.1C345.923 470.12 361.923 458.12 370.179 470.73C372.692 474.57 372.434 478.13 372.037 484.19C370.3 510.68 391.465 505.08 398.423 500.62C415.603 489.61 401.694 471 408.731 464.96C415.768 458.91 429.067 478.13 440.71 468.72" stroke={colorPrimary} strokeWidth="2" />
               <path opacity={0} id="fish" d="M371.407 485.33C365.796 484.75 359.964 482.8 355.9 477.35C346.177 464.31 367.238 459.62 370.749 470.28C372.33 475.08 371.259 479.94 371.407 485.33ZM371.407 485.33C377.022 485.91 382.415 485.13 385.598 485.13L371.81 498.92L371.407 485.33Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" />
               <path opacity={0} id="alongPath" d="M368.423 479.62C344.923 459.12 346.423 433.12 316.923 433.12C299.923 433.12 266.423 442.12 266.423 468.62" stroke="black" />
-              {/* <path id="fishFinal" d="M361.65 473.31C359.993 473.14 358.597 470.48 357.397 468.87C354.526 465.02 358.86 466.55 359.897 469.7C360.364 471.11 361.606 471.72 361.65 473.31ZM361.65 473.31C363.308 473.48 358.957 471.2 359.897 471.2L358.397 469.7L361.65 473.31Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" /> */}
-            </g>
+              <path id="fishFinal" d="M361.65 473.31C359.993 473.14 358.597 470.48 357.397 468.87C354.526 465.02 358.86 466.55 359.897 469.7C360.364 471.11 361.606 471.72 361.65 473.31ZM361.65 473.31C363.308 473.48 358.957 471.2 359.897 471.2L358.397 469.7L361.65 473.31Z" stroke={colorPrimary} strokeWidth="2" strokeLinecap="round" />
+            </g> */}
             {/* </g> */}
 
-            <defs>
+            {/* <defs>
               <clipPath id="clip0_894_1488">
                 <rect width="569" height="511" fill="white" />
               </clipPath>
-            </defs>
+            </defs> */}
           </svg>
 
           <svg className={`${animationName}Inner w-full h-full absolute top-[10lvh]`} alt='fish animation' width="569" height="511" viewBox="0 0 569 511" fill="none" xmlns="http://www.w3.org/2000/svg">

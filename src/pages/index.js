@@ -42,11 +42,12 @@ import FadeDiv from '@/components/FadeDiv'
 // import Line from '@/components/Line'
 import ScrollDown from '@/components/ScrollDown'
 import client from '../../lib/sanity'
+import PageIndicator from '@/components/PageIndicator'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Home({ projects}) {
+export default function Home({ projects }) {
   const { scrolled, width: screenWidth, height: screenHeight, // mobileHeight: screenHeight,
   } = useAppContext();
   // let svgRef = useRef(null)
@@ -143,20 +144,7 @@ export default function Home({ projects}) {
   let svgScrubAmount = 100; //in px
   // let svgWidthFactor = viewBoxWidth / (1.157*screenWidth) || 1;
 
-  // useEffect(() => {
-  // console.log(svgWidth, svgHeight, svgWidth/screenWidth)
-  // console.log(svgTop)
-  // let height = document.getElementById('dropHeight').getBoundingClientRect().height
-  // console.log(height, svgHeight, height/svgHeight, svgWidthFactor) 
-  // }, [svgWidth, svgHeight, footerHeight, svgTop])
-
-  // useEffect(() => {
-  //   let newSvgTop = document.getElementById('referenceSvg').getBoundingClientRect().top;
-  //   // console.log(newSvgTop, svgHeight)
-  //   if (newSvgTop?.toFixed(0) !== svgTop?.toFixed(0)) {
-  //     setSvgTop(newSvgTop)
-  //   }
-  // }, [svgWidth, svgHeight, footerHeight, mobile])
+ 
 
   // useEffect(() => {
   //   function handleSize() {
@@ -164,10 +152,8 @@ export default function Home({ projects}) {
   //     let height = bbox.bottom - bbox.top;
   //     let width = bbox.width;
   //     // let top = bbox.top;
-
   //     console.log('RESIZE')
   //     console.log(height)
-
   //     if (height >= 0 && height.toFixed(0) !== svgHeight?.toFixed(0) && setSvgHeight !== undefined) {
   //       setSvgHeight(height)
   //       setSvgWidth(width)
@@ -176,7 +162,6 @@ export default function Home({ projects}) {
   //     //   setSvgTop(top)
   //     // }
   //   }
-
   //   window.addEventListener('resize', handleSize)
   //   handleSize()
   //   return () => { window.removeEventListener('resize', handleSize) }
@@ -263,8 +248,7 @@ export default function Home({ projects}) {
         ease: 'power2.out',
         autoAlpha: 1,
         duration: 1
-      }
-        , 0.3)
+      }, 0.3)
 
     return tl
   }
@@ -400,12 +384,22 @@ export default function Home({ projects}) {
       //     duration: 1,
       //     y: () => { return `-${(mobile ? 0.35798 : 0.4432) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px` }, //ABS -svgScrubAmount from moveStar animation (about 100 px)
       //   }, 0)
-      .to(['.page1MoonSvg'],
+
+      // .to(['.page1MoonSvg'],
+      //   {
+      //     duration: 1,
+      //     y: `${svgScrubAmount}px`, //still cancelling out .
+      //     yPercent: (-100 - 0.23864 * 34.176 + 1),
+      //   }, 0)
+
+      .to(['.page1MoonSvgInner2'],
         {
           duration: 1,
-          y: `${svgScrubAmount}px`, //same as before.
-          yPercent: (-100 - 0.23864 * 34.176 + 1),
+          y: `${svgScrubAmount}px`, //Cancelling out the scrub .
+          yPercent: mobile ? (-100 - 0.23864 * 34.176 + 1) + 47 : (-100 - 0.23864 * 34.176 + 1) + 61.3, //cancelling out ypercent
+          // yPercent: (-100 - 0.23864 * 34.176 + 1), //normal 
         }, 0)
+
       .to(['.page2'], {
         y: '-30vh',
         opacity: 1,
@@ -461,6 +455,11 @@ export default function Home({ projects}) {
       // .set('.page2descriptionContainer', {
       //   autoAlpha: 1,
       // }, 0)
+      .to('.page2photosContainerInner', {
+        autoAlpha: 1,
+        duration: 0.3,
+      }, 0.2)
+
       .to('.page2description', {
         autoAlpha: 1,
         y: '-=5px',
@@ -472,6 +471,10 @@ export default function Home({ projects}) {
         stagger: 0.05,
         duration: 1
       }, 0.7)
+      .to('.page2photosContainerInner', {
+        duration: 0.1,
+        background: 'black'
+      }, 1.8)
     return tl
   }
   function hidePage1() {
@@ -494,10 +497,7 @@ export default function Home({ projects}) {
         ease: 'power2.out',
         duration: 1
       }, 0)
-      // .to('.page1MoonSvgInner', {
-      //   y: '-30vh',
-      //   duration: 1,
-      // }, 0)
+
       .to(['.page1feetContainer'],
         {
           // y: '-30vh',
@@ -534,6 +534,11 @@ export default function Home({ projects}) {
         duration: 2,
         ease: 'none',
       }, 0)
+      .to('.page2photosContainerInner', {
+        xPercent: -45,
+        duration: 2,
+        ease: 'expo.inout',
+      }, 0)
     // .to('.page1',
     //   {
     //     y: '-=30px',
@@ -557,9 +562,7 @@ export default function Home({ projects}) {
       //     duration: 2,
       //     y: `-${(mobile ? 0.51 : 0.6056) * svgHeight + svgTop - svgScrubAmount - (screenHeight / 2)}px`, //ABS -svgScrubAmount from moveStar animation (about 100 px)
       //   }, 0)
-      // .to('.page1MoonSvg',{
-      //   y:
-      // })
+
       .to('.page3AnimalsSvg', {
         duration: 2,
         y: '-40vh',
@@ -803,11 +806,133 @@ export default function Home({ projects}) {
       }, 0)
     return tl
   }
+// screenAnimation
+  function scrubScreen1() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3,
+        duration: 1,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  } 
+  //screenAnimation
+  function moveScreen1() {
+    let tl = gsap.timeline()
+      .to('#movingScreens', {
+        yPercent: -17.2 + 3 * 1 + 3 * 1,
+        duration: 0.3,
+        overwrite: false,
+        // ease:'elastic.out(1, 0.5)'
+      }, 0)
+
+    return tl
+  }
+  //screenAnimation
+  function scrubScreen2() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3 * 2 - 3,
+        duration: 6.3,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function moveScreen2() {
+    let tl = gsap.timeline()
+      .to('#movingScreens', {
+        yPercent: -17.2 - 17.2 + 3 * 2 + 3 * 2,
+        duration: 0.3,
+        overwrite: false,
+        // ease:'elastic.out(1, 0.5)'
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function scrubScreen3() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3 * 3 - 3 * 2,
+        duration: 2,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function moveScreen3() {
+    let tl = gsap.timeline()
+      .to('#movingScreens', {
+        yPercent: -17.2 * 3 + 3 * 3 + 3 * 3,
+        duration: 0.3,
+        overwrite: false,
+        // ease:'elastic.out(1, 0.5)'
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function scrubScreen4() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3 * 4 - 3 * 3,
+        duration: 100,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function moveScreen4() {
+    let tl = gsap.timeline()
+      .to('#movingScreens', {
+        yPercent: -17.2 * 4 + 3 * 4 + 3 * 4,
+        duration: 0.3,
+        overwrite: false,
+        // ease:'elastic.out(1, 0.5)'
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function scrubScreen5() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3 * 5 - 3 * 4,
+        duration: 1.6,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function moveScreen5() {
+    let tl = gsap.timeline()
+      .to('#movingScreens', {
+        yPercent: -17.2 * 5 + 3 * 5 + 3 * 4,
+        duration: 0.3,
+        overwrite: false,
+        // ease:'elastic.out(1, 0.5)'
+      }, 0)
+    return tl
+  }
+  //screenAnimation
+  function scrubScreen6() {
+    let tl = gsap.timeline()
+      .to('#movingScreensInner', {
+        yPercent: -3 * 6 - 3 * 4,
+        duration: mobile ? 145 : 159,
+        ease: 'expo.inout',
+        // overwrite: false,
+      }, 0)
+    return tl
+  }
 
   useEffect(() => {
     let ctx = gsap.context(() => {
       // .add(introText(), 0)
-      let transition1 = showPage1().paused(true).add(hideIntro(), 0).add(showInfo1(), 1).progress(0)
+      let transition1 = showPage1().paused(true).add(hideIntro(), 0).add(showInfo1(), 1).add(moveScreen1(), 0).progress(0)
       setTransitionTl1(transition1);
       ScrollTrigger.create({
         start: `bottom bottom-=${0.81 * screenHeight}`,
@@ -836,7 +961,7 @@ export default function Home({ projects}) {
       })
 
 
-      let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1.9).progress(0)
+      let transition2 = showPage2().paused(true).add(hidePage1(), 0).add(hideInfo1(), 0).add(showInfo2(), 1.9).add(moveScreen2(), 0).progress(0)
       setTransitionTl2(transition2)
       ScrollTrigger.create({
         start: () => `bottom+=${1 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -865,7 +990,7 @@ export default function Home({ projects}) {
           })
       })
 
-      let transition3 = showPage3().paused(true).add(hidePage2(), 0).add(hideInfo2(), 0).add(showInfo3(), 4).progress(0)
+      let transition3 = showPage3().paused(true).add(hidePage2(), 0).add(hideInfo2(), 0).add(showInfo3(), 4).add(moveScreen3(), 0).progress(0)
       setTransitionTl3(transition3)
       ScrollTrigger.create({
         start: `bottom+=${2 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -898,7 +1023,7 @@ export default function Home({ projects}) {
           })
       })
 
-      let transition4 = showPage4().paused(true).add(hidePage3(), 0).add(hideInfo3(), 0).add(showInfo4(), 1).progress(0)
+      let transition4 = showPage4().paused(true).add(hidePage3(), 0).add(hideInfo3(), 0).add(showInfo4(), 1).add(moveScreen4(), 0).progress(0)
       setTransitionTl4(transition4)
       ScrollTrigger.create({
         start: `bottom+=${3 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -927,7 +1052,7 @@ export default function Home({ projects}) {
           })
       })
 
-      let transition5 = showPage5().paused(true).add(hidePage4(), 0).add(hideInfo4(), 0).add(showInfo5(), 1).progress(0)
+      let transition5 = showPage5().paused(true).add(hidePage4(), 0).add(hideInfo4(), 0).add(showInfo5(), 1).add(moveScreen5(), 0).progress(0)
       setTransitionTl5(transition5)
       ScrollTrigger.create({
         start: () => `bottom+=${4 * screenHeight} bottom-=${0.81 * screenHeight}`,
@@ -956,7 +1081,7 @@ export default function Home({ projects}) {
           }),
       })
 
-      let animation0 = scrubIntro().paused(true).progress(0);
+      let animation0 = scrubIntro().add(scrubScreen1(), 0).paused(true).progress(0);
       setScrubTl0(animation0);
       gsap.to(animation0,
         // {progress:0}, 
@@ -977,7 +1102,7 @@ export default function Home({ projects}) {
           onStart: () => { gsap.getById('scrollDown')?.pause() }
         });
 
-      let animation1 = scrubPage1().paused(true).progress(0);
+      let animation1 = scrubPage1().add(scrubScreen2(), 0).paused(true).progress(0);
       setScrubTl1(animation1);
       gsap.to(animation1,
         {
@@ -996,7 +1121,7 @@ export default function Home({ projects}) {
           }
         });
 
-      let animation2 = scrubPage2().paused(true).progress(0);
+      let animation2 = scrubPage2().add(scrubScreen3(), 0).paused(true).progress(0);
       setScrubTl2(animation2);
       gsap.to(animation2,
         {
@@ -1014,7 +1139,7 @@ export default function Home({ projects}) {
           }
         });
 
-      let animation3 = scrubPage3().paused(true).progress(0);
+      let animation3 = scrubPage3().add(scrubScreen4(), 0).paused(true).progress(0);
       setScrubTl3(animation3);
       gsap.to(animation3,
         {
@@ -1032,7 +1157,7 @@ export default function Home({ projects}) {
           }
         });
 
-      let animation4 = scrubPage4().paused(true).progress(0);
+      let animation4 = scrubPage4().add(scrubScreen5(), 0).paused(true).progress(0);
       setScrubTl4(animation4);
       gsap.to(animation4,
         {
@@ -1050,7 +1175,7 @@ export default function Home({ projects}) {
           }
         });
 
-      let animation5 = scrubPage5().paused(true).progress(0);
+      let animation5 = scrubPage5().add(scrubScreen6(), 0).paused(true).progress(0);
       setScrubTl5(animation5);
       gsap.to(animation5,
         {
@@ -1135,7 +1260,7 @@ export default function Home({ projects}) {
           <div className='page1feetContainer visible opacity-100'>
             <Image
               // style={{ 'maskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskSize': '100% 100%', 'WebkitMaskImage': `linear-gradient(to bottom, transparent, black ${50}%, black ${100}%)`, 'maskPosition': '0 0', 'maskRepeat': 'no-repeat', }}
-              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[50lvh] fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
+              alt='' src='/images/mainpageMoonFeet.png' width='265' height='366' className={`${scrolled < 0.35 ? 'will-change-transform' : ''} page1feet invisible opacity-0 select-none h-auto w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[50lvh] fixed`} sizes='(max-width: 648px) 60vw, 25vw' />
           </div>
 
           {/* <section style={{ height: svgHeight ? svgHeight + 'px' : '150vh', transform: 'translate3d(-50%,0,0)', top: `calc(50% - ${(mobile ? 0.0596 : 0.043) * svgHeight}px)` }} className='svgPage2 flex w-[115.86vw] left-1/2 mx-auto fixed' >
@@ -1163,15 +1288,17 @@ export default function Home({ projects}) {
           <Page3KakScrub scrubTl={scrubTl3} />
           <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
 
-          <Page2Photos projects={projects.filter((project)=>project.cat==='docu')} />
+          <Page2Photos projects={projects.filter((project) => project.cat === 'docu')} />
           <PageDescription shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
 
           {/* -73.7% */}
-          <Page1Photos timeline={scrubTl1} projects={projects.filter((project)=>project.cat==='bts')} />
+          <Page1Photos timeline={scrubTl1} projects={projects.filter((project) => project.cat === 'bts')} />
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
           <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-1/2 bottom-[20lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
+
+          <PageIndicator className={`fixed top-1/2  right-full md:-right-1 translate-x-full md:translate-x-0 -translate-y-1/2`} />
 
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}
@@ -1192,7 +1319,7 @@ export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
 
   return {
-    props: {projects:projects}
+    props: { projects: projects }
   };
 }
 

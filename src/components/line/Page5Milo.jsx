@@ -168,7 +168,7 @@ export default function Page5Milo({ scrubTl }) {
               />
             </g>
           </svg>
-          <svg className={`absolute bottom-[-8vh] right-[2vw] w-[105vw] h-auto ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="452" height="168" viewBox="0 0 452 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`absolute top-[92lvh] -translate-y-full right-[2vw] w-[105vw] h-auto ${scrolled > 0.79 ? 'will-change-transform' : ''}`} width="452" height="168" viewBox="0 0 452 168" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekeningMobile2">
               {lettersMobile.map((letter, i) => {
                 // console.log(letter.props)

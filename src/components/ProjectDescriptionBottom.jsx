@@ -123,7 +123,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
       </div>
 
       {/* <AiFillCaretLeft className='arrowOpen absolute rotate-90 top-1 left-1/2 -translate-x-1/2  opacity-30 w-10 h-10'/> */}
-      <svg className='arrowOpen absolute  top-1.5 left-1/2 -translate-x-1/2  opacity-30 w-8 h-8' width="33" height="21" viewBox="0 0 33 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className='arrowOpen absolute  top-1.5 left-1/2 -translate-x-1/2  opacity-30 w-6 h-6' width="33" height="21" viewBox="0 0 33 21" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path className='arrowOpenPath' d="M17.884 1.30968L32.3511 18.0181C33.1922 18.9896 32.5021 20.5 31.2171 20.5H2.28292C0.997868 20.5 0.307762 18.9896 1.14894 18.0181L15.616 1.30968C16.2142 0.618837 17.2858 0.618839 17.884 1.30968Z" fill="#D9D9D9" />
         {/* <path d="M17.884 19.1903L32.3511 2.48187C33.1922 1.51037 32.5021 0 31.2171 0H2.28292C0.997868 0 0.307762 1.51037 1.14894 2.48187L15.616 19.1903C16.2142 19.8812 17.2858 19.8812 17.884 19.1903Z" fill="#D9D9D9"/> */}
       </svg>
