@@ -93,6 +93,11 @@ export default function Home({ projects }) {
   // real movile viewbox height = 3335
   let viewBoxHeight = mobile ? 1572 : 1982;
   let svgScrubAmount = 100; //in px
+  let [firstScreenWidth, setFirstScreenWidth] = useState(undefined)
+
+  useEffect(() => {
+    setFirstScreenWidth(window.innerWidth)
+  }, [])
 
   useEffect(() => {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
@@ -111,16 +116,18 @@ export default function Home({ projects }) {
   useEffect(() => {
     function keepScroll() {
       if (window.innerWidth >= 768) {
-        gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 })
+        console.log(window.innerWidth, firstScreenWidth)
+        if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
+          location.reload()
+          gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 })
+        }
       }
     }
-
     window.addEventListener('resize', keepScroll)
 
     keepScroll()
-    return window.removeEventListener('resize', keepScroll)
-
-  }, [])
+    return () => window.removeEventListener('resize', keepScroll)
+  }, [firstScreenWidth])
 
   // useEffect(()=>{
   //   // location.reload()
@@ -1290,8 +1297,8 @@ overscroll-behavior: none;
 -webkit-overflow-scrolling: touch;
 }
   */}
-  {/* onTouchEnd={(e)=>e.preventDefault()} */}
-      <main style={{ height: mobile ? '700vh' : '700vh' }}  className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      {/* onTouchEnd={(e)=>e.preventDefault()} */}
+      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
