@@ -43,13 +43,22 @@ import FadeDiv from '@/components/FadeDiv'
 import ScrollDown from '@/components/ScrollDown'
 import client from '../../lib/sanity'
 import PageIndicator from '@/components/PageIndicator'
+import useMinimizeScroll from '@/utils/useMinimizeScroll'
+import ScrollVisual from '@/components/line/ScrollVisual'
+// import useWindowResize from '@/utils/useWindowResize'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Home({ projects }) {
-  const { scrolled, width: screenWidth, height: screenHeight, // mobileHeight: screenHeight,
+  const { scrolled, width: screenWidth, height: screenHeight,
+    mobileHeight: mobilelvh,
   } = useAppContext();
+
+  // useWindowResize({options:{resize:true}});
+
+  useMinimizeScroll();
+
   // let svgRef = useRef(null)
   // let ctx = useRef()
   // let tl = useRef()
@@ -76,21 +85,46 @@ export default function Home({ projects }) {
   // let [svgViewHeight, setSvgViewHeight] = useState(undefined) //For calculation of FadeDiv
 
   // let [mobile, setMobile] = useState(undefined)
+  let mobile = screenWidth < 768
 
   // let velocity = useRef(0)
   let titleCtx = useRef(gsap.context(() => { }))
+  let viewBoxWidth = mobile ? 569 : 1782;
+  // real movile viewbox height = 3335
+  let viewBoxHeight = mobile ? 1572 : 1982;
+  let svgScrubAmount = 100; //in px
 
   useEffect(() => {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
     ScrollTrigger.config({
       // limitCallbacks: true,
-      ignoreMobileResize: true
+      ignoreMobileResize: true,
+      // autoRefreshEvents: "DOMContentLoaded,load,resize",
+      // onresize:
     })
     return () => {
       // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(false)
       titleCtx.current.revert();
     }
   }, [])
+
+  useEffect(() => {
+    function keepScroll() {
+      if (window.innerWidth >= 768) {
+        gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 })
+      }
+    }
+
+    window.addEventListener('resize', keepScroll)
+
+    keepScroll()
+    return window.removeEventListener('resize', keepScroll)
+
+  }, [])
+
+  // useEffect(()=>{
+  //   // location.reload()
+  // },[mobilelvh])
 
   // let [footerHeight, setFooterHeight] = useState(undefined)
   // let [animationLocation, setAnimationLocation] = useState({ top: undefined, bottom: undefined })
@@ -107,7 +141,6 @@ export default function Home({ projects }) {
   // useEffect(() => {
   //   setMobile(screenWidth < 768)
   // }, [screenWidth])
-  let mobile = screenWidth < 768
 
   // let finishingScroll = mobile ? 0.95 : 0.995 // Same as ending of animation
   // let finishingScroll = 2 // impossible, so will never activate
@@ -138,13 +171,10 @@ export default function Home({ projects }) {
   // let heightToScroll = (mobile || finished) ? scrollingDivHeight : 6000
 
   // let heightToScroll = svgHeight + footerHeight
-  let viewBoxWidth = mobile ? 569 : 1782;
-  // real movile viewbox height = 3335
-  let viewBoxHeight = mobile ? 1572 : 1982;
-  let svgScrubAmount = 100; //in px
+
   // let svgWidthFactor = viewBoxWidth / (1.157*screenWidth) || 1;
 
- 
+
 
   // useEffect(() => {
   //   function handleSize() {
@@ -170,6 +200,7 @@ export default function Home({ projects }) {
   // useEffect(() => {
   //   console.log(screenHeight)
   // }, [screenHeight])
+
 
   function scrubIntro() {
     let tl = gsap.timeline({
@@ -806,8 +837,9 @@ export default function Home({ projects }) {
       }, 0)
     return tl
   }
-// screenAnimation
+  // screenAnimation
   function scrubScreen1() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3,
@@ -816,9 +848,10 @@ export default function Home({ projects }) {
         // overwrite: false,
       }, 0)
     return tl
-  } 
+  }
   //screenAnimation
   function moveScreen1() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreens', {
         yPercent: -17.2 + 3 * 1 + 3 * 1,
@@ -831,6 +864,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function scrubScreen2() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3 * 2 - 3,
@@ -842,6 +876,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function moveScreen2() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreens', {
         yPercent: -17.2 - 17.2 + 3 * 2 + 3 * 2,
@@ -853,6 +888,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function scrubScreen3() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3 * 3 - 3 * 2,
@@ -864,6 +900,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function moveScreen3() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreens', {
         yPercent: -17.2 * 3 + 3 * 3 + 3 * 3,
@@ -875,6 +912,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function scrubScreen4() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3 * 4 - 3 * 3,
@@ -886,6 +924,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function moveScreen4() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreens', {
         yPercent: -17.2 * 4 + 3 * 4 + 3 * 4,
@@ -897,6 +936,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function scrubScreen5() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3 * 5 - 3 * 4,
@@ -908,6 +948,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function moveScreen5() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreens', {
         yPercent: -17.2 * 5 + 3 * 5 + 3 * 4,
@@ -919,6 +960,7 @@ export default function Home({ projects }) {
   }
   //screenAnimation
   function scrubScreen6() {
+    if (mobile) { return gsap.timeline() }
     let tl = gsap.timeline()
       .to('#movingScreensInner', {
         yPercent: -3 * 6 - 3 * 4,
@@ -1228,7 +1270,28 @@ export default function Home({ projects }) {
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
-      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      {/* 
+  id='viewport'
+
+      body, html {
+  height: 100vh;
+  width: 100vw;
+  overscroll-behavior: none;
+  overflow: hidden !important;
+  } 
+  #viewport {
+position: fixed;
+overflow-x: hidden;
+overflow-y: scroll;
+height: 100vh;
+width: 100vw;
+-webkit-overscroll-behavior: none;
+overscroll-behavior: none;
+-webkit-overflow-scrolling: touch;
+}
+  */}
+  {/* onTouchEnd={(e)=>e.preventDefault()} */}
+      <main style={{ height: mobile ? '700vh' : '700vh' }}  className={`w-full mainBackground dark-scrollbar relative bg-black`} >
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -1296,9 +1359,9 @@ export default function Home({ projects }) {
           <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
-          <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-1/2 bottom-[20lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
+          <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
 
-          <PageIndicator className={`fixed top-1/2  right-full md:-right-1 translate-x-full md:translate-x-0 -translate-y-1/2`} />
+          {mobile ? <></> : <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} />}
 
           {/* <ScrollDown /> */}
           {/* <section className='svgPage2 flex w-[115.86vw] left-1/2 -translate-x-1/2 h-screen mx-auto fixed top-[calc(50%-200px)] ' > */}

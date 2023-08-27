@@ -16,9 +16,23 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 
 export default function PageIndicator({ className, style }) {
-  let { locale, scrolled, mobileHeight:height, mobile } = useAppContext()
+  let { locale, scrolled, mobileHeight: height, mobile } = useAppContext()
   let [down, setDown] = useState(false)
   let myCtx = useRef(gsap.context(() => { }))
+
+  useEffect(() => {
+    myCtx.current.add(() => {
+      gsap.to('.screenIndicatorItem', {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.05,
+        ease: 'expo.out',
+        delay: 0.5,
+      })
+    })
+    return () => myCtx.current.revert()
+  }, [])
 
   // useEffect(() => {
   //   // screenAnimation
@@ -396,9 +410,9 @@ export default function PageIndicator({ className, style }) {
   return (
     <div style={style} className={`${className && className}`}>
 
-      <svg className='screenIndicatorInner w-14 md:w-auto' width="71" height="280" viewBox="0 0 71 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path id="upLine" d="M55 132H15" stroke="#FFF5EA" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
-        <path id="downLine" d="M55 157H15" stroke="#FFF5EA" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
+      <svg className='screenIndicatorInner w-14 md:w-14' width="71" height="280" viewBox="0 0 71 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path className='screenIndicatorItem translate-x-[200%] opacity-0' id="upLine" d="M55 132H15" stroke="#FFF5EA" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
+        <path className='screenIndicatorItem translate-x-[200%] opacity-0' id="downLine" d="M55 157H15" stroke="#FFF5EA" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
 
         <g mask="url(#mask0_1061_1697)">
           <g id="movingScreens">
@@ -419,14 +433,14 @@ export default function PageIndicator({ className, style }) {
 
         <defs>
           <linearGradient id="paint0_linear_1061_1697" x1="35.5" y1="0" x2="35.5" y2="280" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#D9D9D9" stopOpacity="0.05" />
-            <stop offset="0.247917" stopColor="#D9D9D9" stopOpacity="0.15" />
-            <stop offset="0.444395" stopColor="#D9D9D9" stopOpacity="0.628571" />
-            <stop offset="0.46934" stopColor="#D9D9D9" />
-            <stop offset="0.560823" stopColor="#D9D9D9" stopOpacity="0.936" />
-            <stop offset="0.586353" stopColor="#D9D9D9" stopOpacity="0.6" />
-            <stop offset="0.758333" stopColor="#D9D9D9" stopOpacity="0.15" />
-            <stop offset="1" stopColor="#D9D9D9" stopOpacity="0.05" />
+            {/* <stop offset="0" stopColor="#D9D9D9" stopOpacity="0" /> */}
+            <stop offset="0.247917" stopColor="#D9D9D9" stopOpacity="0" />
+            <stop offset="0.444395" stopColor="#D9D9D9" stopOpacity="0.25" />
+            <stop offset="0.46934" stopColor="#D9D9D9" stopOpacity="1" />
+            <stop offset="0.560823" stopColor="#D9D9D9" stopOpacity="1" />
+            <stop offset="0.586353" stopColor="#D9D9D9" stopOpacity="0.25" />
+            <stop offset="0.758333" stopColor="#D9D9D9" stopOpacity="0" />
+            {/* <stop offset="1" stopColor="#D9D9D9" stopOpacity="0" /> */}
           </linearGradient>
         </defs>
       </svg>
@@ -456,5 +470,5 @@ function Path({ i, ...props }) {
     })
   }, [hovering, selected])
 
-  return <path className={`screen${i} hover:cursor-pointer`} onMouseDown={() => setSelected(true)} onMouseUp={() => { setSelected(false) }} onClick={() => { gsap.to(window, { duration: 0.5, scrollTo: height * i - 0.1 * height }) }} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} fill='transparent' {...props} />
+  return <path className={`screen${i} hover:cursor-pointer screenIndicatorItem translate-x-[200%] opacity-0`} onMouseDown={() => setSelected(true)} onMouseUp={() => { setSelected(false) }} onClick={() => { gsap.to(window, { duration: 0.5, scrollTo: height * i - 0.1 * height }) }} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} fill='transparent' {...props} />
 }

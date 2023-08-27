@@ -9,7 +9,7 @@ export default function PageDescription5({ info, link, className, animateName, t
   // let { mobile } = usePageContext()
   return (
     <div className={`${animateName + 'Container'} fixed left-0 bottom-0 md:left-1/2 md:translate-x-0 h-[100vh] w-full md:w-[50%] text-primary visible opacity-100 ${className ? className : ''}`}>
-      <div className={`${animateName + 'Inner'} flex relative flex-col justify-end w-full h-full md:justify-center items-center gap-4 mobm:gap-8 md:gap-8 pb-[10%] mobm:pt-[10%]`}>
+      <div className={`${animateName + 'Inner'} flex relative flex-col justify-end w-full h-full md:justify-center items-center gap-4 mobm:gap-14 md:gap-8 pb-[15%] mobm:pb-[20%] mobm:pt-[10%]`}>
         {/* <h2 className={`${animateName}  text-center font-lora font-bold text-5xl border-2 border-yellow-300  invisible opacity-0 `} >{"Helloo"}</h2> */}
         <LogoAnimated transitionTl={transitionTl} darkMode className={`${animateName} invisible opacity-0  h-full w-4/5 md:min-h-0 md:w-1/2 min-[1800px]:w-[40%]`} />
         {/* Dark Background */}
