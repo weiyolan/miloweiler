@@ -46,7 +46,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
   useEffect(() => {
     ctx.current.add(() => {
- 
+
       gsap.to(`.galleryThumbLine${index}`, {
         width: (lineHover) ? '100%' : 0,
         borderColor: (lineHover) ? '#000000' : 'transparent',
@@ -56,9 +56,9 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   }, [lineHover])
 
   useEffect(() => {
-    function onLoad() {
+    // function onLoad() {
       if (loaded) {
-        let tween = gsap.to(projectThumb.current, {
+        gsap.to(projectThumb.current, {
           scale: 1,
           opacity: 1,
           // duration: 0.5,
@@ -80,8 +80,8 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           // onStart: () => console.log('start')
         })
       }
-    }
-    onLoad()
+    // }
+    // onLoad()
   }, [loaded])
 
   useEffect(() => {
@@ -130,19 +130,19 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
       </div>
 
       <div className='mt-2 mb-2 text-left text-darkPrimary cursor-pointer'
-       onMouseEnter={() => { setLineHover(true); handleMouseEnter() }}
-       onMouseLeave={() => { setLineHover(false); handleMouseLeave() }}>
+        onMouseEnter={() => { setLineHover(true); handleMouseEnter() }}
+        onMouseLeave={() => { setLineHover(false); handleMouseLeave() }}>
         <Link href={`./gallery/${project.slug.current}`}>
           <h2 className={` font-lora text-base max-w-fit sm:text-lg truncate font-semibold md:text-xl invert-0 duration-500 mb-1`}>
             {/* {console.log(project)} */}
             {project?.title}
-            <Line className={`galleryThumbLine${index} border-transparent w-0 `}/>
+            <Line className={`galleryThumbLine${index} border-transparent w-0 `} />
           </h2>
           {/* <h3 className='font-lora text-base md:text-xl font-semibold'>
           {`By: ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
         </h3> */}
           <p className='font-pop font-normal text-sm line-clamp-3 '>
-            {project?.description?.[locale] && project.description[locale].slice(0,120) || ''}
+            {project?.description?.[locale] && project.description[locale].slice(0, 120) || ''}
             {/* {console.log(project?.description?.[locale].slice(0, 20))} */}
           </p>
         </Link>

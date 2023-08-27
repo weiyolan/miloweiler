@@ -27,25 +27,25 @@ export default function Gallery({ projects }) {
     return () => ctx.current.revert();
   }, [ctx]);
 
-  function pushCardsOnClick() {
-    // console.log('push')
-    ctx.current.add(() => {
-      gsap.to(".inactiveCard", {
-        scale: 0.6,
-        duration: 0.3,
-        // y: 20,
-        // yoyo: true, 
-        // repeat: -1, 
-        // ease: "expo.out",
-        stagger: {
-          // amount: 0.5,
-          each: 0.2,
-          grid: "auto",
-          from: activeIndex
-        }
-      })
-    })
-  }
+  // function pushCardsOnClick() {
+  //   // console.log('push')
+  //   ctx.current.add(() => {
+  //     gsap.to(".inactiveCard", {
+  //       scale: 0.6,
+  //       duration: 0.3,
+  //       // y: 20,
+  //       // yoyo: true, 
+  //       // repeat: -1, 
+  //       // ease: "expo.out",
+  //       stagger: {
+  //         // amount: 0.5,
+  //         each: 0.2,
+  //         grid: "auto",
+  //         from: activeIndex
+  //       }
+  //     })
+  //   })
+  // }
 
   // useEffect(() => {
   //   let obj = { myNum: 10, myColor: "red" };

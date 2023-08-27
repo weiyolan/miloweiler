@@ -43,27 +43,27 @@ export default function useMinimizeScroll() {
             // preventDefault:true,
             scrollTo: () => {
               if (window.scrollY < 0.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? (0.82 * screenHeight) : (0))
+                // console.log(myObserver.current.velocityY < 0 ? (0.82 * screenHeight) : (0))
                 return myObserver.current.velocityY < 0 ? (0.82 * screenHeight) : (0)
               }
               else if (window.scrollY < 1.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? ((1 + 0.82 + 0.41) * screenHeight) : (0.41) * screenHeight)
+                // console.log(myObserver.current.velocityY < 0 ? ((1 + 0.82 + 0.41) * screenHeight) : (0.41) * screenHeight)
                 return myObserver.current.velocityY < 0 ? ((1 + 0.82 + 0.41) * screenHeight) : (0.41) * screenHeight
               }
               else if (window.scrollY < 2.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? ((2 + 0.82 + 0.41) * screenHeight) : (1 + 0.41) * screenHeight)
+                // console.log(myObserver.current.velocityY < 0 ? ((2 + 0.82 + 0.41) * screenHeight) : (1 + 0.41) * screenHeight)
                 return myObserver.current.velocityY < 0 ? ((2 + 0.82 + 0.41) * screenHeight) : (1 + 0.41) * screenHeight
               }
               else if (window.scrollY < 3.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? ((3 + 0.82 + 0.41) * screenHeight) : (2 + 0.41) * screenHeight)
+                // console.log(myObserver.current.velocityY < 0 ? ((3 + 0.82 + 0.41) * screenHeight) : (2 + 0.41) * screenHeight)
                 return myObserver.current.velocityY < 0 ? ((3 + 0.82 + 0.41) * screenHeight) : (2 + 0.41) * screenHeight
               }
               else if (window.scrollY < 4.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? ((4 + 0.82 + 0.41) * screenHeight) : (3 + 0.41) * screenHeight)
+                // console.log(myObserver.current.velocityY < 0 ? ((4 + 0.82 + 0.41) * screenHeight) : (3 + 0.41) * screenHeight)
                 return myObserver.current.velocityY < 0 ? ((4 + 0.82 + 0.41) * screenHeight) : (3 + 0.41) * screenHeight
               }
               else if (window.scrollY > 4.81 * screenHeight) {
-                console.log(myObserver.current.velocityY < 0 ? ((6) * screenHeight) : (4 + 0.41) * screenHeight)
+                // console.log(myObserver.current.velocityY < 0 ? ((6) * screenHeight) : (4 + 0.41) * screenHeight)
                 return myObserver.current.velocityY < 0 ? ((6) * screenHeight) : (4 + 0.41) * screenHeight
               }
             },
