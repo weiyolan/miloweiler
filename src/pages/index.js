@@ -45,12 +45,13 @@ import client from '../../lib/sanity'
 import PageIndicator from '@/components/PageIndicator'
 import useMinimizeScroll from '@/utils/useMinimizeScroll'
 import ScrollVisual from '@/components/line/ScrollVisual'
+import LanguageToggle from '@/components/LanguageToggle'
 // import useWindowResize from '@/utils/useWindowResize'
 
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Home({ projects }) {
+export default function Home({ projects, sectionInfo }) {
   const { scrolled, width: screenWidth, height: screenHeight,
     mobileHeight: mobilelvh,
   } = useAppContext();
@@ -116,7 +117,7 @@ export default function Home({ projects }) {
   useEffect(() => {
     function keepScroll() {
       if (window.innerWidth >= 768) {
-        console.log(window.innerWidth, firstScreenWidth)
+        // console.log(window.innerWidth, firstScreenWidth)
         if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
           location.reload()
           gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 })
@@ -1349,21 +1350,26 @@ overscroll-behavior: none;
 
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5} />
-          <PageDescription5 transitionTl={transitionTl5} animateName='page5description' className={``} info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} />
+          {/* info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} */}
+          <PageDescription5 info={sectionInfo.filter((section)=>section._id==='mainPageOUT')[0]} transitionTl={transitionTl5} animateName='page5description' className={``}  />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
-          <PageDescription4 shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }} />
+          {/* info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }}  */}
+          <PageDescription4 info={sectionInfo.filter((section)=>section._id==='mainPageSTU')[0]} shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} />
 
           <Page3Photos />
           <Page3KakScrub scrubTl={scrubTl3} />
-          <PageDescription shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }} />
+          {/* info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }}  */}
+          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageFIN')[0]} shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} />
 
           <Page2Photos projects={projects.filter((project) => project.cat === 'docu')} />
-          <PageDescription shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }} />
+          {/* info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }}  */}
+          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageDOC')[0]} shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} />
 
           {/* -73.7% */}
           <Page1Photos timeline={scrubTl1} projects={projects.filter((project) => project.cat === 'bts')} />
-          <PageDescription shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }} />
+          {/* info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }}  */}
+          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageBTS')[0]} shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
           <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
@@ -1387,9 +1393,10 @@ overscroll-behavior: none;
 
 export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
-
+  const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
+  // const sectionInfoMilo = await client.fetch(`*[]`)
   return {
-    props: { projects: projects }
+    props: { projects: projects, sectionInfo: sectionInfo }
   };
 }
 

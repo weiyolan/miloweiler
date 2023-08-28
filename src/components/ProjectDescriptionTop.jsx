@@ -127,8 +127,8 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
         </h1>
         <h2 className='whitespace-normal'>
-          <Span text='by' />
-          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
+          <Span text={locale==='fr'?'par':'by'} />
+          {` ${project?.by?.[0]?project?.by?.[0]:locale==='fr'?'moi':'me'}`}
         </h2>
       </div>
 
@@ -138,15 +138,15 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
       </svg>
 
       <div className="w-full lg:w-1/3 flex flex-col gap-2 md:gap-4">
-        {project?.date ? <Detail title='Year' text={[project.date.slice(0, 4)]} /> : null}
-        {project?.album ? <Detail title='Album' text={[project.album]} /> : null}
-        {project?.directed ? <Detail title='Directed By' text={project.directed} /> : null}
-        {project?.produced ? <Detail title='Produced By' text={project.produced} /> : null}
-        {project?.designed ? <Detail title='Designed By' text={project.designed} /> : null}
-        {project?.created ? <Detail title='Created By' text={project.created} /> : null}
-        {project?.developed ? <Detail title='Developed By' text={project.developed} /> : null}
-        {project?.commissioned ? <Detail title='Commissioned By' text={project.commissioned} /> : null}
-        {project?.artist ? <Detail title={`Artist${project.artist.length > 1 ? 's' : ''}`} text={project.artist} /> : null}
+      {project?.date ?        <Detail     title={locale==='fr'?'An':'Year'}                           text={[project.date.slice(0, 4)]} /> : null}
+        {project?.album ?     <Detail     title='Album'                                               text={[project.album]} /> : null}
+        {project?.directed ? <Detail      title={locale==='fr'?'Réalisé Par':'Directed By'}           text={project.directed} /> : null}
+        {project?.produced ? <Detail      title={locale==='fr'?'Produit Par':'Produced By'}           text={project.produced} /> : null}
+        {project?.designed ? <Detail      title={locale==='fr'?'Conçu Par':'Designed By'}             text={project.designed} /> : null}
+        {project?.created ? <Detail       title={locale==='fr'?'Créé Par':'Created By'}               text={project.created} /> : null}
+        {project?.developed ? <Detail     title={locale==='fr'?'Développé Par':'Developed By'}        text={project.developed} /> : null}
+        {project?.commissioned ? <Detail  title={locale==='fr'?'Commandée Par':'Commissioned By'}     text={project.commissioned} /> : null}
+        {project?.artist ? <Detail        title={locale==='fr'?`Artiste${project.artist.length > 1 ? 's' : ''}`:`Artist${project.artist.length > 1 ? 's' : ''}`} text={project.artist} /> : null}
       </div>
 
       {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-pop font-extralight text-justify whitespace-pre-wrap"> */}
@@ -167,8 +167,8 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
         </div>
         <div className='cursor-pointer'>
-          <Span text='by' />
-          {` ${project?.by?.[0]?project?.by?.[0]:'me'}`}
+          <Span text={locale==='fr'?'par':'by'} />
+          {` ${project?.by?.[0]?project?.by?.[0]:locale==='fr'?'par':'by'}`}
         </div>
       </div>
     </div>
@@ -176,18 +176,19 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
 }
 
 function Detail({ title, text }) {
+  let {locale} = useAppContext()
 
   let string;
 
   if (text.length === 1) {
     string = text[0]
   } else if (text.length === 2) {
-    string = text[0] + ' and ' + text[1]
+    string = text[0] + (locale==='fr'?' et ':' and ') + text[1]
   }
   else {
     // console.log(text)
     let firsts = text.slice(0, -1)
-    string = firsts.join(', ') + ' and ' + text.slice(-1)
+    string = firsts.join(', ') + (locale==='fr'?' et ':' and ') + text.slice(-1)
   }
 
   return (

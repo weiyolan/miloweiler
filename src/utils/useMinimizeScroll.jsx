@@ -35,7 +35,7 @@ export default function useMinimizeScroll() {
         //   window.scrollTo(0, window.scrollY);
         // };
         // if (!myObserver.current.isDragging) {
-        if (Math.abs(myObserver.current.velocityY) > 100) {
+        if (Math.abs(myObserver.current.velocityY) > 800) {
           // console.log('scrollStop', window.scrollY)
           // ctx.current.add(() => {
           gsap.to(window, {
@@ -67,7 +67,7 @@ export default function useMinimizeScroll() {
                 return myObserver.current.velocityY < 0 ? ((6) * screenHeight) : (4 + 0.41) * screenHeight
               }
             },
-            duration: 1,
+            duration: 1.5,
             // overwrite: true,
           })
         }

@@ -12,6 +12,7 @@ import Navigation from '@/components/Navigation';
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 import NavigationMobile from '@/components/NavigationMobile';
 import Layout from '@/components/Layout';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
@@ -104,6 +105,7 @@ export default function Gallery({ projects }) {
             <Footer2 className={`relative`} noMotion noMargin />
 
             {pageMobile ? <NavigationMobile /> : <Navigation />}
+            {pageMobile?<></>:<LanguageToggle/>}
           </PageWrapper>
         </main>
       </ReactLenis>

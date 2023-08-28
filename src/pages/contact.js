@@ -24,6 +24,7 @@ import { gsap, ScrollTrigger } from "gsap/dist/all";
 import Navigation from '@/components/Navigation'
 import Footer2 from '@/components/Footer2'
 import NavigationMobile from '@/components/NavigationMobile'
+import LanguageToggle from '@/components/LanguageToggle'
 // import { useRouter } from 'next/router';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -152,7 +153,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* duration:0.9,  */}
-      <ReactLenis root options={{ wheelMultiplier: 0.9,print:false }}>
+      <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
         <main className={'bg-[#FFEAD6] relative contact-page overflow-x-hidden'}>
           <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
@@ -227,6 +228,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             <Footer2 className={`relative mt-8`} noMotion noMargin />
 
             {pageMobile ? <NavigationMobile /> : <Navigation />}
+            {pageMobile ? <></> : <LanguageToggle />}
           </PageWrapper>
         </main>
       </ReactLenis>

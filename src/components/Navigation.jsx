@@ -6,10 +6,12 @@ import { gsap } from 'gsap/dist/gsap'
 import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import FadeDiv from './FadeDiv'
+import { useAppContext } from '@/utils/appContext'
 
 gsap.registerPlugin(Observer)
 
 export default function Navigation() {
+  let {locale} = useAppContext()
   let { darkMode } = usePageContext()
   let [hiding, setHiding] = useState(true) //removed bar onLoad and then animate in.
   const ctx = useRef(gsap.context(() => { }));
@@ -107,7 +109,7 @@ export default function Navigation() {
       <div className={`${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
-        <Button text='Gallery' to='/gallery' />
+        <Button text={locale==='fr'?'Galerie':'Gallery'} to='/gallery' />
         <Button text='Contact' to='/contact' />
         {/* <Button text={`${observer.current.velocityY}`} to=''/> */}
       </div>

@@ -20,35 +20,35 @@ export const myStructure = (S, context) => {
                   .child(
                     S.document()
                       .schemaType('mainPageXXX')
-                      .documentId('mainPageXXX')),
+                      .documentId('mainPageBTS')),
                 S.listItem()
                   .title('2: Documentary')
                   .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('mainPageXXX')
-                      .documentId('mainPageXXX')),
+                      .documentId('mainPageDOC')),
                 S.listItem()
                   .title('3: Fine Art')
                   .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('mainPageXXX')
-                      .documentId('mainPageXXX')),
+                      .documentId('mainPageFIN')),
                 S.listItem()
                   .title('4: Studio')
                   .icon(BlockElementIcon)
                   .child(
                     S.document()
                       .schemaType('mainPageXXX')
-                      .documentId('mainPageXXX')),
+                      .documentId('mainPageSTU')),
                 S.listItem()
                   .title('Outro: Milo')
                   .icon(BlockElementIcon)
                   .child(
                     S.document()
-                      .schemaType('mainPageXXX')
-                      .documentId('mainPageXXX')),
+                      .schemaType('mainPageYYY')
+                      .documentId('mainPageOUT')),
               ])
           ),
         S.listItem()
@@ -104,7 +104,7 @@ export const myStructure = (S, context) => {
           ),
         // S.divider(),
         ...S.documentTypeListItems().filter(
-          (listItem) => !['contactPageGIS', 'contactPageCDS', 'contactPageTBS', 'contactPageAOS', 'contactPagePSS', 'contactPagePFS', 'mainPageXXX'].includes(listItem.getId()))
+          (listItem) => !['contactPageGIS', 'contactPageCDS', 'contactPageTBS', 'contactPageAOS', 'contactPagePSS', 'contactPagePFS', 'mainPageXXX', 'mainPageYYY'].includes(listItem.getId()))
       ])
   )
 }

@@ -7,6 +7,7 @@ import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import FadeDiv from './FadeDiv'
 import NavToggle from './NavToggle'
+import LanguageToggle from './LanguageToggle'
 
 gsap.registerPlugin(Observer)
 
@@ -24,7 +25,7 @@ export default function NavigationMobile() {
   useEffect(() => {
     let observer1 = Observer.create({
       target: ".navToggle",        // can be any element (selector text is fine)
-      ignore:[window] ,
+      ignore: [window],
       type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
       onClick: (e) => {
@@ -33,7 +34,7 @@ export default function NavigationMobile() {
     })
     let observer2 = Observer.create({
       target: ".navButtons",        // can be any element (selector text is fine)
-      ignore:[window] ,
+      ignore: [window],
       type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
       onClick: (e) => {
@@ -42,14 +43,14 @@ export default function NavigationMobile() {
     })
     let observer3 = Observer.create({
       target: ".navBackground",        // can be any element (selector text is fine)
-      ignore:[window] ,
+      ignore: [window],
       type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
       preventDefault: false,
       onClick: (e) => {
         setHiding(!hiding)
       },
     })
-    return () => { observer1.disable();observer2.disable();observer3.disable() }
+    return () => { observer1.disable(); observer2.disable(); observer3.disable() }
   }, [hiding])
 
   useEffect(() => {
@@ -71,9 +72,9 @@ export default function NavigationMobile() {
       });
       gsap.to('.navBackground', {
         y: () => hiding ? +50 : 0,
-        yPercent: ()=>hiding?-100:0,
+        yPercent: () => hiding ? -100 : 0,
         x: () => hiding ? -50 : 0,
-        xPercent: ()=>hiding?100:0,
+        xPercent: () => hiding ? 100 : 0,
         duration: 1,
         ease: 'expo.out',
         delay: () => hiding ? 0.15 : 0,
@@ -84,10 +85,14 @@ export default function NavigationMobile() {
   return (
     <div className={`navBar fixed w-full h-0 top-0 `}>
       <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
-      <div className={`navButtons flex  flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
+      <div className={`navButtons flex flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />
         <Button text='Contact' to='/contact' />
+        <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}>
+          <LanguageToggle />
+        </div>
+
       </div>
       <NavToggle className={`navToggle `} open={!hiding} />
     </div>

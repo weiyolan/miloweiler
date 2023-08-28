@@ -19,12 +19,12 @@ export default defineType({
   title: 'Localized text',
   name: 'localeText',
   type: 'object',
-  options: { collapsible: true, collapsed:false }, 
+  options: { collapsible: true, collapsed:true }, 
   fieldsets: [
     {
       title: 'Translations',
       name: 'translations',
-      options: { collapsible: true , collapsed:true}
+      options: { collapsible: true , collapsed:false}
     }
   ],
   fields: supportedLanguages.map(lang => defineField({
@@ -33,8 +33,8 @@ export default defineType({
     type: 'text',
     // options: {},
     // fieldset: 'translations',
-    fieldset: lang.isDefault ? null : 'translations',
-    // validation: Rule => Rule.required()
+    // fieldset: lang.isDefault ? null : 'translations',
+    validation: Rule => Rule.required()
   }))
 }
 

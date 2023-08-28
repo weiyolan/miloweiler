@@ -15,6 +15,7 @@ import contactPageGIS from './contactPageGetInspiredS'
 import contactPagePFS from './contactPagePortFolioS'
 
 import mainPageXXX from './mainPageXXX'
+import mainPageYYY from './mainPageYYY'
 
 
 import project from './project'
@@ -35,4 +36,5 @@ export const schemaTypes = [
   contactPageAOS,
   contactPagePFS,
   mainPageXXX,
+  mainPageYYY,
 ]

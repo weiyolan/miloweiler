@@ -19,21 +19,21 @@ export default defineType({
   title: 'Localized string',
   name: 'localeString',
   type: 'object',
-  options: { collapsible: true, collapsed:false }, 
+  options: { collapsible: true, collapsed:true }, 
   fieldsets: [
     {
       title: 'Translations',
       name: 'translations',
-      options: { collapsible: true , collapsed:true}
+      options: { collapsible: true , collapsed:false}
     }
   ],
   fields: supportedLanguages.map(lang => defineField({
     title: lang.title,
     name: lang.id,
     type: 'string',
-    // fieldset: 'translations',
-    fieldset: lang.isDefault ? null : 'translations',
-    // validation: Rule => Rule.required()
+    // // fieldset: 'translations',
+    // fieldset: lang.isDefault ? null : 'translations',
+    validation: Rule => Rule.required()
   }))
 }
 

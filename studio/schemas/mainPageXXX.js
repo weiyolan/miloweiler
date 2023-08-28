@@ -3,7 +3,7 @@ import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'mainPageXXX',
-  title: 'Get Inspired Section',
+  title: 'Section Description',
   type: 'document',
   // icon: BlockElementIcon,
   fields: [
@@ -12,26 +12,26 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'subTitle1', title: 'Subtitle 1', type: 'localeString',
+      name: 'text', title: 'Main Text', type: 'localeText',
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'subTitle2', title: 'Subtitle 2', type: 'localeString',
+      name: 'linkText', title: 'Link Text', type: 'localeString',
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'text1', title: 'Text 1', type: 'localeText',
+      name: 'linkUrl', title: 'Link URL', type: 'string',
       validation: Rule => Rule.required()
     }),
-    defineField({
-      name: 'text2', title: 'Text 2', type: 'localeText',
-      validation: Rule => Rule.required()
-    }),
+    // defineField({
+    //   name: 'text2', title: 'Text 2', type: 'localeText',
+    //   validation: Rule => Rule.required()
+    // }),
   ],
   preview: {
     prepare() {
       // const {date, completion} = selection
-      return { title: 'Get Inspired Section' }
+      return { title: 'Section Description' }
     },
   },
 })

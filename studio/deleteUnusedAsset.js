@@ -24,13 +24,16 @@ const config = {
 const client = createClient(config);
 
 
-const query = `
-  *[ _type in ["sanity.imageAsset", "sanity.fileAsset"] ]
-  {_id, "refs": count(*[ references(^._id) ])}
-  [ refs == 0 ]
-  ._id
-`
+// const query = `
+//   *[ _type in ["sanity.imageAsset", "sanity.fileAsset"] ]
+//   {_id, "refs": count(*[ references(^._id) ])}
+//   [ refs == 0 ]
+//   ._id
+// `
 
+const query = `
+*[_type == "mainPageXXX"][_id == "mainPageXXX"]
+`
 client
   .fetch(query)
   .then(ids => {

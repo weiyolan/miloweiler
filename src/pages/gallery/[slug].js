@@ -27,7 +27,7 @@ export default function Project({ project, slug, slugs }) {
   // console.log(project)
   let [animating, setAnimating] = useState(false)
   let darkMode = true
-  const { width, height } = useAppContext()
+  const { width, height ,locale} = useAppContext()
   // let [loaded, setLoaded] = useState(false)
   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
   // let [clicked, setClicked] = useState(false)
@@ -289,27 +289,27 @@ export default function Project({ project, slug, slugs }) {
             </div>
           </Layout>
           <div className={`absolute flex w-full lg:w-fit z-[10] top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ${width < 1024 ? descriptionOpen ? '' : 'invisible select-none' : ''}`}>
-            <Link title='Back to gallery'
+            <Link title={locale==='fr'?'Retour à la galerie':'Back to gallery'}
               className={` group flex items-center w-fit h-fit font-pop text-xs mobm:text-sm font-extralight transition-all 
                 ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
               href='/gallery'>
               <IoArrowBack className="w-5 h-5 fill-primary group-hover:scale-110 transition-all " />
               <div>
-                Back to gallery
+              {locale==='fr'?'Retour à la galerie':'Back to gallery'}
                 <Line className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
               </div>
             </Link>
             <div className={`flex font-pop text-xs mobm:text-sm font-extralight gap-4`}>
-              <Link title='Previous project' className={` group transition-all flex items-center gap-1 w-fit h-fit 
+              <Link title={locale==='fr'?'Précédent projet':'Previous project'} className={` group transition-all flex items-center gap-1 w-fit h-fit 
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
                 <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
-                <div>Previous
+                <div>{locale==='fr'?'Précédent':'Previous'}
                   <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
               </Link>
-              <Link title='Next project' className={` group transition-all flex items-center gap-1 w-fit h-fit
+              <Link title={locale==='fr'?'Suivant projet':'Next project'} className={` group transition-all flex items-center gap-1 w-fit h-fit
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
-                <div>Next
+                <div>{locale==='fr'?'Suivant':'Next'}
                   <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
                 <AiFillCaretRight className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
@@ -331,13 +331,18 @@ export default function Project({ project, slug, slugs }) {
 //   return [visibleItem, setVisibleItem]
 // }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const projects = await client.fetch(`*[_type == "project"]{slug}`);
-  const paths = projects.map((project) => {
-    return {
-      params: { slug: project.slug.current },
-    }
-  })
+
+  const slugs = projects.map((project) => project.slug.current)
+
+  const paths = slugs.map((slug) =>
+    locales.map((locale) => ({
+      params: { slug: slug },
+      locale
+    })))
+    .flat(); // to avoid nested arrays 
+
   // let paths = [{params:{slug:'project-1'}}]
   return {
     paths,

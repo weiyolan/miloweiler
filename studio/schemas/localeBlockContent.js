@@ -32,7 +32,7 @@ export default defineType({
     name: lang.id,
     type: 'blockContent',
     fieldset: lang.isDefault ? null : 'translations',
-    // validation: Rule => Rule.required()
+    validation: Rule => Rule.required()
   }))
 }
 
