@@ -20,13 +20,18 @@ import Logo from '@/components/Logo'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
-import { gsap, ScrollTrigger } from "gsap/dist/all";
 import Navigation from '@/components/Navigation'
 import Footer2 from '@/components/Footer2'
 import NavigationMobile from '@/components/NavigationMobile'
 import LanguageToggle from '@/components/LanguageToggle'
 // import { useRouter } from 'next/router';
-gsap.registerPlugin(ScrollTrigger);
+
+
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null)

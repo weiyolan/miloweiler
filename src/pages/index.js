@@ -1317,9 +1317,9 @@ overscroll-behavior: none;
           <Background type='both' amount={0} src='/images/mainpageArt2.jpg' animationName={'artPhoto1'} className={'opacity-0'} />
           <Background type='both' amount={0} src='/images/mainpageArt3.jpg' animationName={'artPhoto2'} className={'opacity-0'} />
 
-          <Background type='both' priority={mobile} amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
+          <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
-          <Background type='bottom' priority={true} amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
+          <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
           {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
           <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
           {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}

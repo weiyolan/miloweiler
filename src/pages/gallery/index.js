@@ -14,6 +14,12 @@ import NavigationMobile from '@/components/NavigationMobile';
 import Layout from '@/components/Layout';
 import LanguageToggle from '@/components/LanguageToggle';
 
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
+
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
   let pageMobile = width < 648;
@@ -105,7 +111,7 @@ export default function Gallery({ projects }) {
             <Footer2 className={`relative`} noMotion noMargin />
 
             {pageMobile ? <NavigationMobile /> : <Navigation />}
-            {pageMobile?<></>:<LanguageToggle/>}
+            {pageMobile ? <></> : <LanguageToggle />}
           </PageWrapper>
         </main>
       </ReactLenis>
