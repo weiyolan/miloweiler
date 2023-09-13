@@ -31,8 +31,9 @@ export default defineType({
       date: 'date',
       media: 'mainImage',
     },
+
     prepare(selection) {
-      const { title, date, by, subTitle, media } = selection
+      const { title, date, cat, by, subTitle, media } = selection
       return { title: getTitle(title, subTitle), subtitle: getSubTitle(cat, by, date), media: media.image }
     },
   },
@@ -153,9 +154,11 @@ function getTitle(title, subTitle) {
   }
 }
 function getSubTitle(cat, by, date) {
-  if (cat === undefined && by === undefined && date === undefined) {
-    return 'No date given'
-  } else {
-    return (cat && `${cat}, ` + by && `By ${by[0]}, ` + date && `${date?.slice(0, 4)}`)
-  }
+  let tekst = '';
+
+  tekst = tekst + (cat === undefined ? 'Category?, ' : `${cat}, `);
+  tekst = tekst + (date === undefined ? 'Date?, ' : `${date?.slice(0, 4)}, `);
+  tekst = tekst + (by === undefined ? 'By?' : `By ${by}`);
+
+  return tekst
 } 
