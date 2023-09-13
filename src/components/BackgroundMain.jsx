@@ -45,7 +45,8 @@ export default function BackgroundMain({ projects, type, priority, amount, heigh
           {/* Empty ALT for purely decorative images */}
 
           {switched && <SanityImage alt={mainImages[0].alt || ''}
-            className={`will-change-transform object-cover object-center mainBackground opacity-0 ${objectPosition && objectPosition}`}
+            containerClass='rounded-none'
+            className={`will-change-transform object-cover object-center  mainBackground opacity-0 ${objectPosition && objectPosition}`}
             sizes="100vw"
             // quality={90}
             image={mainImages[0].image}

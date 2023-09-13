@@ -12,7 +12,9 @@ export default function SplashScreen({ pageLoaded }) {
         .to('.splashSpinner', {
           opacity: pageLoaded ? 0 : 1,
           duration: 0.3,
-          scale: pageLoaded ? 0.5 : 1,
+          scale: pageLoaded ? 0 : 1,
+          transformOrigin: '50% 50%',
+          ease:'back.in(3)',
         })
         .to('.splashScreen', {
           autoAlpha: () => pageLoaded ? 0 : 1,
@@ -26,7 +28,7 @@ export default function SplashScreen({ pageLoaded }) {
   }, [])
 
   return (
-    <div className='fixed top-0 z-[9999] w-full h-screen splashScreen bg-darkPrimary'>
+    <div className='fixed top-0 z-[9999] w-screen h-screen splashScreen bg-darkPrimary'>
       <Spinner darkMode={true} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 splashSpinner -translate-y-1/2`} />
     </div>
   )
