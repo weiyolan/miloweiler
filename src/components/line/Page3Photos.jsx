@@ -6,6 +6,7 @@ import Image from 'next/image'
 // import { Observer } from 'gsap/dist/Observer'
 import gsap from 'gsap/dist/gsap'
 import { useAppContext } from '@/utils/appContext';
+import Link from 'next/link';
 
 let paths = [
   "M0.410265 0.173333C0.360632 0.143145 0.325718 0.139417 0.157575 0.14635C-0.0271344 0.153968 -0.0326131 0.153169 0.0547314 0.131373C0.105472 0.118709 0.218318 0.107551 0.305502 0.106577C0.392687 0.105592 0.504779 0.0922837 0.554597 0.076978C0.645188 0.049145 0.989248 -0.00934969 0.999872 0.00127427C1.00297 0.00437281 0.949338 0.0218263 0.880691 0.0400635C0.657666 0.0993075 0.557938 0.142098 0.580241 0.168975C0.615051 0.210929 0.477855 0.214447 0.410265 0.173333Z",
@@ -19,7 +20,8 @@ let newPath = [
   , { viewBox: "0 0 4 2", d: "M1.44367 1.84057C1.17696 1.71087 1.09651 1.63415 1.16003 1.57007C1.27743 1.45162 1.18132 1.39592 0.460447 1.1647C0.141484 1.06238 -0.0587602 0.975643 0.015463 0.97194C0.215293 0.96198 1.21958 1.28797 1.2768 1.38138C1.30393 1.42568 1.42923 1.46192 1.55523 1.46192C1.72532 1.46192 1.88253 1.35436 2.16565 1.04427C2.44848 0.734491 2.73022 0.541603 3.2565 0.297451C3.64675 0.11641 3.98094 -0.0166816 3.99915 0.0016962C4.01736 0.0200613 3.74055 0.241329 3.38402 0.493395C2.72522 0.959137 2.21904 1.50204 2.21904 1.74289C2.21904 1.81602 2.26211 1.87585 2.31476 1.87585C2.36742 1.87585 2.38664 1.89992 2.35748 1.92934C2.23535 2.05257 1.79085 2.00938 1.44367 1.84057Z" }
 ]
 
-export default function Page3Photos({ className, animateName }) {
+export default function Page3Photos({ images, className, animateName }) {
+
 
   useEffect(() => {
     gsap.utils.toArray(".svgClips").forEach((photo, i) => {
@@ -35,16 +37,12 @@ export default function Page3Photos({ className, animateName }) {
   return (
     <div className={'page3photosContainer fixed w-screen h-screen'} >
       <div className='w-full h-full page3photosContainerInner'>
-        {/* <PageImage n={0} alt='' src='/images/mainpageArt1.jpg' className={` top-[55%] left-[75%] scale-[1.09] -translate-x-1/2 -translate-y-32`} />  */}
-        {/* <PageImage n={1} alt='' src='/images/mainpageArt2.jpg' className={` top-[38%] left-[48%] scale-[0.82] -translate-x-1/2 -translate-y-32`} />  */}
-        {/* <PageImage n={2} alt='' src='/images/mainpageArt3.jpg' className={` top-[20%] left-[23%] scale-[0.98] -translate-x-1/2 -translate-y-32`} />  */}
-        {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[20%] top-[28%] -translate-x-1/2 -translate-y-1/2'} ratio={2250 / 1500} className={`w-[calc(0.899*30vw)] h-[calc(0.899*30vw*2250/1500)]`} /> */}
-        {/* <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' svgClipsPosition='translate-y-32' imagePosition={'-translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(0.752*30vw)] h-[calc(0.752*30vw*0.6666)]`} /> */}
-        {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' svgClipsPosition='translate-y-32' imagePosition={'left-[80%] top-[60%] -translate-x-1/2 -translate-y-1/2'} ratio={2 / 3} className={`w-[calc(1*30vw)] h-[calc(1*30vw*0.6666)]`} /> */}
-        <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12lvh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
-        {/* <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-200px]`} className={'w-[calc(0.92*30vw)]  left-[80%] top-[50%] -translate-x-1/2'} /> */}
-        <ArtImage n={1} alt='' src='/images/mainpageArt2.jpg' imagePosition={`object-[50%,-10lvh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} />
-        <ArtImage n={0} alt='' src='/images/mainpageArt1.jpg' imagePosition={`object-[50%,-5lvh] lg:object-[50%,-20vh]`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} />
+        <ArtImage n={2} alt='Artistic image with vibrant colors' src={images[2]?.image.asset.url} slug={images[2].slug} imagePosition={`object-center`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
+        {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12lvh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} /> */}
+        <ArtImage n={1} alt='Artistic image with vibrant colors' src={images[1]?.image.asset.url} slug={images[1].slug} imagePosition={`object-center`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} />
+        {/* <ArtImage n={1} alt='' src={images[1]?.image.asset.url} imagePosition={`object-[50%,-10lvh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} /> */}
+        <ArtImage n={0} alt='Artistic image with vibrant colors' src={images[0]?.image.asset.url} slug={images[0].slug} imagePosition={`object-center`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} />
+        {/* <ArtImage n={0} alt='' src={images[0]?.image.asset.url} imagePosition={`object-[50%,-5lvh] lg:object-[50%,-20vh]`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} /> */}
         {/* translate-y-64
 translate-y-28
 translate-y-36 */}
@@ -54,8 +52,8 @@ translate-y-36 */}
 }
 
 
-function ArtImage({ className, n, imagePosition, ...props }) {
-  let {width} = useAppContext()
+function ArtImage({ className, n, imagePosition, slug, ...props }) {
+  let { width } = useAppContext()
   let [hovering, setHovering] = useState(false)
   const ctx = useRef(gsap.context(() => { }));
 
@@ -87,7 +85,7 @@ function ArtImage({ className, n, imagePosition, ...props }) {
   }, [hovering])
 
 
-  let mobile = width<768
+  let mobile = width < 768
 
   return (
     <div
@@ -99,17 +97,19 @@ function ArtImage({ className, n, imagePosition, ...props }) {
       {/* <div className={`relative ${className}`}> */}
       {/* w-[60vw] h-[calc(60vw*0.666)] */}
 
+      <Link href={`/gallery/${slug}`} className={className}>
+        <Image
+          style={{ clipPath: `url(#svgClip${n})` }}
+          // width={1500} height={n === 2 ? 1000 : 2250}
+          fill
+          sizes='25vw'
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+          className={`object-cover ${imagePosition} cursor-pointer`}
+          {...props} />
+      </Link>
+      <svg viewBox='0 0 1 1'
 
-      <Image
-        style={{ clipPath: `url(#svgClip${n})` }}
-        // width={1500} height={n === 2 ? 1000 : 2250}
-        fill
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-        className={`object-cover ${imagePosition} cursor-pointer`} sizes='30vw' {...props} />
-
-      <svg  viewBox='0 0 1 1'
-      
       // onMouseEnter={() => mobile && setHovering(true)}
       // onMouseLeave={() => mobile && setHovering(false)}
 

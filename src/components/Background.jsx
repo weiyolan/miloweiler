@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useAppContext } from "@utils/appContext"
 import FadeDiv from './FadeDiv'
 
-export default function Background({ src, type, moves, priority, amount, height, maxMoves, className, animationName, setPageLoaded,objectPosition }) {
+export default function Background({ src, type, moves, alt, priority, amount, height, maxMoves, className, animationName, setPageLoaded,objectPosition }) {
 
   return (
     <div style={{ transform: "translate3d(0, 0, 0)" }}   className={`fixed w-full ${height ? height : 'h-screen'} ${animationName ? animationName : ''}  ${className ? className : ''}`} >
@@ -13,7 +13,7 @@ export default function Background({ src, type, moves, priority, amount, height,
           {/* <div className='flex w-full absolute top-0 h-[100vh] ' > */}
           {/* {console.log(height*(1+overflow)+'px')} */}
           {/* {console.log(`translate(-${Y}px,0)`)} */}
-          {src && <Image alt='' fill priority={priority ? priority : false} src={src} style={{ transform: "translate3d(0, 0, 0)" }} className={`will-change-transform object-cover object-center ${objectPosition&&objectPosition}`} sizes="100vw" quality={90} onLoadingComplete={(priority&&setPageLoaded!==undefined)?()=>setPageLoaded(true):false}/>}
+          {src && <Image alt={alt&&alt || 'beautiful background image'} fill priority={priority ? priority : false} src={src} style={{ transform: "translate3d(0, 0, 0)" }} className={`will-change-transform object-cover object-center ${objectPosition&&objectPosition}`} sizes="100vw" quality={90} onLoadingComplete={(priority&&setPageLoaded!==undefined)?()=>setPageLoaded(true):false}/>}
           {/* Empty ALT for purely decorative images */}
           {/* </div> */}
         </div>

@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 export default function Page2Photos({ className, animateName, projects }) {
   // console.log(projects)
-  let [images, setImages] = useState(() => { let lscape = []; projects.forEach(project => project.otherImages.forEach(img => { lscape = [...lscape, { image: img, slug: project.slug.current }] })); return lscape })
+  let [images, setImages] = useState(() => { let photos = []; projects.forEach(project => project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] })); return photos })
 
   useEffect(() => {
     function shuffle(array) {

@@ -26,13 +26,14 @@ export default defineType({
     select: {
       title: 'title',
       subTitle: 'subTitle',
+      cat: 'cat',
       by: 'by',
       date: 'date',
-      media:'mainImage',
+      media: 'mainImage',
     },
     prepare(selection) {
       const { title, date, by, subTitle, media } = selection
-      return { title: getTitle(title,subTitle), subtitle: getSubTitle(by, date), media:media.image }
+      return { title: getTitle(title, subTitle), subtitle: getSubTitle(cat, by, date), media: media.image }
     },
   },
   fields: [
@@ -141,7 +142,7 @@ export default defineType({
   ],
 })
 function getTitle(title, subTitle) {
-  if (title === undefined  && subTitle === undefined) {
+  if (title === undefined && subTitle === undefined) {
     return 'No title given'
   } else if (subTitle === undefined) {
     return `${title}`
@@ -151,14 +152,10 @@ function getTitle(title, subTitle) {
     return `${title} (${subTitle})`
   }
 }
-function getSubTitle(by, date) {
-  if (by===undefined && date===undefined) {
+function getSubTitle(cat, by, date) {
+  if (cat === undefined && by === undefined && date === undefined) {
     return 'No date given'
-  } else if (by === undefined) {
-    return `${date.slice(0, 4)}`
-  } else if (date === undefined) {
-    return `By ${by[0]}`
   } else {
-    return `By ${by[0]}, ${date.slice(0, 4)}`
+    return (cat && `${cat}, ` + by && `By ${by[0]}, ` + date && `${date?.slice(0, 4)}`)
   }
-}
+} 

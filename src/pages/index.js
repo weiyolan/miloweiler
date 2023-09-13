@@ -59,6 +59,37 @@ export default function Home({ projects, sectionInfo }) {
   // useWindowResize({options:{resize:true}});
 
   useMinimizeScroll();
+  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach(project => photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]); return photos })
+  let [artImages, setArtImages] = useState(() => { let photos = []; let project = projects.filter((project) => project.cat === 'art')[0]; project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] }); return photos })
+  // let [artImages, setArtImages] = useState(() => { let photos = []; projects.filter((project) => project.cat === 'art').forEach(project => project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] })); return photos })
+  let [artProjects, setArtProjects] = useState(() => { return projects.filter((project) => project.cat === 'art') })
+
+  useEffect(() => {
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      // While there remain elements to shuffle.
+      while (currentIndex != 0) {
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      }
+      return array;
+    }
+    // console.log(artProjects)
+    let artProject = artProjects[Math.floor(Math.random() * artProjects?.length)]
+    let newPhotos = []
+    artProject.otherImages.forEach(img => { newPhotos = [...newPhotos, { image: img, slug: artProject.slug.current }] })
+    let shuffledPhotos = shuffle([...newPhotos])
+    // let newPhotos = shuffle([...artImages])
+
+    shuffledPhotos && setArtImages(shuffledPhotos.slice(0, 3))
+
+    let newMainImage = shuffle([...mainImages])
+    newMainImage && setMainImages(newMainImage.slice(0, 1))
+
+  }, [])
 
   // let svgRef = useRef(null)
   // let ctx = useRef()
@@ -1313,17 +1344,16 @@ overscroll-behavior: none;
           <BackgroundSplit type='both' amount={10} src1='/images/mainpageStudio1Cut.png' src2='/images/mainpageStudio2Cut.png' height='h-[115vh]' animationName={'page4'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageArt.jpg' height='h-[115vh]' animationName={'page3'} className={'opacity-0 top-[5vh]'} />
           {/*h-100vh no specification needed   */}
-          <Background type='both' amount={0} src='/images/mainpageArt1.jpg' animationName={'artPhoto0'} className={'opacity-0'} />
-          <Background type='both' amount={0} src='/images/mainpageArt2.jpg' animationName={'artPhoto1'} className={'opacity-0'} />
-          <Background type='both' amount={0} src='/images/mainpageArt3.jpg' animationName={'artPhoto2'} className={'opacity-0'} />
+          <Background type='both' amount={0} src={artImages[0].image?.asset.url} animationName={'artPhoto0'} className={'opacity-0'} />
+          {/* <Background type='both' amount={0} src='/images/mainpageArt1.jpg' animationName={'artPhoto0'} className={'opacity-0'} /> */}
+          <Background type='both' amount={0} src={artImages[1].image?.asset.url} animationName={'artPhoto1'} className={'opacity-0'} />
+          <Background type='both' amount={0} src={artImages[2].image?.asset.url} animationName={'artPhoto2'} className={'opacity-0'} />
 
           <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
           <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
-          {/* <Background type='bottom' priority amount={40} src='/images/mainpageIntro.jpeg' height='h-[110vh]' animationName={'pageIntro'} className={'pageIntro top-0'} /> */}
-          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
-          {/* <Background type='bottom' priority amount={70} src='/images/mainpageStars.jpg' height='h-[100vh]' className={'page1stars bottom-[40vh] opacity-0'} /> */}
-          {/* <Line className={'absolute w-full top-[650vh]'} /> */}
+          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src={mainImages[0].image.asset.url} height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
+          {/* <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} /> */}
 
           {/* LEGS */}
           {/* 265px */}
@@ -1351,25 +1381,25 @@ overscroll-behavior: none;
           {mobile && <FadeDiv type={'top'} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
           <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5} />
           {/* info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} */}
-          <PageDescription5 info={sectionInfo.filter((section)=>section._id==='mainPageOUT')[0]} transitionTl={transitionTl5} animateName='page5description' className={``}  />
+          <PageDescription5 info={sectionInfo.filter((section) => section._id === 'mainPageOUT')[0]} transitionTl={transitionTl5} animateName='page5description' className={``} />
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           {/* info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }}  */}
-          <PageDescription4 info={sectionInfo.filter((section)=>section._id==='mainPageSTU')[0]} shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} />
+          <PageDescription4 info={sectionInfo.filter((section) => section._id === 'mainPageSTU')[0]} shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} />
 
-          <Page3Photos />
+          <Page3Photos images={artImages} />
           <Page3KakScrub scrubTl={scrubTl3} />
           {/* info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }}  */}
-          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageFIN')[0]} shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageFIN')[0]} shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} />
 
           <Page2Photos projects={projects.filter((project) => project.cat === 'docu')} />
           {/* info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }}  */}
-          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageDOC')[0]} shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageDOC')[0]} shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} />
 
           {/* -73.7% */}
           <Page1Photos timeline={scrubTl1} projects={projects.filter((project) => project.cat === 'bts')} />
           {/* info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }}  */}
-          <PageDescription info={sectionInfo.filter((section)=>section._id==='mainPageBTS')[0]} shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageBTS')[0]} shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
           <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
@@ -1392,7 +1422,7 @@ overscroll-behavior: none;
 
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
+  const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu" || cat == "art"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
   const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
   // const sectionInfoMilo = await client.fetch(`*[]`)
   return {
