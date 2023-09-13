@@ -44,8 +44,10 @@ import ScrollDown from '@/components/ScrollDown'
 import client from '../../lib/sanity'
 import PageIndicator from '@/components/PageIndicator'
 import useMinimizeScroll from '@/utils/useMinimizeScroll'
-import ScrollVisual from '@/components/line/ScrollVisual'
-import LanguageToggle from '@/components/LanguageToggle'
+// import ScrollVisual from '@/components/line/ScrollVisual'
+// import LanguageToggle from '@/components/LanguageToggle'
+import BackgroundMain from '@/components/BackgroundMain'
+import SplashScreen from '@/components/SplashScreen'
 // import useWindowResize from '@/utils/useWindowResize'
 
 
@@ -59,7 +61,6 @@ export default function Home({ projects, sectionInfo }) {
   // useWindowResize({options:{resize:true}});
 
   useMinimizeScroll();
-  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach(project => photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]); return photos })
   let [artImages, setArtImages] = useState(() => { let photos = []; let project = projects.filter((project) => project.cat === 'art')[0]; project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] }); return photos })
   // let [artImages, setArtImages] = useState(() => { let photos = []; projects.filter((project) => project.cat === 'art').forEach(project => project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] })); return photos })
   let [artProjects, setArtProjects] = useState(() => { return projects.filter((project) => project.cat === 'art') })
@@ -86,8 +87,8 @@ export default function Home({ projects, sectionInfo }) {
 
     shuffledPhotos && setArtImages(shuffledPhotos.slice(0, 3))
 
-    let newMainImage = shuffle([...mainImages])
-    newMainImage && setMainImages(newMainImage.slice(0, 1))
+    // let newMainImage = shuffle([...mainImages])
+    // newMainImage && setMainImages(newMainImage.slice(0, 1))
 
   }, [])
 
@@ -1012,6 +1013,7 @@ export default function Home({ projects, sectionInfo }) {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
+
       // .add(introText(), 0)
       let transition1 = showPage1().paused(true).add(hideIntro(), 0).add(showInfo1(), 1).add(moveScreen1(), 0).progress(0)
       setTransitionTl1(transition1);
@@ -1330,7 +1332,7 @@ overscroll-behavior: none;
 }
   */}
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
-      <main style={{ height: mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black`} >
+      <main style={{ height: !pageLoaded ? '100vh' : mobile ? '700vh' : '700vh' }} className={`w-full mainBackground dark-scrollbar relative bg-black `} >
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
@@ -1338,6 +1340,7 @@ overscroll-behavior: none;
           // finished={false}
           mobile={mobile}
         >
+        <SplashScreen pageLoaded={pageLoaded} />
 
           {/* <div className={'fixedColor fixed top-0 opacity-100 bg-red-500 w-full h-full'}/> */}
           {mobile ? <Background type='top' amount={10} src='/images/miloMobile.png' height='h-[115vh]' objectPosition={'object-center'} animationName={'page5'} className={'opacity-0 top-[25vh] '} /> : <BackgroundSplit type='top' amount={10} src1='/images/milo.jpg' height='h-[115vh]' animationName={'page5'} className={'opacity-0 top-[25vh]'} />}
@@ -1352,7 +1355,8 @@ overscroll-behavior: none;
           <Background type='both' amount={10} src='/images/mainpageDocu.jpg' height='h-[115vh]' animationName={'page2'} className={'opacity-0 top-[25vh]'} />
           <Background type='both' amount={10} src='/images/mainpageMoon.jpg' height='h-[110vh]' animationName={'page1'} className={'opacity-0 top-[30vh]'} />
           <Background type='bottom' amount={50} src='/images/mainpageStarsCut.jpg' height='h-[50vh]' animationName={'page1stars'} className={'opacity-50 top-[-10vh]'} />
-          <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src={mainImages[0].image.asset.url} height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
+          {/* {console.log(mainImages[0].image)} */}
+          <BackgroundMain setPageLoaded={setPageLoaded} type='bottom' priority amount={40} projects={projects} height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} />
           {/* <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} /> */}
 
           {/* LEGS */}
@@ -1411,6 +1415,7 @@ overscroll-behavior: none;
           {/* <Story2Moon speed={1} scrollMin={0} scrollMax={0} /> */}
           {/* </section> */}
           {mobile ? <NavigationMobile /> : <Navigation />}
+
         </PageWrapper>
         {/* <ScrollVisual /> */}
         {/* {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>} */}

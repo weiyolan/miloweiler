@@ -65,7 +65,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           // stagger: 0.5,
           ease: 'expo.out',
           scrollTrigger: {
-            scroller: window,
+            // scroller: window,
             trigger: projectThumb.current,
             start: '-=50% bottom',
             // end:'bo'

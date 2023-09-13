@@ -89,7 +89,6 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
 
   return (
     <div
-      // style={{ clipPath: `path(${paths[n]})` }}
       // style={{ clipPath: `url(#svgClip${n})` }}
       // style={{left:`calc(${n} * 1/3)`}}
       className={`absolute opacity-0 invisible drop-shadow-2xl page3photos page3photos${n} ${className} select-none`}>
@@ -97,17 +96,14 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
       {/* <div className={`relative ${className}`}> */}
       {/* w-[60vw] h-[calc(60vw*0.666)] */}
 
-      <Link href={`/gallery/${slug}`} className={className}>
-        <Image
-          style={{ clipPath: `url(#svgClip${n})` }}
-          // width={1500} height={n === 2 ? 1000 : 2250}
-          fill
-          sizes='25vw'
-          onMouseEnter={() => setHovering(true)}
-          onMouseLeave={() => setHovering(false)}
-          className={`object-cover ${imagePosition} cursor-pointer`}
-          {...props} />
-      </Link>
+      <Image
+        style={{ clipPath: `url(#svgClip${n})` }}
+        fill
+        sizes='25vw'
+        className={`object-cover ${imagePosition} cursor-pointer`}
+        {...props} />
+      <Link onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)} style={{ clipPath: `url(#svgClip${n})` }} href={`/gallery/${slug}`} className={`absolute w-full h-full`} />
       <svg viewBox='0 0 1 1'
 
       // onMouseEnter={() => mobile && setHovering(true)}
