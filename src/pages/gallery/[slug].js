@@ -13,21 +13,21 @@ import ProjectPicture from "@/components/ProjectPicture";
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
 import Layout from "@/components/Layout";
 import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
-import gsap from 'gsap/dist/gsap'
+import { gsap } from 'gsap/dist/gsap'
 import useLocalStorage from "@/utils/useLocalStorage";
 import { Observer } from 'gsap/dist/Observer'
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import PictureIndicator from "@/components/PictureIndicator";
 import Line from "@/components/Line";
 
-gsap.registerPlugin(Observer, ScrollToPlugin)
-
+gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger)
 
 export default function Project({ project, slug, slugs }) {
   // console.log(project)
   let [animating, setAnimating] = useState(false)
   let darkMode = true
-  const { width, height ,locale} = useAppContext()
+  const { width, height, locale } = useAppContext()
   // let [loaded, setLoaded] = useState(false)
   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
   // let [clicked, setClicked] = useState(false)
@@ -289,27 +289,27 @@ export default function Project({ project, slug, slugs }) {
             </div>
           </Layout>
           <div className={`absolute flex w-full lg:w-fit z-[10] top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ${width < 1024 ? descriptionOpen ? '' : 'invisible select-none' : ''}`}>
-            <Link title={locale==='fr'?'Retour à la galerie':'Back to gallery'}
+            <Link title={locale === 'fr' ? 'Retour à la galerie' : 'Back to gallery'}
               className={` group flex items-center w-fit h-fit font-pop text-xs mobm:text-sm font-extralight transition-all 
                 ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
               href='/gallery'>
               <IoArrowBack className="w-5 h-5 fill-primary group-hover:scale-110 transition-all " />
               <div>
-              {locale==='fr'?'Retour à la galerie':'Back to gallery'}
+                {locale === 'fr' ? 'Retour à la galerie' : 'Back to gallery'}
                 <Line className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
               </div>
             </Link>
             <div className={`flex font-pop text-xs mobm:text-sm font-extralight gap-4`}>
-              <Link title={locale==='fr'?'Précédent projet':'Previous project'} className={` group transition-all flex items-center gap-1 w-fit h-fit 
+              <Link title={locale === 'fr' ? 'Précédent projet' : 'Previous project'} className={` group transition-all flex items-center gap-1 w-fit h-fit 
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
                 <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
-                <div>{locale==='fr'?'Précédent':'Previous'}
+                <div>{locale === 'fr' ? 'Précédent' : 'Previous'}
                   <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
               </Link>
-              <Link title={locale==='fr'?'Suivant projet':'Next project'} className={` group transition-all flex items-center gap-1 w-fit h-fit
+              <Link title={locale === 'fr' ? 'Suivant projet' : 'Next project'} className={` group transition-all flex items-center gap-1 w-fit h-fit
               ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
-                <div>{locale==='fr'?'Suivant':'Next'}
+                <div>{locale === 'fr' ? 'Suivant' : 'Next'}
                   <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
                 <AiFillCaretRight className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />

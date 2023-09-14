@@ -1,12 +1,14 @@
 import { useAppContext } from '@/utils/appContext'
 import React, { useEffect, useRef, useState } from 'react'
 import SanityImage from './SanityImage'
-import { gsap } from 'gsap'
 import Link from 'next/link'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Spinner from './Spinner'
 import Line from './Line'
-gsap.registerPlugin(ScrollTrigger)
+
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
   const { locale } = useAppContext()
   let [hover, setHover] = useState(false)
@@ -65,7 +67,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           // stagger: 0.5,
           ease: 'expo.out',
           scrollTrigger: {
-            // scroller: window,
+            scroller: window,
             trigger: projectThumb.current,
             start: '-=50% bottom',
             // end:'bo'
