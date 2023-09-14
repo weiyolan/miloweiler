@@ -6,6 +6,14 @@ import { Poppins, Lora } from 'next/font/google'
 import { AppWrapper } from '@utils/appContext';
 // import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
+
+import { gsap } from 'gsap/dist/gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
+
 // import Lenis from '@studio-freight/lenis'
 
 // const workSans = Work_Sans({
