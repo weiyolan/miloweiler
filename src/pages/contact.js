@@ -31,6 +31,7 @@ import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
@@ -65,7 +66,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         }
       })
       gsap.to('.portfolioText', {
-        x: 0, opacity: 1, ease: 'ease.out', scrollTrigger: {
+        x: 0, opacity: 1, ease: 'ease.out', 
+        scrollTrigger: {
           trigger: '.portfolioText',
           start: `top ${width < 648 ? '90%' : '85%'}`,
           end: `top ${width < 648 ? '80%' : '65%'}`,
@@ -91,6 +93,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         // console.log(logo.getAttribute("data-speed"))
         gsap.to(logo, {
           translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
+          // x: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           opacity: 0,
           // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
           // y:0,

@@ -3,8 +3,10 @@ import { BsCheckLg } from 'react-icons/bs'
 import { useAppContext } from '@utils/appContext';
 import { usePageContext } from '@/utils/pageContext';
 import { toast } from 'react-hot-toast';
-import { gsap } from 'gsap';
+
+import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Form = () => {

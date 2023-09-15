@@ -5,8 +5,8 @@ import LayoutSection from '@/components/LayoutSection';
 import SanityImage from '@/components/SanityImage';
 import SubTitle from '@/components/SubTitle';
 import { useAppContext } from '@/utils/appContext';
-import Image from 'next/image';
-import { gsap } from 'gsap';
+// import Image from 'next/image';
+import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
 import useLayoutEffect from '@utils/useIsomorphicLayoutEffect'
@@ -17,13 +17,14 @@ export default function PrintingDetails({ printingData }) {
 
   let ctx = useRef(null)
   let tl = useRef(null)
-  let parent = useRef(null)
+  let parent = useRef()
   const { width } = useAppContext()
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
       tl.current = gsap.timeline({
         scrollTrigger: {
           trigger: parent.current,
+          // trigger: '.printing-parent',
           start: width<648?`top 90%`:'30% 80%',
           // start: `top ${width < 648 ? '85%' : '60%'}`, 
           // toggleActions:'restart none none reverse',

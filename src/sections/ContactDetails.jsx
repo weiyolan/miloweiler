@@ -6,7 +6,7 @@ import LayoutSection from '@/components/LayoutSection';
 import SanityImage from '@/components/SanityImage';
 import SubTitle from '@/components/SubTitle';
 import { useAppContext } from '@/utils/appContext';
-import { gsap } from 'gsap';
+import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
 import useLayoutEffect from '@utils/useIsomorphicLayoutEffect'

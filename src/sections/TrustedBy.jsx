@@ -6,7 +6,7 @@ import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import React, { useRef } from 'react'
-import { gsap } from 'gsap';
+import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
 import useLayoutEffect from '@utils/useIsomorphicLayoutEffect'
@@ -20,12 +20,13 @@ export default function TrustedBy({ trustedBy }) {
   // const { ctx, tl } = usePageContext()
   let ctx = useRef(null)
   let tl = useRef(null)
-  let trusted = useRef(null)
+  let trusted = useRef()
   let { width } = useAppContext()
 
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
       tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, invalidateOnRefresh: true, markers: false } })
+      // tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, invalidateOnRefresh: true, markers: false } })
         // .from('.title', { opacity: 0, duration: 1 })
         .to('.artist-title', { opacity: 1, duration: 1 })
         .to('.artist-line', { width: 224, duration: 0.8, }, '<')
@@ -79,7 +80,7 @@ export default function TrustedBy({ trustedBy }) {
 
   return (
     <LayoutSection center>
-      <div ref={trusted} className='trusted-by relative w-full text-center'>
+      <div ref={trusted} className='trusted-by trusted-by-div relative w-full text-center'>
         <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle='Trusted By' subTitle={''} />
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line border-darkPrimary'} />
@@ -118,13 +119,13 @@ function Logo({ dataSpeed, dataDirection, type, logo, link }) {
     />)
   }
 
-  if (link===undefined) {
+  if (link === undefined) {
     return getImage()
-  } 
-  
+  }
+
   return (
     <Link className='cursor-pointer w-fit h-fit' href={link} target='_blank'
       rel="noopener noreferrer">
-        {getImage()}
+      {getImage()}
     </Link>)
 }
