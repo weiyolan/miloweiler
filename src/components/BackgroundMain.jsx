@@ -8,7 +8,7 @@ import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { gsap } from 'gsap/dist/gsap'
 
 export default function BackgroundMain({ projects, type, priority, amount, height, className, animationName, setPageLoaded, objectPosition }) {
-  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach(project => photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]); return photos })
+  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach((project) => {photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]; project.otherImages.forEach((image)=>{photos=[...photos, {image:image}]})}); return photos })
   let [switched, setSwitched] = useState(false)
 
   useLayoutEffect(() => {
@@ -44,7 +44,7 @@ export default function BackgroundMain({ projects, type, priority, amount, heigh
           {/* <Image alt={alt&&alt || 'beautiful background image'} fill priority={priority ? priority : false} src={src} style={{ transform: "translate3d(0, 0, 0)" }} /> */}
           {/* Empty ALT for purely decorative images */}
 
-          {switched && <SanityImage alt={mainImages[0].alt || ''}
+          {switched && <SanityImage alt={mainImages[0]?.alt || 'Beautiful picture shot by Milo Weiler.'}
             containerClass='rounded-none'
             className={`will-change-transform object-cover object-center  mainBackground opacity-0 ${objectPosition && objectPosition}`}
             sizes="100vw"
