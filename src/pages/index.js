@@ -1389,21 +1389,21 @@ overscroll-behavior: none;
 
           <Page4Kakje scrubTl={scrubTl4} transitionTl={transitionTl4} />
           {/* info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }}  */}
-          <PageDescription4 info={sectionInfo.filter((section) => section._id === 'mainPageSTU')[0]} shadow animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} />
+          <PageDescription4 info={sectionInfo.filter((section) => section._id === 'mainPageSTU')[0]} shadow={!mobile} animateName='page4description' className={`text-center bottom-[5%] md:bottom-auto md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-0 md:-translate-y-1/2`} />
 
           <Page3Photos images={artImages} />
           <Page3KakScrub scrubTl={scrubTl3} />
           {/* info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }}  */}
-          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageFIN')[0]} shadow animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageFIN')[0]} shadow={!mobile} animateName='page3description' className={`text-left bottom-4 md:bottom-12 lg:bottom-16 left-4 md:left-12 lg:left-16`} />
 
           <Page2Photos projects={projects.filter((project) => project.cat === 'docu')} />
           {/* info={{ title: 'Documentary', text: 'Through my Documentary photography, I invite you to step into the real world and witness the beauty and complexity of everyday life. My images capture the raw, unscripted moments that make up our human experience, bringing to life the emotions and stories of those who are often overlooked.' }}  */}
-          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageDOC')[0]} shadow animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageDOC')[0]} shadow={!mobile} animateName='page2description' className={`text-right top-14 md:top-16 lg:top-14 right-4 md:right-16 lg:right-12`} />
 
           {/* -73.7% */}
           <Page1Photos timeline={scrubTl1} projects={projects.filter((project) => project.cat === 'bts')} />
           {/* info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }}  */}
-          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageBTS')[0]} shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
+          <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageBTS')[0]} shadow={!mobile} animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
 
           <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
           <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
