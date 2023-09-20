@@ -3,16 +3,17 @@ import ProjectDescription from "@/components/ProjectDescription";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react"
 import client from '../../../lib/sanity'
-import { IoClose, IoArrowBack } from 'react-icons/io5'
+// import { IoClose} from 'react-icons/io5'
+import { IoArrowBack } from 'react-icons/io5'
 import Link from "next/link";
 import ProjectPictures from "@/components/ProjectPictures";
 import ProjectPicture from "@/components/ProjectPicture";
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
 import Layout from "@/components/Layout";
-import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
+// import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 import { gsap } from 'gsap/dist/gsap'
 import useLocalStorage from "@/utils/useLocalStorage";
 import { Observer } from 'gsap/dist/Observer'

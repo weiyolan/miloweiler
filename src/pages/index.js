@@ -1405,7 +1405,7 @@ overscroll-behavior: none;
           {/* info={{ title: 'Behind The Scenes', text: 'With my Behind The Scenes Photography, I capture the moments that make every production unique, from planning to final take. I reveal the dedication and creativity that goes into bringing a vision to life, leaving you in awe of the process.' }}  */}
           <PageDescription info={sectionInfo.filter((section) => section._id === 'mainPageBTS')[0]} shadow animateName='page1description' className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`} />
 
-          <StoryTitle shadow={true} scrubTl={scrubTl0} ctx={titleCtx} />
+          <StoryTitle shadow={!mobile} scrubTl={scrubTl0} ctx={titleCtx} />
           <ScrollDown style={{ transform: 'translate3d(-50%,0,0)' }} className={'scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer'} ctx={titleCtx} />
 
           {mobile ? <></> : <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} />}
