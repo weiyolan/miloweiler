@@ -17,10 +17,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 let mailLink = "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A"
 
-export default function ContactDetails({ contactDetails }) {
+export default function ContactDetails({ contactDetails, portfolioLink }) {
   let ctx = useRef(null)
   let tl = useRef(null)
-  const { width } = useAppContext();
+  // const { width } = useAppContext();
 
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
@@ -45,13 +45,12 @@ export default function ContactDetails({ contactDetails }) {
           {contactDetails.text[locale]}
         </p>
         <div className='flex flex-col xs:flex-row font-pop gap-6 mt-4'>
-
           <div className='flex-col flex-1 '>
             <AccentTitle text='Details' noMargin className={'contact-child'} />
             <p className='w-fit font-pop contact-child'>{'TVA: BE 0791 549 197'}</p>
             <ArrowLink className={'contact-child'} inText text='contact@miloweiler.com' to={mailLink} ext tabIndex='0' />
             <ArrowLink className={'contact-child'} inText text='+32 476 50 62 09' to='tel:+32476506209' tabIndex='0' />
-            <ContactB className={'mt-4 sm:mt-2 contact-child'} />
+            <ContactB className={'mt-4 sm:mt-2 contact-child'} portfolioLink={portfolioLink} />
           </div>
           <div className='flex-col flex-1'>
             <AccentTitle text='Address' noMargin className={'contact-child'} />

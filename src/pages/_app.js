@@ -24,15 +24,13 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 const poppins = Poppins({
   subsets: ['latin'],
   variable: '--font-poppins',
-  // display: 'swap',  
-  display: 'optional',  
+  // display: 'optional',  
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 })
 const lora = Lora({
   subsets: ['latin'],
   variable: '--font-lora',
-  display: 'swap',
-  // weight: ['400', '500', '600', '700'],
+  // display: 'swap',
 })
 
 

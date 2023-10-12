@@ -32,50 +32,71 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 
+import { supportedLanguages } from "studio/schemas/supportedLanguages";
+
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
-  let textRef = useRef(null)
-  let { width, locale } = useAppContext()
-  let { height: textHeight } = useDimensions(textRef)
+  let textRef = useRef(null);
+  let { width, locale } = useAppContext();
+  let { height: textHeight } = useDimensions(textRef);
   let pageMobile = width < 648;
-  let darkMode = false
+  let darkMode = false;
   // console.log(contactFormData)
   // const router = useRouter();
-  let tl = useRef()
-  let ctx = useRef()
+  let tl = useRef();
+  let ctx = useRef();
 
-  let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
+  let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   useLayoutEffect(() => {
-
     ctx.current = gsap.context(() => {
       // tl.current = gsap.timeline({ paused: false });
-      gsap.to('.contact-image0', { opacity: 1, duration: 1.2, delay: 0.5, })
-      gsap.to('.contact-image1', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image1', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
-      gsap.to('.contact-image2', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image2', start: `20% ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
-      gsap.to('.contact-image3', { opacity: 1, duration: 1.2, scrollTrigger: { trigger: '.contact-image3', start: `top ${width < 648 ? '85%' : '60%'}`, markers: false, invalidateOnRefresh: true, } })
-      gsap.to('.portfolioImage', {
-        x: 0, opacity: 1, stagger: 0.2, ease: 'ease.out', scrollTrigger: {
-          trigger: '.portfolioImage',
-          start: `top ${width < 648 ? '90%' : '85%'}`,
-          end: `top ${width < 648 ? '80%' : '40%'}`,
-          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
-          scrub: 2,
-          markers: false,
-        }
-      })
-      gsap.to('.portfolioText', {
-        x: 0, opacity: 1, ease: 'ease.out', 
+      gsap.to(".contact-image0", { opacity: 1, duration: 1.2, delay: 0.5 });
+      gsap.to(".contact-image1", {
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: { trigger: ".contact-image1", start: `20% ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
+      });
+      gsap.to(".contact-image2", {
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: { trigger: ".contact-image2", start: `20% ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
+      });
+      gsap.to(".contact-image3", {
+        opacity: 1,
+        duration: 1.2,
+        scrollTrigger: { trigger: ".contact-image3", start: `top ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
+      });
+      gsap.to(".portfolioImage", {
+        x: 0,
+        opacity: 1,
+        stagger: 0.2,
+        ease: "ease.out",
         scrollTrigger: {
-          trigger: '.portfolioText',
-          start: `top ${width < 648 ? '90%' : '85%'}`,
-          end: `top ${width < 648 ? '80%' : '65%'}`,
-          invalidateOnRefresh: true, toggleActions: 'play none reverse none',
+          trigger: ".portfolioImage",
+          start: `top ${width < 648 ? "90%" : "85%"}`,
+          end: `top ${width < 648 ? "80%" : "40%"}`,
+          invalidateOnRefresh: true,
+          toggleActions: "play none reverse none",
           scrub: 2,
           markers: false,
-        }
-      })
+        },
+      });
+      gsap.to(".portfolioText", {
+        x: 0,
+        opacity: 1,
+        ease: "ease.out",
+        scrollTrigger: {
+          trigger: ".portfolioText",
+          start: `top ${width < 648 ? "90%" : "85%"}`,
+          end: `top ${width < 648 ? "80%" : "65%"}`,
+          invalidateOnRefresh: true,
+          toggleActions: "play none reverse none",
+          scrub: 2,
+          markers: false,
+        },
+      });
       // gsap.to('.portfolioImage', {
       //   x: -192, opacity: 0,  stagger: 0.2, ease: 'back', scrollTrigger: {
       //     trigger: '.portfolioImage',
@@ -86,7 +107,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       //     markers: true
       //   }
       // })
-      gsap.to('.form-title', { opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.form-title', start: `top ${width < 648 ? '85%' : '60%'}`, invalidateOnRefresh: true, } })
+      gsap.to(".form-title", { opacity: 1, duration: 0.8, scrollTrigger: { trigger: ".form-title", start: `top ${width < 648 ? "85%" : "60%"}`, invalidateOnRefresh: true } });
       // gsap.set("[data-speed]", {position:'fixed'})
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         // console.log(logo)
@@ -99,8 +120,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           // y:0,
           // ease: "none",
           scrollTrigger: {
-            trigger: '.trusted-by',
-            start: width < 648 ? '30% 20%' : 'center 20%',
+            trigger: ".trusted-by",
+            start: width < 648 ? "30% 20%" : "center 20%",
             // start: 'top bottom',
             // end: "max",
             invalidateOnRefresh: true,
@@ -109,8 +130,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             // markers: ()=>i?false:false,
           },
           lazy: false,
-        })
-      })
+        });
+      });
 
       gsap.utils.toArray("[data-imagecontainer]").forEach((image, i) => {
         image.bg = image.querySelector(".imageFill");
@@ -121,12 +142,14 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         // image.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;
         // the first image (i === 0) should be handled differently because it should start at the very top.
         // use function-based values in order to keep things responsive
-        if (image.getAttribute('data-imagecontainer') === 'true') {
-          gsap.fromTo(image.bg, {
-            objectPosition: i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px"
-          },
+        if (image.getAttribute("data-imagecontainer") === "true") {
+          gsap.fromTo(
+            image.bg,
             {
-              objectPosition: `50% ${(width < 648 ? '' : '')}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
+              objectPosition: i ? `50% ${-window.innerHeight * getRatio(image)}px` : "50% 0px",
+            },
+            {
+              objectPosition: `50% ${width < 648 ? "" : ""}${(window.innerHeight * (1 - getRatio(image))) / 3}px`,
               // objectPosition: () => `50% ${window.innerHeight * (1 - getRatio(image))}px`,
               ease: "none",
               lazy: false,
@@ -139,18 +162,18 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 scrub: true,
                 markers: false,
                 // markers: () => i ? false : false,
-                invalidateOnRefresh: true // to make it responsive
-              }
-            })
+                invalidateOnRefresh: true, // to make it responsive
+              },
+            }
+          );
         }
       });
       // gsap.to('.logo-artist', {opacity:1, duration: 0.5, stagger: 0.2});
       // gsap.to('.logo-company', {opacity:1, duration: 0.5, stagger: 0.2});
-    }, '.contact-page')
+    }, ".contact-page");
 
-    return () => ctx.current.revert()
-  }, [width])
-
+    return () => ctx.current.revert();
+  }, [width]);
 
   return (
     <>
@@ -163,74 +186,89 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       {/* duration:0.9,  */}
       <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
-        <main className={'bg-[#FFEAD6] relative contact-page overflow-x-hidden'}>
-          <div className='fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2'>
-            <Logo darkMode={darkMode} className='w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40' />
+        <main className={"bg-[#FFEAD6] relative contact-page overflow-x-hidden"}>
+          <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
+            <Logo darkMode={darkMode} className="w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40" />
           </div>
-          <PageWrapper darkMode={darkMode}
-          // ctx={ctx} tl={tl}
+          <PageWrapper
+            darkMode={darkMode}
+            // ctx={ctx} tl={tl}
           >
-            <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
-              <h1 className='invisible uppercase font-lora text-center text-3xl '>Contact Page</h1>
+            <Layout className={"relative lg:px-16 xl:px-24 max-w-7xl"}>
+              <h1 className="invisible uppercase font-lora text-center text-3xl ">Contact Page</h1>
 
               {/* =======CONTACT DETAILS======== */}
-              <ContactDetails contactDetails={contactDetailsData} />
+              <ContactDetails contactDetails={contactDetailsData} portfolioLink={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
               {/* {console.log(contactDetailsData)} */}
               {/* =======TRUSTED BY======== */}
               <TrustedBy trustedBy={trustedByData} />
 
               {/* =======OFFER FORM======== */}
-              <LayoutSection right className={`flex-col-reverse`} >
-                <div className='flex flex-col w-full'>
+              <LayoutSection right className={`flex-col-reverse`}>
+                <div className="flex flex-col w-full">
                   {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
-                  <SubTitle className='form-title' mainTitle={contactFormData.title[locale]} SubTitle='' left />
+                  <SubTitle className="form-title" mainTitle={contactFormData.title[locale]} SubTitle="" left />
                   <Form />
                 </div>
-                <SanityImage fill containerClass='contact-image1 opacity-0' image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
+                <SanityImage fill containerClass="contact-image1 opacity-0" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
               </LayoutSection>
 
               {/* =======PRINTING SERVICE======== */}
               <PrintingDetails printingData={printingData} />
 
               {/* ======PRORTFOLIO======== */}
-              <LayoutSection center >
-                <div className='w-full text-center'>
-                  <SubTitle className='portfolioText max-w-[750px] mx-auto mb-2' mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
-                  <ArrowLink className='portfolioText ml-8 ' inText text='download' to='/' />
-                  <div className='flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4'>
+              <LayoutSection center>
+                <div className="w-full text-center">
+                  <SubTitle className="portfolioText max-w-[750px] mx-auto mb-2" mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
+                  <ArrowLink className="portfolioText ml-8 " inText text="download" to={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
+                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4">
                     {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                     {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                    <SanityImage intrinsic priority className='w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image1.image.asset} alt={portfolioData.image1.alt[locale]} />
-                    <SanityImage intrinsic priority className='w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto' image={portfolioData.image2.image.asset} alt={portfolioData.image2.alt[locale]} />
+                    <SanityImage
+                      intrinsic
+                      priority
+                      className="w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto"
+                      image={portfolioData.image1.image.asset}
+                      alt={portfolioData.image1.alt[locale]}
+                    />
+                    <SanityImage
+                      intrinsic
+                      priority
+                      className="w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto"
+                      image={portfolioData.image2.image.asset}
+                      alt={portfolioData.image2.alt[locale]}
+                    />
                   </div>
                 </div>
               </LayoutSection>
 
               {/* ======INSPIRATION======== */}
               <LayoutSection center>
-                <div className='w-full text-center mb-4'>
-                  <SubTitle className='max-w-[70%] mx-auto' mainTitle={inspirationData.title[locale]} subTitle={''} />
-                  {!pageMobile && <ArrowLink inText className='ml-8 w-fit self-center mb-2' text='Contact me' to='#contactSection' />}
-                  <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12'>
-                    <div className='flex-1 flex flex-col justify-start'>
-                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5'>{inspirationData.subTitle1[locale]}</h3>
-                      <p ref={textRef} className='text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                <div className="w-full text-center mb-4">
+                  <SubTitle className="max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
+                  {!pageMobile && <ArrowLink inText className="ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12">
+                    <div className="flex-1 flex flex-col justify-start">
+                      <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
+                      <p
+                        ref={textRef}
+                        className="text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
                         {inspirationData.text1[locale]}
                       </p>
-                      <ArrowLink inText className='ml-8 w-fit mt-5' text='Go to homepage' to='/' />
+                      <ArrowLink inText className="ml-8 w-fit mt-5" text="Go to homepage" to="/" />
                     </div>
-                    <div className='flex-1 flex flex-col justify-start'>
-                      <h3 className='font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5'>{inspirationData.subTitle2[locale]}</h3>
-                      <p style={{ height: pageMobile ? 'auto' : textHeight ? textHeight + 'px' : 'auto' }}
-                        className='text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>
+                    <div className="flex-1 flex flex-col justify-start">
+                      <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
+                      <p
+                        style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}
+                        className="text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
                         {inspirationData.text2[locale]}
                       </p>
-                      <ArrowLink inText className='ml-8 w-fit self-center text-center mt-5' text='Visit my gallery' to='/' />
+                      <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/gallery" />
                     </div>
                   </div>
                 </div>
               </LayoutSection>
-
             </Layout>
             {/* <Footer /> */}
             <Footer2 className={`relative mt-8`} noMotion noMargin />
@@ -241,18 +279,29 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         </main>
       </ReactLenis>
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
+  let langObjPortfolioUrl = "";
+  let langObjPortfolioName = "";
+
+  supportedLanguages.forEach((lang) => {
+    langObjPortfolioUrl = langObjPortfolioUrl + `'${lang.id}':portfolio.document.${lang.id}.asset->url,`;
+    langObjPortfolioName = langObjPortfolioName + `'${lang.id}':portfolio.document.${lang.id}.asset->originalFilename,`;
+  });
+
   const contactDetailsData = await client.fetch(`*[_type == "contactPageCDS"][0]`);
   const trustedByData = await client.fetch(`*[_type == "contactPageTBS"][0]`);
   const contactFormData = await client.fetch(`*[_type == "contactPageAOS"][0]`);
   const printingData = await client.fetch(`*[_type == "contactPagePSS"][0]`);
-  const portfolioData = await client.fetch(`*[_type == "contactPagePFS"][0]`);
+  const { image1, image2, title, text, portfolio } = await client.fetch(
+    `*[_type == "contactPagePFS"][0]{image1,image2,title,text,'portfolio':{'url':{${langObjPortfolioUrl}},'fileName':{${langObjPortfolioName}}}}`
+  );
   const inspirationData = await client.fetch(`*[_type == "contactPageGIS"][0]`);
+
   // const products = await client.fetch(`*[_type == "product"]`);
-  // console.log(responsibilities)
+  // console.log(portfolio);
   // console.log(contactDetail)
   return {
     props: {
@@ -260,8 +309,8 @@ export async function getStaticProps() {
       trustedByData: trustedByData,
       contactFormData: contactFormData,
       printingData: printingData,
-      portfolioData: portfolioData,
-      inspirationData: inspirationData
-    }
+      portfolioData: { image1, image2, title, text, portfolio },
+      inspirationData: inspirationData,
+    },
   };
 }

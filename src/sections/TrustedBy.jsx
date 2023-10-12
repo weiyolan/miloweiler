@@ -5,14 +5,13 @@ import SubTitle from '@/components/SubTitle';
 import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
-import React, { useRef } from 'react'
 import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
 import useLayoutEffect from '@utils/useIsomorphicLayoutEffect'
 import { useAppContext } from '@/utils/appContext';
 import Link from 'next/link';
-
+import { useEffect, useRef, useState } from 'react';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function TrustedBy({ trustedBy }) {
@@ -25,7 +24,7 @@ export default function TrustedBy({ trustedBy }) {
 
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
-      tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, invalidateOnRefresh: true, markers: false } })
+      tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '80%'}`, invalidateOnRefresh: true, markers: false } })
       // tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, invalidateOnRefresh: true, markers: false } })
         // .from('.title', { opacity: 0, duration: 1 })
         .to('.artist-title', { opacity: 1, duration: 1 })
@@ -85,12 +84,12 @@ export default function TrustedBy({ trustedBy }) {
         <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 artist-line border-darkPrimary'} />
         <div className='artist-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
-          {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} to={logo.link} /> })}
+          {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} link={logo.link} /> })}
         </div>
         <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text='Companies' />
         <Line style={{}} className={'opacity-100 w-0 mx-auto mb-2 company-line border-darkPrimary'} />
         <div className='company-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
-          {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} to={logo.link} /> })}
+          {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} link={logo.link} /> })}
         </div>
       </div>
     </LayoutSection>
@@ -102,6 +101,34 @@ function Logo({ dataSpeed, dataDirection, type, logo, link }) {
   let ar = (width / height)
   // console.log(ar)
 
+
+  let [hovering, setHovering] = useState(false);
+  let [clicking, setClicking] = useState(false);
+  let [active, setActive] = useState(false);
+  const myRef = useRef();
+  let ctx = useRef(gsap.context(() => { }))
+  useEffect(() => {
+
+    return () => ctx.current.revert()
+
+  })
+
+
+  useEffect(() => {
+    myRef?.current !== undefined &&
+      ctx.current.add(() => {
+        gsap.to(myRef.current, {
+          duration: 0.5,
+          scale: hovering ? (clicking ? 0.95 : 1.05) : 1,
+          transformOrigin: '50% 50%',
+          ease: 'elastic.out(1, 0.5)',
+          // ease: 'expo.out',
+        });
+      });
+  }, [hovering, clicking, active]);
+
+
+
   function getImage() {
     return (<Image
       src={src}
@@ -111,21 +138,35 @@ function Logo({ dataSpeed, dataDirection, type, logo, link }) {
       height={height}
       loader={loader}
       style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-      className={`logo logo-${type} my-auto scale-75 translate-x-0 xs:scale-100 opacity-0`}
+      className={``}
       alt={`Logo of the ${type} ${logo.name}`}
+
     // sizes="100px"
     // placeholder="blur"
     // blurDataURL={trustedBy[1].image.asset.metadata.lqip} 
     />)
   }
 
-  if (link === undefined) {
-    return getImage()
-  }
+  // if (link === undefined) {
+  //   return getImage()
+  // }
 
   return (
-    <Link className='cursor-pointer w-fit h-fit' href={link} target='_blank'
-      rel="noopener noreferrer">
+    <Link className={`cursor-pointer logo logo-${type} my-auto scale-75 translate-x-0 xs:scale-100 opacity-0`} href={link !== undefined ? link : 'none'} target='_blank'
+      rel="noopener noreferrer"
+      ref={myRef}
+      onClick={(e) => link === undefined && e.preventDefault()}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => {
+        setHovering(false);
+        setClicking(false);
+      }}
+      onMouseDown={() => setClicking(true)}
+      onMouseUp={() => setClicking(false)}
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+      tabIndex='0'
+    >
       {getImage()}
     </Link>)
 }

@@ -17,8 +17,10 @@ import contactPagePFS from './contactPagePortFolioS'
 import mainPageXXX from './mainPageXXX'
 import mainPageYYY from './mainPageYYY'
 
-
 import project from './project'
+
+import localeFile from './localeFile'
+import portfolio from './portfolio'
 
 export const schemaTypes = [
   trustedByLogo,
@@ -37,4 +39,6 @@ export const schemaTypes = [
   contactPagePFS,
   mainPageXXX,
   mainPageYYY,
+  localeFile,
+  portfolio,
 ]
