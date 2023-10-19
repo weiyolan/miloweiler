@@ -12,7 +12,15 @@ const nextConfig = withPWA({
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    domains: ['cdn.sanity.io'],
+    domains: ["cdn.sanity.io"],
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "cdn.sanity.io",
+    //     port: "",
+    //   },
+    // ],
+
     // NEXTJS13
     // remotePatterns: [
     //   {
@@ -28,22 +36,22 @@ const nextConfig = withPWA({
   },
 
   i18n: {
-    locales: ['en', 'fr'],
-    defaultLocale: 'en',
+    locales: ["en", "fr"],
+    defaultLocale: "en",
   },
 
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
+      use: ["@svgr/webpack"],
     });
 
     return config;
   },
 
   reactStrictMode: true,
-})
+});
 
 module.exports = nextConfig
 

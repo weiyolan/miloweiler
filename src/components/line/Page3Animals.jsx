@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from '@/components/line/pathUtils'
@@ -24,8 +24,33 @@ export default function Page3Animals({ className, style, scrubTl, transitionTl, 
   // let tl = useRef()
   // let [started, setStarted] = useState(false)
 
-
+  const [tweens, setTweens] = useState([
+    {
+      timeline: transitionTl,
+      id: `animals`,
+      ratio: 1,
+      attr: {
+        duration: mobile ? 6 : 3,
+        // ease: 'ease.inout',
+        // onStart:()=>{console.log('start One')} 
+      },
+      position: 0
+    },
+  ])
   useEffect(() => {
+    setTweens([
+      {
+        timeline: transitionTl,
+        id: `animals`,
+        ratio: 1,
+        attr: {
+          duration: mobile ? 6 : 3,
+          // ease: 'ease.inout',
+          // onStart:()=>{console.log('start One')} 
+        },
+        position: 0
+      },
+    ])
     transitionTl && transitionTl
       .to('.birds', {
         opacity: 1,
@@ -40,19 +65,6 @@ export default function Page3Animals({ className, style, scrubTl, transitionTl, 
       }, 2)
   }, [transitionTl])
 
-  let tweens = [
-    {
-      timeline: transitionTl,
-      id: `animals`,
-      ratio: 1,
-      attr: {
-        duration: mobile ? 6 : 3,
-        // ease: 'ease.inout',
-        // onStart:()=>{console.log('start One')} 
-      },
-      position: 0
-    },
-  ]
 
   let colorPrimary = "#FFF5EA"
 

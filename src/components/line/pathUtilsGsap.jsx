@@ -415,6 +415,9 @@ export function PathGSAPStandalone(props) {
     delete pathProps.lengthFactor
     delete pathProps.fastErase
     delete pathProps.myGradient
+    pathProps.key = pathProps.myKey
+    delete pathProps.myKey
+
     delete pathProps.shadowSmall
     delete pathProps['stroke-width']
     delete pathProps.initialDash
@@ -477,9 +480,9 @@ export function PathGSAPStandalone(props) {
     },[props.double, props.print, props.useId])
 
 
-
   //!!!!!!!!!! ====================GSAP====================!!!!!!!!!!
   useEffect(()=>{
+    props.print && console.log(props.tweens)
     if (props.tweens !== undefined && props.tweens[0].timeline !== undefined) {
 
       props.tweens.forEach((tween)=>{
@@ -489,7 +492,7 @@ export function PathGSAPStandalone(props) {
 
         // console.log((pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*myNewOffset*(props?.transitStrokeAnimation?2:1))
         // console.log(tween.timeline)
-        if (tween.timeline.getById(tween.id)===undefined) {
+        if (tween.timeline?.getById(tween.id) === undefined) {
           
           if (tween.ratio) {
             tween.timeline
@@ -512,7 +515,7 @@ export function PathGSAPStandalone(props) {
         }
       })
     }
-  },[props.tweens, pathLength])
+  }, [props.tweens, pathLength, props.print])
 
   // useEffect(() => {
     // if (props.print) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from '@/components/line/pathUtils'
@@ -32,13 +32,13 @@ let dropsMobile = [
 
 export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transitionTl, animationName }) {
 
-  let { locale, scrolled, width, height } = useAppContext()
+  // let { locale, scrolled, width, height } = useAppContext()
 
   let { mobile } = usePageContext()
   // let [introEnded, setIntroEnded] = useState(false)
   // let [myPosition, setMyPosition] = useState({ x:-0.5, y: 0.77167 })
 
-  let tweens1 = [
+  const [tweens1, setTweens1] = useState([
     {
       timeline: transitionTl,
       id: "fullLegTrans2",
@@ -60,9 +60,9 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
       },
       position: 0
     },
-  ]
+  ])
 
-  let tweensFlower = [
+  const [tweensFlower, setTweensFlower] = useState([
     {
       timeline: scrubTl1,
       id: "fullLegTransFlower",
@@ -72,10 +72,45 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
       },
       position: 0
     },
-  ]
+  ])
 
   useEffect(() => {
     // let tl = gsap.timeline()
+    setTweens1([
+      {
+        timeline: transitionTl,
+        id: "fullLegTrans2",
+        ratio: 1,
+        attr: {
+          duration: 2.5,
+          // overwrite: true,
+          ease: 'ease.out',
+          // ease: "slow(0.1, 0.4, false)",
+        },
+        position: mobile ? 0.3 : 0.3
+      },
+      {
+        timeline: scrubTl0,
+        id: "fullLegScrub2",
+        ratio: mobile ? 0.15 : 0.12,
+        attr: {
+          duration: 0.98
+        },
+        position: 0
+      },
+    ])
+
+    setTweensFlower([
+      {
+        timeline: scrubTl1,
+        id: "fullLegTransFlower",
+        ratio: 1,
+        attr: {
+          duration: 3
+        },
+        position: 0
+      },
+    ])
 
     scrubTl1 && scrubTl1
       .set('#droplet', {

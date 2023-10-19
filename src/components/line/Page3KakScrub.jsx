@@ -1,4 +1,4 @@
-import React, { useEffect, } from "react"
+import React, { useEffect, useState } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 // import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from '@/components/line/pathUtils'
@@ -23,12 +23,50 @@ export default function Page3KakScrub({ className, scrubTl }) {
 
   // let { locale, scrolled } = useAppContext()
 
-  let { mobile } = usePageContext()
+  // let { mobile } = usePageContext()
 
+  const [tweensAppear, setTweensAppear] = useState([[{
+    id: 'speed1AnimationAppear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+    position: 65
+  }], [{
+    id: 'speed2AnimationAppear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+    position: 65
+  }], [{
+    id: 'speed3AnimationAppear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+    position: 65
+  }]])
 
   let colorPrimary = "#FFF5EA";
 
   useEffect(() => {
+    setTweensAppear([[{
+      id: 'speed1AnimationAppear',
+      timeline: scrubTl,
+      ratio: 0.99,
+      attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+      position: 65
+    }], [{
+      id: 'speed2AnimationAppear',
+      timeline: scrubTl,
+      ratio: 0.99,
+      attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+      position: 65
+    }], [{
+      id: 'speed3AnimationAppear',
+      timeline: scrubTl,
+      ratio: 0.99,
+      attr: { duration: 30, ease: 'none', x: -5, y: 60, },
+      position: 65
+    }]])
     scrubTl && scrubTl
       .set('#anus', {
         scale: 0,
@@ -67,15 +105,7 @@ export default function Page3KakScrub({ className, scrubTl }) {
         opacity: 0,
         duration: 5,
       }, 90)
-
   }, [scrubTl])
-
-  let tweenAppear = {
-    timeline: scrubTl,
-    ratio: 0.99,
-    attr: { duration: 30, ease: 'none', x: -5, y: 60, },
-    position: 65
-  }
 
   // let tweenDisapp = {
   //   timeline: scrubTl,
@@ -84,7 +114,7 @@ export default function Page3KakScrub({ className, scrubTl }) {
   //   position: 95,
   // }
 
-  return (<>
+  return (
     <svg className={`fixed left-[70%] md:left-[80%] top-[calc(50lvh+0.92*0.7*0.19*100vw)] md:top-[calc(50vh+0.92*0.3*0.19*100vw)] -translate-x-1/2 w-[10%] md:w-[2.8%] svgKakScrub`} viewBox="0 0 39 235" fill="none">
       <path className='opacity-0' id="anus" d="M32.4404 1.00143C29.3609 1.00143 29.7462 3.27722 30.3879 5.5718C30.9837 7.70227 32.6576 8.9993 34.4939 9C36.5466 9.00078 37.0599 7.85765 37.5729 6.71518C38.0859 5.5727 38.0475 4.87424 37.5729 3.28811C36.8475 0.863833 35.5198 1.00143 32.4404 1.00143Z" strokeWidth={2} stroke={`${colorPrimary}`} strokeLinecap="round" />
       <path className='opacity-0' id="kak1" d="M32.2673 10.0463C30.4921 8.81613 28.8616 8.32526 29.7593 7.02991C30.657 5.73456 31.9985 4.74677 31.8539 4.00743C31.7094 3.2681 34.0931 1.72428 35.2698 3.81805C36.4464 5.91182 35.2495 7.63899 36.137 8.25409C37.0246 8.86919 36.5706 10.4721 35.3839 10.2888C34.1971 10.1054 33.1744 10.6333 32.2673 10.0463Z" fill={`${colorPrimary}`} />
@@ -95,23 +125,15 @@ export default function Page3KakScrub({ className, scrubTl }) {
       {/* <path className='opacity-100' id="speed1" d="M8.11005 90.5C7.11005 68 13.11 26.5 18.61 16" strokeWidth={1.5} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
       {/* <path id="kak4" d="M19.5002 62.0001C20.9998 58.0001 17.8152 57.3585 20.8091 52.1656C22.0061 49.3585 24.6249 47.4909 30.5 53.0001C32.8091 55.1654 25.8776 57.0594 26.5999 64.1002C26.9999 68 24.5001 68.9184 24.5001 73C24.5001 78.5 20.3171 77.5502 17.5242 73.9968C14.7313 70.4433 17.8885 66.2989 19.5002 62.0001Z" fill="#FF0000"/> */}
 
-      <PathGSAPStandalone inverse tweens={[{ id: `speed1AnimationAppear`, ...tweenAppear },
-        // { id: `speed1AnimationDisapp`, ...tweenDisapp }
-      ]}
-        transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 1} id={'speed1'} d="M23.11 103.5C22.11 81 28.11 39.5 33.61 29" />
-
-      <PathGSAPStandalone inverse tweens={[{ id: `speed2AnimationAppear`, ...tweenAppear },
-        // { id: `speed2AnimationDisapp`, ...tweenDisapp }
-      ]}
-        transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 2} id={'speed2'} d="M13.5002 117.5C12.5002 95 18.5002 53.5 24.0002 43" />
-
-      <PathGSAPStandalone inverse tweens={[{ id: `speed3AnimationAppear`, ...tweenAppear },
-        // { id: `speed3AnimationDisapp`, ...tweenDisapp }
-      ]}
-        transitStrokeAnimation transitPortion={0.95} key={'speedPath' + 3} id={'speed3'} d="M8.11005 90.5C7.11005 68 13.11 26.5 18.61 16" />
-
+      <PathGSAPStandalone inverse tweens={tweensAppear[0]} transitStrokeAnimation transitPortion={0.95}
+        myKey={'speedPath' + 1}
+        id={'speed1'} d="M23.11 103.5C22.11 81 28.11 39.5 33.61 29" />
+      <PathGSAPStandalone inverse tweens={tweensAppear[1]} transitStrokeAnimation transitPortion={0.95}
+        myKey={'speedPath' + 2}
+        id={'speed2'} d="M13.5002 117.5C12.5002 95 18.5002 53.5 24.0002 43" />
+      <PathGSAPStandalone inverse tweens={tweensAppear[2]} transitStrokeAnimation transitPortion={0.95}
+        myKey={'speedPath' + 3}
+        id={'speed3'} d="M8.11005 90.5C7.11005 68 13.11 26.5 18.61 16" />
     </svg>
-
-  </>
   )
 }

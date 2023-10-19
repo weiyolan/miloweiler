@@ -23,11 +23,7 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
   // let tl = useRef()
   let [introEnded, setIntroEnded] = useState(false)
 
-  // useEffect(() => {
-  // return () => ctx.current.revert();
-  // }, []);
-
-  let leftTweens = [{
+  const [leftTweens, setLeftTweens] = useState([{
     id: `leftOp`,
     timeline: introAnimationTl,
     attr: { opacity: 1, duration: 0.3 },
@@ -38,9 +34,9 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
     ratio: mobile ? 0.59 : 0.8,
     attr: { duration: 3, ease: 'power2.out' },
     position: 0,
-  }]
+  }])
 
-  let rightTweens = [{
+  const [rightTweens, setRightTweens] = useState([{
     id: `rightOp`,
     timeline: introAnimationTl,
     attr: { opacity: 1, duration: 0.3 },
@@ -51,10 +47,42 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
     ratio: mobile ? 0.58 : 0.79,
     attr: { duration: 3, ease: 'power2.out' },
     position: 0,
-  }]
+  }])
+
+  // useEffect(() => {
+  // return () => ctx.current.revert();
+  // }, []);
+
+
+
 
   // ============= INTRO ANIMATION =================
   useEffect(() => {
+    setLeftTweens([{
+      id: `leftOp`,
+      timeline: introAnimationTl,
+      attr: { opacity: 1, duration: 0.3 },
+      position: 0,
+    }, {
+        id: `lineLeftAppear`, // timeline: transitionTl,
+        timeline: introAnimationTl,
+        ratio: mobile ? 0.59 : 0.8,
+        attr: { duration: 3, ease: 'power2.out' },
+        position: 0,
+      }])
+    setRightTweens([{
+      id: `rightOp`,
+      timeline: introAnimationTl,
+      attr: { opacity: 1, duration: 0.3 },
+      position: 0,
+    }, {
+        id: `lineRightAppear`, // timeline: transitionTl,
+        timeline: introAnimationTl,
+        ratio: mobile ? 0.58 : 0.79,
+        attr: { duration: 3, ease: 'power2.out' },
+        position: 0,
+      }])
+
     introAnimationTl && introAnimationTl
       .set('#introLogoGroup', {
         opacity: 1

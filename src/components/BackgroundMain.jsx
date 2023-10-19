@@ -8,7 +8,7 @@ import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { gsap } from 'gsap/dist/gsap'
 
 export default function BackgroundMain({ projects, type, priority, amount, height, className, animationName, setPageLoaded, objectPosition }) {
-  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach((project) => {photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]; project.otherImages.forEach((image)=>{photos=[...photos, {image:image}]})}); return photos })
+  let [mainImages, setMainImages] = useState(() => { let photos = []; projects.forEach((project) => { photos = [...photos, { image: project.mainImage.image, alt: project.mainImage.alt }]; project.otherImages.forEach((image) => { photos = [...photos, { image: image }] }) }); return photos })
   let [switched, setSwitched] = useState(false)
 
   useLayoutEffect(() => {
@@ -30,9 +30,6 @@ export default function BackgroundMain({ projects, type, priority, amount, heigh
     newMainImage && setMainImages(newMainImage.slice(0, 1))
     setSwitched(true)
   }, [])
-
-
-
 
   return (
     <div style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full ${height ? height : 'h-screen'} ${animationName ? animationName : ''}  ${className ? className : ''}`} >

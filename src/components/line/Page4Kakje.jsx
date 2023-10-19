@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 import { Path, TextAnimate } from '@/components/line/pathUtils'
@@ -9,6 +9,7 @@ import AnimateSVG from "./AnimateSVG"
 // import AnimateSVGBanner from "./AnimateSVGBanner"
 import { gsap } from "gsap/dist/gsap"
 import { PathGSAP, PathGSAPStandalone } from "./pathUtilsGsap"
+import { Ysabeau } from "next/font/google"
 // import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // import useStateRef from "@/utils/useStateRef"
 // gsap.registerPlugin(ScrollTrigger)
@@ -22,8 +23,89 @@ let kakjes = [
 ]
 export default function Page4Kakje({ scrubTl, transitionTl }) {
 
-  let { locale, scrolled, width, height } = useAppContext()
+  let { width, height } = useAppContext()
   let [myPosition, setMyPosition] = useState({ x: 0.43, y: 0.63 })
+
+  const speedTweenRef1 = useRef([{
+    id: 'speedje1Appear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 0.6, ease: 'none', y: 100 },
+    position: 1.4 - 1
+  }])
+  const speedTweenRef2 = useRef([{
+    id: 'speedje2Appear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 0.6, ease: 'none', y: 100 },
+    position: 1.4 - 1
+  }])
+  const speedTweenRef3 = useRef([{
+    id: 'speedje3Appear',
+    timeline: scrubTl,
+    ratio: 0.99,
+    attr: { duration: 0.6, ease: 'none', y: 100 },
+    position: 1.4 - 1
+  }])
+
+
+  const bounceTweenRef1 = useRef([{
+    id: `bounceL2Appear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.3, ease: 'none', },
+    position: 2.2 - 1,
+  }, {
+    id: `bounceL2Disppear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.1, stroke: 'transparent', },
+    position: 2.4 - 1,
+  }])
+  const bounceTweenRef2 = useRef([{
+    id: `bounceL1Appear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.3, ease: 'none', },
+    position: 2.2 - 1,
+  }, {
+    id: `bounceL1Disppear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.1, stroke: 'transparent', },
+    position: 2.4 - 1,
+  }])
+  const bounceTweenRef3 = useRef([{
+    id: `bounceR1Appear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.3, ease: 'none', },
+    position: 2.2 - 1,
+  }, {
+    id: `bounceR1Disppear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.1, stroke: 'transparent', },
+    position: 2.4 - 1,
+  }])
+  const bounceTweenRef4 = useRef([{
+    id: `bounceR2Appear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.3, ease: 'none', },
+    position: 2.2 - 1,
+  }, {
+    id: `bounceR2Disppear`,
+    timeline: scrubTl,
+    ratio: 0.995,
+    attr: { duration: 0.1, stroke: 'transparent', },
+    position: 2.4 - 1,
+  }])
+
+  // useEffect(() => {
+  //   console.log('bounceTweenRef1', bounceTweenRef1.current)
+  // }, [bounceTweenRef1.current])
+
 
   // let { mobile } = usePageContext()
   // const ctx = useRef(gsap.context(() => { }));
@@ -32,6 +114,33 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
 
   let colorPrimary = "#FFF5EA";
 
+  // const [tweenAppear, setTweenAppear] = useState({
+  //   // timeline: transitionTl,
+  //   timeline: scrubTl,
+  //   ratio: 0.99,
+  //   attr: { duration: 0.6, ease: 'none', y: 100 },
+  //   position: 1.4 - 1
+  // })
+
+  // const [bounceAppear, setbounceAppear] = useState({
+  //   // timeline: transitionTl,
+  //   timeline: scrubTl,
+  //   ratio: 0.995,
+  //   attr: { duration: 0.3, ease: 'none', },
+  //   position: 2.2 - 1,
+  // })
+
+
+  // const [bounceDisappear, setBounceDisappear] = useState({
+  //   // timeline: transitionTl,
+  //   timeline: scrubTl,
+  //   ratio: 0.995,
+  //   attr: { duration: 0.1, stroke: 'transparent', },
+  //   position: 2.4 - 1,
+  // })
+
+
+
   useEffect(() => {
     transitionTl && transitionTl
       .to('.svgKakScrub', {
@@ -39,6 +148,30 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
         autoAlpha: 0,
         duration: 0.5,
       }, 0)
+  }, [transitionTl])
+
+  useEffect(() => {
+  // speedTweenRef1.current = [{
+  //   id: 'speedje1Appear',
+  //   timeline: scrubTl,
+  //   ratio: 0.99,
+  //   attr: { duration: 0.6, ease: 'none', y: 100 },
+  //   position: 1.4 - 1
+  // }];
+  // speedTweenRef2.current = [{
+  //   id: 'speedje2Appear',
+  //   timeline: scrubTl,
+  //   ratio: 0.99,
+  //   attr: { duration: 0.6, ease: 'none', y: 100 },
+  //   position: 1.4 - 1
+  // }];
+  // speedTweenRef3.current = [{
+  //   id: 'speedje3Appear',
+  //   timeline: scrubTl,
+  //   ratio: 0.99,
+  //   attr: { duration: 0.6, ease: 'none', y: 100 },
+  //   position: 1.4 - 1
+  // }];
 
     scrubTl && scrubTl
       .set(['#splashL1', '#splashL2', '#splashR1', '#splashR2'], {
@@ -161,94 +294,35 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
         duration: 0.05,
       }, 2.45 - 1)
 
-  }, [transitionTl, scrubTl])
-
-  // useEffect(() => {
-  //   scrubTl && scrubTl
-  //   // .set('#anus', {
-  //   //   scale: 0,
-  //   //   opacity: 0,
-  //   //   transformOrigin: '50% 50%',
-  //   // }, 0)
-  //   // .to('#anus', {
-  //   //   scale: 1,
-  //   //   opacity: 1,
-  //   //   duration: 15,
-  //   // }, 0)
-  //   // .to('#kak1', {
-  //   //   opacity: 1,
-  //   //   duration: 20,
-  //   // }, 10)
-  //   // .to('#kak1', {
-  //   //   attr: { d: kakjes[0] },
-  //   //   duration: 20,
-  //   //   ease: 'none',
-  //   // }, 30)
-  //   // .to('#kak1', {
-  //   //   attr: { d: kakjes[1] },
-  //   //   duration: 20,
-  //   //   ease: 'none',
-  //   // }, 50)
-  //   // .to()
-  //   // .to('#kak1', {
-  //   //   y: 150,
-  //   //   x: -15,
-  //   //   attr: { d: kakjes[1] },
-  //   //   duration: 40,
-  //   //   ease: 'none',
-  //   // }, 50)
-
-  // }, [scrubTl])
+  }, [scrubTl])
 
 
-  let tweenAppear = {
-    // timeline: transitionTl,
-    timeline: scrubTl,
-    ratio: 0.99,
-    attr: { duration: 0.6, ease: 'none', y: 100 },
-    position: 1.4 - 1
-  }
 
-  let bounceAppear = {
-    // timeline: transitionTl,
-    timeline: scrubTl,
-    ratio: 0.995,
-    attr: { duration: 0.3, ease: 'none', },
-    position: 2.2 - 1,
-  }
-
-  let bounceDisappear = {
-    // timeline: transitionTl,
-    timeline: scrubTl,
-    ratio: 0.995,
-    attr: { duration: 0.1, stroke: 'transparent', },
-    position: 2.4 - 1,
-  }
-
-  //==============X FROM CENTER, Y FROM BOTTOM============
-  // let originalY = 0.630861
-  let originalY = width < 800 ? 0.62 : 0.61
-  let originalX = 0.4896694
-  let r2 = 2420 / 3006
-  let r1 = width / (height * 2)
-
-  function getY() {
-    if (r2 / r1 < 1) {
-      return (originalY - (1 - r2 / r1) / 2) * r1 / r2
-    } else return originalY
-  }
-
-  function getX() {
-    if (r2 / r1 < 1) {
-      return originalX
-    } else {
-      return (originalX - (1 - r1 / r2) / 2) * r2 / r1
-      // (0.4896694 - (1-width*3006/2420/height/2)/2) * 2420*height*2/3006/width
-      // (0.4896694 - (1-100vw*3006/2420/100lvh/2)/2) * 2420*100lvh*2/3006/100vw
-    }
-  }
 
   useEffect(() => {
+    //==============X FROM CENTER, Y FROM BOTTOM============
+    // let originalY = 0.630861
+    let originalY = width < 800 ? 0.62 : 0.61
+    let originalX = 0.4896694
+    let r2 = 2420 / 3006
+    let r1 = width / (height * 2)
+
+    function getY() {
+      if (r2 / r1 < 1) {
+        return (originalY - (1 - r2 / r1) / 2) * r1 / r2
+      } else return originalY
+    }
+
+    function getX() {
+      if (r2 / r1 < 1) {
+        return originalX
+      } else {
+        return (originalX - (1 - r1 / r2) / 2) * r2 / r1
+        // (0.4896694 - (1-width*3006/2420/height/2)/2) * 2420*height*2/3006/width
+        // (0.4896694 - (1-100vw*3006/2420/100lvh/2)/2) * 2420*100lvh*2/3006/100vw
+      }
+    }
+
     let newX = getX()
 
     // console.log(Math.abs(newX - myPosition.x) / myPosition.x)
@@ -262,8 +336,8 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
 
   // left: `calc(50vw + 50vw*${myPosition.x})`,
   // left-[calc((0.4896694-(1-100vw*3006/2420/100lvh/2)/2)*2420*100lvh*2/3006/100vw)] 
-  return (<>
-    <svg style={{ left: `calc(50vw + 50vw*${myPosition.x})`, top: `${(1-myPosition.y) * 100}lvh` }} className='fixed -translate-x-1/2 w-[40%] md:w-[11%] -translate-y-full svgKakje' viewBox="0 0 146 259" fill="none" >
+  return (
+    <svg style={{ left: `calc(50vw + 50vw*${myPosition.x})`, top: `${(1 - myPosition.y) * 100}lvh` }} className='fixed -translate-x-1/2 w-[40%] md:w-[11%] -translate-y-full svgKakje' viewBox="0 0 146 259" fill="none" >
       <path className={`opacity-0`} id="kakje0" d="M87.5657 29.4585C87.5655 31.4585 85.0658 33.2904 87.5657 34.5C90.5658 35.9516 89.9328 36.5 92.5 36.5C96.0622 36.5 94.5654 33.9926 94.5654 31.5C94.5654 28.146 96.0655 28.5 96.5654 27C97.1354 25.2897 96.0654 24.4585 96.5654 22.9585C96.7235 22.4842 98.5 22 98 19.5C97.7158 18.0792 98.0654 15.5418 96.5654 14C95.0654 12.4582 96.2789 10.5651 94.0654 9.45859C92.0654 8.4588 90.3031 9.00798 89.5654 11.9585C89.0654 13.9584 88.0654 12.0003 88.5654 18C88.6844 19.428 89.0653 22.5144 87.5654 23.5144C86.6015 24.157 88.5656 24.8403 88.5654 25.9585C88.5652 27.41 87.5659 26.9584 87.5657 29.4585Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" />
 
 
@@ -273,9 +347,9 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
       {/* <path id="kakje3" d="M95 256C97.6115 250.197 93.5 253.5 91.5 246.5C88.29 235.265 79.2413 246.5 73 246.5C64.1024 246.5 59.1861 245.411 50.9999 242C46.2064 240.003 45.9568 265.634 58 256C62.5362 252.371 71.0479 263.291 77 258C81.5 254 90.5 266 95 256Z" fill="#FF0000" stroke="#FF0000" stroke-linecap="round"/> */}
       {/* <path id="kakje4" d="M91.5 244.5C94.1115 238.697 81.6749 249.21 84.5 242.5C88.5 233 70.9653 242.665 65 244.5C58.5 246.5 57 236 51.5003 243.5C47.7602 248.6 39.6814 239 46.5001 254C49.0003 259.5 92.0001 263.5 96.0001 254C98.3365 248.451 87 254.5 91.5 244.5Z" fill="#FF0000" stroke="#FF0000" stroke-linecap="round"/> */}
 
-      <PathGSAPStandalone id="speedje3" tweens={[{ id: `speedje1Appear`, ...tweenAppear }]} inverse transitStrokeAnimation transitPortion={0.94} d="M88.11 114.5C87.11 92 93.11 50.5 98.61 40" stroke={`${colorPrimary}`} strokeLinecap="round" />
-      <PathGSAPStandalone id="speedje2" tweens={[{ id: `speedje2Appear`, ...tweenAppear }]} inverse transitStrokeAnimation transitPortion={0.94} d="M78.5002 128.5C77.5002 106 83.5002 64.5 89.0002 54" stroke={`${colorPrimary}`} strokeLinecap="round" />
-      <PathGSAPStandalone id="speedje1" tweens={[{ id: `speedje3Appear`, ...tweenAppear }]} inverse transitStrokeAnimation transitPortion={0.94} d="M73.11 101.5C72.11 79 78.11 37.5 83.61 27" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="speedje3" tweens={speedTweenRef1.current} inverse transitStrokeAnimation transitPortion={0.94} d="M88.11 114.5C87.11 92 93.11 50.5 98.61 40" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="speedje2" tweens={speedTweenRef2.current} inverse transitStrokeAnimation transitPortion={0.94} d="M78.5002 128.5C77.5002 106 83.5002 64.5 89.0002 54" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="speedje1" tweens={speedTweenRef3.current} inverse transitStrokeAnimation transitPortion={0.94} d="M73.11 101.5C72.11 79 78.11 37.5 83.61 27" stroke={`${colorPrimary}`} strokeLinecap="round" />
 
       {/* <path className={`opacity-0`} id="kakje2" d="M73.2513 249.738C67.8597 254.514 64.4229 253.974 61.4984 251.135C61.6063 250.22 55.2045 246.16 62.5634 247.221C69.9223 248.283 64.3832 245.097 69.451 243.066C74.5189 241.035 69.2088 238.979 74.6541 237.843C80.0993 236.707 79.479 239.919 80.503 243.519C81.5271 247.119 78.6429 244.962 73.2513 249.738Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
       {/* <path className={`opacity-0`} id="kakje3" d="M96 256C98.6115 250.197 94.5 253.5 92.5 246.5C89.29 235.265 80.2413 246.5 74 246.5C65.1024 246.5 60.1861 245.411 51.9999 242C47.2064 240.003 46.9568 265.634 59 256C63.5362 252.371 72.0479 263.291 78 258C82.5 254 91.5 266 96 256Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
@@ -288,10 +362,10 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
       {/* <path className={`opacity-0`} id="splashL1" d="M50.2847 211.833C53.2847 213.833 52.2847 215.333 50.2847 217.833C48.2847 217.833 46.7847 211.833 44.2847 209.833C41.7847 207.833 47.2847 209.833 50.2847 211.833Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
       {/* <path className={`opacity-0`} id="splashR1" d="M111.785 208.333C108.785 208.333 108.785 209.833 107.785 213.833C109.951 213.833 114.885 213.033 117.285 209.833C120.285 205.833 119.785 208.333 118.785 205.333C117.785 202.333 114.785 208.333 111.785 208.333Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
       {/* <path className={`opacity-0`} id="splashR2" d="M137.5 221.5C134.5 224 130 221.5 128 219C129 217.5 131 217.5 135 217.5H135C139 217.5 139 215 142.5 215C145.3 215 145.333 217.667 145 219C143.5 219 139.9 219.5 137.5 221.5Z" fill={`${colorPrimary}`} stroke={`${colorPrimary}`} strokeLinecap="round" /> */}
-      <PathGSAPStandalone id="bounceL2" tweens={[{ id: `bounceL2Appear`, ...bounceAppear }, { id: `bounceL2Disppear`, ...bounceDisappear }]} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M44.5 228.5C43.3078 226.758 43.6392 224.93 42.5 223.5C40.8756 221.46 38.9883 222.472 37.5 221C34.91 218.438 34.5402 216.174 32.5 215C31.3041 214.312 29.6691 214.326 28.5 214C26.6021 213.471 25.3121 212.865 24.5 213" stroke={`${colorPrimary}`} strokeLinecap="round" />
-      <PathGSAPStandalone id="bounceL1" tweens={[{ id: `bounceL1Appear`, ...bounceAppear }, { id: `bounceL1Disppear`, ...bounceDisappear }]} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' inverse d="M40 198C42.4877 198.622 43.4184 200.224 45 201C46.7283 201.849 49.0397 201.89 50.2054 203C51.3587 204.098 51.3693 205.568 52.5 207C53.3846 208.121 55.8427 208.632 57 210C58.5488 211.83 57.9632 213.525 58.5 215C59.3371 217.3 60.5255 217.327 60.5 220.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
-      <PathGSAPStandalone id="bounceR1" tweens={[{ id: `bounceR1Appear`, ...bounceAppear }, { id: `bounceR1Disppear`, ...bounceDisappear }]} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M92 228C92.6825 226.759 93.9167 225.955 94.5 225C95.2928 223.702 94.8529 222.365 95.5 221.5C96.4246 220.263 98.2659 220.127 99 219.5C100.42 218.287 100.101 217.199 101.5 216.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
-      <PathGSAPStandalone id="bounceR2" tweens={[{ id: `bounceR2Appear`, ...bounceAppear }, { id: `bounceR2Disppear`, ...bounceDisappear }]} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M98 233C98.8088 231.787 99.5289 230.496 100.5 229.5C101.537 228.436 102.836 228.34 104 227.5C105.288 226.57 106.135 225.187 107.5 224.5C108.736 223.878 110.764 223.949 112 223.5C115.791 222.122 115.856 220.876 120 221C121.619 221.048 123.057 220.5 124 220.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="bounceL2" tweens={bounceTweenRef1.current} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M44.5 228.5C43.3078 226.758 43.6392 224.93 42.5 223.5C40.8756 221.46 38.9883 222.472 37.5 221C34.91 218.438 34.5402 216.174 32.5 215C31.3041 214.312 29.6691 214.326 28.5 214C26.6021 213.471 25.3121 212.865 24.5 213" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="bounceL1" tweens={bounceTweenRef2.current} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' inverse d="M40 198C42.4877 198.622 43.4184 200.224 45 201C46.7283 201.849 49.0397 201.89 50.2054 203C51.3587 204.098 51.3693 205.568 52.5 207C53.3846 208.121 55.8427 208.632 57 210C58.5488 211.83 57.9632 213.525 58.5 215C59.3371 217.3 60.5255 217.327 60.5 220.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="bounceR1" tweens={bounceTweenRef3.current} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M92 228C92.6825 226.759 93.9167 225.955 94.5 225C95.2928 223.702 94.8529 222.365 95.5 221.5C96.4246 220.263 98.2659 220.127 99 219.5C100.42 218.287 100.101 217.199 101.5 216.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
+      <PathGSAPStandalone id="bounceR2" tweens={bounceTweenRef4.current} transitStrokeAnimation transitPortion={0.95} strokeWidth='1' d="M98 233C98.8088 231.787 99.5289 230.496 100.5 229.5C101.537 228.436 102.836 228.34 104 227.5C105.288 226.57 106.135 225.187 107.5 224.5C108.736 223.878 110.764 223.949 112 223.5C115.791 222.122 115.856 220.876 120 221C121.619 221.048 123.057 220.5 124 220.5" stroke={`${colorPrimary}`} strokeLinecap="round" />
 
       <path className='opacity-0' id="alongPathR1" d="M85 251C85 235 94.5 219 108 212.5" stroke="black" />
       <path className='opacity-0' id="alongPathR2" d="M89 251.5C93 234.5 106.5 221.5 133.5 219.5" stroke="black" />
@@ -299,23 +373,10 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
       <path className='opacity-0' id="alongPathL1" d="M62 251C68.2292 222.847 53.4638 199.917 36 197" stroke="black" />
 
 
+
+
+
     </svg>
 
-    {/* <PathGSAPStandalone inverse tweens={[{ id: `speed1AnimationAppear`, ...tweenAppear },
-      { id: `speed1AnimationDisapp`, ...tweenDisapp }
-      ]}
-         key={'speedPath' + 1} id={'speed1'} d="M23.11 103.5C22.11 81 28.11 39.5 33.61 29" />
-
-      <PathGSAPStandalone inverse tweens={[{ id: `speed2AnimationAppear`, ...tweenAppear },
-      { id: `speed2AnimationDisapp`, ...tweenDisapp }
-      ]}
-         key={'speedPath' + 2} id={'speed2'} d="M13.5002 117.5C12.5002 95 18.5002 53.5 24.0002 43" />
-
-      <PathGSAPStandalone inverse tweens={[{ id: `speed3AnimationAppear`, ...tweenAppear },
-      { id: `speed3AnimationDisapp`, ...tweenDisapp }
-      ]}
-         key={'speedPath' + 3} id={'speed3'} d="M8.11005 90.5C7.11005 68 13.11 26.5 18.61 16" /> */}
-
-  </>
   )
 }

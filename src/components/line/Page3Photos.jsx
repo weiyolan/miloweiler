@@ -85,7 +85,7 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
   }, [hovering])
 
 
-  let mobile = width < 768
+  // let mobile = width < 768
 
   return (
     <div

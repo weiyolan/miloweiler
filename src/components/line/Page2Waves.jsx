@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from '@/components/line/pathUtils'
@@ -45,11 +45,9 @@ let wavesMobile = [
 
 export default function Page2Waves({ className, style, scrubTl, transitionTl, animationName }) {
 
-  let { locale, scrolled } = useAppContext()
 
   let { mobile } = usePageContext()
-
-  let fishTweens = [
+  const [fishTweens, setFishTweens] = useState([
     {
       timeline: scrubTl,
       id: `fishScrub`,
@@ -61,12 +59,27 @@ export default function Page2Waves({ className, style, scrubTl, transitionTl, an
       },
       position: 0.1
     },
-  ]
+  ])
 
-  let fishFinal = ["M565.227 629.19C563.57 629.02 562.174 626.36 560.974 624.75C558.103 620.9 562.437 622.43 563.474 625.58C563.941 626.99 565.183 627.6 565.227 629.19ZM565.227 629.19C566.885 629.36 562.534 627.08 563.474 627.08L561.974 625.58L565.227 629.19Z"]
-  let fishFinalMobile = ["M361.65 473.31C359.993 473.14 358.597 470.48 357.397 468.87C354.526 465.02 358.86 466.55 359.897 469.7C360.364 471.11 361.606 471.72 361.65 473.31ZM361.65 473.31C363.308 473.48 358.957 471.2 359.897 471.2L358.397 469.7L361.65 473.31Z"]
 
   useEffect(() => {
+    let fishFinal = ["M565.227 629.19C563.57 629.02 562.174 626.36 560.974 624.75C558.103 620.9 562.437 622.43 563.474 625.58C563.941 626.99 565.183 627.6 565.227 629.19ZM565.227 629.19C566.885 629.36 562.534 627.08 563.474 627.08L561.974 625.58L565.227 629.19Z"]
+    let fishFinalMobile = ["M361.65 473.31C359.993 473.14 358.597 470.48 357.397 468.87C354.526 465.02 358.86 466.55 359.897 469.7C360.364 471.11 361.606 471.72 361.65 473.31ZM361.65 473.31C363.308 473.48 358.957 471.2 359.897 471.2L358.397 469.7L361.65 473.31Z"]
+
+    setFishTweens([
+      {
+        timeline: scrubTl,
+        id: `fishScrub`,
+        ratio: 0.5,
+        attr: {
+          duration: 0.9,
+          ease: 'power3.out',
+          // onStart:()=>{console.log('start One')} 
+        },
+        position: 0.1
+      },
+    ])
+
     scrubTl && scrubTl
       .to('#fish', {
         opacity: 1,
@@ -138,7 +151,7 @@ export default function Page2Waves({ className, style, scrubTl, transitionTl, an
         <svg className={`${animationName}Inner w-full h-full relative top-[0]`} alt='wave animation' width="1782" height="667" viewBox="0 0 1782 667" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id='desktopPage1'>
             {/* ====== WAVES ========  */}
-            {waves.map((wavePath, i) => <PathGSAPStandalone tweens={[{ timeline: transitionTl, id: `wave${i}Transition`, ratio: 1, attr: { duration: 1, ease: 'none' }, position: 1.4 + (i) * 0.1 }]}
+            {waves.map((wavePath, i) => <PathGSAPStandalone print={false} tweens={[{ timeline: transitionTl, id: `wave${i}Transition`, ratio: 1, attr: { duration: 1, ease: 'none' }, position: 1.4 + (i) * 0.1 }]}
               className='' transitStrokeAnimation transitPortion={0.6} scrolled={0} key={'wavePath' + i} id={'wavePath' + i} d={wavePath} />)}
             {/* ====== FISH ========  */}
             <PathGSAPStandalone tweens={fishTweens} inverse={true} transitStrokeAnimation transitPortion={0.52} id="toFish" d="M577.5 653.46L589.875 640.07C587.033 640.33 582.478 641.36 577.5 641.52C571.5 641.52 565.161 639.93 559.599 634.98C549.5 626 565.5 614 573.756 626.61C576.269 630.45 576.011 634.01 575.614 640.07C573.877 666.56 595.042 660.96 602 656.5C619.18 645.49 605.271 626.88 612.308 620.84C619.345 614.79 632.644 634.01 644.287 624.6" stroke={colorPrimary} strokeWidth="2" />
