@@ -1889,7 +1889,7 @@ overscroll-behavior: none;
 
 export async function getStaticProps() {
   const projects = await client.fetch(
-    `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`
+    `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
   );
   // const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu" || cat == "art" ]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
   const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
