@@ -123,12 +123,14 @@ function generateSiteMap(projects) {
 
 export default function SiteMap() {}
 
-export async function getServerSideProps() {
-  const projects = await client.fetch(`*[_type == "project"]|{slug}`);
+export async function getServerSideProps({ res }) {
+  const projects = await client.fetch(`*[_type == "project"]|{'slug':slug.current}`);
+  console.log("projects", projects);
   // const projects = await client.fetch(`*[_type == "project"]|{slug, title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}}`);
   const sitemap = generateSiteMap(projects);
 
   res.setHeader("Content-Type", "text/xml");
+  res.statusCode = 200;
   // we send the XML to the browser
   res.write(sitemap);
   res.end();
