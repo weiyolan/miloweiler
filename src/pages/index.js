@@ -48,6 +48,7 @@ import useMinimizeScroll from '@/utils/useMinimizeScroll'
 // import LanguageToggle from '@/components/LanguageToggle'
 import BackgroundMain from '@/components/BackgroundMain'
 import SplashScreen from '@/components/SplashScreen'
+import LanguageToggle from "@/components/LanguageToggle";
 // import useWindowResize from '@/utils/useWindowResize'
 
 
@@ -1875,7 +1876,7 @@ overscroll-behavior: none;
           <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} />
 
           {mobile ? <NavigationMobile /> : <Navigation />}
-          {pageMobile ? <></> : <LanguageToggle />}
+          {mobile ? <></> : <LanguageToggle />}
         </PageWrapper>
         {/* <ScrollVisual /> */}
         {/* {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>} */}
