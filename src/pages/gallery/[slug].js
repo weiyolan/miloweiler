@@ -249,82 +249,122 @@ export default function Project({ project, slug, slugs }) {
   return (
     <>
       <Head>
-        <title>Milo Weiler | Project </title>
-        <meta name="description" content="" />
+        <title>{`Milo Weiler | ${project?.title}`}</title>
+        <meta name="description" content={`${project?.description?.[locale]}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:title" content={project.title} />
+        {/* <meta property="og:type" content="article" /> */}
+        <meta property="og:description" content={`Specialised Set & Studio Photography`} />
+        <meta property="og:site-name" content="miloweiler.com" />
+        <meta property="og:image" content={project.mainImage.image.asset.url} />
+        <meta property="og:locale" content={locale} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery/${project.slug.current}`} />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
-      <main tabIndex={0} style={{ backgroundColor: palette.dominant.background }} className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
-        onKeyDown={(e) => { if (e.key === "ArrowLeft") { prevVisibility() } else if (e.key === "ArrowRight") { nextVisibility() } }}
-      >
+      <main
+        tabIndex={0}
+        style={{ backgroundColor: palette.dominant.background }}
+        className={`focus:outline-none w-full h-[100dvh] relative transition-colors duration-700  overflow-hidden ${darkMode ? "text-primary" : "text-darkPrimary"}`}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowLeft") {
+            prevVisibility();
+          } else if (e.key === "ArrowRight") {
+            nextVisibility();
+          }
+        }}>
         <PageWrapper palette={palette} descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
-
-          <Layout cardSection className={'relative h-full flex items-center justify-center'}>
-
+          <Layout cardSection className={"relative h-full flex items-center justify-center"}>
             {/* ========================INSIDE======================== */}
             {/* <div className={`relative w-screen h-[100%] xl:w-[95%] max-w-[1700px] md:rounded-3xl 
           after:absolute after:w-full after:h-full after:top-0 after:left-0 after:md:rounded-3xl after:md:shadow-inner-3xl after:shadow-black/60 after:select-none before:z-[1]`}> */}
             {/* { borderColor: palette.darkMuted.background } */}
             <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
-
               <div className={`w-full h-full absolute`}>
                 {/* <Image fill className="opacity-100" style={{ objectFit: 'cover', objectPosition: 'center' }} src='/images/projectBackground.jpg' alt='' priority quality={100} /> */}
                 {/* <div className="w-full h-full bg-slate-50/10 relative"></div> */}
-                <Logo darkMode={darkMode} className='w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
+                <Logo darkMode={darkMode} className="w-1/4 absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />
               </div>
 
-              {visibleItem &&
+              {visibleItem && (
                 <div className="relative flex flex-col justify-end lg:flex-row lg:items-start lg:justify-between w-full h-full z-[2] pb-0 pt-10 mobm:pt-14  lg:p-0  ">
                   {/* {console.log([project.mainImage.image, ...project.otherImages] )} */}
                   {/* <div> */}
-                  <ProjectPicture setMainPictureWidth={setMainPictureWidth} mainPictureHeight={mainPictureHeight} images={[project.mainImage.image, ...project.otherImages]} visibleItem={visibleItem} handleVisibility={handleVisibility} nextVisibility={nextVisibility} prevVisibility={prevVisibility} />
+                  <ProjectPicture
+                    setMainPictureWidth={setMainPictureWidth}
+                    mainPictureHeight={mainPictureHeight}
+                    images={[project.mainImage.image, ...project.otherImages]}
+                    visibleItem={visibleItem}
+                    handleVisibility={handleVisibility}
+                    nextVisibility={nextVisibility}
+                    prevVisibility={prevVisibility}
+                  />
                   <PictureIndicator mainPictureWidth={mainPictureWidth} setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
                   {/* </div> */}
                   <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
                   <ProjectDescription setPosition={setDescriptionPosition} project={project} mainPictureWidth={mainPictureWidth} />
                 </div>
-              }
+              )}
 
               {/* {Object.keys(palette).map((name, i) => <div style={{ transform: `translateX(${i * 170}px)`, backgroundColor: palette[name].background }} className="w-40 h-40 absolute bottom-0 left-0 bg-red-300 z-20">{name}</div>)} */}
             </div>
           </Layout>
-          <div className={`absolute flex w-full lg:w-fit z-[10] top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ${width < 1024 ? descriptionOpen ? '' : 'invisible select-none' : ''}`}>
-            <Link title={locale === 'fr' ? 'Retour à la galerie' : 'Back to gallery'}
+          <div
+            className={`absolute flex w-full lg:w-fit z-[10] top-4 lg:left-4 px-3 lg:px-0 lg:gap-12 justify-between ${
+              width < 1024 ? (descriptionOpen ? "" : "invisible select-none") : ""
+            }`}>
+            <Link
+              title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
               className={` group flex items-center w-fit h-fit font-pop text-xs mobm:text-sm font-extralight transition-all 
-                ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ''}`}
-              href='/gallery'>
+                ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-500` : ` delay-[0] opacity-0 duration-150 invisible`}` : ""}`}
+              href="/gallery">
               <IoArrowBack className="w-5 h-5 fill-primary group-hover:scale-110 transition-all " />
               <div>
-                {locale === 'fr' ? 'Retour à la galerie' : 'Back to gallery'}
+                {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
                 <Line className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
               </div>
             </Link>
             <div className={`flex font-pop text-xs mobm:text-sm font-extralight gap-4`}>
-              <Link title={locale === 'fr' ? 'Précédent projet' : 'Previous project'} className={` group transition-all flex items-center gap-1 w-fit h-fit 
-              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${prevSlug()}`}>
-                <AiFillCaretLeft className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
-                <div>{locale === 'fr' ? 'Précédent' : 'Previous'}
+              <Link
+                title={locale === "fr" ? "Précédent projet" : "Previous project"}
+                className={` group transition-all flex items-center gap-1 w-fit h-fit 
+              ${
+                width < 1024
+                  ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.6s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}`
+                  : ""
+              }`}
+                href={`/gallery/${prevSlug()}`}>
+                <AiFillCaretLeft className=" fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110" />
+                <div>
+                  {locale === "fr" ? "Précédent" : "Previous"}
                   <Line className={`w-0 group-hover:w-full  border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
               </Link>
-              <Link title={locale === 'fr' ? 'Suivant projet' : 'Next project'} className={` group transition-all flex items-center gap-1 w-fit h-fit
-              ${width < 1024 ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}` : ''}`} href={`/gallery/${nextSlug()}`}>
-                <div>{locale === 'fr' ? 'Suivant' : 'Next'}
+              <Link
+                title={locale === "fr" ? "Suivant projet" : "Next project"}
+                className={` group transition-all flex items-center gap-1 w-fit h-fit
+              ${
+                width < 1024
+                  ? `transition-all  ${descriptionOpen ? `opacity-100 visible duration-700 delay-[0.70s]` : ` select-none delay-[0] opacity-0 duration-150 invisible`}`
+                  : ""
+              }`}
+                href={`/gallery/${nextSlug()}`}>
+                <div>
+                  {locale === "fr" ? "Suivant" : "Next"}
                   <Line className={`w-0 group-hover:w-full border-transparent group-hover:border-b-primary group-focus:w-full transition-all duration-300`} />
                 </div>
-                <AiFillCaretRight className=' fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110' />
+                <AiFillCaretRight className=" fill-primary opacity-100 w-3 h-3 transition-all group-hover:scale-110" />
               </Link>
             </div>
           </div>
           {/* <Link className='absolute z-10 w-fit h-fit top-10 right-4' href='/gallery'>
             <IoClose className="w-6 h-6 fill-darkGrey hover:scale-110 " />
           </Link> */}
-
         </PageWrapper>
       </main>
     </>
-  )
+  );
 }
 
 // function GetItems(project, slug) {

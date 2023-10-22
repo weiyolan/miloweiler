@@ -1684,10 +1684,17 @@ export default function Home({ projects, sectionInfo }) {
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | My Fantastic Four</title>
-        <meta name="description" content=" " />
+        <title>Milo Weiler | Unique Specialised Set Photography</title>
+        <meta name="description" content="Behind the scenes, story telling documentary, studio or fine arts. I have meaningful impact thrlugh a unique visual style" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:title" content={"Unique Specialised Set Photography"} />
+        <meta property="og:description" content={`Meaningul Impact Through Photography`} />
+        <meta property="og:site-name" content="miloweiler.com" />
+        <meta property="og:image" content={projects[0].mainImage.image.asset.url} />
+        {/* <meta property="og:locale" content={locale} /> */}
+        <meta property="og:url" content={`https://miloweiler.com`} />
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}

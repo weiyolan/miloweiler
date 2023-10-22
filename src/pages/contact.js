@@ -178,8 +178,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | Contact Me & About</title>
-        <meta name="description" content="" />
+        <title>Milo Weiler Photography | A Unique and Dynamic Style</title>
+        <meta name="description" content="Meaningul Impact Through Photography" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

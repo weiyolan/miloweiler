@@ -83,22 +83,33 @@ export default function Gallery({ projects }) {
   return (
     <>
       <Head>
-        <title>Milo Weiler | Enjoy My Gallery </title>
-        <meta name="description" content="" />
+        <title>{"Milo Weiler | A Selection of My Work in 2023"}</title>
+        <meta name="description" content="Specialised Set & Studio Photography" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:title" content={"A Selection of My Work in 2023"} />
+        <meta property="og:description" content={`Meaningul Impact Through Photography`} />
+        <meta property="og:site-name" content="miloweiler.com" />
+        <meta property="og:image" content={projects[0].mainImage.image.asset.url} />
+        <meta property="og:locale" content={locale} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery`} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
         bg-gradient-to-br from-primary to-[#FFEAD6]  */}
-        <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+        <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout className={'relative lg:px-16 xl:px-24 max-w-7xl'}>
-              <Logo darkMode={darkMode} className='w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5' />
-              <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale==='fr'?'Galerie':'Gallery'}</h1>
-              <h2> {locale==='fr'?'Voici mes projets.':'Have a look at my projects.'}</h2>
-              <div ref={gallery} className='galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 '>
-                {projects.map((project, i) => <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />)}
+            <Layout className={"relative lg:px-16 xl:px-24 max-w-7xl"}>
+              <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />
+              <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
+              <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2>
+              <div
+                ref={gallery}
+                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+                {projects.map((project, i) => (
+                  <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                ))}
               </div>
               {/* <div className='flex gap-8 py-8 relative'>
               <div className='columns-1 w-1/5'>
@@ -115,7 +126,7 @@ export default function Gallery({ projects }) {
         </main>
       </ReactLenis>
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
