@@ -58,6 +58,7 @@ export default function Home({ projects, sectionInfo }) {
     scrolled,
     width: screenWidth,
     height: screenHeight,
+    locale,
     // mobileHeight: mobilelvh,
   } = useAppContext();
 
