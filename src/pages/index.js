@@ -1689,7 +1689,7 @@ export default function Home({ projects, sectionInfo }) {
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:title" content={"A Unique Style For Captivating Visuals"} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
         <meta property="og:image" content={projects[0].mainImage.image.asset.url} />

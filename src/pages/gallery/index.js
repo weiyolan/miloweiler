@@ -90,7 +90,7 @@ export default function Gallery({ projects }) {
 
         <meta property="og:title" content={"A Gallery of Captivating Shots"} />
         <meta property="og:description" content={`Set Photography & documentary`} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <meta property="og:site_name" content="miloweiler.com" />
         <meta property="og:image" content={projects[1].mainImage.image.asset.url} />
         <meta property="og:locale" content={locale} />
