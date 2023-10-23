@@ -83,17 +83,19 @@ export default function Gallery({ projects }) {
   return (
     <>
       <Head>
-        <title>{"Milo Weiler | A Selection of My Work in 2023"}</title>
+        <title>{"Milo Weiler | A Gallery of Captivating Shots"}</title>
         <meta name="description" content="Specialised Set & Studio Photography" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:title" content={"A Selection of My Work in 2023"} />
-        <meta property="og:description" content={`Meaningul Impact Through Photography`} />
-        <meta property="og:site-name" content="miloweiler.com" />
-        <meta property="og:image" content={projects[0].mainImage.image.asset.url} />
+        <meta property="og:title" content={"A Gallery of Captivating Shots"} />
+        <meta property="og:description" content={`Set Photography & documentary`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="miloweiler.com" />
+        <meta property="og:image" content={projects[1].mainImage.image.asset.url} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery`} />
+        <meta property="fb:app_id" content="659504862954849" />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]

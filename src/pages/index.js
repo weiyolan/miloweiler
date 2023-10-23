@@ -1,56 +1,55 @@
-import React, { useEffect, useState, useRef } from 'react'
-import Head from 'next/head'
+import React, { useEffect, useState, useRef } from "react";
+import Head from "next/head";
 // import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 // import '../styles/globals.css'
 
-import { gsap } from 'gsap/dist/gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
-import { PageWrapper } from '@utils/pageContext'
-import { useAppContext } from '@utils/appContext'
-import Background from '@/components/Background'
-import StoryTitle from '@/components/line/StoryTitle'
-import Image from 'next/image'
-import PageDescription from '@/components/line/PageDescription'
-import Page1Photos from '@/components/line/Page1Photos'
+import { PageWrapper } from "@utils/pageContext";
+import { useAppContext } from "@utils/appContext";
+import Background from "@/components/Background";
+import StoryTitle from "@/components/line/StoryTitle";
+import Image from "next/image";
+import PageDescription from "@/components/line/PageDescription";
+import Page1Photos from "@/components/line/Page1Photos";
 // import ScrollVisual from '@/components/line/ScrollVisual'
-import BackgroundSplit from '@/components/BackgroundSplit'
-import Page2Photos from '@/components/line/Page2Photos'
-import Page3Photos from '@/components/line/Page3Photos'
+import BackgroundSplit from "@/components/BackgroundSplit";
+import Page2Photos from "@/components/line/Page2Photos";
+import Page3Photos from "@/components/line/Page3Photos";
 
 // import Story0Logo from '@/components/line/Story0Logo'
 // import Story1Moon from '@/components/line/Story1Moon'
 // import Story2Waves from '@/components/line/Story2Waves'
 // import Story3Animals from '@/components/line/Story3Animals'
-import PageDescription4 from '@/components/line/PageDescription4'
-import Navigation from '@/components/Navigation'
-import Page3KakScrub from '@/components/line/Page3KakScrub'
-import Page4Kakje from '@/components/line/Page4Kakje'
-import PageDescription5 from '@/components/line/PageDescription5'
-import Page5Milo from '@/components/line/Page5Milo'
+import PageDescription4 from "@/components/line/PageDescription4";
+import Navigation from "@/components/Navigation";
+import Page3KakScrub from "@/components/line/Page3KakScrub";
+import Page4Kakje from "@/components/line/Page4Kakje";
+import PageDescription5 from "@/components/line/PageDescription5";
+import Page5Milo from "@/components/line/Page5Milo";
 // import { ScrollDown } from '@/components/ScrollDown'
-import NavigationMobile from '@/components/NavigationMobile'
+import NavigationMobile from "@/components/NavigationMobile";
 // import MobileScrollbar from '@/components/MobileScrollbar'
-import Page0Logo from '@/components/line/Page0Logo'
-import Page1Moon from '@/components/line/Page1Moon'
-import Page2Waves from '@/components/line/Page2Waves'
-import Page3Animals from '@/components/line/Page3Animals'
+import Page0Logo from "@/components/line/Page0Logo";
+import Page1Moon from "@/components/line/Page1Moon";
+import Page2Waves from "@/components/line/Page2Waves";
+import Page3Animals from "@/components/line/Page3Animals";
 // import ScrollVisual from '@/components/line/ScrollVisual'
-import FadeDiv from '@/components/FadeDiv'
+import FadeDiv from "@/components/FadeDiv";
 // import Line from '@/components/Line'
-import ScrollDown from '@/components/ScrollDown'
-import client from '../../lib/sanity'
-import PageIndicator from '@/components/PageIndicator'
-import useMinimizeScroll from '@/utils/useMinimizeScroll'
+import ScrollDown from "@/components/ScrollDown";
+import client from "../../lib/sanity";
+import PageIndicator from "@/components/PageIndicator";
+import useMinimizeScroll from "@/utils/useMinimizeScroll";
 // import ScrollVisual from '@/components/line/ScrollVisual'
 // import LanguageToggle from '@/components/LanguageToggle'
-import BackgroundMain from '@/components/BackgroundMain'
-import SplashScreen from '@/components/SplashScreen'
+import BackgroundMain from "@/components/BackgroundMain";
+import SplashScreen from "@/components/SplashScreen";
 import LanguageToggle from "@/components/LanguageToggle";
 // import useWindowResize from '@/utils/useWindowResize'
-
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
@@ -1684,17 +1683,24 @@ export default function Home({ projects, sectionInfo }) {
   return (
     <>
       <Head>
-        <title>Milo Weiler | Unique Specialised Set Photography</title>
-        <meta name="description" content="Behind the scenes, story telling documentary, studio or fine arts. I have meaningful impact thrlugh a unique visual style" />
+        <title>Milo Weiler Photography | A Unique Style For Captivating Visuals</title>
+        <meta name="description" content="From behind the scenes Set Photography to the Studio and Outdoors." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:title" content={"Unique Specialised Set Photography"} />
-        <meta property="og:description" content={`Meaningul Impact Through Photography`} />
-        <meta property="og:site-name" content="miloweiler.com" />
+        <meta property="og:title" content={"A Unique Style For Captivating Visuals"} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
+        <meta property="og:site_name" content="miloweiler.com" />
         <meta property="og:image" content={projects[0].mainImage.image.asset.url} />
-        {/* <meta property="og:locale" content={locale} /> */}
+        <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com`} />
+        <meta property="fb:app_id" content="659504862954849" />
+        {/* Twitter images should be sized at 1024 pixels by 512 pixels. */}
+        {/* <meta property="twitter:card" content="summary_large_image" /> */}
+        {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
+        {/* <meta property="og:image:width" content="1200" /> */}
+        {/* <meta property="og:image:height" content="630" /> */}
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
@@ -1904,4 +1910,3 @@ export async function getStaticProps() {
     props: { projects: projects, sectionInfo: sectionInfo },
   };
 }
-
