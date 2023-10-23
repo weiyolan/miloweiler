@@ -16,8 +16,8 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 
 export default function PageIndicator({ className, style }) {
-  let { locale, scrolled, mobileHeight: height, mobile } = useAppContext()
-  let [down, setDown] = useState(false)
+  // let { locale, scrolled, mobileHeight: height, mobile } = useAppContext()
+  // let [down, setDown] = useState(false)
   let myCtx = useRef(gsap.context(() => { }))
 
   useEffect(() => {

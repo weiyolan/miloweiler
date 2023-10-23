@@ -92,7 +92,7 @@ export default function Gallery({ projects }) {
         <meta property="og:description" content={`Set Photography & documentary`} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={projects[1].mainImage.image.asset.url} />
+        <meta property="og:image" content={projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery`} />
         <meta property="fb:app_id" content="659504862954849" />

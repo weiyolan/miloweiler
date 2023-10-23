@@ -1693,7 +1693,8 @@ export default function Home({ projects, sectionInfo }) {
         <meta property="og:type" content="article" />
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={projects[0].mainImage.image.asset.url} />
+        {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
+        <meta property="og:image" content={projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com`} />
         <meta property="fb:app_id" content="659504862954849" />
@@ -1882,12 +1883,12 @@ overscroll-behavior: none;
             ctx={titleCtx}
           />
 
-          {/* {mobile ? (
+          {mobile ? (
             <></>
           ) : (
             <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} />
-          )} */}
-          <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} />
+          )}
+          {/* <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} /> */}
 
           {mobile ? <NavigationMobile /> : <Navigation />}
           {mobile ? <></> : <LanguageToggle />}
