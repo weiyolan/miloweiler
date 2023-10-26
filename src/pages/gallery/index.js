@@ -89,13 +89,20 @@ export default function Gallery({ projects }) {
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:title" content={"A Gallery of Captivating Shots"} />
-        <meta property="og:description" content={`Set Photography & documentary`} />
-        <meta property="og:type" content="article" />
+        <meta property="og:description" content={`Specialised Set & Studio Photography`} />
+        <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url} />
+        <meta property="og:image" itemprop="image" content={`${projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery`} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}gallery`} />
         <meta property="fb:app_id" content="659504862954849" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="miloweiler.com" />
+        <meta property="twitter:url" content="https://www.miloweiler.com/gallery" />
+        <meta name="twitter:title" content="A Gallery of Captivating Shots" />
+        <meta name="twitter:description" content="Specialised Set & Studio Photography" />
+        <meta name="twitter:image" content={`${projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]

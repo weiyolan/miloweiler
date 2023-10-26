@@ -256,13 +256,20 @@ export default function Project({ project, slug, slugs }) {
 
         <meta property="og:title" content={project.title} />
         {/* <meta property="og:type" content="article" /> */}
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={project.mainImage.image.asset.url} />
+        <meta property="og:image" itemprop="image" content={`${project.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale}/gallery/${project.slug.current}`} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}/gallery/${project.slug.current}`} />
         <meta property="fb:app_id" content="659504862954849" />
+        {/* TWITTER */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="miloweiler.com" />
+        <meta property="twitter:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}/gallery/${project.slug.current}`} />
+        <meta name="twitter:title" content={project.title} />
+        <meta name="twitter:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
+        <meta name="twitter:image" content={`${project.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
       <main

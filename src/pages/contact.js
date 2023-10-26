@@ -178,10 +178,30 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | A Unique and Dynamic Style</title>
-        <meta name="description" content="Meaningul Impact Through Photography" />
+        <title>Milo Weiler Photography | A Unique Style In Artistic Photography</title>
+        <meta name="description" content="Discover the power of visual storytelling through my lens." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:title" content={"A Unique Style In Artistic Photography"} />
+        <meta property="og:description" content={`Discover the power of visual storytelling through my lens.`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="miloweiler.com" />
+        <meta
+          property="og:image"
+          itemprop="image"
+          content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`}
+        />
+        <meta property="og:locale" content={locale} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}contact`} />
+        <meta property="fb:app_id" content="659504862954849" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="miloweiler.com" />
+        <meta property="twitter:url" content="https://www.miloweiler.com/contact" />
+        <meta name="twitter:title" content="A Unique Style In Artistic Photography" />
+        <meta name="twitter:description" content="Discover the power of visual storytelling through my lens." />
+        <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`} />
       </Head>
       {/* duration:0.9,  */}
       <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>

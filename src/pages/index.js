@@ -1684,21 +1684,27 @@ export default function Home({ projects, sectionInfo }) {
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | A Unique Style For Captivating Visuals</title>
+        <title>Milo Weiler Photography | Witness The Beauty Of Life</title>
         <meta name="description" content="From behind the scenes Set Photography to the Studio and Outdoors." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:title" content={"A Unique Style For Captivating Visuals"} />
-        <meta property="og:type" content="article" />
+        <meta property="og:title" content={"Witness The Beauty Of Life"} />
+        <meta property="og:type" content="website" />
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
         {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
-        <meta property="og:image" content={projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url} />
+        <meta property="og:image" itemprop="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com`} />
         <meta property="fb:app_id" content="659504862954849" />
         {/* Twitter images should be sized at 1024 pixels by 512 pixels. */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="miloweiler.com" />
+        <meta property="twitter:url" content="https://www.miloweiler.com" />
+        <meta name="twitter:title" content="Witness The Beauty Of Life" />
+        <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
+        <meta name="twitter:image" content="https://cdn.sanity.io/images/erjr84ua/production/8e451247d67b4d824a400a116dd0d25aaa6a0d01-4784x3189.jpg?w=500&h=500&fit=crop" />
         {/* <meta property="twitter:card" content="summary_large_image" /> */}
         {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
         {/* <meta property="og:image:width" content="1200" /> */}
