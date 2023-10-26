@@ -1882,7 +1882,7 @@ overscroll-behavior: none;
             className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`}
           />
 
-          <StoryTitle shadow={true} scrubTl={scrubTl0Ref.current} ctx={titleCtx} />
+          <StoryTitle shadow={!mobile} scrubTl={scrubTl0Ref.current} ctx={titleCtx} />
           <ScrollDown
             style={{ transform: "translate3d(-50%,0,0)" }}
             className={"scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer"}
