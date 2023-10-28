@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useRef} from "react"
-import { useAppContext } from "@utils/appContext.js"
-import { Path , TextAnimate} from '@/components/line/pathUtils'
-import { SVGWrapper} from "./contextSVG"
+// import { useAppContext } from "@utils/appContext.js"
+import { Path, TextAnimate } from 'garbage/pathUtils'
+import { SVGWrapper } from "./contextSVG"
 import { usePageContext } from "@utils/pageContext"
-import AnimateSVG from './AnimateSVG'
+import AnimateSVG from '../../../garbage/AnimateSVG'
 
 export default function StoryText({ scrollMin, scrollMax, speed }) {
 
-  let { scrolled, locale, screens, width} = useAppContext();
+  // let { scrolled, locale, screens, width} = useAppContext();
     let { viewBox, mobile, setTextLocation,setAnimationLocation} = usePageContext()
   let [fakeScroll1, setFakeScroll1] = useState(0)
 

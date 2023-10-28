@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
-import { Path, TextAnimate } from '@/components/line/pathUtils'
+// import { Path, TextAnimate } from 'garbage/pathUtils'
 // import { SVGWrapper } from "./contextSVG"
-import { usePageContext } from "@utils/pageContext"
+// import { usePageContext } from "@utils/pageContext"
 // import { PageWrapper } from "@context/pageContext"
-import AnimateSVG from "./AnimateSVG"
+// import AnimateSVG from "../../../garbage/AnimateSVG"
 // import AnimateSVGBanner from "./AnimateSVGBanner"
-import { gsap } from "gsap/dist/gsap"
-import { PathGSAP, PathGSAPStandalone } from "./pathUtilsGsap"
-import { Ysabeau } from "next/font/google"
+// import { gsap } from "gsap/dist/gsap"
+import { PathGSAPStandalone } from "./pathUtilsGsap"
+// import { Ysabeau } from "next/font/google"
 // import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 // import useStateRef from "@/utils/useStateRef"
 // gsap.registerPlugin(ScrollTrigger)

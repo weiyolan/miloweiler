@@ -8,7 +8,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
 
   // UseNextSanityImageOptions({width:500})
-  
+
   // const myURLBuilder = (imageUrlBuilder, options) => {
   //   return imageUrlBuilder
   //     .width(options.width || Math.min(options.originalImageDimensions.width, 1920))
@@ -20,10 +20,10 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   // let result = useNextSanityImage(client, image._ref, options);
   // if (print) {
-    // console.log(result.loader)
-    // console.log(image)
-    // console.log(result.src)
-    // console.log(loader({width:500,quality:10}))
+  // console.log(result.loader)
+  // console.log(image)
+  // console.log(result.src)
+  // console.log(loader({width:500,quality:10}))
   // }
   let landscape = width / height > 1;
 
@@ -32,38 +32,20 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
   //   height = height / 4;
   // }
 
-  function getBlurProps() {
-    let additionalProps = {}
-    // newProps.fill = true
-    // newProps.style = { objectFit: 'cover', objectPosition: 'center', ...style }
-    // newProps.sizes= sizes ? sizes : "(max-width: 700px) 100vw, 50vw"
-    // newProps.src=src
-    // newProps.loader=loader
-    // newProps.alt=alt
-
-    if (blur) {
-      additionalProps.placeholder = "blur";
-      additionalProps.blurDataURL = image.asset.metadata.lqip
-    }
-
-    // newProps = {newProps, ...props}
-
-    return additionalProps
-  }
-
 
   if (fill) {
     return (
-      <div data-imagecontainer={move ? 'true' : 'false'} className={`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden ${containerClass&&containerClass}`}>
+      <div data-imagecontainer={move ? 'true' : 'false'} className={`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden ${containerClass && containerClass}`}>
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}
-          className={`imageFill${name ? name : ''} ${className?className:''}`}
+          className={`imageFill${name ? name : ''} ${className ? className : ''}`}
           src={src}
           onLoad={onLoad}
           loader={loader}
           alt={alt}
-          {...getBlurProps()}
+          placeholder={blur ? "blur" : undefined}
+          blurDataURL={blur ? image.asset.metadata.lqip : undefined}
           {...props} />
       </div>
     )
@@ -71,14 +53,18 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   if (intrinsic) {
     return <Image style={style} {...{ src, width, height, loader }} alt={alt} className={className}
-      {...getBlurProps()} {...props}
+      placeholder={blur ? "blur" : undefined}
+      blurDataURL={blur ? image.asset.metadata.lqip : undefined}
+      {...props}
     />
   }
 
   return (
     // objectFit:'contain',  maxWidth: '100%',maxHeight: '100%',position:'relative',  position:'absolute'
     <Image style={{ width: landscape ? '100%' : 'auto', height: landscape ? 'auto' : '100%', ...style }} sizes={sizes} className={className} {...{ src, width, height, loader }} alt={alt}
-      {...getBlurProps()} {...props}
+      placeholder={blur ? "blur" : undefined}
+      blurDataURL={blur ? image.asset.metadata.lqip : undefined}
+      {...props}
     />
   )
 }

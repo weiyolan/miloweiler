@@ -1,5 +1,5 @@
 import React from 'react'
-import { Path } from './pathUtils'
+import { Path } from '../../../garbage/pathUtils'
 
 export default function Rays({colorPrimary}) {
   return (
