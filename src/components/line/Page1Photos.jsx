@@ -95,7 +95,7 @@ function Page1Image({ className, slug, ...props }) {
     <div className={`select-none page1photos invisible opacity-0  ${className}`}>
       <Link href={`/gallery/${slug}`}>
         {/* <Image className={` hover:cursor-pointer page1photosInner w-full h-full`} {...props} /> */}
-        <SanityImage style={{ width: '100%', height: 'auto' }} className={` hover:cursor-pointer page1photosInner w-full h-full`} {...props} />
+        <SanityImage style={{}} className={` hover:cursor-pointer page1photosInner w-full h-auto`} {...props} />
       </Link>
     </div>
   )
