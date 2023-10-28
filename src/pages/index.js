@@ -1694,7 +1694,7 @@ export default function Home({ projects, sectionInfo }) {
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
         {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
-        <meta property="og:image" itemprop="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} />
+        <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com`} />
         <meta property="fb:app_id" content="659504862954849" />

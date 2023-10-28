@@ -37,7 +37,7 @@ export default function BackgroundMain({ projects, type, priority, amount, heigh
     }
     // console.log(artProjects)
     let initialImages = [];
-    console.log('projects', projects)
+    // console.log('projects', projects)
     projects.forEach((project) => {
       initialImages = project.mainImage.image.asset.titleColor === '#fff' ? [...initialImages, { image: project.mainImage.image, alt: project.mainImage.alt }] : [...initialImages];
       project.otherImages.forEach((image) => {

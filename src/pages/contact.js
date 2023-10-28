@@ -189,7 +189,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta property="og:site_name" content="miloweiler.com" />
         <meta
           property="og:image"
-          itemprop="image"
+          itemProp="image"
           content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`}
         />
         <meta property="og:locale" content={locale} />
