@@ -251,8 +251,6 @@ export default function Project({ project, slug, slugs }) {
       <Head>
         <title>{`Milo Weiler | ${project?.title}`}</title>
         <meta name="description" content={`${project?.description?.[locale]}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:title" content={project.title} />
         {/* <meta property="og:type" content="article" /> */}

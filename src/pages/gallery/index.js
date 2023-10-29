@@ -85,8 +85,6 @@ export default function Gallery({ projects }) {
       <Head>
         <title>{"Milo Weiler | A Gallery of Captivating Shots"}</title>
         <meta name="description" content="Specialised Set & Studio Photography" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:title" content={"A Gallery of Captivating Shots"} />
         <meta property="og:description" content={`Specialised Set & Studio Photography`} />

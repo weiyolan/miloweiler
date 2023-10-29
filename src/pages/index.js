@@ -1686,8 +1686,6 @@ export default function Home({ projects, sectionInfo }) {
       <Head>
         <title>Milo Weiler Photography | Witness The Beauty Of Life</title>
         <meta name="description" content="From behind the scenes Set Photography to the Studio and Outdoors." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
         <meta property="og:type" content="website" />
