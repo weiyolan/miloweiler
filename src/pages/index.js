@@ -1485,7 +1485,7 @@ export default function Home({ projects, sectionInfo }) {
         invalidateOnRefresh: false,
         toggleActions: "play none reverse none",
         preventOverlaps: true,
-        markers: true,
+        markers: false,
         onEnter: () => {
           gsap.to(transition4, {
             id: "transition4In",
