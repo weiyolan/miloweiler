@@ -102,8 +102,8 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
         sizes='25vw'
         className={`object-cover ${imagePosition} cursor-pointer`}
         {...props} />
-      <Link onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)} style={{ clipPath: `url(#svgClip${n})` }} href={`/gallery/${slug}`} className={`absolute w-full h-full`} />
+      <div onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)} style={{ clipPath: `url(#svgClip${n})` }} title={`Project ${slug}`} className={`absolute w-full h-full`} />
       <svg viewBox='0 0 1 1'
 
       // onMouseEnter={() => mobile && setHovering(true)}
