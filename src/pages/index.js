@@ -1741,12 +1741,18 @@ overscroll-behavior: none;
           // svgWidth={""}
           // finished={false}
           mobile={mobile}>
-          <div className="h-1 absolute top-[630vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
-          <div className="h-1 absolute top-[530vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
-          <div className="h-1 absolute top-[430vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
-          <div className="h-1 absolute top-[330vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
-          <div className="h-1 absolute top-[230vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
-          <div className="h-1 absolute top-[130vh] border-debug border-2 border-red-500z-[9999] w-full snap-center" />
+          <div className="h-1 absolute top-[630vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
+          <div className="h-1 absolute top-[530vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
+          <div className="h-1 absolute top-[430vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
+          <div className="h-1 absolute top-[330vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
+          <div className="h-1 absolute top-[230vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
+          <div className="h-1 absolute top-[130vh] border-debug w-full snap-center" />
+          {/* border-2 border-red-500 z-[9999] */}
           {/* <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
           <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
           <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
