@@ -15,7 +15,6 @@ export default function Document() {
         <meta name="msapplication-TileColor" content="#212121" />
         <meta name="theme-color" content="#212121" />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       <body>
         <Main />

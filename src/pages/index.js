@@ -64,7 +64,7 @@ export default function Home({ projects, sectionInfo }) {
 
   // useWindowResize({options:{resize:true}});
 
-  useMinimizeScroll();
+  // useMinimizeScroll();
   let [artImages, setArtImages] = useState(() => {
     let photos = [];
     let project = projects.filter((project) => project.cat === "art")[0];
@@ -1485,7 +1485,7 @@ export default function Home({ projects, sectionInfo }) {
         invalidateOnRefresh: false,
         toggleActions: "play none reverse none",
         preventOverlaps: true,
-        markers: false,
+        markers: true,
         onEnter: () => {
           gsap.to(transition4, {
             id: "transition4In",
@@ -1703,6 +1703,7 @@ export default function Home({ projects, sectionInfo }) {
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
         <meta name="twitter:image" content="https://cdn.sanity.io/images/erjr84ua/production/8e451247d67b4d824a400a116dd0d25aaa6a0d01-4784x3189.jpg?w=500&h=500&fit=crop" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
         {/* <meta property="twitter:card" content="summary_large_image" /> */}
         {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
         {/* <meta property="og:image:width" content="1200" /> */}
@@ -1732,13 +1733,22 @@ overscroll-behavior: none;
 }
   */}
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
-      <main style={{ height: !pageLoaded ? "100vh" : mobile ? "700vh" : "700vh" }} className={`w-full mainBackground dark-scrollbar relative bg-black `}>
+      <main
+        style={{ height: !pageLoaded ? "100vh" : mobile ? "700vh" : "700vh" }}
+        className={`w-full snap-y snap-mandatory snap-always  mainBackground dark-scrollbar relative bg-black `}>
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           // svgWidth={""}
           // finished={false}
           mobile={mobile}>
+          <div className="h-0 absolute top-[601vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+          <div className="h-0 absolute top-[501vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+          <div className="h-0 absolute top-[401vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+          <div className="h-0 absolute top-[301vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+          <div className="h-0 absolute top-[201vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+          <div className="h-0 absolute top-[101vh] border-debug border-2 border-red-500z-[9999] w-full snap-start" />
+
           <SplashScreen pageLoaded={pageLoaded} />
 
           {/* <div className={'fixedColor fixed top-0 opacity-100 bg-red-500 w-full h-full'}/> */}
@@ -1841,7 +1851,6 @@ overscroll-behavior: none;
             animateName="page5description"
             className={``}
           />
-
           <Page4Kakje scrubTl={scrubTl4Ref.current} transitionTl={transitionTl4Ref.current} />
           {/* info={{ title: 'Studio', text: 'With my Studio Photography, I aim for precision and beauty in every planned shot. I use my keen eye for detail and passion for perfection to create bold, striking, and unforgettable images that capture the essence of my subject.' }}  */}
           <PageDescription4
