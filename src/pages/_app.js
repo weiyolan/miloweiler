@@ -90,11 +90,11 @@ export default function App({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
-{/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full h-[100dvh] `}>
+      {/* ${poppins.variable} */}
+      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full  `}>
         <Component {...pageProps} />
         <Toaster />
       </AppWrapper>
-
-    </>)
+    </>
+  );
 }

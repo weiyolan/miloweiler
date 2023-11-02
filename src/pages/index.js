@@ -1732,33 +1732,28 @@ overscroll-behavior: none;
 }
   */}
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
-      <main
-        style={{ height: !pageLoaded ? "100vh" : mobile ? "700vh" : "700vh" }}
-        className={`w-full snap-y snap-mandatory no-scrollbar snap-always overflow-y-scroll mainBackground dark-scrollbar relative bg-black `}>
+      <main style={{ height: !pageLoaded ? "100vh" : mobile ? "700vh" : "700vh" }} className={`w-full  mainBackground relative bg-black snap-y snap-mandatory overflow-y-auto`}>
+        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+
         <PageWrapper
           darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           // svgWidth={""}
           // finished={false}
+          className={"snap-none"}
           mobile={mobile}>
-          <div className="h-1 absolute top-[630vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          <div className="h-1 absolute top-[530vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          <div className="h-1 absolute top-[430vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          <div className="h-1 absolute top-[330vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          <div className="h-1 absolute top-[230vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          <div className="h-1 absolute top-[130vh] border-debug w-full snap-center" />
-          {/* border-2 border-red-500 z-[9999] */}
-          {/* <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
-          <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
-          <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
-          <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
-          <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" />
-          <div className="h-[100vh] border-debug border-2 border-red-500 z-[9999] w-full snap-center" /> */}
+          {/* <div className="h-1 absolute top-[630vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
+          {/* <div className="h-1 absolute top-[530vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
+          {/* <div className="h-1 absolute top-[430vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
+          {/* <div className="h-1 absolute top-[330vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
+          {/* <div className="h-1 absolute top-[230vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
+          {/* <div className="h-1 absolute top-[130vh] border-debug w-full snap-center snap-always border-2 border-red-500 z-[9999]" /> */}
 
           <SplashScreen pageLoaded={pageLoaded} />
 
@@ -1917,8 +1912,6 @@ overscroll-behavior: none;
           {mobile ? <NavigationMobile /> : <Navigation />}
           {mobile ? <></> : <LanguageToggle />}
         </PageWrapper>
-        {/* <ScrollVisual /> */}
-        {/* {mobile ? <MobileScrollbar className={'bg-primary '} /> : <></>} */}
       </main>
       {/* </ReactLenis> */}
     </>
