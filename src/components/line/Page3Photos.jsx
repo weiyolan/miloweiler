@@ -53,7 +53,7 @@ translate-y-36 */}
 
 
 function ArtImage({ className, n, imagePosition, slug, ...props }) {
-  let { width } = useAppContext()
+  // let { width } = useAppContext()
   let [hovering, setHovering] = useState(false)
   const ctx = useRef(gsap.context(() => { }));
 

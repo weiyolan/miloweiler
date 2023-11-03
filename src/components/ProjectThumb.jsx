@@ -15,7 +15,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   let [lineHover, setLineHover] = useState(false)
   let [loaded, setLoaded] = useState(false)
   let projectThumb = useRef(null)
-  const { width } = useAppContext()
+  // const { width } = useAppContext()
   // let [selected, setSelected] = useState(false)
   // let myRef = useRef(null)
   const ctx = useRef(gsap.context(() => { }));

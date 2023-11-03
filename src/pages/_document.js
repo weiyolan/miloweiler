@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html>
+    <Html className="snap-y snap-mandatory md:snap-none ">
       <Head>
         <meta name="apple-mobile-web-app-title" content="Milo Weiler Photograpy" />
         <meta name="application-name" content="Milo Weiler Photograpy" />

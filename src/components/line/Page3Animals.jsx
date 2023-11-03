@@ -17,7 +17,6 @@ import { PathGSAP, PathGSAPStandalone } from "./pathUtilsGsap"
 
 export default function Page3Animals({ className, style, scrubTl, transitionTl, animationName }) {
 
-  let { locale, scrolled } = useAppContext()
 
   let { mobile } = usePageContext()
   // const ctx = useRef(gsap.context(() => { }));

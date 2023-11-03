@@ -12,8 +12,8 @@ import Spinner from './Spinner'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function PictureThumb({ image, alt, row, containerRef, visible, handleClick, handleMouseEnter, handleMouseLeave, index, className }) {
-  const { locale, width } = useAppContext()
-  const { palette } = usePageContext()
+  const { width } = useAppContext()
+  // const { palette } = usePageContext()
   // console.log(palette)
   let [loaded, setLoaded] = useState(false)
   const myThumb = useRef(null)

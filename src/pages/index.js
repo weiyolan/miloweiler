@@ -43,7 +43,7 @@ import FadeDiv from "@/components/FadeDiv";
 import ScrollDown from "@/components/ScrollDown";
 import client from "../../lib/sanity";
 import PageIndicator from "@/components/PageIndicator";
-import useMinimizeScroll from "@/utils/useMinimizeScroll";
+// import useMinimizeScroll from "@/utils/useMinimizeScroll";
 // import ScrollVisual from '@/components/line/ScrollVisual'
 // import LanguageToggle from '@/components/LanguageToggle'
 import BackgroundMain from "@/components/BackgroundMain";
@@ -59,6 +59,7 @@ export default function Home({ projects, sectionInfo }) {
     width: screenWidth,
     height: screenHeight,
     locale,
+    keepScroll,
     // mobileHeight: mobilelvh,
   } = useAppContext();
 
@@ -73,10 +74,9 @@ export default function Home({ projects, sectionInfo }) {
     });
     return photos;
   });
-  // let [artImages, setArtImages] = useState(() => { let photos = []; projects.filter((project) => project.cat === 'art').forEach(project => project.otherImages.forEach(img => { photos = [...photos, { image: img, slug: project.slug.current }] })); return photos })
-  let [artProjects, setArtProjects] = useState(() => {
-    return projects.filter((project) => project.cat === "art");
-  });
+  // let [artProjects, setArtProjects] = useState(() => {
+  //   return projects.filter((project) => project.cat === "art");
+  // });
 
   useEffect(() => {
     function shuffle(array) {
@@ -93,6 +93,7 @@ export default function Home({ projects, sectionInfo }) {
       return array;
     }
     // console.log(artProjects)
+    let artProjects = projects.filter((project) => project.cat === "art");
     let artProject = artProjects[Math.floor(Math.random() * artProjects?.length)];
     let newPhotos = [];
     artProject.otherImages.forEach((img) => {
@@ -105,12 +106,12 @@ export default function Home({ projects, sectionInfo }) {
 
     // let newMainImage = shuffle([...mainImages])
     // newMainImage && setMainImages(newMainImage.slice(0, 1))
-  }, []);
+  }, [projects]);
 
   // let svgRef = useRef(null)
   // let ctx = useRef()
   // let tl = useRef()
-  let [introAnimationTl, setIntroAnimationTl] = useState();
+  // let [introAnimationTl, setIntroAnimationTl] = useState();
 
   const introAnimationTlRef = useRef();
 
@@ -167,6 +168,7 @@ export default function Home({ projects, sectionInfo }) {
     ScrollTrigger.config({
       // limitCallbacks: true,
       ignoreMobileResize: true,
+      // ignoreMobileResize: false,
       // autoRefreshEvents: "DOMContentLoaded,load,resize",
       // onresize:
     });
@@ -195,77 +197,6 @@ export default function Home({ projects, sectionInfo }) {
   // useEffect(()=>{
   //   // location.reload()
   // },[mobilelvh])
-
-  // let [footerHeight, setFooterHeight] = useState(undefined)
-  // let [animationLocation, setAnimationLocation] = useState({ top: undefined, bottom: undefined })
-  // let [textLocation, setTextLocation] = useState({ top: undefined, bottom: undefined })
-
-  // let [moveTracker, setMoveTracker] = useState(0) //Tracker to move background when animation moves
-  // let [maxMoveTracker, setMaxMoveTracker] = useState(0) //Tracker to move background when animation moves
-
-  // let [finished, setFinished] = useState(false)
-  // let [introAnimated, setIntroAnimated] = useState(false)
-  // let [textAppear, setTextAppear] = useState({ textAppear: false })
-  // let [textDisappear, setTextDisappear] = useState({ textDisappear: false })
-
-  // useEffect(() => {
-  //   setMobile(screenWidth < 768)
-  // }, [screenWidth])
-
-  // let finishingScroll = mobile ? 0.95 : 0.995 // Same as ending of animation
-  // let finishingScroll = 2 // impossible, so will never activate
-
-  // // useEffect(() => {
-  // //   if (scrolled >= finishingScroll && !finished) { setFinished(true) }
-  // // }, [scrolled])
-  // // useEffect(() => {
-  // if (scrolled >= finishingScroll && !finished) { setFinished(true) }
-  // // }, [scrolled])
-
-  // useEffect(() => {
-  //   gsap.to(window, { scrollTo: 0 })
-
-  //   let keepScroll = () => {
-  //     gsap.to(window, { scrollTo: window.scrollY })
-  //   }
-  //   // window.addEventListener('resize', keepScroll)
-  //   // return ()=> window.removeEventListener('resize', keepScroll)
-  // }, [])
-
-  // -------WITH TITLE AND FOOTER -------------
-  // let heightToScroll = (mobile || finished) ? scrollingDivHeight + titleHeight + footerHeight : 6000
-
-  // -------WITHOUT TITLE AND FOOTER -------------
-  // let heightToScroll = (mobile || finished) ? scrollingDivHeight : 6000
-
-  // let heightToScroll = svgHeight + footerHeight
-
-  // let svgWidthFactor = viewBoxWidth / (1.157*screenWidth) || 1;
-
-  // useEffect(() => {
-  //   function handleSize() {
-  //     let bbox = document.getElementById('referenceSvg').getBoundingClientRect()
-  //     let height = bbox.bottom - bbox.top;
-  //     let width = bbox.width;
-  //     // let top = bbox.top;
-  //     console.log('RESIZE')
-  //     console.log(height)
-  //     if (height >= 0 && height.toFixed(0) !== svgHeight?.toFixed(0) && setSvgHeight !== undefined) {
-  //       setSvgHeight(height)
-  //       setSvgWidth(width)
-  //     }
-  //     // if (top?.toFixed(0) !== svgTop?.toFixed(0)) {
-  //     //   setSvgTop(top)
-  //     // }
-  //   }
-  //   window.addEventListener('resize', handleSize)
-  //   handleSize()
-  //   return () => { window.removeEventListener('resize', handleSize) }
-  // }, [mobile])
-
-  // useEffect(() => {
-  //   console.log(screenHeight)
-  // }, [screenHeight])
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -1678,8 +1609,15 @@ export default function Home({ projects, sectionInfo }) {
   }, [pageLoaded]);
 
   // useEffect(() => {
-  // console.log(transitionTl1?.progress())
-  // }, [transitionTl1?.progress()])
+  //   function storeScroll() {
+  //     keepScroll.current = window.scrollY;
+  //   }
+
+  //   window.scrollY = keepScroll?.current
+
+  //   document.addEventListener("scroll", storeScroll);
+  //   return document.removeEventListener("scroll", storeScroll);
+  // }, []);
 
   return (
     <>
@@ -1732,14 +1670,16 @@ overscroll-behavior: none;
 }
   */}
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
-      <main style={{ height: !pageLoaded ? "100vh" : mobile ? "700vh" : "700vh" }} className={`w-full  mainBackground relative bg-black snap-y snap-mandatory overflow-y-auto`}>
-        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-orange-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
-        {/* <div className="h-[100dvh]  bg-yellow-300 border-debug border-2 border-red-500 z-[9999] w-full snap-center snap-always" /> */}
+      <main
+        // style={{ height: !pageLoaded ? "100vh" : "auto" }}
+        className={`w-full ${!pageLoaded && "h-screen overflow-hidden"} mainBackground relative bg-black `}>
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[100vh] relative w-full snap-center snap-always" />
 
         <PageWrapper
           darkMode={true}
@@ -1805,7 +1745,7 @@ overscroll-behavior: none;
               width="265"
               height="366"
               className={`${
-                scrolled < 0.35 ? "will-change-transform" : ""
+                scrolled.current < 0.35 ? "will-change-transform" : ""
               } page1feet invisible opacity-0 select-none h-auto w-[44vw] md:w-[17.27vw] right-[11vw] md:right-[6.48vw] -translate-y-[23%] top-[50lvh] fixed`}
               sizes="(max-width: 648px) 60vw, 25vw"
             />
@@ -1823,7 +1763,7 @@ overscroll-behavior: none;
           <Page3Animals
             style={{ top: `calc(90lvh)`, transform: "translate3d(-50%,0,0)" }}
             animationName={"page3AnimalsSvg"}
-            className={`w-[115.86vw] fixed left-1/2 ${scrolled > 0.44 && scrolled < 0.7 ? "will-change-transform" : ""}`}
+            className={`w-[115.86vw] fixed left-1/2 ${scrolled.current > 0.44 && scrolled.current < 0.7 ? "will-change-transform" : ""}`}
             scrubTl={scrubTl3Ref.current}
             transitionTl={transitionTl3Ref.current}
           />

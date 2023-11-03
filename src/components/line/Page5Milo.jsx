@@ -252,14 +252,14 @@ export default function Page5Milo({ scrubTl }) {
         ?
         <div className="svgMilo invisible opacity-0 fixed left-0 w-full h-full top-[30vh]">
           {/* w-[69.5vw] */}
-          <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`absolute  w-[40vw] h-auto  ${scrolled > 0.79 ? 'willChange-transform' : ''}`} width="171" height="199" viewBox="0 0 171 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg style={{ left: `calc(100vw*${myPosition.x})`, top: `calc(30lvh + ${myPosition.y * 100}lvh)` }} className={`absolute  w-[40vw] h-auto  ${scrolled.current > 0.79 ? 'willChange-transform' : ''}`} width="171" height="199" viewBox="0 0 171 199" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekeningMobile1">
               <PathGSAPStandalone id="m1" d="M4.42798 1.34537C0.42798 1.34537 -0.0710441 36.8453 2.92895 36.8453C5.92895 36.8453 10.5561 3.84531 7.42809 3.84531C3.42809 3.84531 2.94609 33.8453 7.42809 33.8453C11.9111 33.8453 16.4292 8.34532 11.4292 8.34532C6.42925 8.34532 9.7002 23.8452 17.4296 23.8452C46.7002 26.8455 96.2237 25.3458 86.7002 5.84584C83.0374 -1.65401 67.9957 -2.49706 65.7002 18.3459C60.4138 66.346 110.493 68.5543 118.7 108.346C123.33 130.795 106.238 152.002 81.7002 137.845C63.7002 127.461 77.1058 108.845 90.2002 120.845C107.51 136.708 69.5845 187.909 102.7 196.845C135.816 205.781 132 147.5 169.5 147.5" stroke="#FFF5EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 tweens={m1TweenRefMob.current}
               />
             </g>
           </svg>
-          <svg className={`absolute top-[106lvh] -translate-y-full right-[2vw] w-[105vw] h-auto ${scrolled > 0.79 ? 'willChange-transform' : ''}`} width="452" height="168" viewBox="0 0 452 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`absolute top-[106lvh] -translate-y-full right-[2vw] w-[105vw] h-auto ${scrolled.current > 0.79 ? 'willChange-transform' : ''}`} width="452" height="168" viewBox="0 0 452 168" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekeningMobile2">
               {lettersMobile.map((letter, i) => {
                 // console.log(letter.props)
@@ -269,7 +269,7 @@ export default function Page5Milo({ scrubTl }) {
           </svg>
         </div>
         : <div className="svgMilo fixed left-0 w-full h-full top-[30vh]">
-          <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(0vh + ${myPosition.y * 100}vh)` }} className={`absolute -translate-y-[89.5%] w-[69.5vw] h-auto  ${scrolled > 0.79 ? 'willChange-transform' : ''}`} width="1084" height="869" viewBox="0 0 1084 869" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg style={{ left: `calc(50vw*${myPosition.x})`, top: `calc(0vh + ${myPosition.y * 100}vh)` }} className={`absolute -translate-y-[89.5%] w-[69.5vw] h-auto  ${scrolled.current > 0.79 ? 'willChange-transform' : ''}`} width="1084" height="869" viewBox="0 0 1084 869" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g mask="url(#mask0_971_562)">
               <g id="miloTekening1">
                 <PathGSAPStandalone id="m1" d="M4.42791 809.701C0.427905 809.701 -0.070996 845.202 2.929 845.202C5.929 845.202 10.5559 812.201 7.42791 812.201C3.42791 812.201 2.94591 842.202 7.42791 842.202C11.9109 842.202 16.429 816.701 11.429 816.701C6.429 816.701 9.00002 832.201 17.429 832.201C111.5 832.201 289.022 763.942 279 824.383C268.368 888.502 318.206 869.548 351.5 824.383C387.721 775.248 404.5 689.5 376 696.5C357.5 701.044 371.048 733.694 393.5 728C462.5 710.5 412.5 588 519.5 538.5C603.9 502.1 597.333 386 583.5 332.5C519.5 183.5 755 88.5 726.5 0" stroke="#FFF5EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -290,7 +290,7 @@ export default function Page5Milo({ scrubTl }) {
           </svg>
 
           {/* w-[115.86vw] top-[calc(100vh+0vh)]*/}
-          <svg style={{}} className={`absolute w-[110vw] h-fit top-[105vh] -translate-y-[100%] left-1/2 -translate-x-1/2  ${scrolled > 0.79 ? 'willChange-transform' : ''}`} width="1782" height="150" viewBox="0 0 1782 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg style={{}} className={`absolute w-[110vw] h-fit top-[105vh] -translate-y-[100%] left-1/2 -translate-x-1/2  ${scrolled.current > 0.79 ? 'willChange-transform' : ''}`} width="1782" height="150" viewBox="0 0 1782 150" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="miloTekening2">
               {letters.map((letter, i) => {
                 // console.log(letter.props)

@@ -39,7 +39,7 @@ export default function ContactB({ className, portfolioLink }) {
         <Button>
           <svg className={`w-4 sm:w-4 ${darkMode ? 'fill-primary' : 'fill-darkPrimary'}`} alt={`${locale === 'en' ? 'Download my portfolio' : "Téléchargez mon portfolio"}`} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M13.7734 10.7071L9.18758 15.2929C8.79705 15.6834 8.16389 15.6834 7.77336 15.2929L3.18758 10.7071C2.55761 10.0771 3.00378 9 3.89468 9H13.0663C13.9572 9 14.4033 10.0771 13.7734 10.7071Z" fill="black" />
-            <path d="M8.48047 3V10" stroke="black" stroke-width="3" stroke-linecap="round" />
+            <path d="M8.48047 3V10" stroke="black" strokeWidth="3" strokeLinecap="round" />
           </svg>
         </Button>
       </Link>

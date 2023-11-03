@@ -57,9 +57,8 @@ const financialInfo = {
 
 
 export default function Footer2({ style, className, noMotion, noMargin, setFooterHeight, setFooterNormalHeight }) {
-  let { width, scrolled, locale } = useAppContext();
+  let { locale } = useAppContext();
   let { mobile } = usePageContext();
-  let breakPointSmall = 640;
 
   // let footerRef = useRef(null)
 
