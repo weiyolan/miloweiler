@@ -159,8 +159,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
     ScrollTrigger.config({
       // limitCallbacks: true,
-      // ignoreMobileResize: true,
-      ignoreMobileResize: false,
+      ignoreMobileResize: true,
       // autoRefreshEvents: "DOMContentLoaded,load,resize",
       // onresize:
     });
