@@ -149,11 +149,11 @@ export default function Home({ projects, sectionInfo, introImages }) {
   // real movile viewbox height = 3335
   let viewBoxHeight = mobile ? 1572 : 1982;
   let svgScrubAmount = 100; //in px
-  // let [firstScreenWidth, setFirstScreenWidth] = useState(undefined);
+  let [firstScreenWidth, setFirstScreenWidth] = useState(undefined);
 
-  // useEffect(() => {
-  //   setFirstScreenWidth(window.innerWidth);
-  // }, []);
+  useEffect(() => {
+    setFirstScreenWidth(window.innerWidth);
+  }, []);
 
   useEffect(() => {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
@@ -169,21 +169,21 @@ export default function Home({ projects, sectionInfo, introImages }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   function keepScroll() {
-  //     if (window.innerWidth >= 768) {
-  //       // console.log(window.innerWidth, firstScreenWidth)
-  //       if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
-  //         location.reload();
-  //         gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 });
-  //       }
-  //     }
-  //   }
-  //   window.addEventListener("resize", keepScroll);
+  useEffect(() => {
+    function keepScroll() {
+      if (window.innerWidth >= 768) {
+        // console.log(window.innerWidth, firstScreenWidth)
+        if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
+          location.reload();
+          gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 });
+        }
+      }
+    }
+    window.addEventListener("resize", keepScroll);
 
-  //   keepScroll();
-  //   return () => window.removeEventListener("resize", keepScroll);
-  // }, [firstScreenWidth]);
+    keepScroll();
+    return () => window.removeEventListener("resize", keepScroll);
+  }, [firstScreenWidth]);
 
   // useEffect(()=>{
   //   // location.reload()
@@ -1663,8 +1663,8 @@ overscroll-behavior: none;
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
       <main
         // style={{ height: !pageLoaded ? "100vh" : "auto" }}
-        className={`w-full ${!pageLoaded && "h-screen overflow-hidden"} mainBackground relative bg-black `}>
-        <div className="h-[83vh] relative w-full  snap-end snap-always" />
+        className={`w-full ${!pageLoaded && "h-[100vh] overflow-hidden"} mainBackground relative bg-black `}>
+        <div className=" h-[83vh] relative w-full  snap-end snap-always" />
         <div className="h-[103vh] relative w-full snap-end snap-always" />
         <div className="h-[103vh] relative w-full snap-end snap-always" />
         <div className="h-[103vh] relative w-full snap-end snap-always" />

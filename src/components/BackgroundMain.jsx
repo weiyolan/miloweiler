@@ -67,6 +67,7 @@ export default function BackgroundMain({ projects, images, type, priority, amoun
             containerClass='rounded-none'
             className={`will-change-transform object-cover object-center  mainBackground opacity-0 ${objectPosition && objectPosition}`}
             sizes="100vw"
+            quality={100}
             image={images[mainImage]}
           // image={mainImage[0].image}
             onLoadingComplete={() => { gsap.to('.mainBackground', { opacity: 1 }); setPageLoaded(true) }}

@@ -90,7 +90,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full `}>
+      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full min-h-screen`}>
         <Component {...pageProps} />
         <Toaster />
       </AppWrapper>
