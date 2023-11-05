@@ -53,19 +53,18 @@ import LanguageToggle from "@/components/LanguageToggle";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Home({ projects, sectionInfo }) {
+export default function Home({ projects, sectionInfo, introImages }) {
   const {
     scrolled,
     width: screenWidth,
     height: screenHeight,
     locale,
-    keepScroll,
+    // keepScroll,
     // mobileHeight: mobilelvh,
   } = useAppContext();
 
   // useWindowResize({options:{resize:true}});
 
-  // useMinimizeScroll();
   let [artImages, setArtImages] = useState(() => {
     let photos = [];
     let project = projects.filter((project) => project.cat === "art")[0];
@@ -74,9 +73,8 @@ export default function Home({ projects, sectionInfo }) {
     });
     return photos;
   });
-  // let [artProjects, setArtProjects] = useState(() => {
-  //   return projects.filter((project) => project.cat === "art");
-  // });
+
+  // let [artImages, setArtImages] = useState()
 
   useEffect(() => {
     function shuffle(array) {
@@ -142,13 +140,7 @@ export default function Home({ projects, sectionInfo }) {
   // let [transitionTl5, setTransitionTl5] = useState();
 
   let [pageLoaded, setPageLoaded] = useState(false);
-  // let [svgHeight, setSvgHeight] = useState(undefined)
-  // let [svgWidth, setSvgWidth] = useState(undefined)
-  // let [svgTop, setSvgTop] = useState(undefined) //For calculation of FadeDiv
-  // let [titleHeight, setTitleHeight] = useState(undefined)
-  // let [svgViewHeight, setSvgViewHeight] = useState(undefined) //For calculation of FadeDiv
 
-  // let [mobile, setMobile] = useState(undefined)
   let mobile = screenWidth < 768;
 
   // let velocity = useRef(0)
@@ -157,18 +149,18 @@ export default function Home({ projects, sectionInfo }) {
   // real movile viewbox height = 3335
   let viewBoxHeight = mobile ? 1572 : 1982;
   let svgScrubAmount = 100; //in px
-  let [firstScreenWidth, setFirstScreenWidth] = useState(undefined);
+  // let [firstScreenWidth, setFirstScreenWidth] = useState(undefined);
 
-  useEffect(() => {
-    setFirstScreenWidth(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   setFirstScreenWidth(window.innerWidth);
+  // }, []);
 
   useEffect(() => {
     // window.innerWidth < 768 && ScrollTrigger.normalizeScroll(true)
     ScrollTrigger.config({
       // limitCallbacks: true,
-      ignoreMobileResize: true,
-      // ignoreMobileResize: false,
+      // ignoreMobileResize: true,
+      ignoreMobileResize: false,
       // autoRefreshEvents: "DOMContentLoaded,load,resize",
       // onresize:
     });
@@ -178,21 +170,21 @@ export default function Home({ projects, sectionInfo }) {
     };
   }, []);
 
-  useEffect(() => {
-    function keepScroll() {
-      if (window.innerWidth >= 768) {
-        // console.log(window.innerWidth, firstScreenWidth)
-        if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
-          location.reload();
-          gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 });
-        }
-      }
-    }
-    window.addEventListener("resize", keepScroll);
+  // useEffect(() => {
+  //   function keepScroll() {
+  //     if (window.innerWidth >= 768) {
+  //       // console.log(window.innerWidth, firstScreenWidth)
+  //       if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
+  //         location.reload();
+  //         gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 });
+  //       }
+  //     }
+  //   }
+  //   window.addEventListener("resize", keepScroll);
 
-    keepScroll();
-    return () => window.removeEventListener("resize", keepScroll);
-  }, [firstScreenWidth]);
+  //   keepScroll();
+  //   return () => window.removeEventListener("resize", keepScroll);
+  // }, [firstScreenWidth]);
 
   // useEffect(()=>{
   //   // location.reload()
@@ -312,7 +304,6 @@ export default function Home({ projects, sectionInfo }) {
             },
             0.3
           );
-
         return tl;
       }
       function showInfo1() {
@@ -730,7 +721,7 @@ export default function Home({ projects, sectionInfo }) {
           .to(
             ".page2photosContainerInner",
             {
-              xPercent: -45,
+              xPercent: mobile ? -35 : -45,
               duration: 2,
               ease: "expo.inout",
             },
@@ -1630,7 +1621,8 @@ export default function Home({ projects, sectionInfo }) {
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
         {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
-        <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} />
+        <meta property="og:image" itemProp="image" content={`${introImages.images[0].asset.url}?w=500&h=500&fit=crop`} />
+        {/* <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} /> */}
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com`} />
         <meta property="fb:app_id" content="659504862954849" />
@@ -1640,7 +1632,7 @@ export default function Home({ projects, sectionInfo }) {
         <meta property="twitter:url" content="https://www.miloweiler.com" />
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
-        <meta name="twitter:image" content="https://cdn.sanity.io/images/erjr84ua/production/8e451247d67b4d824a400a116dd0d25aaa6a0d01-4784x3189.jpg?w=500&h=500&fit=crop" />
+        <meta name="twitter:image" content={`${introImages.images[0].asset.url}?w=500&h=500&fit=crop`} />
         {/* <meta property="twitter:card" content="summary_large_image" /> */}
         {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
         {/* <meta property="og:image:width" content="1200" /> */}
@@ -1673,13 +1665,13 @@ overscroll-behavior: none;
       <main
         // style={{ height: !pageLoaded ? "100vh" : "auto" }}
         className={`w-full ${!pageLoaded && "h-screen overflow-hidden"} mainBackground relative bg-black `}>
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
-        <div className="h-[100vh] relative w-full snap-center snap-always" />
+        <div className="h-[83vh] relative w-full  snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        <div className="h-[103vh] relative w-full snap-end snap-always" />
 
         <PageWrapper
           darkMode={true}
@@ -1722,16 +1714,26 @@ overscroll-behavior: none;
           />
           <Background type="both" amount={10} src="/images/mainpageArt.jpg" height="h-[115vh]" animationName={"page3"} className={"opacity-0 top-[5vh]"} />
           {/*h-100vh no specification needed   */}
-          <Background type="both" amount={0} src={artImages[0].image?.asset.url} animationName={"artPhoto0"} className={"opacity-0"} />
+          <Background type="both" amount={0} src={artImages[0].image?.asset.url} animationName={"artPhoto0"} className={"top-0 opacity-0"} />
           {/* <Background type='both' amount={0} src='/images/mainpageArt1.jpg' animationName={'artPhoto0'} className={'opacity-0'} /> */}
-          <Background type="both" amount={0} src={artImages[1].image?.asset.url} animationName={"artPhoto1"} className={"opacity-0"} />
-          <Background type="both" amount={0} src={artImages[2].image?.asset.url} animationName={"artPhoto2"} className={"opacity-0"} />
+          <Background type="both" amount={0} src={artImages[1].image?.asset.url} animationName={"artPhoto1"} className={"top-0 opacity-0"} />
+          <Background type="both" amount={0} src={artImages[2].image?.asset.url} animationName={"artPhoto2"} className={"top-0 opacity-0"} />
 
           <Background type="both" amount={10} src="/images/mainpageDocu.jpg" height="h-[115vh]" animationName={"page2"} className={"opacity-0 top-[25vh]"} />
           <Background type="both" amount={10} src="/images/mainpageMoon.jpg" height="h-[110vh]" animationName={"page1"} className={"opacity-0 top-[30vh]"} />
           <Background type="bottom" amount={50} src="/images/mainpageStarsCut.jpg" height="h-[50vh]" animationName={"page1stars"} className={"opacity-50 top-[-10vh]"} />
           {/* {console.log(mainImages[0].image)} */}
-          <BackgroundMain setPageLoaded={setPageLoaded} type="bottom" priority amount={40} projects={projects} height="h-[110vh]" animationName={"pageIntro"} className={"top-0"} />
+          <BackgroundMain
+            setPageLoaded={setPageLoaded}
+            type="bottom"
+            priority
+            amount={40}
+            // projects={projects}
+            images={introImages.images}
+            height="h-[110vh]"
+            animationName={"pageIntro"}
+            className={"top-0"}
+          />
           {/* <Background setPageLoaded={setPageLoaded} type='bottom' priority amount={40} src='/images/mainpageStars.jpg' height='h-[110vh]' animationName={'pageIntro'} className={'top-0'} /> */}
 
           {/* LEGS */}
@@ -1862,10 +1864,16 @@ export async function getStaticProps() {
   const projects = await client.fetch(
     `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
   );
+
+  const introImages = await client.fetch(
+    `*[_type == "mainPageXIntro"][0]{images[]{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}`
+    // `*[_type == "mainPageXIntro"][0]{images[]{'image':asset->{url,'dimensions':metadata.dimensions}}}`
+  );
+
   // const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu" || cat == "art" ]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
   const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
   // const sectionInfoMilo = await client.fetch(`*[]`)
   return {
-    props: { projects: projects, sectionInfo: sectionInfo },
+    props: { projects, sectionInfo, introImages },
   };
 }

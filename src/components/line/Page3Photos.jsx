@@ -5,7 +5,7 @@ import Image from 'next/image'
 // import FadeDiv from '../FadeDiv'
 // import { Observer } from 'gsap/dist/Observer'
 import gsap from 'gsap/dist/gsap'
-import { useAppContext } from '@/utils/appContext';
+// import { useAppContext } from '@/utils/appContext';
 import Link from 'next/link';
 
 let paths = [
@@ -21,21 +21,25 @@ let newPath = [
 ]
 
 export default function Page3Photos({ images, className, animateName }) {
+  // const ctx = useRef(gsap.context(() => { }));
 
+  // useEffect(() => {
+  //   return () => ctx.current.revert();
+  // }, []);
 
-  useEffect(() => {
-    gsap.utils.toArray(".svgClips").forEach((photo, i) => {
-      let hovering = gsap.to(photo, { attr: { d: newPath[2 - i] }, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
-      let click = gsap.to(photo, { scale: 1.05, duration: 0.1, paused: true, ease: "power1.inOut", overwrite: true });
-      photo.addEventListener("mouseenter", () => hovering.play());
-      photo.addEventListener("mouseleave", () => hovering.reverse());
-      photo.addEventListener("mousedown", () => click.play());
-      photo.addEventListener("mouseup", () => click.reverse());
-    });
-  }, [])
+  // useEffect(() => {
+  // gsap.utils.toArray(".svgClips").forEach((photo, i) => {
+  // let hovering = gsap.to(photo, { attr: { d: newPath[2 - i] }, duration: 0.5, paused: true, ease: "power1.inOut", overwrite: true });
+  // let click = gsap.to(photo, { scale: 1.05, duration: 0.1, paused: true, ease: "power1.inOut", overwrite: true });
+  // photo.addEventListener("mouseenter", () => hovering.play());
+  // photo.addEventListener("mouseleave", () => hovering.reverse());
+  // photo.addEventListener("mousedown", () => click.play());
+  // photo.addEventListener("mouseup", () => click.reverse());
+  // });
+  // }, [])
 
   return (
-    <div className={'page3photosContainer fixed w-screen h-screen'} >
+    <div className={'page3photosContainer fixed w-screen h-screen top-0'} >
       <div className='w-full h-full page3photosContainerInner'>
         <ArtImage n={2} alt='Artistic image with vibrant colors' src={images[2]?.image.asset.url} slug={images[2].slug} imagePosition={`object-center`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
         {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12lvh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} /> */}
@@ -65,6 +69,7 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
     // artPhoto1
     // artPhoto2
     // artPhoto3
+    // console.log('trigger')
 
     ctx.current.add(() => {
       gsap.to(`.artPhoto${n}`, {
@@ -102,8 +107,10 @@ function ArtImage({ className, n, imagePosition, slug, ...props }) {
         sizes='25vw'
         className={`object-cover ${imagePosition} cursor-pointer`}
         {...props} />
+
       <div onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)} style={{ clipPath: `url(#svgClip${n})` }} title={`Project ${slug}`} className={`absolute w-full h-full`} />
+
       <svg viewBox='0 0 1 1'
 
       // onMouseEnter={() => mobile && setHovering(true)}

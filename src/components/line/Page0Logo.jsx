@@ -123,16 +123,16 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
 
   }, [introAnimationTl])
 
-  // useEffect(() => {
-  //   function scrollHandler() {
-  //     if (scrolled.current > 0.165 && !introEnded) {
-  //       // gsap.getById('introAnimation')?.progress(1);
-  //       setIntroEnded(true);
-  //     }
-  //   }
-  //   document.addEventListener('scroll', scrollHandler)
-  //   return () => document.removeEventListener('scroll', scrollHandler)
-  // }, [introEnded])
+  useEffect(() => {
+    function scrollHandler() {
+      if (scrolled.current > 0.165 && !introEnded) {
+        // gsap.getById('introAnimation')?.progress(1);
+        setIntroEnded(true);
+      }
+    }
+    document.addEventListener('scroll', scrollHandler)
+    return () => document.removeEventListener('scroll', scrollHandler)
+  }, [introEnded])
 
   let colorPrimary = "#FFF5EA";
 
@@ -140,7 +140,7 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
     <div style={style} className={`${className && className}`}>
 
       {mobile ?
-        <svg className={`introSvgInner w-full h-full relative top-0 `} width="569" height="638" viewBox="0 0 569 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={`introSvgInner w-full h-full relative top-0 ${introEnded ? '' : 'will-change-transform'}`} width="569" height="638" viewBox="0 0 569 640" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="introLogoGroup" className="opacity-0" clipPath="url(#clip0_890_1251)">
             <mask id="mask0_890_1251" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-321" y="-74" width="725" height="473">
               <path id="SunMask" fillRule="evenodd" clipRule="evenodd" d="M404 -74H-321V399H404V-74ZM290.452 388.549C293.479 390.52 296.507 391.836 300.512 392.919C301.363 393.149 301.854 393.33 301.603 393.321C299.111 393.232 295.198 392.632 292.412 391.911C280.32 388.781 270.373 380.467 265.718 369.599C260.38 357.136 261.872 343.192 269.795 331.515C277.36 320.364 289.677 313.153 303.548 311.754C306.284 311.479 311.841 311.621 314.517 312.035C326.234 313.849 336.515 320.266 342.589 329.556C345.633 334.212 347.545 339.19 348.469 344.86C348.913 347.582 348.91 353.309 348.463 356.103C347.774 360.402 346.338 364.922 344.49 368.599C343.748 370.075 341.842 373.241 341.696 373.241C341.651 373.241 341.749 372.934 341.915 372.56C342.613 370.986 343.622 367.759 343.97 365.987C346.595 352.615 340.848 339.676 329.166 332.658C325.195 330.273 320.396 328.641 315.865 328.135C314.292 327.959 309.21 327.951 307.515 328.122C301.498 328.729 294.965 331.357 289.781 335.256C279.965 342.638 274.776 354.413 276.22 366.026C277.381 375.356 282.408 383.312 290.452 388.549Z" fill="#D9D9D9" />
