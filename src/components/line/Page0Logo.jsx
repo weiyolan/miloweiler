@@ -123,16 +123,16 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
 
   }, [introAnimationTl])
 
-  useEffect(() => {
-    function scrollHandler() {
-      if (scrolled.current > 0.165 && !introEnded) {
-        // gsap.getById('introAnimation')?.progress(1);
-        setIntroEnded(true);
-      }
-    }
-    document.addEventListener('scroll', scrollHandler)
-    return () => document.removeEventListener('scroll', scrollHandler)
-  }, [introEnded])
+  // useEffect(() => {
+  //   function scrollHandler() {
+  //     if (scrolled.current > 0.165 && !introEnded) {
+  //       // gsap.getById('introAnimation')?.progress(1);
+  //       setIntroEnded(true);
+  //     }
+  //   }
+  //   document.addEventListener('scroll', scrollHandler)
+  //   return () => document.removeEventListener('scroll', scrollHandler)
+  // }, [introEnded])
 
   let colorPrimary = "#FFF5EA";
 
