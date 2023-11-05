@@ -169,6 +169,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
     };
   }, []);
 
+
   useEffect(() => {
     function keepScroll() {
       if (window.innerWidth >= 768) {
@@ -1596,6 +1597,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
   useEffect(() => {
     // introAnimationTl && introAnimationTl.paused(!pageLoaded)
     introAnimationTlRef?.current && introAnimationTlRef.current.paused(!pageLoaded);
+    // window.scrollY = 0;
   }, [pageLoaded]);
 
   // useEffect(() => {
@@ -1663,14 +1665,14 @@ overscroll-behavior: none;
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
       <main
         // style={{ height: !pageLoaded ? "100vh" : "auto" }}
-        className={`w-full ${!pageLoaded && "h-[100vh] overflow-hidden"} mainBackground relative bg-black `}>
-        <div className=" h-[83vh] relative w-full  snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
-        <div className="h-[103vh] relative w-full snap-end snap-always" />
+        className={`w-full ${!pageLoaded && "h-[100svh] md:h-screen overflow-hidden"} mainBackground relative bg-black `}>
+        <div className=" h-[83lvh] relative w-full  snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
+        <div className="h-[103lvh] relative w-full snap-end snap-always" />
 
         <PageWrapper
           darkMode={true}
