@@ -14,6 +14,10 @@ export const myStructure = (S, context) => {
             .title('Sections')
             .items([
               S.listItem()
+                .title('Intro: Logo')
+                .icon(BlockElementIcon)
+                .child(S.document().schemaType('mainPageXIntro').documentId('mainPageINT')),
+              S.listItem()
                 .title('1: Behind The Scenes')
                 .icon(BlockElementIcon)
                 .child(S.document().schemaType('mainPageXXX').documentId('mainPageBTS')),
@@ -80,6 +84,7 @@ export const myStructure = (S, context) => {
             'contactPagePSS',
             'contactPagePFS',
             'mainPageXXX',
+            'mainPageXIntro',
             'mainPageYYY',
           ].includes(listItem.getId())
       ),
