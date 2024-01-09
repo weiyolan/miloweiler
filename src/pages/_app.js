@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -38,9 +38,6 @@ export default function App({ Component, pageProps }) {
   let scrolled = useRef(0);
   // const router = useRouter();
   // usePreserveScroll();
-  function handleScroll() {
-    scrolled.current = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-  }
 
   // useEffect(()=>{
 
@@ -74,6 +71,9 @@ export default function App({ Component, pageProps }) {
   // }, [router]);
 
   useEffect(() => {
+    function handleScroll() {
+      scrolled.current = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+    }
     scrolled.current = (document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
     // setScrolled(ratio)
     window.addEventListener("scroll", handleScroll, { passive: true });

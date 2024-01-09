@@ -40,14 +40,14 @@ const contactList = {
 
 const financialInfo = {
   en: [
-    '2023 MiloWeiler, Inc. All rights reserved.',
+    '2024 MiloWeiler, Inc. All rights reserved.',
     // 'VAT: BE0794.586.584',
     // 'legal address: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgium',
     // 'tel: +33638565302', 
     // 'email: contact@ywdesign.co', 
   ],
   fr: [
-    '2023 MiloWeiler, Inc. Tous droits réservés.',
+    '2024 MiloWeiler, Inc. Tous droits réservés.',
     // 'TVA: BE0794.586.584',
     // 'adresse juridique: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgique',
     // 'tel: +33638565302', 
