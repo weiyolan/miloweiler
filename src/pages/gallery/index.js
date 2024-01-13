@@ -22,10 +22,10 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 export default function Gallery({ projects }) {
   let { width, locale } = useAppContext()
   let pageMobile = width < 648;
-  let darkMode = false
-  let [activeIndex, setActiveIndex] = useState(null)
+  let darkMode = true;
+  let [activeIndex, setActiveIndex] = useState(null);
   const gallery = useRef();
-  const ctx = useRef(gsap.context(() => { }, gallery));
+  const ctx = useRef(gsap.context(() => {}, gallery));
 
   useEffect(() => {
     // console.log('context')
@@ -40,8 +40,8 @@ export default function Gallery({ projects }) {
   //       scale: 0.6,
   //       duration: 0.3,
   //       // y: 20,
-  //       // yoyo: true, 
-  //       // repeat: -1, 
+  //       // yoyo: true,
+  //       // repeat: -1,
   //       // ease: "expo.out",
   //       stagger: {
   //         // amount: 0.5,
@@ -62,7 +62,6 @@ export default function Gallery({ projects }) {
   //   });
   // }, [])
 
-
   // function handleMouseEnter(i) {
   //   setActiveIndex(i);
   //   ctx.current.add(() => {
@@ -78,7 +77,6 @@ export default function Gallery({ projects }) {
   // }
 
   // console.log(projects)
-
 
   return (
     <>
@@ -104,16 +102,16 @@ export default function Gallery({ projects }) {
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
-        bg-gradient-to-br from-primary to-[#FFEAD6]  */}
-        <main className={`bg-[#FFEAD6]  w-full  min-h-screen ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
+        bg-gradient-to-br from-primary to-[#FFEAD6] bg-[#FFEAD6] */}
+        <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFEAD6] text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout className={"relative lg:px-16 xl:px-24 max-w-7xl"}>
+            <Layout className={"relative pt-12 lg:px-16 xl:px-24 max-w-7xl"}>
               <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />
-              <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
-              <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2>
+              {/* <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1> */}
+              {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
               <div
                 ref={gallery}
-                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1 sm:px-8 md:px-0 md:gap-14 md:py-14 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1  sm:px-8 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
                 {projects.map((project, i) => (
                   <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                 ))}

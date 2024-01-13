@@ -41,7 +41,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let { width, locale } = useAppContext();
   let { height: textHeight } = useDimensions(textRef);
   let pageMobile = width < 648;
-  let darkMode = false;
+  let darkMode = true;
   // console.log(contactFormData)
   // const router = useRouter();
   let tl = useRef();
@@ -204,7 +204,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       {/* duration:0.9,  */}
       <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
-        <main className={"bg-[#FFEAD6] relative contact-page overflow-x-hidden"}>
+        <main className={` ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFFEAD6] text-darkPrimary"} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
             <Logo darkMode={darkMode} className="w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40" />
           </div>
@@ -270,7 +270,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
                       <p
                         ref={textRef}
-                        className="text-justify text-sm first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
+                        className="text-justify font-extralight first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
                         {inspirationData.text1[locale]}
                       </p>
                       <ArrowLink inText className="ml-8 w-fit mt-5" text="Go to homepage" to="/" />
@@ -279,7 +279,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
                       <p
                         style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}
-                        className="text-justify text-sm  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
+                        className="text-justify  font-extralight first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora">
                         {inspirationData.text2[locale]}
                       </p>
                       <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/gallery" />

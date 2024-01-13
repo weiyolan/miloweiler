@@ -101,18 +101,18 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseDown={handleMouseDown}
         onMouseEnter={() => { setHover(true); handleMouseEnter() }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
-        className={`relative cursor-pointer rounded-xl text-primary before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer rounded-none text-white before:block before:pt-[100%] card ${hover ? '' : 'inactiveCard'} index-${index} `}>
 
         <div className={`absolute top-0  left-0 w-full h-full ${hover ? 'inactiveCard' : ''}`}>
           {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
         </div>
 
-        <div ref={projectThumb} className={`scale-50 rounded-xl opacity-0 absolute w-full h-full top-0 left-0 `}>
+        <div ref={projectThumb} className={`scale-50 rounded-none opacity-0 absolute w-full h-full top-0 left-0 `}>
 
-          <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-xl'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
+          <SanityImage className={`projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
-          <div className={`absolute  rounded-xl h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
+          <div className={`absolute  rounded-none h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
             <h2 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500  ${hover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
               {/* {console.log(project)} */}
               {project?.title}
@@ -131,7 +131,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         </div>
       </div>
 
-      <div className='mt-2 mb-2 text-left text-darkPrimary cursor-pointer'
+      <div className='mt-2 mb-2 text-left text-white cursor-pointer'
         onMouseEnter={() => { setLineHover(true); handleMouseEnter() }}
         onMouseLeave={() => { setLineHover(false); handleMouseLeave() }}>
         <Link href={`./gallery/${project.slug.current}`}>
@@ -143,7 +143,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           {/* <h3 className='font-lora text-base md:text-xl font-semibold'>
           {`By: ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
         </h3> */}
-          <p className='font-pop font-normal text-sm line-clamp-3 '>
+          <p className='font-pop font-extralight text-sm line-clamp-3 '>
             {project?.description?.[locale] && project.description[locale].slice(0, 120) || ''}
             {/* {console.log(project?.description?.[locale].slice(0, 20))} */}
           </p>
