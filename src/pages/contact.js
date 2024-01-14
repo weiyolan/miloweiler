@@ -204,7 +204,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       {/* duration:0.9,  */}
       <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
-        <main className={` ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFFEAD6] text-darkPrimary"} relative contact-page overflow-x-hidden`}>
+        <main className={` ${darkMode ? "bg-[#141414] text-primary font-extralight" : "bg-[#FFFEAD6] text-darkPrimary"} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
             <Logo darkMode={darkMode} className="w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40" />
           </div>
@@ -218,6 +218,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               {/* =======CONTACT DETAILS======== */}
               <ContactDetails contactDetails={contactDetailsData} portfolioLink={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
               {/* {console.log(contactDetailsData)} */}
+
               {/* =======TRUSTED BY======== */}
               <TrustedBy trustedBy={trustedByData} />
 

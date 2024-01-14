@@ -26,6 +26,9 @@ html {
   outline-offset: -2px;
 }
 
+.blackToWhite {
+  filter: invert(96%) sepia(42%) saturate(411%) hue-rotate(297deg) brightness(100%) contrast(109%);
+}
 
   #viewport {
   position: fixed;

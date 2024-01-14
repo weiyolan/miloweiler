@@ -50,7 +50,7 @@ export default function ContactB({ className, portfolioLink }) {
 function Button({ children }) {
   const { darkMode } = usePageContext()
   return (
-    <div className={`rounded-full ${darkMode ? "bg-white/10 hover:border-primary/90" : "bg-black/10 hover:border-darkPrimary/90"}  p-1.5 border-2 border-transparent focus:outline-none cursor-pointer
+    <div className={`rounded-full ${darkMode ? "bg-white/10 hover:border-primary/90 border" : "bg-black/10 hover:border-darkPrimary/90 border-2"}  p-1.5  border-transparent focus:outline-none cursor-pointer
         duration-200 shadow-xl   hover:animate-borderPulse   group-hover:scale-[1.15]  group-active:shadow-sm  group-active:scale-[0.95]`}>
       {children}
     </div>

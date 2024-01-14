@@ -121,7 +121,7 @@ const Form = () => {
               rounded-full   valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
               focus:-outline-offset-2  p-2 w-full text-sm `} id='name'
               type='text'
               placeholder={`${locale === 'en' ? "First name" : "Ou surnom"}`}
@@ -137,7 +137,7 @@ const Form = () => {
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent 
 
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
 
               focus:-outline-offset-2  p-2 w-full text-sm `}
               id='lastname'
@@ -154,7 +154,7 @@ const Form = () => {
               rounded-full  valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent invalid:text-red-700
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
               focus:-outline-offset-2 p-2 w-full text-sm `} id='email'
             type='email'
             placeholder="example@ywdesign.co"
@@ -168,7 +168,7 @@ const Form = () => {
                  valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent overscroll-contain overflow-y-scroll overflow-x-hidden
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
               focus:-outline-offset-2  p-2 w-full text-sm  h-[20vh] rounded-3xl`} id='message'
             type='text'
             name='message'
@@ -187,7 +187,7 @@ const Form = () => {
               rounded-full   valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
               border-none border-transparent 
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20'}
               focus:-outline-offset-2  p-2 w-full text-sm `} id='subject'
             type='text'
             placeholder="Question"
@@ -203,7 +203,7 @@ const Form = () => {
           border-2 border-solid rounded-full min-w-[80px] lg:min-w-[100px] px-2 justify-center xs:px-4 py-2  
           font-sans font-semibold text-xs textcenter whitespace-nowrap
           cursor-pointer w-fit min-[400px]:w-50% min-[430px]:w-fit h-fit duration-300
-              ${darkMode ? 'placeholder:text-white/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20 active:bg-white/30' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20 active:bg-black/30'}
+              ${darkMode ? 'placeholder:text-primary/50 hover:border-white/40 autofill:bg-white/10 bg-white/10 focus:outline-white/20 active:bg-white/30' : 'placeholder:text-black/50 hover:border-black/40 autofill:bg-black/10 bg-black/10 focus:outline-black/20 active:bg-black/30'}
               outline-none  border-transparent  
            uppercase`}
           >

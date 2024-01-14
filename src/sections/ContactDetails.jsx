@@ -40,14 +40,14 @@ export default function ContactDetails({ contactDetails, portfolioLink }) {
       <div id='contactSection' className=' relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
         <SubTitle child='contact' mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`contact-child`} />
-        <p className='font-pop font-normal text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>
+        <p className='font-pop  text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>
           {contactDetails.text[locale]}
         </p>
         <div className='flex flex-col xs:flex-row font-pop gap-6 mt-4'>
           <div className='flex-col flex-1'>
             <AccentTitle text='Details' noMargin className={'contact-child'} />
-            <p className='w-fit font-pop contact-child'>{'TVA: BE 0791 549 197'}</p>
-            <ArrowLink className={'contact-child'} inText text='contact@miloweiler.com' to={mailLink} ext tabIndex='0' />
+            <p className='w-fit font-pop font-semibold contact-child'>{'TVA: BE 0791 549 197'}</p>
+            <ArrowLink className={'contact-child'} inText text='contact@miloweiler.com' to={mailLink} tabIndex='0' />
             <ArrowLink className={'contact-child'} inText text='+32 476 50 62 09' to='tel:+32476506209' tabIndex='0' />
             <ContactB className={'mt-4 sm:mt-2 contact-child'} portfolioLink={portfolioLink} />
           </div>

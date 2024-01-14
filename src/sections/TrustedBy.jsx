@@ -139,7 +139,7 @@ function Logo({ dataSpeed, dataDirection, type, logo, link }) {
       height={height}
       loader={loader}
       style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-      className={`${darkMode ? "invert" : ""}`}
+      className={`${darkMode ? "blackToWhite" : ""}`}
       alt={`Logo of the ${type} ${logo.name}`}
 
     // sizes="100px"

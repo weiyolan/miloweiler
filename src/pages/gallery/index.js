@@ -19,8 +19,8 @@ import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Gallery({ projects }) {
-  let { width, locale } = useAppContext()
+export default function Gallery({ projects, sectionInfo }) {
+  let { width, locale } = useAppContext();
   let pageMobile = width < 648;
   let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
@@ -105,16 +105,67 @@ export default function Gallery({ projects }) {
         bg-gradient-to-br from-primary to-[#FFEAD6] bg-[#FFEAD6] */}
         <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFEAD6] text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout className={"relative pt-12 lg:px-16 xl:px-24 max-w-7xl"}>
+            <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl  `}>
               <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />
-              {/* <h1 className={` font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1> */}
+              <h1 className={`hidden font-lora text-center md:text-left font-semibold text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
               {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
+              {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
+
+              <h2 className="font-lora text-center  text-inherit font-semibold text-3xl mb-4 pt-3 md:pt-8 ">
+                {sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}
+              </h2>
+              {/* <h2>{console.log(sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title)}</h2> */}
+
               <div
                 ref={gallery}
                 className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1  sm:px-8 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
-                {projects.map((project, i) => (
-                  <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
-                ))}
+                {/* {console.log(projects)} */}
+                {projects
+                  .filter((project) => project.cat === "bts")
+                  .map((project, i) => (
+                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                  ))}
+              </div>
+              <h2 className="font-lora text-center  text-inherit font-semibold text-3xl mb-4 pt-3 md:pt-8 ">
+                {sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}
+              </h2>
+              <div
+                ref={gallery}
+                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1  sm:px-8 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+                {/* {console.log(projects)} */}
+                {projects
+                  .filter((project) => project.cat === "docu")
+                  .map((project, i) => (
+                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                  ))}
+              </div>
+              <h2 className="font-lora text-center  text-inherit font-semibold text-3xl mb-4 pt-3 md:pt-8 ">
+                {sectionInfo.filter((section) => section._id === "mainPageFIN")[0].title?.[locale]}
+              </h2>
+
+              <div
+                ref={gallery}
+                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1  sm:px-8 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+                {/* {console.log(projects)} */}
+                {projects
+                  .filter((project) => project.cat === "art")
+                  .map((project, i) => (
+                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                  ))}
+              </div>
+
+              <h2 className="font-lora text-center  text-inherit font-semibold text-3xl mb-4 pt-3 md:pt-8 ">
+                {sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}
+              </h2>
+              <div
+                ref={gallery}
+                className="galleryPage w-full mx-auto relative grid gap-4 sm:gap-8 py-1  sm:px-8 md:px-0 md:gap-8 md:py-8 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+                {/* {console.log(projects)} */}
+                {projects
+                  .filter((project) => project.cat === "studio")
+                  .map((project, i) => (
+                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                  ))}
               </div>
               {/* <div className='flex gap-8 py-8 relative'>
               <div className='columns-1 w-1/5'>
@@ -135,8 +186,11 @@ export default function Gallery({ projects }) {
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == "project"]|order(date desc){title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`);
+  const projects = await client.fetch(
+    `*[_type == "project"]|order(date desc){title, subTitle, by, cat, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
+  );
   // console.log(projects)
+  const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
 
   // function artificialProjects (length) {
   //   console.log(Math.floor(Math.random()*projects.length))
@@ -152,8 +206,9 @@ export async function getStaticProps() {
   return {
     props: {
       // projects: artificialProjects(40)
-      projects: projects
+      projects: projects,
+      sectionInfo,
       // projects: [...projects, ...projects, ...projects, ...projects, ...projects, ...projects]
-    }
+    },
   };
 }
