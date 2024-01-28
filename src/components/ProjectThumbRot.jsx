@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { usePageContext } from '@/utils/pageContext'
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
+export default function ProjectThumbRot({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
   const { width, locale } = useAppContext()
   let [hover, setHover] = useState(false)
   let [lineHover, setLineHover] = useState(false)
@@ -61,29 +61,29 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
   useEffect(() => {
     // function onLoad() {
-      if (loaded) {
-        gsap.to(projectThumb.current, {
-          scale: 1,
-          opacity: 1,
-          // duration: 0.5,
-          // stagger: 0.5,
-          ease: 'expo.out',
-          scrollTrigger: {
-            scroller: window,
-            trigger: projectThumb.current,
-            start: '-=50% bottom',
-            // end:'bo'
-            // end: '+=100%', 
-            end: '150% top',
-            // pin:true,width < 1024
-            // scrub: 1,
-            toggleActions: 'play reverse play reverse',
-            // markers: true,
-            invalidateOnRefresh: true
-          },
-          // onStart: () => console.log('start')
-        })
-      }
+    if (loaded) {
+      gsap.to(projectThumb.current, {
+        scale: 1,
+        opacity: 1,
+        // duration: 0.5,
+        // stagger: 0.5,
+        ease: 'expo.out',
+        scrollTrigger: {
+          scroller: window,
+          trigger: projectThumb.current,
+          start: '-=50% bottom',
+          // end:'bo'
+          // end: '+=100%', 
+          end: '150% top',
+          // pin:true,width < 1024
+          // scrub: 1,
+          toggleActions: 'play reverse play reverse',
+          // markers: true,
+          invalidateOnRefresh: true
+        },
+        // onStart: () => console.log('start')
+      })
+    }
     // }
     // onLoad()
   }, [loaded])
@@ -109,9 +109,9 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
         </div>
 
-        <div ref={projectThumb} className={`scale-50 rounded-none opacity-0 absolute w-full h-full top-0 left-0 `}>
+        <div ref={projectThumb} className={`scale-50 rounded-none opacity-0 absolute w-full h-full top-0 left-0  `}>
 
-          <SanityImage className={` projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none '} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
+          <SanityImage className={` projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none rotate-12 w-auto h-auto -top-[15%] -left-[15%] -right-[15%] -bottom-[15%]'} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
           <div className={`absolute  rounded-none h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>

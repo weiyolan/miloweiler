@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Poppins, Lora } from "next/font/google";
+import { Poppins, Lora, Work_Sans, Roboto_Mono, Inter } from "next/font/google";
 import { AppWrapper } from "@utils/appContext";
 // import Script from 'next/script';
 import { Toaster } from "react-hot-toast";
@@ -16,12 +16,21 @@ import { usePreserveScroll } from "@/utils/usePreserveScroll";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 // import Lenis from '@studio-freight/lenis'
+const roboto = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto",
+});
 
-// const workSans = Work_Sans({
-//   subsets: ['latin'],
-//   variable: '--font-worksans',
-//   display: 'swap',
-// })
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  variable: "--font-worksans",
+  // display: 'swap',
+});
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
@@ -90,7 +99,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable} font-pop relative w-full min-h-screen`}>
+      <AppWrapper scrolled={scrolled} className={`${poppins.variable} ${lora.variable}  ${roboto.variable} ${workSans.variable} font-pop relative w-full min-h-screen`}>
         <Component {...pageProps} />
         <Toaster />
       </AppWrapper>

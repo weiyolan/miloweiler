@@ -49,6 +49,7 @@ import PageIndicator from "@/components/PageIndicator";
 import BackgroundMain from "@/components/BackgroundMain";
 import SplashScreen from "@/components/SplashScreen";
 import LanguageToggle from "@/components/LanguageToggle";
+import StoryTitle2 from "@/components/line/StoryTitle2";
 // import useWindowResize from '@/utils/useWindowResize'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -168,7 +169,6 @@ export default function Home({ projects, sectionInfo, introImages }) {
       titleCtx.current.revert();
     };
   }, []);
-
 
   useEffect(() => {
     function keepScroll() {
@@ -1838,12 +1838,12 @@ overscroll-behavior: none;
             className={`text-left top-4 md:top-16 lg:top-14 left-4 md:left-16 lg:left-12`}
           />
 
-          <StoryTitle shadow={!mobile} scrubTl={scrubTl0Ref.current} ctx={titleCtx} />
-          <ScrollDown
+          <StoryTitle2 shadow={false} scrubTl={scrubTl0Ref.current} />
+          {/* <ScrollDown
             style={{ transform: "translate3d(-50%,0,0)" }}
             className={"scrollDownSvg flex flex-col items-center left-2/3 md:left-1/2 bottom-[20lvh] mobm:bottom-[30lvh] sm:bottom-[10lvh] fixed cursor-pointer"}
             ctx={titleCtx}
-          />
+          /> */}
 
           {mobile ? (
             <></>

@@ -2,6 +2,7 @@ import React from 'react'
 import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
+import { twMerge } from 'tailwind-merge';
 // import { imageUrlBuilder} from '@sanity/image-url';
 
 export default function SanityImage({ image, alt, fill, thumb, absolute, blur, sizes, style, print, onLoad, containerClass, className, name, move, intrinsic, ...props }) {
@@ -35,7 +36,7 @@ export default function SanityImage({ image, alt, fill, thumb, absolute, blur, s
 
   if (fill) {
     return (
-      <div data-imagecontainer={move ? 'true' : 'false'} className={`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden ${containerClass && containerClass}`}>
+      <div data-imagecontainer={move ? 'true' : 'false'} className={twMerge(`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden`, `${containerClass && containerClass}`)}>
         <Image fill
           style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
           sizes={sizes ? sizes : "(max-width: 700px) 100vw, 50vw"}

@@ -25,7 +25,8 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
-    "styled-components": "^5.3.11"
+    "styled-components": "^5.3.11",
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.40.1",

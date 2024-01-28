@@ -6,8 +6,8 @@ import { usePageContext } from '@/utils/pageContext'
 import { useAppContext } from '@/utils/appContext'
 gsap.registerPlugin(ScrollTrigger)
 
-export default function StoryTitle({ scrubTl, shadow, ctx }) {
-let {locale}= useAppContext()
+export default function StoryTitle2({ scrubTl, shadow, ctx }) {
+  let { locale } = useAppContext()
   // useEffect(() => {
   // ctx.current.add(() => {
   //  // WIGGELS && WOBBLES
@@ -83,15 +83,17 @@ let {locale}= useAppContext()
           I am a Photographer specialised in set photography and portraits.
         </h1>
 
-        <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] md:right-[2%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <Text animationName='depth3Title' className={'cursor-default font-lora depth2  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="52.5204" letterSpacing="0em">
+        <p className='text-primary max-w-prose absolute text-center top-[80%] left-1/2 titleText titleText2 opacity-0 -translate-x-1/2 -translate-y-1/2 '>{locale === 'en' ? "Scroll down and I'll carry you through my photography journey, bringing you through four magical chapters." : "Défilez et je vous accompagnerai tout au long de mon voyage photographique, à travers quatre chapitres magiques."}</p>
+
+        {/* <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] md:right-[2%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+        {/* <Text animationName='depth3Title' className={'cursor-default font-lora depth2  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="52.5204" letterSpacing="0em">
             <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="40.0711212" y="107.722">
-              {locale==='en'?'My style is':'Mon style est'}
+              {locale === 'en' ? 'My style is' : 'Mon style est'}
             </tspan>
           </Text>
           <Text animationName='depth1Title' className={'cursor-default font-lora depth3  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="75" letterSpacing="0em">
             <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="161.107" y="174.07">
-             {locale==='en'? 'emotive':'sensible'}
+              {locale === 'en' ? 'emotive' : 'sensible'}
             </tspan>
           </Text>
           <Text animationName='depth3Title' className={'cursor-default font-lora depth3  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="47.3029" letterSpacing="0em">
@@ -118,17 +120,16 @@ let {locale}= useAppContext()
             <tspan className={`${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="238.206" y="362.472">
               ental
             </tspan>
-          </Text>
-        </svg>
+          </Text> */}
+        {/* </svg> */}
 
-        <svg className={`rotate-[0.0001deg] absolute left-[10%] bottom-[15%] md:left-[6%] md:bottom-[10%] w-[60%] md:w-[30vw] `} viewBox="0 0 551 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <Text animationName="depth3Title" className={`cursor-default font-lora depth3 titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="42.2727" letterSpacing="0em">
-            <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x={locale==='fr'?'10':"0"} y="230.472">
-              {locale==='fr'?'J' :'I'}
+        {/* <svg className={`rotate-[0.0001deg] absolute left-[10%] bottom-[15%] md:left-[6%] md:bottom-[10%] w-[60%] md:w-[30vw] `} viewBox="0 0 551 300" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+        {/* <Text animationName="depth3Title" className={`cursor-default font-lora depth3 titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="42.2727" letterSpacing="0em">
+            <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x={locale === 'fr' ? '10' : "0"} y="230.472">
+              {locale === 'fr' ? 'J' : 'I'}
               &#x2019;
-              {/* {locale && "&#x2019;"} */}
-              {locale==='fr'&&'suis'}
-              {locale==='en'&&'m a'}
+              {locale === 'fr' && 'suis'}
+              {locale === 'en' && 'm a'}
             </tspan>
           </Text>
           <Text animationName="depth1Title" className={`cursor-default font-lora depth1 titleText  opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="87.8834" letterSpacing="0em">
@@ -138,11 +139,11 @@ let {locale}= useAppContext()
           </Text>
           <Text animationName="depth2Title" className={`cursor-default font-lora depth2 titleText opacity-0 titleText1 scale-90`} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="72.5438" letterSpacing="0em">
             <tspan className={` ${shadow ? 'drop-shadow-[0_0px_20px_#FFF5EAFF] ' : ''}`} x="285" y="219.051">
-            {locale==='fr'?'graphe' :`grapher`}
-               
+              {locale === 'fr' ? 'graphe' : `grapher`}
+
             </tspan>
-          </Text>
-        </svg>
+          </Text> */}
+        {/* </svg> */}
       </Parallax>
     </div>
   )
