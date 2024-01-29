@@ -27,6 +27,19 @@ export default function Gallery({ projects, sectionInfo }) {
   let [activeIndex, setActiveIndex] = useState(null);
   const gallery = useRef();
   const ctx = useRef(gsap.context(() => {}, gallery.current));
+  const lenisRef = useRef();
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+
+    return () => {
+      gsap.ticker.remove(update);
+    };
+  });
 
   useEffect(() => {
     gsap.to(gallery.current, {
@@ -117,7 +130,7 @@ export default function Gallery({ projects, sectionInfo }) {
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
         <meta name="twitter:image" content={`${projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
+      <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
         bg-gradient-to-br from-primary to-[#FFEAD6] bg-[#FFEAD6] */}
         <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFEAD6] text-darkPrimary"} overflow-x-hidden`}>

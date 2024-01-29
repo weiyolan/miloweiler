@@ -47,6 +47,20 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let tl = useRef();
   let ctx = useRef();
 
+  const lenisRef = useRef();
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+
+    return () => {
+      gsap.ticker.remove(update);
+    };
+  });
+
   let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
   useLayoutEffect(() => {
@@ -202,7 +216,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`} />
       </Head>
       {/* duration:0.9,  */}
-      <ReactLenis root options={{ wheelMultiplier: 0.9, print: false }}>
+      <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
         <main className={` ${darkMode ? "bg-[#141414] text-primary font-extralight" : "bg-[#FFFEAD6] text-darkPrimary"} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">

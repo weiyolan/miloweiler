@@ -48,16 +48,16 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
     // })
   }
 
-  useEffect(() => {
-    ctx.current.add(() => {
+  // useEffect(() => {
+  //   ctx.current.add(() => {
 
-      gsap.to(`.galleryThumbLine${index}`, {
-        width: (lineHover) || hover ? '100%' : 0,
-        borderColor: (lineHover) || hover ? darkMode ? '#FFD5EA' : '#000000' : 'transparent',
-        duration: 0.2,
-      })
-    })
-  }, [lineHover, hover])
+  //     gsap.to(`.galleryThumbLine${index}`, {
+  //       width: (lineHover) || hover ? '100%' : 0,
+  //       borderColor: (lineHover) || hover ? darkMode ? '#FFD5EA' : '#000000' : 'transparent',
+  //       duration: 0.2,
+  //     })
+  //   })
+  // }, [lineHover, hover])
 
   useEffect(() => {
     // function onLoad() {
