@@ -106,7 +106,7 @@ export default function Navigation() {
     // <FadeDiv className='w-full relative'>
     // <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full top-0 justify-center flex navBar  `} type={'leftRight'} amount={30}>
     <div className={`fixed w-full top-0 justify-center flex navBar`}>
-      <div className={`${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
+      <div className={`${darkMode ? 'bg-primary/1' : 'bg-primary/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text={locale==='fr'?'Galerie':'Gallery'} to='/gallery' />

@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 export default function Gallery({ projects, sectionInfo }) {
   let { width, locale } = useAppContext();
   let pageMobile = width < 648;
-  let darkMode = true;
+  let darkMode = false;
   let [activeIndex, setActiveIndex] = useState(null);
   const gallery = useRef();
   const ctx = useRef(gsap.context(() => {}, gallery.current));
@@ -133,7 +133,7 @@ export default function Gallery({ projects, sectionInfo }) {
       <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
         bg-gradient-to-br from-primary to-[#FFEAD6] bg-[#FFEAD6] */}
-        <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-[#FFEAD6] text-darkPrimary"} overflow-x-hidden`}>
+        <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"} overflow-x-hidden`}>
           <PageWrapper darkMode={darkMode}>
             <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-36`}>
               <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />

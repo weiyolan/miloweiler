@@ -20,7 +20,8 @@ module.exports = {
         mobm: "350px",
       },
       colors: {
-        primary: "#FFF5EA",
+        primary: "#FFFFFF",
+        // primary: "#FFF5EA",
         darkPrimary: "#000",
         darkGrey: "#303030",
         accent: "#4100A4",
