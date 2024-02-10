@@ -12,6 +12,8 @@ export default function PictureIndicator({ handleVisibility, visibleItem ,setPos
   const ctx = useRef(gsap.context(() => { }));
   
   useEffect(() => {
+
+
     return () => ctx.current.revert();
   }, [])
 
@@ -34,7 +36,7 @@ useEffect(()=>{
 
   return (
     // <div className='picture-indicator absolute left-1/2 -translate-x-1/2 flex justify-center items-center gap-2 h-6 top-full -translate-y-[150%] md:-translate-y-2/4 '>
-    <div ref={indicatorRef} style={{width: width<1024?'fit': mainPictureWidth+'px'}} className='picture-indicator relative lg:absolute inline-flex opacity-0 invisible lg:left-0 lg:bottom-16 min-[1800px]:bottom-20 min-[2300px]:bottom-24 min-[3000px]:bottom-36 mx-auto justify-center items-center gap-2 my-4 mobl:my-8 lg:my-6'>
+    <div ref={indicatorRef} style={{ width: width < 1024 ? 'fit' : mainPictureWidth + 'px' }} className='picture-indicator relative min-w-fit  inline-flex opacity-0 invisible   mx-auto justify-center items-center gap-2 my-4 mobl:my-8 lg:my-6 mt-2'>
       {visibleItem.map((item, i) => {
         return <Bol handleClick={() => { handleVisibility(i) }} visible={item} key={i} />
       })}

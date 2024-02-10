@@ -61,13 +61,13 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
     ctx.current.add(() => {
       gsap.to(`#pictureThumb${index}`, {
         // outlineColor: visible ? `${palette.vibrant.background}FF`:`${palette.vibrant.background}00` ,
-        marginLeft: width < 1024 ? (visible ? 12 : 0) : 0,
-        marginRight: width < 1024 ? (visible ? 12 : 0) : 0,
-        marginTop: width < 1024 ? 0 : (visible ? 24 : 0),
-        marginBottom: width < 1024 ? 0 : (visible ? 24 : 0),
+        // marginLeft: (visible ? 12 : 0),
+        // marginRight: (visible ? 12 : 0),
+        marginTop: 0,
+        marginBottom: 0,
         // scale:width<1024?1:visible?1.1:1,
         // margin: '5 0 5 0' , 
-        y: width < 1024 ? (visible ? -6 : 0) : 0,
+        y: (visible ? -6 : 0),
         // x:width<1024?0:(visible ?+20:0),
         // scale:1,
         ease: 'power1.inout',
@@ -83,6 +83,8 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   //     setInActive()
   //   }
   // }, [visible])
+
+
 
   useEffect(() => {
     function onLoad() {
@@ -139,7 +141,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       id={`pictureThumb${index}`}
       // style={{ borderColor: visible ? palette.darkMuted.background : 'transparent' }}
       className={`picture-thumb  relative flex select-none cursor-pointer w-fit h-fit outline-none outline-2 ${visible ? '' : ''}  
-      before:block before:w-20 mobm:before:w-28 lg:before:w-44 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
+      before:block before:w-20 mobm:before:w-28 lg:before:w-28 ${row ? '' : ''} before:pt-[100%] ${className ? className : ''}`}
       onClick={handleClick}
       // data-loaded={loaded}
       onMouseUp={mouseUp}

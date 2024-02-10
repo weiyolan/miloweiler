@@ -16,7 +16,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   let [lineHover, setLineHover] = useState(false)
   let [loaded, setLoaded] = useState(false)
   let projectThumb = useRef(null)
-  const { darkMode } = usePageContext()
+  // const { darkMode } = usePageContext()
   // const { width } = useAppContext()
   // let [selected, setSelected] = useState(false)
   // let myRef = useRef(null)
@@ -63,18 +63,19 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
     // function onLoad() {
       if (loaded) {
         gsap.to(projectThumb.current, {
-          scale: 1,
+          // scale: 1,
           opacity: 1,
-          // duration: 0.5,
-          // stagger: 0.5,
+          duration: 0.5,
+          // delay: 0.2,
+          stagger: 0.5,
           ease: 'expo.out',
           scrollTrigger: {
             scroller: window,
             trigger: projectThumb.current,
-            start: '-=50% bottom',
-            // end:'bo'
-            // end: '+=100%', 
-            end: '150% top',
+            // start: '-=50% bottom',
+            start: '+=10% bottom',
+            // end: '150% top',
+            end: '90% top',
             // pin:true,width < 1024
             // scrub: 1,
             toggleActions: 'play reverse play reverse',
@@ -103,18 +104,18 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseDown={handleMouseDown}
         onMouseEnter={() => { setHover(true); handleMouseEnter() }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
-        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[100%] card ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[100%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
 
-        <div className={`absolute top-0  left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>
+        <div className={`absolute top-0 left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>
           {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
         </div>
 
-        <div ref={projectThumb} className={`scale-50 rounded-none opacity-0 absolute w-full h-full top-0 left-0 `}>
+        <div ref={projectThumb} className={`rounded-none opacity-0 absolute w-full h-full top-0 left-0 `}>
 
           <SanityImage className={` projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none '} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
-          <div className={`absolute  rounded-none h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
+          <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
             <h3 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500  ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
               {/* {console.log(project)} */}
               {false && project?.title}

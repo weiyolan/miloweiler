@@ -137,10 +137,10 @@ function Button({ text, to }) {
 
   useEffect(() => {
     ctx.current.add(() => {
-      gsap.to(`.navButton${text}`, {
-        scale: (hover) ? 1.1 : 1,
-        duration: 0.2,
-      })
+      // gsap.to(`.navButton${text}`, {
+      // scale: (hover) ? 1.1 : 1,
+      // duration: 0.2,
+      // })
       gsap.to(`.navLine${text}`, {
         width: (hover || selected) ? '100%' : 0,
         borderColor: (hover || selected) ? (darkMode ? '#FFF5EA' : '#000000') : 'transparent',
@@ -150,7 +150,7 @@ function Button({ text, to }) {
   }, [hover, selected])
 
   return (
-    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`relative navButton navButton${text} opacity-0 visible md:text-xl lg:text-2xl min-w-[7rem]  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}
+    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`relative navButton navButton${text} opacity-0 visible md:text-lg  min-w-[7rem]  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary  '} `}
       href={`${to}`}
     // onClick={() => handleClick(to)}
     // title={`Go to the ${text} page`}

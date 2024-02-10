@@ -4,7 +4,7 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
-  scroll-behavior: none; 
+  scroll-behavior: none;
   background-color: #000000;
   /* For lenis scroll-library */
 }
@@ -17,8 +17,7 @@ html {
 }
 
 *:focus:not(:focus-visible) {
-  outline:none;
-  
+  outline: none;
 }
 
 *:focus-visible {
@@ -30,7 +29,7 @@ html {
   filter: invert(96%) sepia(42%) saturate(411%) hue-rotate(297deg) brightness(100%) contrast(109%);
 }
 
-  #viewport {
+#viewport {
   position: fixed;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -39,27 +38,27 @@ html {
   -webkit-overscroll-behavior: none;
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
-  }
+}
 
 /* ============== Form styling ===============*/
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover, 
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #rgba(0,0,0,0.1) inset;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #rgba(0, 0, 0, 0.1) inset;
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: #000;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 body {
@@ -67,14 +66,15 @@ body {
 }
 
 /* ============== Selection styling ===============*/
-*::selection{
-  color:white;
-  background:#4200a431;
+*::selection {
+  color: white;
+  background: #4200a431;
   /* background:#ffffff83; */
 }
+
 *::-moz-selection {
-  color:white;
-  background:#4200a431;
+  color: white;
+    background: #4200a431;
 }
 
 /* ============== Scrollbar styling ===============*/
@@ -89,6 +89,7 @@ body {
   background-color: #FFF5EA;
   /* right: 5px; */
 }
+
 ::-webkit-scrollbar-button {
   border-radius: 0rem;
   height: 8px;
@@ -96,47 +97,58 @@ body {
   background-color: transparent;
   /* background-color: #00000045; */
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: transparent;
   /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
 }
+
 ::-webkit-scrollbar-track-piece {
   background-color: transparent;
   /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
 }
+
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
 /* THUMB */
 ::-webkit-scrollbar-thumb {
   background-color: #383838;
   border-radius: 5rem;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background-color: #000000;
 }
+
 .dark-scrollbar::-webkit-scrollbar-thumb {
   background-color: #ff000079;
   border-radius: 5rem;
 }
+
 .dark-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #000000ab;
 }
 
 /* Handle on hover */
-.scroll-bar-primary::-webkit-scrollbar-thumb  {
-  background-color:  rgb(255 245 234);
+.scroll-bar-primary::-webkit-scrollbar-thumb {
+  background-color: rgb(255 245 234);
   border-radius: 10px;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
 }
-.no-scrollbar::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
-  width:0;
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+    /* Safari and Chrome */
+    width: 0;
 }
 
 .scroll-bar-small::-webkit-scrollbar {
@@ -146,7 +158,7 @@ body {
   /* background: url(../public/images/background2.svg); */
   background-color: transparent;
   /* right: 5px; */
-} 
+}
 
 
 
@@ -168,10 +180,30 @@ html.lenis {
 }
 
 .lenis.lenis-scrolling iframe {
-   pointer-events: none;
-} 
+  pointer-events: none;
+  }
 
+    
+/* ========================= MASONRY ===========================*/
+.my-masonry-grid {
+  display: flex;
+  margin-left: -30px;
+  /* gutter size offset */
+  width: auto;
+}
 
+.my-masonry-grid_column {
+  padding-left: 30px;
+  /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column img {
+  /* change div to reference your elements you put in <Masonry> */
+  /* background: grey; */
+  margin-bottom: 30px;
+}
 /* =========================== SPINNER ====================== */
 .spinner {
   /* width: 40px; */
@@ -180,7 +212,8 @@ html.lenis {
   /* margin: 100px auto; */
 }
 
-.double-bounce1, .double-bounce2 {
+.double-bounce1,
+.double-bounce2 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -189,7 +222,7 @@ html.lenis {
   position: absolute;
   top: 0;
   left: 0;
-  
+
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
   animation: sk-bounce 2.0s infinite ease-in-out;
 }
@@ -200,15 +233,24 @@ html.lenis {
 }
 
 @-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
+0%,
+  100% {
+    -webkit-transform: scale(0.0)
+  }
+
+  50% {
+    -webkit-transform: scale(1.0)
+  }
 }
 
 @keyframes sk-bounce {
-  0%, 100% { 
+0%,
+  100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 50% { 
+}
+
+50% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }
@@ -218,62 +260,83 @@ html.lenis {
 
 .cubeSpinner {
   -webkit-animation: cube 2s infinite ease;
-          animation: cube 2s infinite ease;
+  animation: cube 2s infinite ease;
   /* height: 40px; */
   -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
   /* width: 40px;  */
 }
-  .cubeSpinner div {
-    /* background-color: rgba(255, 238, 216, 0.136); */
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    /* border: 1.5px solid white; */
-   }
-    .cubeSpinner div:nth-of-type(1) {
-      -webkit-transform: translateZ(-8px) rotateY(180deg);
-              transform: translateZ(-8px) rotateY(180deg); }
-    .cubeSpinner div:nth-of-type(2) {
-      -webkit-transform: rotateY(-270deg) translateX(50%);
-              transform: rotateY(-270deg) translateX(50%);
-      -webkit-transform-origin: top right;
-              transform-origin: top right; }
-    .cubeSpinner div:nth-of-type(3) {
-      -webkit-transform: rotateY(270deg) translateX(-50%);
-              transform: rotateY(270deg) translateX(-50%);
-      -webkit-transform-origin: center left;
-              transform-origin: center left; }
-    .cubeSpinner div:nth-of-type(4) {
-      -webkit-transform: rotateX(90deg) translateY(-50%);
-              transform: rotateX(90deg) translateY(-50%);
-      -webkit-transform-origin: top center;
-              transform-origin: top center; }
-    .cubeSpinner div:nth-of-type(5) {
-      -webkit-transform: rotateX(-90deg) translateY(50%);
-              transform: rotateX(-90deg) translateY(50%);
-      -webkit-transform-origin: bottom center;
-              transform-origin: bottom center; }
-    .cubeSpinner div:nth-of-type(6) {
-      -webkit-transform: translateZ(8px);
-              transform: translateZ(8px); }
+
+.cubeSpinner div {
+  /* background-color: rgba(255, 238, 216, 0.136); */
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  /* border: 1.5px solid white; */
+}
+
+.cubeSpinner div:nth-of-type(1) {
+  -webkit-transform: translateZ(-8px) rotateY(180deg);
+  transform: translateZ(-8px) rotateY(180deg);
+  }
+  
+  .cubeSpinner div:nth-of-type(2) {
+    -webkit-transform: rotateY(-270deg) translateX(50%);
+    transform: rotateY(-270deg) translateX(50%);
+    -webkit-transform-origin: top right;
+  transform-origin: top right;
+  }
+  
+  .cubeSpinner div:nth-of-type(3) {
+    -webkit-transform: rotateY(270deg) translateX(-50%);
+    transform: rotateY(270deg) translateX(-50%);
+    -webkit-transform-origin: center left;
+  transform-origin: center left;
+  }
+  
+  .cubeSpinner div:nth-of-type(4) {
+    -webkit-transform: rotateX(90deg) translateY(-50%);
+    transform: rotateX(90deg) translateY(-50%);
+    -webkit-transform-origin: top center;
+  transform-origin: top center;
+  }
+  
+  .cubeSpinner div:nth-of-type(5) {
+    -webkit-transform: rotateX(-90deg) translateY(50%);
+    transform: rotateX(-90deg) translateY(50%);
+    -webkit-transform-origin: bottom center;
+  transform-origin: bottom center;
+  }
+  
+  .cubeSpinner div:nth-of-type(6) {
+    -webkit-transform: translateZ(8px);
+  transform: translateZ(8px);
+  }
 @-webkit-keyframes cube {
   0% {
     -webkit-transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-            transform: rotate(45deg) rotateX(-25deg) rotateY(25deg); }
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+    }
   50% {
     -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-            transform: rotate(45deg) rotateX(-385deg) rotateY(25deg); }
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+    }
   100% {
     -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-            transform: rotate(45deg) rotateX(-385deg) rotateY(385deg); } }
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+    }
+    }
 @keyframes cube {
   0% {
     -webkit-transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-            transform: rotate(45deg) rotateX(-25deg) rotateY(25deg); }
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+    }
   50% {
     -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-            transform: rotate(45deg) rotateX(-385deg) rotateY(25deg); }
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+    }
   100% {
     -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-            transform: rotate(45deg) rotateX(-385deg) rotateY(385deg); } }
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+    }
+    }

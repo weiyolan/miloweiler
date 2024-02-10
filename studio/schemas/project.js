@@ -10,7 +10,8 @@ export default defineType({
     {
       name: 'details',
       title: 'Primary Info',
-    }, {
+    },
+    {
       name: 'images',
       title: 'Images',
     },
@@ -19,8 +20,8 @@ export default defineType({
     {
       name: 'details',
       title: 'Project Details',
-      options: { collapsible: true, collapsed: false }
-    }
+      options: {collapsible: true, collapsed: false},
+    },
   ],
   preview: {
     select: {
@@ -33,44 +34,70 @@ export default defineType({
     },
 
     prepare(selection) {
-      const { title, date, cat, by, subTitle, media } = selection
-      return { title: getTitle(title, subTitle), subtitle: getSubTitle(cat, by, date), media: media.image }
+      const {title, date, cat, by, subTitle, media} = selection
+      return {
+        title: getTitle(title, subTitle),
+        subtitle: getSubTitle(cat, by, date),
+        media: media.image,
+      }
     },
   },
   fields: [
     defineField({
-      name: 'title', title: 'Project Title', type: 'string', description: 'Title of your project baby!',
+      name: 'title',
+      title: 'Project Title',
+      type: 'string',
+      description: 'Title of your project baby!',
       group: 'details',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'subTitle', title: 'Subtitle', type: 'string', description: 'De tekst tussen haakjes vlak naast de titel',
+      name: 'subTitle',
+      title: 'Subtitle',
+      type: 'string',
+      description: 'De tekst tussen haakjes vlak naast de titel',
       // group: 'details',
       // validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'slug', title: 'Slug', type: 'slug', description: 'Komt hier: www.miloweiler.com/gallery/[slug]. ',
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      description: 'Komt hier: www.miloweiler.com/gallery/[slug]. ',
       options: {
         source: 'title',
       },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'by', title: 'By', type: 'array', of: [{ type: 'string' }],
+      name: 'by',
+      title: 'By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
     }),
     defineField({
-      name: 'cat', title: 'Category', type: 'string',
+      name: 'partnerLink',
+      title: 'Partner Link',
+      type: 'url',
+      group: 'details',
+      validation: (Rule) => Rule.required(),
+      // group: 'details',
+    }),
+    defineField({
+      name: 'cat',
+      title: 'Category',
+      type: 'string',
       group: 'details',
       options: {
         list: [
-          { title: 'Behind The Scenes', value: 'bts' },
-          { title: 'Documentary', value: 'docu' },
-          { title: 'Fine Art', value: 'art' },
-          { title: 'Studio', value: 'studio' },
+          {title: 'Behind The Scenes', value: 'bts'},
+          {title: 'Documentary', value: 'docu'},
+          {title: 'Fine Art', value: 'art'},
+          {title: 'Studio', value: 'studio'},
         ],
       },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
 
     // =============DETAILS FIELDSET=======================
@@ -84,61 +111,92 @@ export default defineType({
       // options: {dateFormat: 'YYYY',calendarTodayLabel: 'Today'},
     }),
     defineField({
-      name: 'album', title: 'Album', type: 'string',
+      name: 'album',
+      title: 'Album',
+      type: 'string',
       // group: 'details',
       fieldset: 'details',
     }),
 
     defineField({
-      name: 'directed', title: 'Directed By', type: 'array', of: [{ type: 'string' }],
+      name: 'directed',
+      title: 'Directed By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'produced', title: 'Produced By', type: 'array', of: [{ type: 'string' }],
+      name: 'produced',
+      title: 'Produced By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'designed', title: 'Designed By', type: 'array', of: [{ type: 'string' }],
+      name: 'designed',
+      title: 'Designed By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'created', title: 'Created By', type: 'array', of: [{ type: 'string' }],
+      name: 'created',
+      title: 'Created By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'developed', title: 'Developed By', type: 'array', of: [{ type: 'string' }],
+      name: 'developed',
+      title: 'Developed By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'commissioned', title: 'Commissioned By', type: 'array', of: [{ type: 'string' }],
+      name: 'commissioned',
+      title: 'Commissioned By',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'artist', title: 'Artists', type: 'array', of: [{ type: 'string' }],
+      name: 'artist',
+      title: 'Artists',
+      type: 'array',
+      of: [{type: 'string'}],
       // group: 'details',
       fieldset: 'details',
     }),
     defineField({
-      name: 'description', title: 'Description', type: 'localeText',
+      name: 'description',
+      title: 'Description',
+      type: 'localeText',
       group: 'details',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'mainImage', title: 'Main Image', type: 'altImage', group: 'images',
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'altImage',
+      group: 'images',
       group: ['details', 'images'],
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'otherImages', title: 'Project Images', type: 'array', of: [{ type: 'metaImage' }],
+      name: 'otherImages',
+      title: 'Project Images',
+      type: 'array',
+      of: [{type: 'metaImage'}],
       group: ['details', 'images'],
       // group: 'images',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
   ],
 })

@@ -2,7 +2,7 @@ export default function Layout({children, className, cardSection}) {
   
   if (cardSection) {
     return (
-      <div className={` mx-auto w-full px-0 lg:px-10  visible overflow-visible ${className?className:''}`}>
+      <div className={` mx-auto w-full px-2 lg:px-10 visible overflow-visible ${className ? className : ''}`}>
         {children}
       </div>
     )
