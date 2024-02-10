@@ -5,7 +5,7 @@ import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
 // import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
-import client from "../../../lib/sanity";
+import client from "../lib/sanity";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";

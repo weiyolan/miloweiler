@@ -5,7 +5,7 @@ import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
-import client from "../../../lib/sanity";
+import client from "../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import Navigation from "@/components/Navigation";
 import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
