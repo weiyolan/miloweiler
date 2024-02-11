@@ -1,6 +1,6 @@
 import Logo from "@/components/Logo";
 import { useAppContext } from "@/utils/appContext";
-import { PageWrapper } from "@/utils/pageContext";
+import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
 import client from "../../../lib/sanity";
@@ -407,7 +407,7 @@ function Photo({ image, i, ...props }) {
   const [loaded, setLoaded] = useState(false);
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
-
+  const { width } = useAppContext();
   useEffect(() => {
     // function onLoad() {
     if (loaded) {
@@ -449,9 +449,9 @@ function Photo({ image, i, ...props }) {
       className={`opacity-0  mb-[6px] cursor-pointer transition-transform duration-200 hover:scale-[0.97]`}
       onLoadingComplete={() => setLoaded(true)}
       intrinsic
-      factor="0.3"
+      factor={width < 850 ? 0.1 : 0.2}
       image={image}
-      sizes="(max-width: 700px) 20vw, 13vw"
+      sizes="(max-width: 700px) 50vw, 25vw"
       alt={`Project picture ${i + 1}`}
       {...props}
     />

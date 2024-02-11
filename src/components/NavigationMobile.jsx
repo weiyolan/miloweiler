@@ -89,7 +89,7 @@ export default function NavigationMobile() {
         <Button text='Home' to='/' />
         <Button text='Gallery' to='/gallery' />
         <Button text='Contact' to='/contact' />
-        <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}>
+        <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}>
           <LanguageToggle />
         </div>
 
@@ -131,7 +131,7 @@ function Button({ text, to }) {
   }, [hover, selected])
 
   return (
-    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`navButton navButton${text}  relative opacity-0 visible text-3xl md:text-xl lg:text-2xl  text-center font-lora font-medium ${darkMode ? 'text-primary' : 'text-darkPrimary font-semibold '} `}
+    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`navButton navButton${text}  relative opacity-0 visible text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}
       href={`${to}`}
     // onClick={() => handleClick(to)}
     // title={`Go to the ${text} page`}
