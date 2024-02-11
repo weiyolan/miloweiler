@@ -48,14 +48,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
   // }
 
 
-  useEffect(() => {
-    // setDescriptionOpen(false)
-    // firstLoad()
+  // useEffect(() => {
+  //   // setDescriptionOpen(false)
+  //   // firstLoad()
 
-    // handleVisibility(visibleItem.indexOf(true), 'left')
+  //   // handleVisibility(visibleItem.indexOf(true), 'left')
 
-    console.log(open)
-  }, [open])
+  //   console.log(open)
+  // }, [open])
 
 
   //  ========================================================================================
@@ -206,9 +206,11 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
 
   return (
     <div
-      tabIndex={0}
+      tabIndex={0} 
       // style={{ backgroundColor: palette.dominant.background }}
-      className={`focus:outline-none w-screen h-[100dvh] bg-opacity-80 backdrop-blur bg-darkPrimary ${open ? 'block' : 'hidden'} fixed top-0 left-0  duration-700   ${darkMode ? "text-primary" : "text-darkPrimary"}`}
+      className={`carouselContainer focus:outline-none w-screen h-[100dvh] bg-opacity-80 backdrop-blur bg-darkPrimary ${open ? 'block' : 'hidden'} fixed top-0 left-0  duration-700   ${darkMode ? "text-primary" : "text-darkPrimary"}`}
+      onClick={(e) => { if (e.target === document.getElementById("carouselContainer")) { closeModal() } }}
+      // onClick={(e) => console.log(e.target, Array.from(document.querySelectorAll(".carouselContainer")))}
       onKeyDown={(e) => {
         if (e.key === "ArrowLeft") {
           prevVisibility();
@@ -217,11 +219,11 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
         }
       }}>
       <PageWrapper palette={palette} >
-        <Layout cardSection className={"relative h-full flex items-center justify-center"}>
-          <div style={{}} className={`relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
+        <Layout cardSection className={"carouselContainer relative h-full flex items-center justify-center"}>
+          <div style={{}} className={`carouselContainer relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
 
             {/* {visibleItem && ( */}
-            <div className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
+            <div id="carouselContainer" className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
               <ProjectPicture
                 setMainPictureWidth={setMainPictureWidth}
                 mainPictureHeight={mainPictureHeight}

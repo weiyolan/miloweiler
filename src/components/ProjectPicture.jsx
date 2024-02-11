@@ -29,12 +29,12 @@ export default function ProjectPicture({ images, mainPictureHeight, setMainPictu
 
       {images.map((image, i) => <MainPicture index={i} key={i} image={image} alt={`Project image ${i}`} />)}
 
-      <div className=' group absolute left-0 bottom-0 flex items-center cursor-pointer w-1/2 lg:relative lg:w-[37%] h-[100%] lg:pt-1 z-[1]'
+      <div className=' group absolute left-0 bottom-0 flex items-center cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1]'
         // onClick={() => { if (visible) { prevVisibility() } }}>
         onClick={prevVisibility}>
         {width > 1024 && <AiFillCaretLeft className={`opacity-0 group-hover:opacity-30 transition duration-300 w-10 h-10 `}/>}
              </div>
-      <div className='group absolute right-0 bottom-0 flex items-center justify-end cursor-pointer w-1/2 lg:relative lg:w-[37%] h-[100%] lg:pt-1 z-[1]'
+      <div className='group absolute right-0 bottom-0 flex items-center justify-end cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1]'
         // onClick={() => { if (visible) { nextVisibility() } }}>
         onClick={nextVisibility}>
         {width > 1024 && <AiFillCaretRight className={`opacity-0 group-hover:opacity-30 transition duration-300 w-10 h-10 `}/>}
