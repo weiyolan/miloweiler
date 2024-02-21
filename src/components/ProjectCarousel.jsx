@@ -227,14 +227,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
               <ProjectPicture
                 setMainPictureWidth={setMainPictureWidth}
                 mainPictureHeight={mainPictureHeight}
-                images={[project.mainImage.image, ...project.otherImages]}
+                images={[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)]}
                 visibleItem={visibleItem}
                 handleVisibility={handleVisibility}
                 nextVisibility={nextVisibility}
                 prevVisibility={prevVisibility}
               />
               <PictureIndicator mainPictureWidth={mainPictureWidth} setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
-              <ProjectPictures images={[project.mainImage.image, ...project.otherImages]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
+              <ProjectPictures images={[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
             </div>
             {/* )} */}
 

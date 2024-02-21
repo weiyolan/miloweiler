@@ -38,11 +38,78 @@ export default defineType({
       return {
         title: getTitle(title, subTitle),
         subtitle: getSubTitle(cat, by, date),
-        media: media.image,
+        media: media?.image,
       }
     },
   },
   fields: [
+    defineField({
+      name: 'grid',
+      title: 'Grid',
+      group: ['details', 'images'],
+      type: 'boolean',
+      initialValue: false,
+      description: "Toggle om de foto's van je project al dan niet op een grid te plaatsen.",
+      // options: {columns: 3},
+    }),
+
+    defineField({
+      name: 'gridCols',
+      title: 'Grid Dimensies',
+      type: 'object',
+      group: ['details', 'images'],
+      hidden: ({document}) => !document?.grid,
+      description: 'Het aantal kolommen voor een groot en klein scherm.',
+      options: {columns: 2},
+      fields: [
+        // defineField({
+        //   name: 'cols',
+        //   title: 'Aantal Kolommen',
+        //   type: 'object',
+        //   options: {columns: 2},
+        //   fields: [
+        defineField({
+          name: 'lg',
+          title: 'Desktop',
+          type: 'number',
+          initialValue: 24,
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'sm',
+          title: 'Mobile',
+          type: 'number',
+          initialValue: 9,
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+      // validation: (Rule) => Rule.required(),
+      // }),
+      // defineField({
+      //   name: 'sm',
+      //   title: 'Mobile',
+      //   type: 'object',
+      //   options: {columns: 2},
+      //   fields: [
+      //     defineField({
+      //       name: 'cols',
+      //       title: 'Kolommen',
+      //       type: 'number',
+      //       initialValue: 12,
+      //       validation: (Rule) => Rule.required(),
+      //     }),
+      //     defineField({
+      //       name: 'rows',
+      //       title: 'Rijen',
+      //       type: 'number',
+      //       initialValue: 32,
+      //       validation: (Rule) => Rule.required(),
+      //     }),
+      //   ],
+      //   validation: (Rule) => Rule.required(),
+      // }),
+      // ],
+    }),
     defineField({
       name: 'title',
       title: 'Project Title',
@@ -81,7 +148,7 @@ export default defineType({
       title: 'Partner Link',
       type: 'url',
       group: 'details',
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
       // group: 'details',
     }),
     defineField({
@@ -185,7 +252,7 @@ export default defineType({
       name: 'mainImage',
       title: 'Main Image',
       type: 'altImage',
-      group: 'images',
+      // group: 'images',
       group: ['details', 'images'],
       validation: (Rule) => Rule.required(),
     }),
@@ -193,7 +260,126 @@ export default defineType({
       name: 'otherImages',
       title: 'Project Images',
       type: 'array',
-      of: [{type: 'metaImage'}],
+      // of: [{type: 'metaImage'}],
+      options: {
+        layout: 'list',
+      },
+      of: [
+        {
+          type: 'object',
+          name: 'otherImage',
+          preview: {
+            select: {
+              image: 'image',
+              position: 'position',
+              border: 'border',
+            },
+            prepare(selection) {
+              const {image, position, border} = selection
+              // console.log(image)
+              return {
+                media: image.asset,
+                title: `x: ${position.lg.x} y: ${position.lg.y} | Breedte: ${position.lg.width} Hoogte: ${position.lg.height} Rand: ${border}`,
+
+                // subtitle: new Date(date).getFullYear() // YYYY-MM-DD --> YYYY
+              }
+            },
+          },
+          fields: [
+            {type: 'metaImage', name: 'image'},
+            {type: 'boolean', name: 'border', title: 'Border', initialValue: false},
+            {
+              type: 'object',
+              name: 'position',
+              title: 'Grid Positie',
+              // options: {columns: 4},
+              fields: [
+                {
+                  type: 'object',
+                  name: 'lg',
+                  title: 'Desktop',
+                  options: {columns: 4, collapsible: false},
+                  fields: [
+                    {
+                      type: 'number',
+                      title: 'X start',
+                      name: 'x',
+                      // description: 'De kolom waarin de foto start. Begint bij 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Breedte',
+                      name: 'width',
+                      // description: 'Het #kolommen de foto breed is. Minimum 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Y start',
+                      name: 'y',
+                      // description: 'De rij waarin de foto start. Begint bij 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Hoogte',
+                      name: 'height',
+                      // description: 'Het #rijen de foto hoog is. Minimum 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                  ],
+                },
+                {
+                  type: 'object',
+                  name: 'sm',
+                  title: 'Mobile',
+                  options: {columns: 4, collapsible: false},
+                  fields: [
+                    {
+                      type: 'number',
+                      title: 'X start',
+                      name: 'x',
+                      // description: 'De kolom waarin de foto start. Begint bij 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Breedte',
+                      name: 'width',
+                      // description: 'Het #kolommen de foto breed is. Minimum 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Y start',
+                      name: 'y',
+                      // description: 'De rij waarin de foto start. Begint bij 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      type: 'number',
+                      title: 'Hoogte',
+                      name: 'height',
+                      // description: 'Het #rijen de foto hoog is. Minimum 1.',
+                      initialValue: 1,
+                      validation: (Rule) => Rule.required(),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+
       group: ['details', 'images'],
       // group: 'images',
       validation: (Rule) => Rule.required(),

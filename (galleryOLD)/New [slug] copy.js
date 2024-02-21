@@ -243,7 +243,7 @@ export default function Project({ project, slug, slugs }) {
             e.key === "Escape" && closeDialog();
           }}
           className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen  ${darkMode ? "text-primary bg-darkPrimary" : "text-darkPrimary bg-primary"}`}>
-          <PageWrapper darkMode={darkMode}>
+          <PageWrapper descriptionOpen={descriptionOpen} setDescriptionOpen={setDescriptionOpen} darkMode={darkMode}>
             <Layout cardSection className={"relative h-full flex flex-col gap-6 md:gap-8  max-w-7xl "}>
               <div className={`w-full h-full absolute`}>
                 <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" />
@@ -299,55 +299,27 @@ export default function Project({ project, slug, slugs }) {
                   {project?.description?.[locale] || ""}
                 </p>
               </div>
-              {project?.grid ? (
-                <div
-                  style={{
-                    gridTemplateColumns: `repeat(${project?.gridCols?.[width < 648 ? "sm" : "lg"]},1fr)`,
-                    // gridAutoRows: `calc(minmax(calc(100vw - ${width < 648 ? 4 : 8}px), 1280px) - calc(8px * calc(${project?.gridCols?.[width < 648 ? "sm" : "lg"]} - 1)) / ${
-                    //   project?.gridCols?.[width < 648 ? "sm" : "lg"]
-                    // }))`,
-                    // gridAutoRows: `calc(calc(minmax(calc(100vw - ${2 * 8}px), 1280px) - calc(8px * calc(${24} - 1))) / ${24})`,
-                    gridAutoRows: `calc(calc(calc(min(calc(100vw - ${2 * (width < 648 ? 8 : 40)}px), 1280px)) - calc(${width < 648 ? 4 : 8}px * calc(${
-                      project?.gridCols?.[width < 648 ? "sm" : "lg"]
-                    } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
-                  }}
-                  className="grid  gap-1 sm:gap-2 w-full">
-                  {/* <div className="bg-red-300  row-start-1 col-start-1 row-span-2 col-span-3"></div> */}
-                  {[...project.otherImages].map((image, i) => (
-                    <GridPhoto
-                      key={i}
-                      image={image}
-                      i={i}
-                      onClick={() => {
-                        handleVisibility(i, "left");
-                        showDialog();
-                      }}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <Masonry
-                  breakpointCols={{
-                    default: 4,
-                    1100: 3,
-                    700: 2,
-                    // 500: 1,
-                  }}
-                  className="flex w-auto ml-[-6px] mt-6 md:mt-12 mb-12 relative"
-                  columnClassName="pl-[6px] bg-clip-padding ">
-                  {[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)].map((image, i) => (
-                    <Photo
-                      key={i}
-                      image={image}
-                      i={i}
-                      onClick={() => {
-                        handleVisibility(i, "left");
-                        showDialog();
-                      }}
-                    />
-                  ))}
-                </Masonry>
-              )}
+              <Masonry
+                breakpointCols={{
+                  default: 4,
+                  1100: 3,
+                  700: 2,
+                  // 500: 1,
+                }}
+                className="flex w-auto ml-[-6px] mt-6 md:mt-12 mb-12 relative"
+                columnClassName="pl-[6px] bg-clip-padding ">
+                {[project.mainImage.image, ...project.otherImages].map((image, i) => (
+                  <Photo
+                    key={i}
+                    image={image}
+                    i={i}
+                    onClick={() => {
+                      handleVisibility(i, "left");
+                      showDialog();
+                    }}
+                  />
+                ))}
+              </Masonry>
             </Layout>
             <nav className={`flex absolute w-full lg:w-full top-3  px-3 lg:px-6  lg:gap-12 justify-between `}>
               {/* =======================BACK TO GALLERY======================= */}
@@ -486,79 +458,6 @@ function Photo({ image, i, ...props }) {
   );
 }
 
-function GridPhoto({ image, i, ...props }) {
-  const [loaded, setLoaded] = useState(false);
-  const fotoThumb = useRef(null);
-  const ctx = useRef(gsap.context(() => {}));
-  const { width } = useAppContext();
-  useEffect(() => {
-    // function onLoad() {
-    if (loaded) {
-      ctx.current.add(() => {
-        gsap.to(fotoThumb.current, {
-          // scale: 1,
-          opacity: 1,
-          duration: 0.5,
-          // delay: 0.2,
-          stagger: 0.5,
-          ease: "expo.out",
-          scrollTrigger: {
-            scroller: window,
-            trigger: fotoThumb.current,
-            // start: '-=50% bottom',
-            start: "+=10% bottom",
-            // end: '150% top',
-            end: "90% top",
-            // pin:true,width < 1024
-            // scrub: 1,
-            toggleActions: "play reverse play reverse",
-            // markers: true,
-            invalidateOnRefresh: true,
-          },
-          // onStart: () => console.log('start')
-        });
-      });
-    }
-    return () => ctx.current.revert();
-    // }
-    // onLoad()
-  }, [loaded]);
-  // console.log(image.position.lg);
-  return (
-    <div
-      className="relative  opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] "
-      ref={fotoThumb}
-      style={{
-        width: "auto",
-        height: "auto",
-        gridRow: `${image.position.lg.y} / span ${image.position.lg.width}`,
-        gridColumn: `${image.position.lg.x} / span ${image.position.lg.height}`,
-      }}>
-      <SanityImage
-        blur
-        style={
-          {
-            // width: "auto",
-            // height: "auto",
-            // gridRow: `${image.position.lg.y} / span ${image.position.lg.width}`,
-            // gridColumn: `${image.position.lg.x} / span ${image.position.lg.height}`,
-          }
-        }
-        key={i}
-        fill
-        className={` relative object-cover`}
-        onLoadingComplete={() => setLoaded(true)}
-        containerClass="rounded-none"
-        factor={width < 850 ? 0.1 : 0.2}
-        image={image.image}
-        sizes="(max-width: 700px) 50vw, 25vw"
-        alt={`Project picture ${i + 1}`}
-        {...props}
-      />
-    </div>
-  );
-}
-
 // function GetItems(project, slug) {
 //   let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
 //   return [visibleItem, setVisibleItem]
@@ -615,7 +514,7 @@ export async function getStaticPaths({ locales }) {
 export async function getStaticProps({ params }) {
   // const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]`);
   const project = await client.fetch(
-    `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, border, position, image{asset->{url,metadata},...asset{_ref}}}}`
+    `*[_type == "project" && slug.current == "${params.slug}"][0]{...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}`
   );
   // *[_type == "project" ][0]{...,mainImage{alt,image{asset->{_ref,_type,url,metadata}}},otherImages[]{_key,_type,asset->{_ref,_type,url,metadata}}}
 
