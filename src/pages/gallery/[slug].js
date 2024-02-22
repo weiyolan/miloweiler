@@ -307,11 +307,11 @@ export default function Project({ project, slug, slugs }) {
                     //   project?.gridCols?.[width < 648 ? "sm" : "lg"]
                     // }))`,
                     // gridAutoRows: `calc(calc(minmax(calc(100vw - ${2 * 8}px), 1280px) - calc(8px * calc(${24} - 1))) / ${24})`,
-                    gridAutoRows: `calc(calc(calc(min(calc(100vw - ${2 * (width < 648 ? 8 : 40)}px), 1280px)) - calc(${width < 648 ? 4 : 8}px * calc(${
+                    gridAutoRows: `calc(calc(calc(min(calc(100vw - ${2 * (width < 648 ? 8 : 40)}px), 1200px)) - calc(${width < 648 ? 4 : 8}px * calc(${
                       project?.gridCols?.[width < 648 ? "sm" : "lg"]
                     } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
                   }}
-                  className="grid  gap-1 sm:gap-2 w-full">
+                  className="grid gap-1 sm:gap-2 w-full">
                   {/* <div className="bg-red-300  row-start-1 col-start-1 row-span-2 col-span-3"></div> */}
                   {[...project.otherImages].map((image, i) => (
                     <GridPhoto

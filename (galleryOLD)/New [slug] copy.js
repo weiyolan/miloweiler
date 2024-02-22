@@ -3,7 +3,7 @@ import { useAppContext } from "@/utils/appContext";
 import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
-import client from "../../../lib/sanity";
+import client from "../lib/sanity";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
@@ -514,7 +514,7 @@ export async function getStaticPaths({ locales }) {
 export async function getStaticProps({ params }) {
   // const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]`);
   const project = await client.fetch(
-    `*[_type == "project" && slug.current == "${params.slug}"][0]{...,mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}`
+    `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, asset->{url,metadata}, ...asset{_ref}}}`
   );
   // *[_type == "project" ][0]{...,mainImage{alt,image{asset->{_ref,_type,url,metadata}}},otherImages[]{_key,_type,asset->{_ref,_type,url,metadata}}}
 

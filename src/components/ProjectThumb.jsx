@@ -39,7 +39,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   }
   function handleMouseEnter() {
     // ctx.current.add(() => {
-    gsap.to(`.projectThumb${index}`, { scale: 1.02, duration: 0.5, ease: 'expo.out' })
+    // gsap.to(`.projectThumb${index}`, { scale: 1.02, duration: 0.5, ease: 'expo.out' })
     // })
   }
   function handleMouseLeave() {
@@ -97,7 +97,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
 
   return (
-    <div className='select-none overflow-hidden h-full' >
+    <div className='select-none overflow-hidden h-full group' >
       <div
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
@@ -115,7 +115,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           <SanityImage className={` projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none '} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
-          <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/50 duration-300 ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
+          <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/10 duration-300 group-hover:backdrop-blur-sm  ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
             <h3 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500  ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
               {/* {console.log(project)} */}
               {false && project?.title}

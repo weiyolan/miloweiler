@@ -70,6 +70,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
     let photos = [];
     let project = projects.filter((project) => project.cat === "art")[0];
     project.otherImages.forEach((img) => {
+      // console.log(img);
       photos = [...photos, { image: img, slug: project.slug.current }];
     });
     return photos;
@@ -1715,8 +1716,8 @@ overscroll-behavior: none;
           />
           <Background type="both" amount={10} src="/images/mainpageArt.jpg" height="h-[115vh]" animationName={"page3"} className={"opacity-0 top-[5vh]"} />
           {/*h-100vh no specification needed   */}
+
           <Background type="both" amount={0} src={artImages[0].image?.asset.url} animationName={"artPhoto0"} className={"top-0 opacity-0"} />
-          {/* <Background type='both' amount={0} src='/images/mainpageArt1.jpg' animationName={'artPhoto0'} className={'opacity-0'} /> */}
           <Background type="both" amount={0} src={artImages[1].image?.asset.url} animationName={"artPhoto1"} className={"top-0 opacity-0"} />
           <Background type="both" amount={0} src={artImages[2].image?.asset.url} animationName={"artPhoto2"} className={"top-0 opacity-0"} />
 
@@ -1810,6 +1811,7 @@ overscroll-behavior: none;
           />
 
           <Page3Photos images={artImages} />
+
           <Page3KakScrub scrubTl={scrubTl3Ref.current} />
           {/* info={{ title: 'Fine Art', text: 'In my Fine Art Photography, I combine planned studio shots and improvisational timing in the outdoors to create a world of artistry that evokes emotion and inspires imagination. From conceptual pieces to ethereal portraits, I showcase the beauty of Experience and the power of creativity.' }}  */}
           <PageDescription
@@ -1863,8 +1865,9 @@ overscroll-behavior: none;
 
 export async function getStaticProps() {
   const projects = await client.fetch(
-    `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
+    `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
   );
+  // console.log(projects[0].otherImages);
 
   const introImages = await client.fetch(
     `*[_type == "mainPageXIntro"][0]{images[]{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}`

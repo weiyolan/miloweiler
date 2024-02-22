@@ -111,7 +111,7 @@ export default function Gallery({ projects, sectionInfo }) {
               {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
               {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
 
-              <h2 className="font-lora text-center text-inherit text-3xl mb-4 pt-3 md:pt-8 md:mb-8 ">
+              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}
               </h2>
               {/* <h2>{console.log(sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title)}</h2> */}
@@ -124,9 +124,11 @@ export default function Gallery({ projects, sectionInfo }) {
                     <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
-              <h2 className="font-lora text-center text-inherit text-3xl mb-4 pt-3 md:pt-8 md:mb-8 ">
+
+              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}
               </h2>
+
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
                 {/* {console.log(projects)} */}
                 {projects
@@ -135,7 +137,7 @@ export default function Gallery({ projects, sectionInfo }) {
                     <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
-              <h2 className="font-lora text-center text-inherit text-3xl mb-4 pt-3 md:pt-8 md:mb-8 ">
+              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageFIN")[0].title?.[locale]}
               </h2>
 
@@ -148,7 +150,7 @@ export default function Gallery({ projects, sectionInfo }) {
                   ))}
               </div>
 
-              <h2 className="font-lora text-center text-inherit text-3xl mb-4 pt-3 md:pt-8 md:mb-8 ">
+              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}
               </h2>
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
