@@ -311,7 +311,7 @@ export default function Project({ project, slug, slugs }) {
                       project?.gridCols?.[width < 648 ? "sm" : "lg"]
                     } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
                   }}
-                  className="grid gap-1 sm:gap-2 w-full">
+                  className="grid gap-1 sm:gap-2 w-full mb-16">
                   {/* <div className="bg-red-300  row-start-1 col-start-1 row-span-2 col-span-3"></div> */}
                   {[...project.otherImages].map((image, i) => (
                     <GridPhoto
@@ -531,8 +531,8 @@ function GridPhoto({ image, i, ...props }) {
       style={{
         width: "auto",
         height: "auto",
-        gridRow: `${image.position.lg.y} / span ${image.position.lg.width}`,
-        gridColumn: `${image.position.lg.x} / span ${image.position.lg.height}`,
+        gridRow: `${image.position.lg.y} / span ${image.position.lg.height}`,
+        gridColumn: `${image.position.lg.x} / span ${image.position.lg.width}`,
       }}>
       <SanityImage
         blur
