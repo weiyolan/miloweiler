@@ -531,8 +531,8 @@ function GridPhoto({ image, i, ...props }) {
       style={{
         width: "auto",
         height: "auto",
-        gridRow: `${image.position.lg.y} / span ${image.position.lg.height}`,
-        gridColumn: `${image.position.lg.x} / span ${image.position.lg.width}`,
+        gridRow: `${image.position[width < 648 ? "sm" : "lg"].y} / span ${image.position[width < 648 ? "sm" : "lg"].height}`,
+        gridColumn: `${image.position[width < 648 ? "sm" : "lg"].x} / span ${image.position[width < 648 ? "sm" : "lg"].width}`,
       }}>
       <SanityImage
         blur
@@ -540,8 +540,8 @@ function GridPhoto({ image, i, ...props }) {
           {
             // width: "auto",
             // height: "auto",
-            // gridRow: `${image.position.lg.y} / span ${image.position.lg.width}`,
-            // gridColumn: `${image.position.lg.x} / span ${image.position.lg.height}`,
+            // gridRow: `${image.position[width < 648 ? "sm" : "lg"].y} / span ${image.position[width < 648 ? "sm" : "lg"].width}`,
+            // gridColumn: `${image.position[width < 648 ? "sm" : "lg"].x} / span ${image.position[width < 648 ? "sm" : "lg"].height}`,
           }
         }
         key={i}
