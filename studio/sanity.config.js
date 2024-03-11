@@ -34,6 +34,9 @@ export default defineConfig({
   ],
   document:{
     actions: [Love],
+    unstable_comments: {
+      enabled: false,
+    }
   },
   schema: {
     types: schemaTypes,

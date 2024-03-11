@@ -244,7 +244,7 @@ export default function Project({ project, slug, slugs }) {
           }}
           className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen  ${darkMode ? "text-primary bg-darkPrimary" : "text-darkPrimary bg-primary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout cardSection className={"relative h-full flex flex-col gap-6 md:gap-8  max-w-7xl "}>
+            <Layout cardSection className={"relative h-full flex flex-col gap-6 md:gap-8  max-w-7xl px-6 "}>
               <div className={`w-full h-full absolute`}>
                 <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" />
               </div>
@@ -526,13 +526,13 @@ function GridPhoto({ image, i, ...props }) {
   // console.log(image.position.lg);
   return (
     <div
-      className="relative  opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] "
+      className={`relative opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] ${image?.border && "before:absolute before:bg-white before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2"}`}
       ref={fotoThumb}
       style={{
         width: "auto",
         height: "auto",
-        gridRow: `${image.position[width < 648 ? "sm" : "lg"].y} / span ${image.position[width < 648 ? "sm" : "lg"].height}`,
-        gridColumn: `${image.position[width < 648 ? "sm" : "lg"].x} / span ${image.position[width < 648 ? "sm" : "lg"].width}`,
+        gridRow: `${image.position[width < 648 ? "sm" : "lg"]?.y} / span ${image.position[width < 648 ? "sm" : "lg"]?.height}`,
+        gridColumn: `${image.position[width < 648 ? "sm" : "lg"]?.x} / span ${image.position[width < 648 ? "sm" : "lg"]?.width}`,
       }}>
       <SanityImage
         blur
@@ -573,7 +573,7 @@ function Detail({ title, text }) {
   } else if (text.length === 2) {
     string = text[0] + (locale === "fr" ? " et " : " and ") + text[1];
   } else {
-    console.log(text);
+    // console.log(text);
     let firsts = text.slice(0, -1);
     string = firsts.join(", ") + (locale === "fr" ? " et " : " and ") + text.slice(-1);
   }
