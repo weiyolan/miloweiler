@@ -70,7 +70,7 @@ export default function BackgroundMain({ projects, images, type, priority, amoun
             quality={100}
             image={images[mainImage]}
           // image={mainImage[0].image}
-            onLoadingComplete={() => { gsap.to('.mainBackground', { opacity: 1 }); setPageLoaded(true) }}
+            onLoad={() => { gsap.to('.mainBackground', { opacity: 1 }); setPageLoaded(true) }}
             priority={priority ? priority : false} style={{ transform: "translate3d(0, 0, 0)" }}
             fill />}
         </div>

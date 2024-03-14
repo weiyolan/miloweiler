@@ -12,14 +12,14 @@ const nextConfig = withPWA({
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    domains: ["cdn.sanity.io"],
-    // remotePatterns: [
-    //   {
-    //     protocol: "https",
-    //     hostname: "cdn.sanity.io",
-    //     port: "",
-    //   },
-    // ],
+    // domains: ["cdn.sanity.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        port: "",
+      },
+    ],
 
     // NEXTJS13
     // remotePatterns: [

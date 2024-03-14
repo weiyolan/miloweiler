@@ -32,7 +32,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 
-import { supportedLanguages } from "studio/schemas/supportedLanguages";
+import { supportedLanguages } from "../../sanity/schemas/supportedLanguages";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 

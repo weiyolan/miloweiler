@@ -475,7 +475,7 @@ function Photo({ image, i, ...props }) {
       blur
       key={i}
       className={`opacity-0  mb-[6px] cursor-pointer transition-transform duration-200 hover:scale-[0.97]`}
-      onLoadingComplete={() => setLoaded(true)}
+      onLoad={() => setLoaded(true)}
       intrinsic
       factor={width < 850 ? 0.1 : 0.2}
       image={image}
@@ -547,7 +547,7 @@ function GridPhoto({ image, i, ...props }) {
         key={i}
         fill
         className={` relative object-cover`}
-        onLoadingComplete={() => setLoaded(true)}
+        onLoad={() => setLoaded(true)}
         containerClass="rounded-none"
         factor={width < 850 ? 0.1 : 0.2}
         image={image.image}

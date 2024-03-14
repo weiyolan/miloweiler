@@ -1,32 +1,37 @@
-import { defineField, defineType } from 'sanity'
-import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: 'trustedByLogo',
-  title: 'Logo',
-  type: 'object',
+  name: "trustedByLogo",
+  title: "Logo",
+  type: "object",
   // orderings: [orderRankOrdering],
   fields: [
     // orderRankField({ type: 'document', hidden: true }),
     defineField({
-      name: 'name', title: 'Name', type: 'string',
-      validation: Rule => Rule.required()
+      name: "name",
+      title: "Name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'image', title: 'Image', type: 'image',
+      name: "image",
+      title: "Image",
+      type: "image",
       // type: 'array',
       // of: [{ type: 'image' }],
       options: {
         hotspot: false,
       },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'link', title: 'Official webpage', type: 'string',
-      validation: Rule => Rule.required()
-    })
-  ]
-})
+      name: "link",
+      title: "Official webpage",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+});
 
 // types: (schemaTypes) => {
 //   return [

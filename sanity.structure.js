@@ -2,7 +2,7 @@
 import { MasterDetailIcon } from '@sanity/icons'
 import { BlockElementIcon } from '@sanity/icons'
 
-export const myStructure = (S, context) => {
+export const myStructure = (S) => {
   return S.list()
     .title('Content ~ Enjoy Broertje ❤️')
     .items([
