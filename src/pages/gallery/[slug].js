@@ -19,6 +19,7 @@ import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
 import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
 import ProjectCarousel from "@/components/ProjectCarousel";
+import Footer2 from "@/components/Footer2";
 
 gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger);
 
@@ -244,10 +245,11 @@ export default function Project({ project, slug, slugs }) {
           }}
           className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen  ${darkMode ? "text-primary bg-darkPrimary" : "text-darkPrimary bg-primary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout cardSection className={"relative h-full flex flex-col gap-6 md:gap-8  max-w-7xl px-6 "}>
-              <div className={`w-full h-full absolute`}>
+            <div className={`w-full h-full absolute`}>
                 <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" />
               </div>
+              <Layout cardSection className={"relative w-full h-full flex flex-col gap-6 md:gap-8 max-w-7xl px-6 "}>
+              
               <div className={`relative mt-12 md:mt-24 text-3xl  flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
                 <h1 className={``}>
                   {project.title}
@@ -424,6 +426,7 @@ export default function Project({ project, slug, slugs }) {
               open={carouselIsOpen}
               closeModal={() => closeDialog()}
             />
+            <Footer2 className={`relative`} noMotion noMargin />
           </PageWrapper>
         </main>
       </ReactLenis>
