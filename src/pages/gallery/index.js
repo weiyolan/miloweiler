@@ -1,22 +1,22 @@
 // import ArrowLink from '@/components/ArrowLink';
-import Logo from '@/components/Logo';
-import ProjectThumb from '@/components/ProjectThumb';
-import { useAppContext } from '@/utils/appContext';
-import { PageWrapper } from '@/utils/pageContext';
-import Head from 'next/head';
-import React, { useEffect, useRef, useState } from 'react';
-import client from '../../../lib/sanity';
-import Footer2 from '@/components/Footer2';
-import Navigation from '@/components/Navigation';
-import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
-import NavigationMobile from '@/components/NavigationMobile';
-import Layout from '@/components/Layout';
-import LanguageToggle from '@/components/LanguageToggle';
+import Logo from "@/components/Logo";
+import ProjectThumb from "@/components/ProjectThumb";
+import { useAppContext } from "@/utils/appContext";
+import { PageWrapper } from "@/utils/pageContext";
+import Head from "next/head";
+import React, { useEffect, useRef, useState } from "react";
+import client from "../../../lib/sanity";
+import Footer2 from "@/components/Footer2";
+import Navigation from "@/components/Navigation";
+import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
+import NavigationMobile from "@/components/NavigationMobile";
+import Layout from "@/components/Layout";
+import LanguageToggle from "@/components/LanguageToggle";
 
 import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Gallery({ projects, sectionInfo }) {
@@ -106,7 +106,7 @@ export default function Gallery({ projects, sectionInfo }) {
         <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
             <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12  `}>
-              <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" />
+              {/* <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
               <h1 className={`hidden font-lora text-center md:text-left  text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
               {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
               {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
