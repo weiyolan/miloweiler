@@ -17,7 +17,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>1.00</priority>
       </url>
       <url>
@@ -30,7 +30,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
         <url>
@@ -43,7 +43,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/contact'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
@@ -56,7 +56,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/contact'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
@@ -69,7 +69,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/commissioned'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
@@ -82,7 +82,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/commissioned'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
        <url>
@@ -95,7 +95,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/personal'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
@@ -108,7 +108,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/personal'/>
-          <lastmod>${Date.now()}</lastmod>
+          <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
           <priority>0.80</priority>
       </url>
     ${projects
@@ -125,7 +125,7 @@ function generateSiteMap(projects) {
                rel='alternate'
                hreflang='fr'
                href='https://miloweiler.com/fr/commissioned/${slug}'/>
-           <lastmod>${Date.now()}</lastmod>
+           <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
            <priority>0.80</priority>
        </url>
        <url>
@@ -138,7 +138,7 @@ function generateSiteMap(projects) {
                rel='alternate'
                hreflang='fr'
                href='https://miloweiler.com/fr/commissioned/${slug}'/>
-           <lastmod>${Date.now()}</lastmod>
+           <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
            <priority>0.80</priority>
        </url>
       `;
@@ -154,7 +154,7 @@ function generateSiteMap(projects) {
              rel='alternate'
              hreflang='fr'
              href='https://miloweiler.com/fr/personal/${slug}'/>
-         <lastmod>${Date.now()}</lastmod>
+         <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
          <priority>0.80</priority>
      </url>
      <url>
@@ -167,7 +167,7 @@ function generateSiteMap(projects) {
              rel='alternate'
              hreflang='fr'
              href='https://miloweiler.com/fr/personal/${slug}'/>
-         <lastmod>${Date.now()}</lastmod>
+         <lastmod>${new Date(Date.now()).toISOString()}</lastmod>
          <priority>0.80</priority>
      </url>
     `;
@@ -181,7 +181,7 @@ function generateSiteMap(projects) {
 export default function SiteMap() {}
 
 export async function getServerSideProps({ res }) {
-  const projects = await client.fetch(`*[_type == "project"]|{'slug':slug.current}`);
+  const projects = await client.fetch(`*[_type == "project"]|{'slug':slug.current,commissionedBool}`);
   console.log("projects", projects);
   // const projects = await client.fetch(`*[_type == "project"]|{slug, title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}}`);
   const sitemap = generateSiteMap(projects);
