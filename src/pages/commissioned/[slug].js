@@ -596,7 +596,7 @@ function Span({ text, detail }) {
 }
 
 export async function getStaticPaths({ locales }) {
-  const projects = await client.fetch(`*[_type == "project"]{slug}`);
+  const projects = await client.fetch(`*[_type == "project" && commissionedBool == true]{slug}`);
 
   const slugs = projects.map((project) => project.slug.current);
 
@@ -624,7 +624,7 @@ export async function getStaticProps({ params }) {
   );
   // *[_type == "project" ][0]{...,mainImage{alt,image{asset->{_ref,_type,url,metadata}}},otherImages[]{_key,_type,asset->{_ref,_type,url,metadata}}}
 
-  const projectSlugs = await client.fetch(`*[_type == "project"]|order(date){slug}`);
+  const projectSlugs = await client.fetch(`*[_type == "project" && commissionedBool == true]|order(date desc){slug}`);
   const slugNames = projectSlugs.map((projectSlug) => projectSlug.slug.current);
   return {
     props: { key: params.slug, project, slug: params.slug, slugs: slugNames },
