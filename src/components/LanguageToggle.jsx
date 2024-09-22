@@ -54,7 +54,7 @@ export default function LanguageToggle({ toggleNav }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       // onClick={()=>toggleNav()}
-      className={`absolute md:fixed navButton top-0 right-0 text-darkPrimary text-2xl xs:text-xl sm:text-base text-center flex justify-center items-center font-lora  
+      className={`absolute md:fixed navButton top-0 right-0 ${darkMode ? 'text-primary' : 'text-darkPrimary'} text-2xl xs:text-xl sm:text-base text-center flex justify-center items-center font-lora  
     font-black  border border-transparent 
     focus-within:outline-darkGrey cursor-pointer select-none m-2 md:m-4 lg:m-5 `}>
       {/* self-center inline-flex */}

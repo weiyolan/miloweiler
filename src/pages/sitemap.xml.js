@@ -180,17 +180,31 @@ function generateSiteMap(projects) {
 
 export default function SiteMap() {}
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ req, res }) {
   const projects = await client.fetch(`*[_type == "project"]|{'slug':slug.current,commissionedBool}`);
-  console.log("projects", projects);
   // const projects = await client.fetch(`*[_type == "project"]|{slug, title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}}`);
   const sitemap = generateSiteMap(projects);
 
   res.setHeader("Content-Type", "text/xml");
   res.statusCode = 200;
   // we send the XML to the browser
-  res.write(sitemap);
-  res.end();
+  // res.write(sitemap);
+  // res.writeHead(200, { "Content-Type": "application/xml" });
+  res.end(sitemap);
+
+  // const stream = new SitemapStream({
+  //   hostname: `https://${req.headers.host}`,
+  // });
+
+  // res.writeHead(200, {
+  //   'Content-Type': 'application/xml',
+  // });
+
+  // const xmlString = await streamToPromise(
+  //   Readable.from(links).pipe(stream),
+  // ).then((data) => data.toString());
+
+  // res.end(xmlString);
 
   return {
     props: {},
