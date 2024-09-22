@@ -34,7 +34,6 @@
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.41.3",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.28",
