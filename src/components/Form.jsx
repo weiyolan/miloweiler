@@ -66,7 +66,7 @@ const Form = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const upload = fetch("/", {
+    const upload = fetch("/__forms.html", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
