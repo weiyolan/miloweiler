@@ -14,14 +14,15 @@ import { schemaTypes } from "./sanity/schemas";
 import { myStructure } from "./sanity.structure";
 import { Love } from "./sanity/actions";
 import { dashboardTool } from "@sanity/dashboard";
+import myLogo from "./sanity/lib/logo";
 
 export default defineConfig({
   basePath: "/studio",
   // name: 'default',
-  title: "Milo's Studio 📷",
+  // title: "Milo's Studio 📷",
   projectId,
   dataset,
-
+  icon: myLogo,
   plugins: [
     structureTool({
       structure: myStructure,

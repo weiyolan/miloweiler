@@ -17,7 +17,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+          <lastmod>${Date.now()}</lastmod>
           <priority>1.00</priority>
       </url>
       <url>
@@ -30,7 +30,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+          <lastmod>${Date.now()}</lastmod>
           <priority>0.80</priority>
       </url>
         <url>
@@ -43,7 +43,7 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/contact'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+          <lastmod>${Date.now()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
@@ -56,65 +56,122 @@ function generateSiteMap(projects) {
               rel='alternate'
               hreflang='fr'
               href='https://miloweiler.com/fr/contact'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+          <lastmod>${Date.now()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
-         <loc>https://miloweiler.com/gallery</loc>
+         <loc>https://miloweiler.com/commissioned</loc>
           <xhtml:link
               rel='alternate'
               hreflang='en'
-              href='https://miloweiler.com/gallery'/>
+              href='https://miloweiler.com/commissioned'/>
           <xhtml:link
               rel='alternate'
               hreflang='fr'
-              href='https://miloweiler.com/fr/gallery'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+              href='https://miloweiler.com/fr/commissioned'/>
+          <lastmod>${Date.now()}</lastmod>
           <priority>0.80</priority>
       </url>
       <url>
-         <loc>https://miloweiler.com/fr/gallery</loc>
+         <loc>https://miloweiler.com/fr/commissioned</loc>
           <xhtml:link
               rel='alternate'
               hreflang='en'
-              href='https://miloweiler.com/gallery'/>
+              href='https://miloweiler.com/commissioned'/>
           <xhtml:link
               rel='alternate'
               hreflang='fr'
-              href='https://miloweiler.com/fr/gallery'/>
-          <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+              href='https://miloweiler.com/fr/commissioned'/>
+          <lastmod>${Date.now()}</lastmod>
+          <priority>0.80</priority>
+      </url>
+       <url>
+         <loc>https://miloweiler.com/personal</loc>
+          <xhtml:link
+              rel='alternate'
+              hreflang='en'
+              href='https://miloweiler.com/personal'/>
+          <xhtml:link
+              rel='alternate'
+              hreflang='fr'
+              href='https://miloweiler.com/fr/personal'/>
+          <lastmod>${Date.now()}</lastmod>
+          <priority>0.80</priority>
+      </url>
+      <url>
+         <loc>https://miloweiler.com/fr/personal</loc>
+          <xhtml:link
+              rel='alternate'
+              hreflang='en'
+              href='https://miloweiler.com/personal'/>
+          <xhtml:link
+              rel='alternate'
+              hreflang='fr'
+              href='https://miloweiler.com/fr/personal'/>
+          <lastmod>${Date.now()}</lastmod>
           <priority>0.80</priority>
       </url>
     ${projects
-      .map(({ slug }) => {
-        return `
+      .map(({ commissionedBool, slug }) => {
+        if (commissionedBool) {
+          return `
+          <url>
+          <loc>https://miloweiler.com/commissioned/${slug}</loc>
+           <xhtml:link
+               rel='alternate'
+               hreflang='en'
+               href='https://miloweiler.com/commissioned/${slug}'/>
+           <xhtml:link
+               rel='alternate'
+               hreflang='fr'
+               href='https://miloweiler.com/fr/commissioned/${slug}'/>
+           <lastmod>${Date.now()}</lastmod>
+           <priority>0.80</priority>
+       </url>
+       <url>
+          <loc>https://miloweiler.com/fr/commissioned/${slug}</loc>
+           <xhtml:link
+               rel='alternate'
+               hreflang='en'
+               href='https://miloweiler.com/commissioned/${slug}'/>
+           <xhtml:link
+               rel='alternate'
+               hreflang='fr'
+               href='https://miloweiler.com/fr/commissioned/${slug}'/>
+           <lastmod>${Date.now()}</lastmod>
+           <priority>0.80</priority>
+       </url>
+      `;
+        } else {
+          return `
         <url>
-        <loc>https://miloweiler.com/gallery/${slug}</loc>
+        <loc>https://miloweiler.com/personal/${slug}</loc>
          <xhtml:link
              rel='alternate'
              hreflang='en'
-             href='https://miloweiler.com/gallery/${slug}'/>
+             href='https://miloweiler.com/personal/${slug}'/>
          <xhtml:link
              rel='alternate'
              hreflang='fr'
-             href='https://miloweiler.com/fr/gallery/${slug}'/>
-         <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+             href='https://miloweiler.com/fr/personal/${slug}'/>
+         <lastmod>${Date.now()}</lastmod>
          <priority>0.80</priority>
      </url>
      <url>
-        <loc>https://miloweiler.com/fr/gallery/${slug}</loc>
+        <loc>https://miloweiler.com/fr/personal/${slug}</loc>
          <xhtml:link
              rel='alternate'
              hreflang='en'
-             href='https://miloweiler.com/gallery/${slug}'/>
+             href='https://miloweiler.com/personal/${slug}'/>
          <xhtml:link
              rel='alternate'
              hreflang='fr'
-             href='https://miloweiler.com/fr/gallery/${slug}'/>
-         <lastmod>2023-10-17T17:34:10+00:00</lastmod>
+             href='https://miloweiler.com/fr/personal/${slug}'/>
+         <lastmod>${Date.now()}</lastmod>
          <priority>0.80</priority>
      </url>
     `;
+        }
       })
       .join("")}
   </urlset>

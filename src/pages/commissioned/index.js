@@ -17,6 +17,8 @@ import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+import Image from "next/image";
+import SanityImage from "@/components/SanityImage";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Gallery({ projects, sectionInfo }) {
@@ -88,17 +90,17 @@ export default function Gallery({ projects, sectionInfo }) {
         <meta property="og:description" content={`Specialised Set & Studio Photography`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+        <meta property="og:image" itemProp="image" content={`${projects[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}gallery`} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}commissioned`} />
         <meta property="fb:app_id" content="659504862954849" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content="https://www.miloweiler.com/gallery" />
+        <meta property="twitter:url" content="https://www.miloweiler.com/commissioned" />
         <meta name="twitter:title" content="A Gallery of Captivating Shots" />
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
-        <meta name="twitter:image" content={`${projects.filter(({ slug }) => slug.current === "opel-kadett")[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+        <meta name="twitter:image" content={`${projects[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
@@ -106,22 +108,35 @@ export default function Gallery({ projects, sectionInfo }) {
         <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
             <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12  `}>
-              {/* <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
+              {/* <Logo darkMode={darkMode} classNamse="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
               <h1 className={`hidden font-lora text-center md:text-left  text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
               {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
               {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
+
+              {/* <div className="w-full relative h-96 mt-12">
+                <SanityImage
+                  className={` `}
+                  print={false}
+                  blur
+                  fill
+                  sizes="(max-width: 460px) 100vw, (max-width: 780px) 100vw, 80vw"
+                  containerClass={"rounded-none "}
+                  image={projects[0].mainImage.image}
+                  alt={projects[0].mainImage.alt[locale]}
+                />
+              </div> */}
 
               <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}
               </h2>
               {/* <h2>{console.log(sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title)}</h2> */}
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "bts")
                   .map((project, i) => (
-                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                    <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
 
@@ -129,36 +144,34 @@ export default function Gallery({ projects, sectionInfo }) {
                 {sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}
               </h2>
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "docu")
                   .map((project, i) => (
-                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                    <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
-              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
-                {sectionInfo.filter((section) => section._id === "mainPageFIN")[0].title?.[locale]}
-              </h2>
+              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">Events & B2B</h2>
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
-                  .filter((project) => project.cat === "art")
+                  .filter((project) => project.cat === "events")
                   .map((project, i) => (
-                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                    <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
 
               <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
                 {sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}
               </h2>
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-1.5 py-1 md:px-0 grid-cols-2 xs:grid-cols-3 md:grid-cols-4 ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "studio")
                   .map((project, i) => (
-                    <ProjectThumb activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
+                    <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
               {/* <div className='flex gap-8 py-8 relative'>
@@ -181,7 +194,7 @@ export default function Gallery({ projects, sectionInfo }) {
 
 export async function getStaticProps() {
   const projects = await client.fetch(
-    `*[_type == "project"]|order(date desc){title, subTitle, partnerLink, by, cat, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
+    `*[_type == "project" && commissionedBool == true]|order(date desc){title, subTitle, partnerLink, by, cat, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
   );
   // console.log(projects)
   const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);

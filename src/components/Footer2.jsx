@@ -15,8 +15,8 @@ const socialList = {
   fr: [{ text: 'Instagram', ext: true, link: 'https://www.instagram.com/miloweiler/' }, { text: 'Unsplash', ext: true, link: 'https://unsplash.com/@miloweiler' }, { text: 'LinkedIn', ext: true, link: 'https://www.linkedin.com/in/mwphotography' }],
 };
 const navigateList = {
-  en: [{ text: 'Home', link: '/' }, { text: 'Gallery', link: '/gallery', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Printing', link: '/contact/#printing', disabled: false }],
-  fr: [{ text: 'Acceuil', link: '/', disabled: false }, { text: 'Gallerie', link: '/gallery', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Impression', link: '/contact/#printing', disabled: false }],
+  en: [{ text: 'Home', link: '/' }, { text: 'Commissioned', link: '/commissioned', disabled: false }, { text: 'Personal', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Printing', link: '/contact/#printing', disabled: false }],
+  fr: [{ text: 'Acceuil', link: '/', disabled: false }, { text: 'Commandé', link: '/commissioned', disabled: false }, { text: 'Personel', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Impression', link: '/contact/#printing', disabled: false }],
 };
 const legalList = {
   en: [{ text: 'Legal Notice', link: '/', disable: true }, { text: 'Terms of Use', link: '/services', disable: true }, { text: 'Cookie Notice', link: '/aboutme', disable: true }],

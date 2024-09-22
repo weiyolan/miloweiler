@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { usePageContext } from '@/utils/pageContext'
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, index }) {
+export default function ProjectThumb({ project, gridStaggerAnimation, activeIndex, setActiveIndex, from, index }) {
   const { width, locale } = useAppContext()
   let [hover, setHover] = useState(false)
   let [lineHover, setLineHover] = useState(false)
@@ -104,7 +104,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseDown={handleMouseDown}
         onMouseEnter={() => { setHover(true); handleMouseEnter() }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
-        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[100%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
 
         <div className={`absolute top-0 left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>
           {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
@@ -127,7 +127,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
               {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
 
-            <Link href={`./gallery/${project.slug.current}`}
+            <Link href={`./${from}/${project.slug.current}`}
               className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-pop text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
               {width < 648 && '+'}
             </Link>

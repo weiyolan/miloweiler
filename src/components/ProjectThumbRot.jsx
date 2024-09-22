@@ -126,7 +126,7 @@ export default function ProjectThumbRot({ project, gridStaggerAnimation, activeI
               {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
 
-            <Link href={`./gallery/${project.slug.current}`}
+            <Link href={`./commissioned/${project.slug.current}`}
               className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-pop text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
               {width < 648 && '+'}
             </Link>

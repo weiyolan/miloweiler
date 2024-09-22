@@ -77,7 +77,7 @@ export default function Page2Photos({ className, animateName, projects }) {
 function PageImage({ className, slug, ...props }) {
   return (
     <div className={`relative flex-1`}>
-      <Link href={`/gallery/${slug}`}>
+      <Link href={`/commissioned/${slug}`}>
         <SanityImage fill containerClass='rounded-none' className={`select-none page2photos opacity-0 invisible hover:cursor-pointer ${className} object-cover object-center`} sizes='(max-width: 640px) 15vw, 15vw' {...props} />
       </Link>
     </div>

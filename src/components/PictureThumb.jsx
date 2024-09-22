@@ -135,7 +135,6 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   // })
 
   return (
-    // <Link href={`./gallery/${project.slug.current}`}>
     <div
       style={{}}
       id={`pictureThumb${index}`}

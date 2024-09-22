@@ -301,7 +301,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                         }`}>
                         {inspirationData.text2[locale]}
                       </p>
-                      <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/gallery" />
+                      <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/commissioned" />
                     </div>
                   </div>
                 </div>

@@ -87,7 +87,8 @@ export default function NavigationMobile() {
       <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
       <div className={`navButtons flex flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
         <Button text='Home' to='/' />
-        <Button text='Gallery' to='/gallery' />
+        <Button text='Commissioned' to='/commissioned' />
+        <Button text='Personal' to='/personal' />
         <Button text='Contact' to='/contact' />
         <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}>
           <LanguageToggle />

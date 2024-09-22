@@ -96,7 +96,7 @@ function Page1Image({ className, slug, ...props }) {
   //drop-shadow-2xl
   return (
     <div className={`select-none page1photos invisible opacity-0  ${className}`}>
-      <Link href={`/gallery/${slug}`}>
+      <Link href={`/commissioned/${slug}`}>
         {/* <Image className={` hover:cursor-pointer page1photosInner w-full h-full`} {...props} /> */}
         <SanityImage className={` hover:cursor-pointer page1photosInner w-full h-fit`} {...props} />
       </Link>
