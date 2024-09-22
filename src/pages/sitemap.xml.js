@@ -180,7 +180,7 @@ function generateSiteMap(projects) {
 
 export default function SiteMap() {}
 
-export async function getServerSideProps({ req, res }) {
+export async function getStaticProps({ req, res }) {
   const projects = await client.fetch(`*[_type == "project"]|{'slug':slug.current,commissionedBool}`);
   // const projects = await client.fetch(`*[_type == "project"]|{slug, title, subTitle, by, cat, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}}`);
   const sitemap = generateSiteMap(projects);
