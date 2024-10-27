@@ -110,7 +110,7 @@ export default function Navigation() {
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text={locale === 'fr' ? 'Commandé' : 'Commissioned'} to='/commissioned' />
-        <Button text={locale === 'fr' ? 'Personel' : 'Personal'} to='/personal' />
+        <Button text={locale === 'fr' ? 'Personnel' : 'Personal'} to='/personal' />
         <Button text='Contact' to='/contact' />
         {/* <Button text={`${observer.current.velocityY}`} to=''/> */}
       </div>

@@ -17,6 +17,7 @@ import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+import GalleryTitle from "@/components/GalleryTitle";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Gallery({ projects, sectionInfo }) {
@@ -103,34 +104,28 @@ export default function Gallery({ projects, sectionInfo }) {
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         {/* from-darkGrey to-[#070013]
         bg-gradient-to-br from-primary to-[#FFEAD6] bg-[#FFEAD6] */}
-        <main className={`  w-full  min-h-screen ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
-          <PageWrapper darkMode={darkMode}>
-            <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12  `}>
+        <PageWrapper darkMode={darkMode}>
+          <main className={`w-full min-h-screen grid grid-cols-1 grid-rows-[1fr_auto;] ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
+            <Layout className={`pt-12 lg:px-16 xl:px-24 max-w-7xl relative  mb-auto`}>
               {/* <Logo darkMode={darkMode} className="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
-              <h1 className={`hidden font-lora text-center md:text-left  text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Personal Projects"}</h1>
-              {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
-              {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
+              <GalleryTitle h1> {locale === "fr" ? "Gallerie Personnelle" : "Personal Gallery "}</GalleryTitle>
+              <GalleryTitle className={` `}>{locale === "fr" ? "Projets Personnels" : "Personal Projects"}</GalleryTitle>
 
-              {/* <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
-                {sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}
-              </h2> */}
-
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
-                {/* {console.log(projects)} */}
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 sm:grid-cols-2 lg:grid-cols-3  mt-6 ">
+                {console.log(projects)}
                 {projects
-                  .filter((project) => project.cat === "bts")
+                  // .filter((project) => project.cat === "bts")
                   .map((project, i) => (
                     <ProjectThumb from="personal" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
             </Layout>
-
-            <Footer2 className={`relative`} noMotion noMargin />
-
+            {/* <div className=" min-h-[50px] relative flex-1 mb-auto"></div> */}
+            <Footer2 className={`relative mt-auto`} noMotion />
             {pageMobile ? <NavigationMobile /> : <Navigation />}
             {pageMobile ? <></> : <LanguageToggle />}
-          </PageWrapper>
-        </main>
+          </main>
+        </PageWrapper>
       </ReactLenis>
     </>
   );

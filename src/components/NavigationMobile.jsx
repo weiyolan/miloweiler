@@ -5,14 +5,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
-import FadeDiv from './FadeDiv'
+// import FadeDiv from './FadeDiv'
 import NavToggle from './NavToggle'
 import LanguageToggle from './LanguageToggle'
 
 gsap.registerPlugin(Observer)
 
 export default function NavigationMobile() {
-  let { darkMode } = usePageContext()
+  let { darkMode, locale } = usePageContext()
   let [hiding, setHiding] = useState(true) //removed bar onLoad and then animate in.
   const ctx = useRef(gsap.context(() => { }));
 
@@ -87,8 +87,8 @@ export default function NavigationMobile() {
       <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
       <div className={`navButtons flex flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
         <Button text='Home' to='/' />
-        <Button text='Commissioned' to='/commissioned' />
-        <Button text='Personal' to='/personal' />
+        <Button text={locale === 'fr' ? 'Commandé' : 'Commissioned'} to='/commissioned' />
+        <Button text={locale === 'fr' ? 'Personnel' : 'Personal'} to='/personal' />
         <Button text='Contact' to='/contact' />
         <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}>
           <LanguageToggle />

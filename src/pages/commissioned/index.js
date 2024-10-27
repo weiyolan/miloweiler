@@ -19,6 +19,7 @@ import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import Image from "next/image";
 import SanityImage from "@/components/SanityImage";
+import GalleryTitle from "@/components/GalleryTitle";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Gallery({ projects, sectionInfo }) {
@@ -109,7 +110,9 @@ export default function Gallery({ projects, sectionInfo }) {
           <PageWrapper darkMode={darkMode}>
             <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12  `}>
               {/* <Logo darkMode={darkMode} classNamse="w-2/5 fixed left-1/2 top-1/2 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
-              <h1 className={`hidden font-lora text-center md:text-left  text-3xl mb-2 pt-3 md:pt-12 `}>{locale === "fr" ? "Galerie" : "Gallery"}</h1>
+              <GalleryTitle h1 className={` `}>
+                {locale === "fr" ? "Galerie commandée" : "Commissioned Gallery"}
+              </GalleryTitle>
               {/* <h2> {locale === "fr" ? "Voici mes projets." : "Have a look at my projects."}</h2> */}
               {/* <h2>info={sectionInfo.filter((section) => section._id === "mainPageFIN")[0]}</h2> */}
 
@@ -126,12 +129,10 @@ export default function Gallery({ projects, sectionInfo }) {
                 />
               </div> */}
 
-              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
-                {sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}
-              </h2>
+              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}</GalleryTitle>
               {/* <h2>{console.log(sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title)}</h2> */}
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "bts")
@@ -140,11 +141,9 @@ export default function Gallery({ projects, sectionInfo }) {
                   ))}
               </div>
 
-              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
-                {sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}
-              </h2>
+              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}</GalleryTitle>
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "docu")
@@ -152,9 +151,9 @@ export default function Gallery({ projects, sectionInfo }) {
                     <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
-              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">Events & B2B</h2>
+              {projects.filter((project) => project.cat === "events").length > 0 && <GalleryTitle className="">Events & B2B</GalleryTitle>}
 
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "events")
@@ -163,10 +162,8 @@ export default function Gallery({ projects, sectionInfo }) {
                   ))}
               </div>
 
-              <h2 className="font-lora font-medium uppercase text-left text-inherit text-base mb-4 pt-3 md:pt-8 ">
-                {sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}
-              </h2>
-              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-2 xs:grid-cols-3  ">
+              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}</GalleryTitle>
+              <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects
                   .filter((project) => project.cat === "studio")
