@@ -34,12 +34,12 @@ const montserrat = Montserrat({
 //   variable: "--font-worksans",
 //   // display: 'swap',
 // });
-// const poppins = Poppins({
-//   subsets: ["latin"],
-//   variable: "--font-poppins",
-//   // display: 'optional',
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-// });
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  // display: 'optional',
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 // const lora = Lora({
 //   subsets: ["latin"],
 //   variable: "--font-lora",
@@ -102,7 +102,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} className={`${montserrat.variable} font-pop relative w-full min-h-screen`}>
+      <AppWrapper scrolled={scrolled} className={`${montserrat.variable} ${poppins.variable} font-pop relative w-full min-h-screen`}>
         <Component {...pageProps} />
         <Toaster />
       </AppWrapper>

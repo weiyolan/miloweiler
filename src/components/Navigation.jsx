@@ -41,9 +41,9 @@ export default function Navigation() {
       preventDefault: false,
       onStopDelay: 1.5,
       tolerance:70,
-      onStop: () => {
-        showBar()
-      },
+      // onStop: () => {
+      //   showBar()
+      // },
       onDown: () => {
         hideBar()
       },
@@ -61,14 +61,16 @@ export default function Navigation() {
     return () => { observer.disable() }
   }, [hiding])
 
-  function handleMouseMove (e) {
-    if (e.y <= 60) {
-      // console.log(e.y)
-      showBar()
-    }
-  }
+
 
   useEffect(() => {
+    function handleMouseMove(e) {
+      if (e.y <= 60) {
+        // console.log(e.y)
+        showBar()
+      }
+    }
+
     document.addEventListener('mousemove', handleMouseMove)
     return () => { document.removeEventListener('mousemove',handleMouseMove) }
   }, [])
@@ -106,7 +108,7 @@ export default function Navigation() {
     // <FadeDiv className='w-full relative'>
     // <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full top-0 justify-center flex navBar  `} type={'leftRight'} amount={30}>
     <div className={`fixed w-full top-0 justify-center flex navBar`}>
-      <div className={`${darkMode ? 'bg-primary/1' : 'bg-primary/20'} backdrop-blur-sm w-full h-[160%] bottom-0 rounded-b-[100%] absolute -translate-x-4 invisble opacity-0 navBackground`} />
+      <div className={`${darkMode ? 'bg-primary/1' : 'bg-primary/10'} backdrop-blur-sm w-full h-[160%] bottom-0  absolute -translate-x-4 invisble opacity-0 navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <Button text='Home' to='/' />
         <Button text={locale === 'fr' ? 'Commandé' : 'Commissioned'} to='/commissioned' />
@@ -151,7 +153,7 @@ function Button({ text, to }) {
   }, [hover, selected])
 
   return (
-    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`relative navButton navButton${text} opacity-0 visible md:text-lg  min-w-[7rem]  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary  '} `}
+    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`relative navButton navButton${text} opacity-0 visible   min-w-[7rem]  text-center font-pop font-extrabold uppercase   ${darkMode ? 'text-primary' : 'text-darkPrimary  '} `}
       href={`${to}`}
     // onClick={() => handleClick(to)}
     // title={`Go to the ${text} page`}

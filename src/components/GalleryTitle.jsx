@@ -10,7 +10,7 @@ export default function GalleryTitle({ children, className, h1 }) {
   }
 
 
-  return <h2 className={twMerge(" font-normal  uppercase text-left text-inherit text-lg mb-12 pt-20 ", className)}>
+  return <h2 className={twMerge(" font-extrabold font-pop uppercase text-left text-inherit text-lg mb-12 pt-20 ", className)}>
     {children}
   </h2>
 

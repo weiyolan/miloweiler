@@ -129,7 +129,8 @@ export default function Gallery({ projects, sectionInfo }) {
                 />
               </div> */}
 
-              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}</GalleryTitle>
+              {/* <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title?.[locale]}</GalleryTitle> */}
+              <GalleryTitle className="">Set Photography</GalleryTitle>
               {/* <h2>{console.log(sectionInfo.filter((section) => section._id === "mainPageBTS")[0].title)}</h2> */}
 
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
@@ -141,7 +142,8 @@ export default function Gallery({ projects, sectionInfo }) {
                   ))}
               </div>
 
-              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}</GalleryTitle>
+              <GalleryTitle className="">Portraits</GalleryTitle>
+              {/* <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageDOC")[0].title?.[locale]}</GalleryTitle> */}
 
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
@@ -151,7 +153,7 @@ export default function Gallery({ projects, sectionInfo }) {
                     <ProjectThumb from="commissioned" activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={i} key={i} project={project} />
                   ))}
               </div>
-              {projects.filter((project) => project.cat === "events").length > 0 && <GalleryTitle className="">Events & B2B</GalleryTitle>}
+              {projects.filter((project) => project.cat === "events").length > 0 && <GalleryTitle className="">Corporate Events</GalleryTitle>}
 
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
@@ -162,7 +164,8 @@ export default function Gallery({ projects, sectionInfo }) {
                   ))}
               </div>
 
-              <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}</GalleryTitle>
+              {/* <GalleryTitle className="">{sectionInfo.filter((section) => section._id === "mainPageSTU")[0].title?.[locale]}</GalleryTitle> */}
+              {projects.filter((project) => project.cat === "studio").length > 0 && <GalleryTitle className="">Products</GalleryTitle>}
               <div ref={gallery} className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* {console.log(projects)} */}
                 {projects

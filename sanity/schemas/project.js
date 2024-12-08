@@ -181,15 +181,16 @@ export default defineType({
     defineField({
       name: "cat",
       title: "Category",
+      description: "Fine Art projecten verschijnen nooit bij de commissioned projecten. Kijk de toggle dus goed na ;)",
       type: "string",
       group: "details",
       options: {
         list: [
-          { title: "Behind The Scenes", value: "bts" },
-          { title: "Documentary", value: "docu" },
+          { title: "Set Photography", value: "bts" },
+          { title: "Portrait", value: "docu" },
+          { title: "Corporate Events", value: "events" },
+          { title: "Product", value: "studio" },
           { title: "Fine Art", value: "art" },
-          { title: "Studio", value: "studio" },
-          { title: "Events & B2B", value: "events" },
         ],
       },
       validation: (Rule) => Rule.required(),

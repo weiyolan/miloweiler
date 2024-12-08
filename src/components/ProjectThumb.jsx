@@ -98,6 +98,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
   return (
     <div className='select-none overflow-hidden h-full group' >
+      <h3 className='font-pop  uppercase'>{project?.title}</h3>
       <div
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
@@ -105,6 +106,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseEnter={() => { setHover(true); handleMouseEnter() }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
         className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
+
 
         <div className={`absolute top-0 left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>
           {!loaded && <Spinner darkMode={false} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 -translate-y-1/2`} />}
@@ -116,7 +118,8 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           />
 
           <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/10 duration-300 group-hover:backdrop-blur-sm  ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
-            <h3 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500  ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '}`}>
+            <h3 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500 `}>{/* ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '} */}
+
               {/* {console.log(project)} */}
               {false && project?.title}
               {false && project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
