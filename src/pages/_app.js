@@ -11,9 +11,10 @@ import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+import { Observer } from "gsap/dist/Observer";
 import { usePreserveScroll } from "@/utils/usePreserveScroll";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer);
 
 // import Lenis from '@studio-freight/lenis'
 // const roboto = Roboto_Mono({
@@ -38,7 +39,7 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   // display: 'optional',
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["100", "200", "400", "500", "600", "800", "900"],
 });
 // const lora = Lora({
 //   subsets: ["latin"],

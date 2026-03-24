@@ -14,15 +14,11 @@ import Layout from "@/components/Layout";
 import LanguageToggle from "@/components/LanguageToggle";
 
 import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import Image from "next/image";
 import SanityImage from "@/components/SanityImage";
 import GalleryTitle from "@/components/GalleryTitle";
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
-export default function Gallery({ projects, sectionInfo }) {
+export default function Gallery({ projects }) {
   let { width, locale } = useAppContext();
   let pageMobile = width < 648;
   let darkMode = false;
@@ -197,25 +193,9 @@ export async function getStaticProps() {
     `*[_type == "project" && commissionedBool == true]|order(date desc){title, subTitle, partnerLink, by, cat, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
   );
   // console.log(projects)
-  const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
-
-  // function artificialProjects (length) {
-  //   console.log(Math.floor(Math.random()*projects.length))
-  //   let artificialArray = new Array(length).fill(0).map(()=>{
-  //     let randomI = Math.floor(Math.random()*projects.length)
-  //     // console.log(randomI)
-  //     // console.log(projects[randomI])
-  //     return projects[randomI]
-  //   })
-  //   return artificialArray
-  // }
-
   return {
     props: {
-      // projects: artificialProjects(40)
       projects: projects,
-      sectionInfo,
-      // projects: [...projects, ...projects, ...projects, ...projects, ...projects, ...projects]
     },
   };
 }

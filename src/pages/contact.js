@@ -29,12 +29,8 @@ import LanguageToggle from '@/components/LanguageToggle'
 
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 
 import { supportedLanguages } from "../../sanity/schemas/supportedLanguages";
-
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
   let textRef = useRef(null);
@@ -59,7 +55,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
     return () => {
       gsap.ticker.remove(update);
     };
-  });
+  }, []);
 
   let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
@@ -328,18 +324,26 @@ export async function getStaticProps() {
     langObjPortfolioName = langObjPortfolioName + `'${lang.id}':portfolio.document.${lang.id}.asset->originalFilename,`;
   });
 
-  const contactDetailsData = await client.fetch(`*[_type == "contactPageCDS"][0]`);
-  const trustedByData = await client.fetch(`*[_type == "contactPageTBS"][0]`);
-  const contactFormData = await client.fetch(`*[_type == "contactPageAOS"][0]`);
-  const printingData = await client.fetch(`*[_type == "contactPagePSS"][0]`);
-  const { image1, image2, title, text, portfolio } = await client.fetch(
-    `*[_type == "contactPagePFS"][0]{image1,image2,title,text,'portfolio':{'url':{${langObjPortfolioUrl}},'fileName':{${langObjPortfolioName}}}}`
-  );
-  const inspirationData = await client.fetch(`*[_type == "contactPageGIS"][0]`);
+  const [
+    contactDetailsData,
+    trustedByData,
+    contactFormData,
+    printingData,
+    portfolioRaw,
+    inspirationData,
+  ] = await Promise.all([
+    client.fetch(`*[_type == "contactPageCDS"][0]`),
+    client.fetch(`*[_type == "contactPageTBS"][0]`),
+    client.fetch(`*[_type == "contactPageAOS"][0]`),
+    client.fetch(`*[_type == "contactPagePSS"][0]`),
+    client.fetch(
+      `*[_type == "contactPagePFS"][0]{image1,image2,title,text,'portfolio':{'url':{${langObjPortfolioUrl}},'fileName':{${langObjPortfolioName}}}}`
+    ),
+    client.fetch(`*[_type == "contactPageGIS"][0]`),
+  ]);
 
-  // const products = await client.fetch(`*[_type == "product"]`);
-  // console.log(portfolio);
-  // console.log(contactDetail)
+  const { image1, image2, title, text, portfolio } = portfolioRaw;
+
   return {
     props: {
       contactDetailsData: contactDetailsData,

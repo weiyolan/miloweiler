@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 // import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
 // import '../styles/globals.css'
 
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
 import { PageWrapper } from "@utils/pageContext";
 import { useAppContext } from "@utils/appContext";
@@ -47,12 +46,10 @@ import PageIndicator from "@/components/PageIndicator";
 // import ScrollVisual from '@/components/line/ScrollVisual'
 // import LanguageToggle from '@/components/LanguageToggle'
 import BackgroundMain from "@/components/BackgroundMain";
-import SplashScreen from "@/components/SplashScreen";
+const SplashScreen = dynamic(() => import("@/components/SplashScreen"), { ssr: false });
 import LanguageToggle from "@/components/LanguageToggle";
 import StoryTitle2 from "@/components/line/StoryTitle2";
 // import useWindowResize from '@/utils/useWindowResize'
-
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 
 export default function Home({ projects, sectionInfo, introImages }) {
   const {
@@ -172,19 +169,24 @@ export default function Home({ projects, sectionInfo, introImages }) {
   }, []);
 
   useEffect(() => {
+    let reloadTimeout;
     function keepScroll() {
       if (window.innerWidth >= 768) {
-        // console.log(window.innerWidth, firstScreenWidth)
         if (Math.abs(window.innerWidth - firstScreenWidth) >= 100) {
-          location.reload();
-          gsap.to(window, { scrollTo: window.scrollY || 0, delay: 0.2 });
+          clearTimeout(reloadTimeout);
+          reloadTimeout = setTimeout(() => {
+            location.reload();
+          }, 500);
         }
       }
     }
     window.addEventListener("resize", keepScroll);
 
     keepScroll();
-    return () => window.removeEventListener("resize", keepScroll);
+    return () => {
+      clearTimeout(reloadTimeout);
+      window.removeEventListener("resize", keepScroll);
+    };
   }, [firstScreenWidth]);
 
   // useEffect(()=>{
@@ -1864,19 +1866,16 @@ overscroll-behavior: none;
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(
-    `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
-  );
-  // console.log(projects[0].otherImages);
+  const [projects, introImages, sectionInfo] = await Promise.all([
+    client.fetch(
+      `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
+    ),
+    client.fetch(
+      `*[_type == "mainPageXIntro"][0]{images[]{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}`
+    ),
+    client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`),
+  ]);
 
-  const introImages = await client.fetch(
-    `*[_type == "mainPageXIntro"][0]{images[]{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}`
-    // `*[_type == "mainPageXIntro"][0]{images[]{'image':asset->{url,'dimensions':metadata.dimensions}}}`
-  );
-
-  // const projects = await client.fetch(`*[_type == "project"][cat == "bts" || cat == "docu" || cat == "art" ]|order(date desc){title, cat, otherImages[]{_key,_type, asset->{url,metadata{dimensions}}, ...asset{_ref}}, mainImage{alt,image{asset->{url}, ...asset{_ref}}}, slug}`);
-  const sectionInfo = await client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`);
-  // const sectionInfoMilo = await client.fetch(`*[]`)
   return {
     props: { projects, sectionInfo, introImages },
   };

@@ -3,6 +3,7 @@ import { useAppContext } from "@/utils/appContext";
 import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import client from "../../../lib/sanity";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
@@ -13,15 +14,12 @@ import Layout from "@/components/Layout";
 import { gsap } from "gsap/dist/gsap";
 import { Observer } from "gsap/dist/Observer";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Line from "@/components/Line";
 import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
 import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
-import ProjectCarousel from "@/components/ProjectCarousel";
+const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { ssr: false });
 import Footer2 from "@/components/Footer2";
-
-gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger);
 
 export default function Project({ project, slug, slugs }) {
   // console.log(project)
@@ -619,12 +617,12 @@ export async function getStaticPaths({ locales }) {
 // `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps({ params }) {
   // const project = await client.fetch(`*[_type == "project" && slug.current == "${params.slug}"][0]`);
-  const project = await client.fetch(
-    `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, border, position, image{asset->{url,metadata},...asset{_ref}}}}`
-  );
-  // *[_type == "project" ][0]{...,mainImage{alt,image{asset->{_ref,_type,url,metadata}}},otherImages[]{_key,_type,asset->{_ref,_type,url,metadata}}}
-
-  const projectSlugs = await client.fetch(`*[_type == "project" && commissionedBool == false]|order(date desc){slug}`);
+  const [project, projectSlugs] = await Promise.all([
+    client.fetch(
+      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}},otherImages[]{_key,_type, border, position, image{asset->{url,metadata},...asset{_ref}}}}`
+    ),
+    client.fetch(`*[_type == "project" && commissionedBool == false]|order(date desc){slug}`),
+  ]);
   const slugNames = projectSlugs.map((projectSlug) => projectSlug.slug.current);
   return {
     props: { key: params.slug, project, slug: params.slug, slugs: slugNames },

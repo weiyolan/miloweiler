@@ -53,8 +53,6 @@ export default function useMinimizeScroll() {
 
         //IF MOMENTUM SCROLL
         if (!self.isDragging && Observer.isTouch === 1) {
-          console.log('animating', animating.current, 'animated', animated.current, 'nextBoundry', nextBoundry.current, 'localScrolled', localScrolled.current)
-
           animating.current = true
           // Set boundry once
           if (nextBoundry.current === undefined) { nextBoundry.current = getBoundry(self.velocityY) }
@@ -74,7 +72,6 @@ export default function useMinimizeScroll() {
 
           //IF NORMAL SCROLL
         } else {
-          console.log('animating', animating.current, 'animated', animated.current, 'nextBoundry', nextBoundry.current, 'localScrolled', localScrolled.current)
           // Reset boundry once
           if (nextBoundry.current !== undefined) { nextBoundry.current = undefined }
           if (animated.current) { animated.current = false }
