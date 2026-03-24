@@ -1,5 +1,5 @@
 // Sanity cat enum value → URL slug
-export const CATEGORY_MAP = {
+const CATEGORY_MAP = {
   bts: 'set-photography',
   docu: 'portraits',
   events: 'corporate-events',
@@ -8,18 +8,18 @@ export const CATEGORY_MAP = {
 };
 
 // URL slug → Sanity cat enum value
-export const SLUG_TO_CAT = Object.fromEntries(
+const SLUG_TO_CAT = Object.fromEntries(
   Object.entries(CATEGORY_MAP).map(([k, v]) => [v, k])
 );
 
 // Genre category URL slugs (excludes highlighted)
-export const CATEGORY_SLUGS = Object.values(CATEGORY_MAP);
+const CATEGORY_SLUGS = Object.values(CATEGORY_MAP);
 
 // All category slugs including highlighted (for nav dropdown + homepage tiles)
-export const ALL_CATEGORY_SLUGS = ['highlighted', ...CATEGORY_SLUGS];
+const ALL_CATEGORY_SLUGS = ['highlighted', ...CATEGORY_SLUGS];
 
 // Display names per locale
-export const CATEGORY_LABELS = {
+const CATEGORY_LABELS = {
   'highlighted': { en: 'Highlighted', fr: 'En Vedette' },
   'set-photography': { en: 'Set Photography', fr: 'Photographie de Plateau' },
   'portraits': { en: 'Portraits', fr: 'Portraits' },
@@ -28,10 +28,12 @@ export const CATEGORY_LABELS = {
   'personal-work': { en: 'Personal Work', fr: 'Travail Personnel' },
 };
 
-export function getCategorySlug(cat) {
+function getCategorySlug(cat) {
   return CATEGORY_MAP[cat];
 }
 
-export function getCatFromSlug(slug) {
+function getCatFromSlug(slug) {
   return SLUG_TO_CAT[slug];
 }
+
+module.exports = { CATEGORY_MAP, SLUG_TO_CAT, CATEGORY_SLUGS, ALL_CATEGORY_SLUGS, CATEGORY_LABELS, getCategorySlug, getCatFromSlug };
