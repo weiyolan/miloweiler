@@ -5,9 +5,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
-// import FadeDiv from './FadeDiv'
 import NavToggle from './NavToggle'
 import LanguageToggle from './LanguageToggle'
+import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 
 gsap.registerPlugin(Observer)
 
@@ -86,9 +86,8 @@ export default function NavigationMobile() {
     <div className={`navBar fixed w-full h-0 top-0 `}>
       <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
       <div className={`navButtons flex flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
-        <Button text='Home' to='/' />
-        <Button text={locale === 'fr' ? 'Commandé' : 'Commissioned'} to='/commissioned' />
-        <Button text={locale === 'fr' ? 'Personnel' : 'Personal'} to='/personal' />
+        <PortfolioExpandable locale={locale} />
+        <Button text={locale === 'fr' ? 'À Propos' : 'About Me'} to='/about' />
         <Button text='Contact' to='/contact' />
         <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}>
           <LanguageToggle />
@@ -96,6 +95,34 @@ export default function NavigationMobile() {
 
       </div>
       <NavToggle className={`navToggle `} open={!hiding} />
+    </div>
+  )
+}
+
+function PortfolioExpandable({ locale }) {
+  let { darkMode } = usePageContext()
+  const { pathname } = useRouter()
+  let [expanded, setExpanded] = useState(false)
+  let selected = pathname === '/' || pathname.startsWith('/projects')
+
+  return (
+    <div className="flex flex-col items-end gap-2">
+      <div className={`navButton relative opacity-0 visible text-3xl md:text-xl lg:text-2xl text-center font-lora cursor-pointer ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+        <div className="w-fit ml-auto flex items-center gap-2">
+          <Link href="/">Portfolio</Link>
+          <span onClick={() => setExpanded(!expanded)}>{expanded ? '−' : '+'}</span>
+          {selected && <Line className={`mx-auto ${darkMode ? 'border-primary' : 'border-darkPrimary'} w-full absolute bottom-0 left-0`} />}
+        </div>
+      </div>
+      {expanded && (
+        <div className="flex flex-col items-end gap-2 pr-4">
+          {ALL_CATEGORY_SLUGS.map(slug => (
+            <Link key={slug} href={`/projects/${slug}`} className={`navButton opacity-0 visible text-xl font-lora ${darkMode ? 'text-primary' : 'text-darkPrimary'} ${pathname === `/projects/${slug}` ? 'font-bold' : ''}`}>
+              {CATEGORY_LABELS[slug][locale]}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

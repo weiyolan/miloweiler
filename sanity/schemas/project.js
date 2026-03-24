@@ -66,8 +66,15 @@ export default defineType({
       fieldset: ["options"],
       type: "boolean",
       initialValue: false,
-      // description: "Toggle om de foto's van je project al dan niet op een grid te plaatsen.",
-      // options: {columns: 3},
+    }),
+    defineField({
+      name: "highlighted",
+      title: "Highlighted",
+      group: ["details"],
+      fieldset: ["options"],
+      type: "boolean",
+      initialValue: false,
+      description: "Highlighted projects appear on the homepage.",
     }),
     defineField({
       name: "minimalText",

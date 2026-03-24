@@ -154,7 +154,7 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
       onMouseLeave={mouseLeave}>
 
       <div ref={myThumb} className='absolute scale-50 opacity-0 w-full h-full top-0 left-0 '  >
-        <SanityImage onLoad={() => {setLoaded(true) }} print={!index ? true : false} blur sizes='(max-width: 700px) 20vw, 13vw' fill containerClass={'rounded-none '} image={image} alt={alt} />
+        <SanityImage onLoad={() => {setLoaded(true) }} print={!index ? true : false} blur quality={30} sizes='(max-width: 700px) 20vw, 13vw' fill containerClass={'rounded-none '} image={image} alt={alt} />
       </div>
       {!loaded &&
           <Spinner cube className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />

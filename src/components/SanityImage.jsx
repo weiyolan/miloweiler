@@ -4,7 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
-const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, ...props }, ref) {
+const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, quality, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, ...props }, ref) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
 
   let landscape = width / height > 1;
@@ -19,6 +19,7 @@ const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blu
           src={src}
           onLoad={onLoad}
           loader={loader}
+          quality={quality}
           alt={alt || ''}
           placeholder={blur ? "blur" : undefined}
           blurDataURL={blur ? image.asset.metadata.lqip : undefined}
@@ -30,6 +31,7 @@ const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blu
   if (intrinsic) {
     return <Image ref={ref} style={style} src={src} width={factor ? width * factor : width} height={factor ? height * factor : height} {...{ height, loader }} className={className}
       alt={alt || ''}
+      quality={quality}
       placeholder={blur ? "blur" : undefined}
       blurDataURL={blur ? image.asset.metadata.lqip : undefined}
       {...props}
@@ -39,6 +41,7 @@ const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blu
   return (
     <Image ref={ref} style={{ width: landscape ? '100%' : 'auto', height: landscape ? 'auto' : '100%', ...style }} sizes={sizes || "100vw"} className={className} src={src} {...{ width, height, loader }}
       alt={alt || ''}
+      quality={quality}
       placeholder={blur ? "blur" : undefined}
       blurDataURL={blur ? image.asset.metadata.lqip : undefined}
       {...props}

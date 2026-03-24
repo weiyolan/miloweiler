@@ -7,6 +7,7 @@ import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import FadeDiv from './FadeDiv'
 import { useAppContext } from '@/utils/appContext'
+import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 
 gsap.registerPlugin(Observer)
 
@@ -110,9 +111,17 @@ export default function Navigation() {
     <div className={`fixed w-full top-0 justify-center flex navBar`}>
       <div className={`${darkMode ? 'bg-primary/1' : 'bg-primary/10'} backdrop-blur-sm w-full h-[160%] bottom-0  absolute -translate-x-4 invisble opacity-0 navBackground`} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
-        <Button text='Home' to='/' />
-        <Button text={locale === 'fr' ? 'Commandé' : 'Commissioned'} to='/commissioned' />
-        <Button text={locale === 'fr' ? 'Personnel' : 'Personal'} to='/personal' />
+        <div className="relative group">
+          <Button text='Portfolio' to='/' isPortfolio />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div className={`${darkMode ? 'bg-darkGrey/90' : 'bg-primary/90'} backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl`}>
+              {ALL_CATEGORY_SLUGS.map(slug => (
+                <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/projects/${slug}`} />
+              ))}
+            </div>
+          </div>
+        </div>
+        <Button text={locale === 'fr' ? 'À Propos' : 'About Me'} to='/about' />
         <Button text='Contact' to='/contact' />
         {/* <Button text={`${observer.current.velocityY}`} to=''/> */}
       </div>
@@ -121,7 +130,19 @@ export default function Navigation() {
   )
 }
 
-function Button({ text, to }) {
+function DropdownItem({ text, to }) {
+  let { darkMode } = usePageContext()
+  const { pathname } = useRouter()
+  let selected = pathname === to
+
+  return (
+    <Link href={to} className={`block py-1.5 px-2 rounded text-sm font-pop transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} ${darkMode ? 'text-primary hover:bg-primary/10' : 'text-darkPrimary hover:bg-darkPrimary/10'}`}>
+      {text}
+    </Link>
+  )
+}
+
+function Button({ text, to, isPortfolio }) {
   let { darkMode } = usePageContext()
   // darkMode=false;
   const { pathname } = useRouter()
@@ -135,7 +156,7 @@ function Button({ text, to }) {
   }, []);
 
   useEffect(() => {
-    setSelected(pathname === to)
+    setSelected(isPortfolio ? (pathname === to || pathname.startsWith('/projects')) : pathname === to)
   }, [pathname])
 
   useEffect(() => {

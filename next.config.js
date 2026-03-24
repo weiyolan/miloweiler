@@ -41,6 +41,30 @@ const nextConfig = withPWA({
   },
 
   reactStrictMode: true,
+
+  async redirects() {
+    const { createClient } = require("next-sanity");
+    const { config } = require("./lib/config");
+    const sanityClient = createClient(config);
+    const { CATEGORY_MAP } = require("./src/utils/categories");
+
+    const projects = await sanityClient.fetch(
+      `*[_type == "project"]{slug, cat, commissionedBool}`
+    );
+
+    const projectRedirects = projects.map((p) => ({
+      source: `/${p.commissionedBool ? "commissioned" : "personal"}/${p.slug.current}`,
+      destination: `/projects/${CATEGORY_MAP[p.cat]}/${p.slug.current}`,
+      permanent: true,
+    }));
+
+    return [
+      { source: "/commissioned", destination: "/projects/set-photography", permanent: true },
+      { source: "/personal", destination: "/projects/personal-work", permanent: true },
+      { source: "/projects/fine-art", destination: "/projects/personal-work", permanent: true },
+      ...projectRedirects,
+    ];
+  },
 });
 
 module.exports = nextConfig
