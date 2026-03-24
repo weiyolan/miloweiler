@@ -124,7 +124,7 @@ function Button({ text, to }) {
         duration: 0.2,
       })
       gsap.to(`.navLine${text}`, {
-        width: (hover || selected) ? '100%' : 0,
+        scaleX: (hover || selected) ? 1 : 0,
         borderColor: (hover || selected) ? (darkMode ? '#FFF5EA' : '#000000') : 'transparent',
         duration: 0.2,
       })
@@ -139,7 +139,7 @@ function Button({ text, to }) {
     >
       <div className={`w-fit ml-auto`}>
         {text}
-        <Line className={`mx-auto navLine${text} ${darkMode ? 'border-primary' : 'border-darkPrimary'} w-0`} />
+        <Line className={`mx-auto navLine${text} ${darkMode ? 'border-primary' : 'border-darkPrimary'} w-full origin-left scale-x-0`} />
       </div>
     </Link>
   )

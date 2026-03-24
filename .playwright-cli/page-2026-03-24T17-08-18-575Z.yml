@@ -1,0 +1,293 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - heading "Set Photography" [level=2] [ref=e6]
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - heading "Come Back" [level=3] [ref=e9]
+          - generic [ref=e12] [cursor=pointer]:
+            - img "A woman standing in front of a mirror while smoking a cigarette . you can see her reflection and the two red curtains hanging next to the mirror." [ref=e14]
+            - generic [ref=e15]:
+              - heading [level=3]
+              - generic [ref=e16]: by Savage Film
+              - link:
+                - /url: /commissioned/comeback
+        - generic [ref=e17]:
+          - heading "What Remains" [level=3] [ref=e18]
+          - generic [ref=e21] [cursor=pointer]:
+            - img "Close-up of the face of a bearded, elderly man." [ref=e23]
+            - generic [ref=e24]:
+              - heading [level=3]
+              - generic [ref=e25]: by Zoë Demoustier
+              - link:
+                - /url: /commissioned/what-remains
+        - generic [ref=e26]:
+          - heading "Oh Otto!" [level=3] [ref=e27]
+          - generic [ref=e30] [cursor=pointer]:
+            - 'img "Three people stand in front of a red-lit Ferris wheel at night. From left to right: a Black woman wearing a green coat, a white boy in a red jacket, and another white boy wearing a denim jacket and a hat." [ref=e32]'
+            - generic [ref=e33]:
+              - heading [level=3]
+              - generic [ref=e34]: by Streamz
+              - link:
+                - /url: /commissioned/oh-otto
+        - generic [ref=e35]:
+          - heading "Het beste moet nog komen" [level=3] [ref=e36]
+          - generic [ref=e39] [cursor=pointer]:
+            - img "Silhouette of a girl illuminated by a street lantern, exhaling a visible puff of warm breath in the cold night air." [ref=e41]
+            - generic [ref=e42]:
+              - heading [level=3]
+              - generic [ref=e43]: by Pommelien Thijs
+              - link:
+                - /url: /commissioned/het-beste-moet-nog-komen
+        - generic [ref=e44]:
+          - heading "beetje bang voor niks" [level=3] [ref=e45]
+          - generic [ref=e48] [cursor=pointer]:
+            - img "the script of the movie in a a red folder with the names of the directors written on it." [ref=e50]
+            - generic [ref=e51]:
+              - heading [level=3]
+              - generic [ref=e52]: by Toneelgroep Misschien
+              - link:
+                - /url: /commissioned/beetje-bang-voor-niks
+        - generic [ref=e53]:
+          - heading "The Weight Of Sand" [level=3] [ref=e54]
+          - generic [ref=e57] [cursor=pointer]:
+            - img "the script of the movie in a a red folder with the names of the directors written on it." [ref=e59]
+            - generic [ref=e60]:
+              - heading [level=3]
+              - generic [ref=e61]: by me
+              - link:
+                - /url: /commissioned/the-weight-of-sand
+        - generic [ref=e62]:
+          - heading "Nora - een poppenhuis" [level=3] [ref=e63]
+          - generic [ref=e66] [cursor=pointer]:
+            - img "A man, blurred in the foreground with a santa-claus hat - and a woman in the background visibly frustrated. Warm, pastel-like colors in different tints of brown and grey." [ref=e68]
+            - generic [ref=e69]:
+              - heading [level=3]
+              - generic [ref=e70]: by campustoneel
+              - link:
+                - /url: /commissioned/nora-een-poppenhuis
+        - generic [ref=e71]:
+          - heading "Sunflower" [level=3] [ref=e72]
+          - generic [ref=e75] [cursor=pointer]:
+            - img "A sunflower planted on a remake of the moon's surface, Angèle standing next to it while looking in the distance. And lastlly Tamino on the right right, also looking into the distance" [ref=e77]
+            - generic [ref=e78]:
+              - heading [level=3]
+              - generic [ref=e79]: by Tamino & Angèle
+              - link:
+                - /url: /commissioned/sunflower
+        - generic [ref=e80]:
+          - heading "315" [level=3] [ref=e81]
+          - generic [ref=e84] [cursor=pointer]:
+            - img "Silhouette of 3 guys standing in 3 different spotlights. One on the drums, one holding a saxophone and one on a big piano." [ref=e86]
+            - generic [ref=e87]:
+              - heading [level=3]
+              - generic [ref=e88]: by Why Panda, Why?
+              - link:
+                - /url: /commissioned/315
+        - generic [ref=e89]:
+          - heading "The First Disciple" [level=3] [ref=e90]
+          - generic [ref=e93] [cursor=pointer]:
+            - img "Tamino standing in a diagonal ray of light enlighting the countours of his head and torso" [ref=e95]
+            - generic [ref=e96]:
+              - heading [level=3]
+              - generic [ref=e97]: by Tamino
+              - link:
+                - /url: /commissioned/the-first-disciple
+        - generic [ref=e98]:
+          - heading "You Don't Own Me" [level=3] [ref=e99]
+          - generic [ref=e102] [cursor=pointer]:
+            - img "Tamino in a dark room with a faint light showing part of his face." [ref=e104]
+            - generic [ref=e105]:
+              - heading [level=3]
+              - generic [ref=e106]: by Tamino
+              - link:
+                - /url: /commissioned/you-dont-own-me
+        - generic [ref=e107]:
+          - heading "i miss" [level=3] [ref=e108]
+          - generic [ref=e111] [cursor=pointer]:
+            - img "The main singers of the band Blackwave chilling on a playground." [ref=e113]
+            - generic [ref=e114]:
+              - heading [level=3]
+              - generic [ref=e115]: by blackwave.
+              - link:
+                - /url: /commissioned/i-miss
+        - generic [ref=e116]:
+          - heading "The Longing" [level=3] [ref=e117]
+          - generic [ref=e120] [cursor=pointer]:
+            - img "Tamino in a dark room with a faint light showing part of his face." [ref=e122]
+            - generic [ref=e123]:
+              - heading [level=3]
+              - generic [ref=e124]: by Tamino
+              - link:
+                - /url: /commissioned/the-longing
+      - heading "Portraits" [level=2] [ref=e125]
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - heading "Anchors of Sporza" [level=3] [ref=e128]
+          - generic [ref=e131] [cursor=pointer]:
+            - img "6 people (three male, three female) posing for a group picture surrounded by the black walls of the sporza studio." [ref=e133]
+            - generic [ref=e134]:
+              - heading [level=3]
+              - generic [ref=e135]: by VRT
+              - link:
+                - /url: /commissioned/anchors-of-sporza
+        - generic [ref=e136]:
+          - heading "Jaarbeeld 2024" [level=3] [ref=e137]
+          - generic [ref=e140] [cursor=pointer]:
+            - img "a middle aged man with a purple t-shirt sitting in a chair in front of his desk while leaning on his left arm" [ref=e142]
+            - generic [ref=e143]:
+              - heading [level=3]
+              - generic [ref=e144]: by VRT
+              - link:
+                - /url: /commissioned/jaarbeeld-2024
+        - generic [ref=e145]:
+          - heading "Wahwahsda" [level=3] [ref=e146]
+          - generic [ref=e149] [cursor=pointer]:
+            - img "The out of focus silhouette of the lead singer and rapper in an orange spotlight with the blue sky in the background" [ref=e151]
+            - generic [ref=e152]:
+              - heading [level=3]
+              - generic [ref=e153]: by Wahwahsda
+              - link:
+                - /url: /commissioned/wahwahsda
+        - generic [ref=e154]:
+          - heading "Het Jaarbeeld" [level=3] [ref=e155]
+          - generic [ref=e166] [cursor=pointer]:
+            - img "Ivan (left) and Louise (right) standing back to back and looking into the distance" [ref=e168]
+            - generic [ref=e169]:
+              - heading [level=3]
+              - generic [ref=e170]: by VRT
+              - link:
+                - /url: /commissioned/het-jaarbeeld
+        - generic [ref=e171]:
+          - heading "Wicked World" [level=3] [ref=e172]
+          - generic [ref=e183] [cursor=pointer]:
+            - 'img "A picture in black and white from inside the studio: two mics are shown and in the background a vague silhouette of the rapper moving" [ref=e185]'
+            - generic [ref=e186]:
+              - heading [level=3]
+              - generic [ref=e187]: by Wahwahsda
+              - link:
+                - /url: /commissioned/wicked-world
+        - generic [ref=e188]:
+          - heading "A Portrait of Piet Boon" [level=3] [ref=e189]
+          - generic [ref=e200] [cursor=pointer]:
+            - img "Piet Boon smiling" [ref=e202]
+            - generic [ref=e203]:
+              - heading [level=3]
+              - generic [ref=e204]: by SERAX
+              - link:
+                - /url: /commissioned/piet-boon
+      - heading "Corporate Events" [level=2] [ref=e205]
+      - generic [ref=e206]:
+        - generic [ref=e207]:
+          - heading "Mastercard at SCEWC" [level=3] [ref=e208]
+          - generic [ref=e219] [cursor=pointer]:
+            - img "A man and a woman looking at a computer screen while standing behind the desk with the mastercard logo behind them on a green moss wall." [ref=e221]
+            - generic [ref=e222]:
+              - heading [level=3]
+              - generic [ref=e223]: by Mastercard
+              - link:
+                - /url: /commissioned/mastercard-scewc
+        - generic [ref=e224]:
+          - heading "Come Back at Film Festival Oostende" [level=3] [ref=e225]
+          - generic [ref=e236] [cursor=pointer]:
+            - img "Zwangere Guy making a hearth symbol with his hands. Iin the background you see the bright red color of the red carpet of film festival oostende." [ref=e238]
+            - generic [ref=e239]:
+              - heading [level=3]
+              - generic [ref=e240]: by me
+              - link:
+                - /url: /commissioned/come-back-film-festival-oostende
+      - heading "Products" [level=2] [ref=e241]
+      - generic [ref=e242]:
+        - generic [ref=e243]:
+          - heading "Cocktails & Mocktails" [level=3] [ref=e244]
+          - generic [ref=e255] [cursor=pointer]:
+            - img "A transparent cocktail filled with pieces of lime and mint in a tall glass with a paper straw. The glass sits on a rock, surrounded by whole limes, against a white and green background." [ref=e257]
+            - generic [ref=e258]:
+              - heading [level=3]
+              - generic [ref=e259]: by Zorgbedrijf Antwerpen
+              - link:
+                - /url: /commissioned/cocktails-and-mocktails
+        - generic [ref=e260]:
+          - heading "Custom Jewelry by EyoTito" [level=3] [ref=e261]
+          - generic [ref=e272] [cursor=pointer]:
+            - img "Close up of a custom pendant in a big C-shape made out of Sterling Silver inlayed with hundreds of VS1 diamonds. A thin layer of smoke shrouds the pendant. Primarily black colours dominate the picture." [ref=e274]
+            - generic [ref=e275]:
+              - heading [level=3]
+              - generic [ref=e276]: by EyoTito
+              - link:
+                - /url: /commissioned/custom-jewelry
+    - generic [ref=e278]:
+      - generic [ref=e279]:
+        - generic [ref=e280]:
+          - heading "Navigate" [level=2] [ref=e282]
+          - list [ref=e283]:
+            - listitem [ref=e284]:
+              - link "Home" [ref=e285] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e286]:
+              - link "Commissioned" [ref=e287] [cursor=pointer]:
+                - /url: /commissioned
+            - listitem [ref=e288]:
+              - link "Personal" [ref=e289] [cursor=pointer]:
+                - /url: /personal
+            - listitem [ref=e290]:
+              - link "Contact" [ref=e291] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e292]:
+              - link "Printing" [ref=e293] [cursor=pointer]:
+                - /url: /contact#printing
+        - generic [ref=e294]:
+          - heading "Socials" [level=2] [ref=e296]
+          - list [ref=e297]:
+            - listitem [ref=e298]:
+              - link "Instagram" [ref=e299] [cursor=pointer]:
+                - /url: https://www.instagram.com/miloweiler/
+            - listitem [ref=e300]:
+              - link "Unsplash" [ref=e301] [cursor=pointer]:
+                - /url: https://unsplash.com/@miloweiler
+            - listitem [ref=e302]:
+              - link "LinkedIn" [ref=e303] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/mwphotography
+        - generic [ref=e304]:
+          - heading "Contact" [level=2] [ref=e306]
+          - list [ref=e307]:
+            - listitem [ref=e308]:
+              - link "Call" [ref=e309] [cursor=pointer]:
+                - /url: tel:+32476506209
+            - listitem [ref=e310]:
+              - link "WhatsApp" [ref=e311] [cursor=pointer]:
+                - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+            - listitem [ref=e312]:
+              - link "contact@miloweiler.com" [ref=e313] [cursor=pointer]:
+                - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+        - generic [ref=e314]:
+          - heading "Legal" [level=2] [ref=e316]
+          - list [ref=e317]:
+            - listitem [ref=e318]:
+              - link "Legal Notice" [ref=e319] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e320]:
+              - link "Terms of Use" [ref=e321] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e322]:
+              - link "Cookie Notice" [ref=e323] [cursor=pointer]:
+                - /url: /aboutme
+      - text: 2024 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+      - link "ywdesign.co" [ref=e324] [cursor=pointer]:
+        - /url: https://www.ywdesign.co
+    - generic [ref=e327]:
+      - link "Home" [ref=e328] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e329]: Home
+      - link "Personal" [ref=e330] [cursor=pointer]:
+        - /url: /personal
+        - generic [ref=e331]: Personal
+      - link "Contact" [ref=e332] [cursor=pointer]:
+        - /url: /contact
+        - generic [ref=e333]: Contact
+    - generic [ref=e334] [cursor=pointer]:
+      - img [ref=e335]
+      - link "FR" [ref=e338]:
+        - /url: /fr/commissioned
+        - text: FR
+  - alert [ref=e340]

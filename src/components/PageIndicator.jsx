@@ -469,5 +469,5 @@ function Path({ i, ...props }) {
     })
   }, [hovering, selected])
 
-  return <path className={`screen${i} hover:cursor-pointer screenIndicatorItem translate-x-[200%] opacity-0`} onMouseDown={() => setSelected(true)} onMouseUp={() => { setSelected(false) }} onClick={() => { gsap.to(window, { duration: 0.5, scrollTo: height * i - 0.1 * height }) }} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} fill='transparent' {...props} />
+  return <path className={`screen${i} hover:cursor-pointer screenIndicatorItem translate-x-[200%] opacity-0`} onMouseDown={() => setSelected(true)} onMouseUp={() => { setSelected(false) }} onClick={() => { myCtx.current.add(() => { gsap.to(window, { duration: 0.5, scrollTo: height * i - 0.1 * height }) }) }} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} fill='transparent' {...props} />
 }

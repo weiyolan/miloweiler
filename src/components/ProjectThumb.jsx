@@ -22,30 +22,24 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
   // let myRef = useRef(null)
   const ctx = useRef(gsap.context(() => { }));
 
-  // useEffect(() => {
-  //   ctx.current = gsap.context(() => { },); // nothing initially (we'll add() to the context when endX changes)
-  //   return () => ctx.current.revert();
-  // }, [ctx]);
+  useEffect(() => {
+    return () => ctx.current.revert();
+  }, []);
 
   function handleMouseDown({ currentTarget }) {
-    // ctx.current.add(() => {
-    gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
-    // })
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
+    })
   }
   function handleMouseUp({ currentTarget }) {
-    // ctx.current.add(() => {
-    gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' })
-    // })
-  }
-  function handleMouseEnter() {
-    // ctx.current.add(() => {
-    // gsap.to(`.projectThumb${index}`, { scale: 1.02, duration: 0.5, ease: 'expo.out' })
-    // })
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' })
+    })
   }
   function handleMouseLeave() {
-    // ctx.current.add(() => {
-    gsap.to(`.projectThumb${index}`, { scale: 1.0, duration: 0.5, ease: 'expo.out' })
-    // })
+    ctx.current.add(() => {
+      gsap.to(`.projectThumb${index}`, { scale: 1.0, duration: 0.5, ease: 'expo.out' })
+    })
   }
 
   // useEffect(() => {
@@ -103,7 +97,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onClick={() => setActiveIndex(index)}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
-        onMouseEnter={() => { setHover(true); handleMouseEnter() }}
+        onMouseEnter={() => { setHover(true); }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
         className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
 
@@ -139,7 +133,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
       </div>
 
       {/* <div className='mt-2 mb-2 text-left text-primary cursor-pointer'
-        onMouseEnter={() => { setLineHover(true); handleMouseEnter() }}
+        onMouseEnter={() => { setLineHover(true); }}
         onMouseLeave={() => { setLineHover(false); handleMouseLeave() }}>
         <Link href={`./gallery/${project.slug.current}`}>
           <h2 className={` font-lora text-base max-w-fit sm:text-lg truncate font-semibold md:text-xl invert-0 duration-500 mb-1`}>

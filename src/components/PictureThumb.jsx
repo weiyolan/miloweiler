@@ -20,20 +20,25 @@ export default function PictureThumb({ image, alt, row, containerRef, visible, h
   const ctx = useRef(gsap.context(() => { }));
 
   function mouseUp({ currentTarget }) {
-    gsap.to(currentTarget, {
-      scale: 1.02, duration: 0.5,
-      ease: 'expo.out'
-    });
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 1.02, duration: 0.5, ease: 'expo.out' });
+    })
   }
 
   function mouseDown({ currentTarget }) {
-    gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 0.95, duration: 0.5, ease: 'expo.out' })
+    })
   }
   function mouseEnter({ currentTarget }) {
-    gsap.to(currentTarget, { scale: 1.02, duration: 0.5, ease: 'expo.out' });
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 1.02, duration: 0.5, ease: 'expo.out' });
+    })
   }
   function mouseLeave({ currentTarget }) {
-    gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' });
+    ctx.current.add(() => {
+      gsap.to(currentTarget, { scale: 1, duration: 0.5, ease: 'expo.out' });
+    })
   }
 
   // function setActive() {
