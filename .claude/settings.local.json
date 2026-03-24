@@ -21,7 +21,9 @@
       "mcp__plugin_context7_context7__resolve-library-id",
       "mcp__plugin_context7_context7__query-docs",
       "Bash(playwright-cli snapshot:*)",
-      "Bash(playwright-cli hover:*)"
+      "Bash(playwright-cli hover:*)",
+      "Bash(node -e \"const pkg = require\\(''./node_modules/sanity/package.json''\\); console.log\\(''peerDeps:'', JSON.stringify\\(pkg.peerDependencies, null, 2\\)\\)\")",
+      "Bash(node -e \"const pkg = require\\(''./package.json''\\); console.log\\(''styled-components:'', pkg.dependencies[''styled-components'']\\)\")"
     ]
   }
 }
