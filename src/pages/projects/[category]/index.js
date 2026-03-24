@@ -2,7 +2,8 @@ import ProjectThumb from "@/components/ProjectThumb";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap/dist/gsap";
 import client from "../../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import Navigation from "@/components/Navigation";
@@ -16,8 +17,22 @@ import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } 
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
   let pageMobile = width < 648;
-  let darkMode = false;
+  let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
+  const ctx = useRef(gsap.context(() => {}));
+
+  useEffect(() => {
+    ctx.current = gsap.context(() => {
+      gsap.from('.galleryPage > *', {
+        autoAlpha: 0,
+        y: 30,
+        duration: 0.6,
+        stagger: 0.12,
+        ease: 'power2.out',
+      });
+    });
+    return () => ctx.current.revert();
+  }, []);
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
 
@@ -48,7 +63,7 @@ export default function CategoryGallery({ projects, category }) {
         )}
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
+        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary" : "bg-primary text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
             <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12 flex-1">
               <GalleryTitle h1 className="">

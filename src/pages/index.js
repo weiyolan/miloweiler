@@ -1,7 +1,8 @@
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap/dist/gsap";
 import client from "../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import Navigation from "@/components/Navigation";
@@ -26,7 +27,21 @@ const SLUG_TO_QUERY_KEY = {
 export default function Home({ categoryImages }) {
   let { width, locale } = useAppContext();
   let pageMobile = width < 648;
-  let darkMode = false;
+  let darkMode = true;
+  const ctx = useRef(gsap.context(() => {}));
+
+  useEffect(() => {
+    ctx.current = gsap.context(() => {
+      gsap.from('.category-tile', {
+        autoAlpha: 0,
+        y: 30,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+      });
+    });
+    return () => ctx.current.revert();
+  }, []);
 
   const firstImage = categoryImages?.[Object.keys(categoryImages).find((k) => categoryImages[k]?.mainImage)];
 
@@ -57,7 +72,7 @@ export default function Home({ categoryImages }) {
         )}
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-[#141414] text-primary" : "bg-primary text-darkPrimary"}`}>
+        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary" : "bg-primary text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
             <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12 flex-1`}>
               <GalleryTitle h1 className="">
@@ -75,7 +90,7 @@ export default function Home({ categoryImages }) {
 
                   return (
                     <Link href={`/projects/${slug}`} key={slug}>
-                      <div className="relative aspect-[3/2] overflow-hidden group">
+                      <div className="category-tile relative aspect-[3/2] overflow-hidden group">
                         <SanityImage
                           image={data.mainImage.image}
                           fill

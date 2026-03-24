@@ -5,6 +5,9 @@ import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import client from "../../../../lib/sanity";
+import Navigation from "@/components/Navigation";
+import NavigationMobile from "@/components/NavigationMobile";
+import LanguageToggle from "@/components/LanguageToggle";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
@@ -25,8 +28,10 @@ import { getCatFromSlug } from "@/utils/categories";
 
 export default function Project({ project, slug, slugs, category }) {
   // console.log(project)
-  let darkMode = false;
+  let darkMode = true;
   const { width, locale, height } = useAppContext();
+  let pageMobile = width < 648;
+
   const [carouselIsOpen, setCarouselIsOpen] = useState(false);
   let [descriptionOpen, setDescriptionOpen] = useState(false);
   let [animating, setAnimating] = useState(false);
@@ -243,7 +248,7 @@ export default function Project({ project, slug, slugs, category }) {
           onKeyDown={(e) => {
             e.key === "Escape" && closeDialog();
           }}
-          className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen flex flex-col  ${darkMode ? "text-primary bg-darkPrimary" : "text-darkPrimary bg-primary"}`}>
+          className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen flex flex-col  ${darkMode ? "text-primary bg-darkGrey" : "text-darkPrimary bg-primary"}`}>
           <PageWrapper darkMode={darkMode}>
             {/* <div className={`w-full h-full absolute`}> */}
             {/* <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
@@ -281,7 +286,7 @@ export default function Project({ project, slug, slugs, category }) {
                   ""
                 )}
               </div>
-              <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative ">
+              <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative mb-16">
                 {project?.minimalText == false && (
                   <div className="relative flex flex-col gap-4 md:basis-1/3  font-lora ">
                     {project?.date ? <Detail title={locale === "fr" ? "An" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
@@ -299,7 +304,7 @@ export default function Project({ project, slug, slugs, category }) {
                 )}
 
                 <p
-                  className={`text-base w-full ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>
+                  className={`text-base w-full max-w-3xl ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>
                   {project?.description?.[locale] || ""}
                 </p>
               </div>
@@ -353,7 +358,8 @@ export default function Project({ project, slug, slugs, category }) {
                 </Masonry>
               )}
             </Layout>
-            <nav className={`flex absolute w-full lg:w-full top-3  px-3 lg:px-6  lg:gap-12 justify-between `}>
+                       {pageMobile ? <NavigationMobile /> : <Navigation />}
+<nav className={`flex absolute w-full lg:w-full top-3  px-3 lg:px-6  lg:gap-12 justify-between `}>
               {/* =======================BACK TO GALLERY======================= */}
               <Link
                 title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
@@ -369,7 +375,7 @@ export default function Project({ project, slug, slugs, category }) {
                   />
                 </div>
               </Link>
-              <div className={`flex font-pop  font-normal gap-4`}>
+              <div className={`flex font-pop  font-normal gap-4 mr-auto`}>
                 {/* =======================PREVIOUS======================= */}
                 <Link
                   title={locale === "fr" ? "Précédent projet" : "Previous project"}
@@ -402,7 +408,7 @@ export default function Project({ project, slug, slugs, category }) {
                 </Link>
               </div>
               {/* =======================CONTACT ME======================= */}
-              <Link
+              {/* <Link
                 title={locale === "fr" ? "Contactez-moi" : "Contact me"}
                 className={` group flex items-center w-fit h-fit font-pop gap-2 font-normal transition-all  ml-auto `}
                 href="/contact">
@@ -415,8 +421,10 @@ export default function Project({ project, slug, slugs, category }) {
                   />
                 </div>
                 <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} rotate-180 transition-all `} />
-              </Link>
+              </Link> */}
             </nav>
+            {pageMobile ? <></> : <LanguageToggle />}
+
             <ProjectCarousel
               prevVisibility={prevVisibility}
               nextVisibility={nextVisibility}
@@ -428,7 +436,7 @@ export default function Project({ project, slug, slugs, category }) {
               open={carouselIsOpen}
               closeModal={() => closeDialog()}
             />
-            <Footer2 className={`relative`} noMotion noMargin />
+            <Footer2 className={`relative mt-24`} noMotion noMargin />
           </PageWrapper>
         </main>
       </ReactLenis>
@@ -496,6 +504,7 @@ function GridPhoto({ image, i, ...props }) {
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
   const { width } = useAppContext();
+  const { darkMode } = usePageContext();
   useEffect(() => {
     // function onLoad() {
     if (loaded) {
@@ -531,7 +540,7 @@ function GridPhoto({ image, i, ...props }) {
   // console.log(image.position.lg);
   return (
     <div
-      className={`relative opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] ${image?.border && "before:absolute before:bg-white before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2"}`}
+      className={`relative opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
       ref={fotoThumb}
       style={{
         width: "auto",

@@ -82,14 +82,7 @@ export default function Navigation() {
       gsap.to('.navButton', {
         autoAlpha: () => hiding ? 0 : 1,
         y: () => hiding ? -50 : 0,
-        // y: width < 1024 ? (visible ? -6 : 0) : 0,
-        // x:width<1024?0:(visible ?+20:0),
-        // scale:1,
-        // ease: 'power1.inout',
-        stagger: 0.1,
-        // stagger: {
-        //   each: 0.1,
-        // },
+        // stagger: 0.1,
         duration: 1,
         ease: 'expo.out',
         // duration: 0.5,
@@ -99,8 +92,8 @@ export default function Navigation() {
         y: () => hiding ? -80 : 0,
         duration: 1,
         ease: 'expo.out',
-        rotate: () => hiding ? '5deg' : 0,
-        delay: () => hiding ? 0.15 : 0,
+        // rotate: () => hiding ? '5deg' : 0,
+        // delay: () => hiding ? 0.15 : 0,
       })
     });
   }, [hiding]);
@@ -108,13 +101,13 @@ export default function Navigation() {
   return (
     // <FadeDiv className='w-full relative'>
     // <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full top-0 justify-center flex navBar  `} type={'leftRight'} amount={30}>
-    <div className={`fixed w-full top-0 justify-center flex navBar`}>
-      <div className={`${darkMode ? 'bg-primary/1' : 'bg-primary/10'} backdrop-blur-sm w-full h-[160%] bottom-0  absolute -translate-x-4 invisble opacity-0 navBackground`} />
+    <div className={`fixed w-full top-0 justify-center flex navBar  navBackground`}>
+      <div className={` w-full h-[160%] bottom-0  absolute -translate-x-4 bg-darkGrey invisble opacity-0 `} />
       <div className={`inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2  `}>
         <div className="relative group">
           <Button text='Portfolio' to='/' isPortfolio />
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <div className={`${darkMode ? 'bg-darkGrey/90' : 'bg-primary/90'} backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl`}>
+            <div className={`bg-darkGrey/90 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl`}>
               {ALL_CATEGORY_SLUGS.map(slug => (
                 <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/projects/${slug}`} />
               ))}

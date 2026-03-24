@@ -37,7 +37,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let { width, locale } = useAppContext();
   let { height: textHeight } = useDimensions(textRef);
   let pageMobile = width < 648;
-  let darkMode = false;
+  let darkMode = true;
   // console.log(contactFormData)
   // const router = useRouter();
   let tl = useRef();
@@ -214,7 +214,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       {/* duration:0.9,  */}
       <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
-        <main className={`min-h-screen flex flex-col ${darkMode ? "bg-[#141414] text-primary font-extralight" : " bg-primary  text-darkPrimary"} relative contact-page overflow-x-hidden`}>
+        <main className={`min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary font-extralight" : " bg-primary  text-darkPrimary"} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
             <Logo darkMode={darkMode} className="w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40" />
           </div>

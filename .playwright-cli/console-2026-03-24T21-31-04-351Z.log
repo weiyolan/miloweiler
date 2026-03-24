@@ -1,0 +1,5 @@
+[    1953ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[    1992ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[    6451ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/_next/static/webpack/c7c9a29a5086a7d2.webpack.hot-update.json:0
+[    7296ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[    7315ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99

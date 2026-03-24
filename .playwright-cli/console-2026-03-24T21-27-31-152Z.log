@@ -1,0 +1,6 @@
+[    2338ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[    2386ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[  171221ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[  181658ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[  181660ms] [WARNING] GSAP target .navBackground not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[  181661ms] [WARNING] GSAP target .navLineAbout Me not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
