@@ -1,0 +1,253 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - img [ref=e6]
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - img "An analog image of Milo, the photographer, taking a picture from a ladder." [ref=e60]
+        - generic [ref=e62]:
+          - heading "Get In Touch" [level=2] [ref=e64]
+          - heading "Hi! Nice to meet you." [level=3] [ref=e65]
+          - paragraph [ref=e66]: Yes that's me on the picture. Feel free to reach out for an offer or simply to connect. I'm open for ideas, possible partnerships and more!
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - heading "Details" [level=3] [ref=e69]
+              - paragraph [ref=e70]: "VAT: BE 0791 549 197"
+              - link "milo.weiler@gmail.com" [ref=e71] [cursor=pointer]:
+                - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+                - generic [ref=e72]:
+                  - text: milo.weiler@gmail.com
+                  - generic [ref=e73]:
+                    - img [ref=e75]
+                    - img [ref=e78]
+              - link "+32 476 50 62 09" [ref=e80] [cursor=pointer]:
+                - /url: tel:+32476506209
+                - generic [ref=e81]:
+                  - text: +32 476 50 62 09
+                  - generic [ref=e82]:
+                    - img [ref=e84]
+                    - img [ref=e87]
+              - generic [ref=e89]:
+                - link "Call phone number" [ref=e90] [cursor=pointer]:
+                  - /url: tel:+32476506209
+                  - img [ref=e92]
+                - link "Send WhatsApp Message" [ref=e94] [cursor=pointer]:
+                  - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+                  - img [ref=e96]
+                - link "Send an Email" [ref=e98] [cursor=pointer]:
+                  - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+                  - img [ref=e100]
+                - link "Download my portfolio" [ref=e102] [cursor=pointer]:
+                  - /url: https://cdn.sanity.io/files/erjr84ua/production/96d371140bbe7586bc00643cfd438a4f7c0fbbd6.pdf?dl=Milo_Weiler_Portfolio_Anno-2025-v4-Compressed.pdf
+                  - img [ref=e104]
+            - generic [ref=e106]:
+              - heading "Address" [level=3] [ref=e107]
+              - paragraph [ref=e108]: miloweiler.com Hof Savelkoul 40 2640 Mortsel Belgium
+      - generic [ref=e111]:
+        - heading "Trusted By" [level=2] [ref=e113]
+        - heading "Artists" [level=3] [ref=e114]
+        - generic [ref=e116]:
+          - link "Logo of the artist Angèle" [ref=e117] [cursor=pointer]:
+            - /url: https://angelevl.be/
+            - img "Logo of the artist Angèle" [ref=e118]
+          - link "Logo of the artist Tamino" [ref=e119] [cursor=pointer]:
+            - /url: https://www.taminomusic.com/
+            - img "Logo of the artist Tamino" [ref=e120]
+          - link "Logo of the artist Blackwave" [ref=e121] [cursor=pointer]:
+            - /url: https://www.blackwavedot.com
+            - img "Logo of the artist Blackwave" [ref=e122]
+          - link "Logo of the artist Wahwahsda" [ref=e123] [cursor=pointer]:
+            - /url: https://www.wahwahsda.be/
+            - img "Logo of the artist Wahwahsda" [ref=e124]
+        - heading "Companies" [level=3] [ref=e125]
+        - generic [ref=e127]:
+          - link "Logo of the company Hamlet" [ref=e128] [cursor=pointer]:
+            - /url: https://hamlet.tv/
+            - img "Logo of the company Hamlet" [ref=e129]
+          - link "Logo of the company VRT" [ref=e130] [cursor=pointer]:
+            - /url: https://www.vrt.be/
+            - img "Logo of the company VRT" [ref=e131]
+          - link "Logo of the company Savage Film" [ref=e132] [cursor=pointer]:
+            - /url: https://savagefilm.be/
+            - img "Logo of the company Savage Film" [ref=e133]
+          - link "Logo of the company PRPL" [ref=e134] [cursor=pointer]:
+            - /url: https://www.prpl.nl/
+            - img "Logo of the company PRPL" [ref=e135]
+          - link "Logo of the company catch23" [ref=e136] [cursor=pointer]:
+            - /url: https://catch23.be/
+            - img "Logo of the company catch23" [ref=e137]
+          - link "Logo of the company Eyeworks" [ref=e138] [cursor=pointer]:
+            - /url: https://www.eyeworksfilm.be/nl/
+            - img "Logo of the company Eyeworks" [ref=e139]
+          - link "Logo of the company Zorgbedrijf Antwerpen" [ref=e140] [cursor=pointer]:
+            - /url: https://www.zorgbedrijf.antwerpen.be/
+            - img "Logo of the company Zorgbedrijf Antwerpen" [ref=e141]
+      - generic [ref=e142]:
+        - generic [ref=e144]:
+          - heading "Ask An Offer" [level=2] [ref=e146]
+          - generic [ref=e148]:
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - generic [ref=e151] [cursor=pointer]: Name
+                - textbox "Name" [ref=e152]:
+                  - /placeholder: First name
+              - generic [ref=e153]:
+                - generic [ref=e154] [cursor=pointer]: Last Name
+                - textbox "Last Name" [ref=e155]:
+                  - /placeholder: Or family name
+            - generic [ref=e156]:
+              - generic [ref=e157] [cursor=pointer]: Email
+              - textbox "Email" [ref=e158]:
+                - /placeholder: example@ywdesign.co
+            - generic [ref=e159]:
+              - generic [ref=e160] [cursor=pointer]: Message
+              - textbox "Message" [ref=e161]:
+                - /placeholder: "To begin, just start typing. For example: \nHi Milo, \nI need a photographer for a project. \nCould we meet up to talk about it? \nKind regards"
+            - generic [ref=e162]:
+              - generic [ref=e163] [cursor=pointer]: Subject
+              - textbox "Subject" [ref=e164]:
+                - /placeholder: Question
+            - button "Send" [ref=e166] [cursor=pointer]
+        - img "Milo, the website photographer, looking in the sky." [ref=e169]
+      - generic [ref=e170]:
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - heading "High Quality Prints" [level=2] [ref=e174]
+            - generic [ref=e175]: Since I aim towards the highest quality in both printing technique and the fine-art itself, my printing service is still a work in progress. Soon to be discovered. Custom orders can be done already by contacting me.
+          - heading "Nice to know" [level=3] [ref=e176]
+          - list [ref=e177]:
+            - listitem [ref=e178]: Fine Art Prints
+            - listitem [ref=e179]: Custom Order Only
+            - listitem [ref=e180]: Fine-art library not publicly available
+            - listitem [ref=e181]: Contact me for more details
+          - generic [ref=e182]:
+            - link "Call phone number" [ref=e183] [cursor=pointer]:
+              - /url: tel:+32476506209
+              - img [ref=e185]
+            - link "Send WhatsApp Message" [ref=e187] [cursor=pointer]:
+              - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+              - img [ref=e189]
+            - link "Send an Email" [ref=e191] [cursor=pointer]:
+              - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+              - img [ref=e193]
+            - link "Download my portfolio" [ref=e195] [cursor=pointer]:
+              - /url: /undefined
+              - img [ref=e197]
+        - generic [ref=e200]:
+          - img "beautiful modern interior with a wall decorated using beautiful photographs printed out." [ref=e201]
+          - img "beautiful modern interior with a wall decorated using beautiful photgraphs printed out." [ref=e202]
+      - generic [ref=e205]:
+        - generic [ref=e206]:
+          - heading "Portfolio" [level=2] [ref=e207]
+          - generic [ref=e208]: Discover the power of visual storytelling through my lens. Download my portfolio now and immerse yourself in a world of emotion, creativity, and imagination.
+        - link "download" [ref=e209] [cursor=pointer]:
+          - /url: https://cdn.sanity.io/files/erjr84ua/production/96d371140bbe7586bc00643cfd438a4f7c0fbbd6.pdf?dl=Milo_Weiler_Portfolio_Anno-2025-v4-Compressed.pdf
+          - generic [ref=e210]:
+            - text: download
+            - generic [ref=e211]:
+              - img [ref=e213]
+              - img [ref=e216]
+        - generic [ref=e218]:
+          - img "Single page out of Milo Weiler's portfolio album showing beautiful artistic photographs ain vibrant color." [ref=e219]
+          - img "Single page out of Milo Weiler's portfolio album showing black and white shots from a music recording from the band Wahwahsda." [ref=e220]
+      - generic [ref=e223]:
+        - heading "Get Inspired?" [level=2] [ref=e225]
+        - link "Contact me" [ref=e226] [cursor=pointer]:
+          - /url: /contact#contactSection
+          - generic [ref=e227]:
+            - text: Contact me
+            - generic [ref=e228]:
+              - img [ref=e230]
+              - img [ref=e233]
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - heading "Inspiring Life's Beauty" [level=3] [ref=e237]
+            - paragraph [ref=e238]: We envision a world where photography is not just a means of capturing a moment, but a way of experiencing life's beauty. Through our lens, we want to inspire people to see the world in a new light, appreciate the little things in life, and cherish the moments that matter most. We believe that photography has the power to connect people, tell stories, and leave a lasting impact on the world. As we continue on our journey, we aim to capture life's beauty in all its forms and share it with the world.
+            - link "Go to homepage" [ref=e239] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e240]:
+                - text: Go to homepage
+                - generic [ref=e241]:
+                  - img [ref=e243]
+                  - img [ref=e246]
+          - generic [ref=e248]:
+            - heading "A Journey of Discovery" [level=3] [ref=e249]
+            - paragraph [ref=e250]: Our mission is to capture life's precious moments in a unique and personalized way. We believe that everyone has a story to tell, and through the art of photography, we aim to tell those stories with creativity and authenticity. Whether it's your wedding day, your craft, or your product, we strive to create high-quality images that capture the essence of your vision. Our goal is to enrich your life through our pictures and provide you with memories that will last a lifetime.
+            - link "Visit my gallery" [ref=e251] [cursor=pointer]:
+              - /url: /commissioned
+              - generic [ref=e252]:
+                - text: Visit my gallery
+                - generic [ref=e253]:
+                  - img [ref=e255]
+                  - img [ref=e258]
+    - generic [ref=e261]:
+      - generic [ref=e262]:
+        - generic [ref=e263]:
+          - heading "Navigate" [level=2] [ref=e265]
+          - list [ref=e266]:
+            - listitem [ref=e267]:
+              - link "Home" [ref=e268] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e269]:
+              - link "Commissioned" [ref=e270] [cursor=pointer]:
+                - /url: /commissioned
+            - listitem [ref=e271]:
+              - link "Personal" [ref=e272] [cursor=pointer]:
+                - /url: /personal
+            - listitem [ref=e273]:
+              - link "Contact" [ref=e274] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e275]:
+              - link "Printing" [ref=e276] [cursor=pointer]:
+                - /url: /contact#printing
+        - generic [ref=e277]:
+          - heading "Socials" [level=2] [ref=e279]
+          - list [ref=e280]:
+            - listitem [ref=e281]:
+              - link "Instagram" [ref=e282] [cursor=pointer]:
+                - /url: https://www.instagram.com/miloweiler/
+            - listitem [ref=e283]:
+              - link "Unsplash" [ref=e284] [cursor=pointer]:
+                - /url: https://unsplash.com/@miloweiler
+            - listitem [ref=e285]:
+              - link "LinkedIn" [ref=e286] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/mwphotography
+        - generic [ref=e287]:
+          - heading "Contact" [level=2] [ref=e289]
+          - list [ref=e290]:
+            - listitem [ref=e291]:
+              - link "Call" [ref=e292] [cursor=pointer]:
+                - /url: tel:+32476506209
+            - listitem [ref=e293]:
+              - link "WhatsApp" [ref=e294] [cursor=pointer]:
+                - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+            - listitem [ref=e295]:
+              - link "contact@miloweiler.com" [ref=e296] [cursor=pointer]:
+                - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+        - generic [ref=e297]:
+          - heading "Legal" [level=2] [ref=e299]
+          - list [ref=e300]:
+            - listitem [ref=e301]:
+              - link "Legal Notice" [ref=e302] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e303]:
+              - link "Terms of Use" [ref=e304] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e305]:
+              - link "Cookie Notice" [ref=e306] [cursor=pointer]:
+                - /url: /aboutme
+      - text: 2024 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+      - link "ywdesign.co" [ref=e307] [cursor=pointer]:
+        - /url: https://www.ywdesign.co
+    - generic [ref=e310]:
+      - link "Home" [ref=e311] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e312]: Home
+      - link "Contact" [ref=e314] [cursor=pointer]:
+        - /url: /contact
+        - generic [ref=e315]: Contact
+    - generic [ref=e317] [cursor=pointer]:
+      - img [ref=e318]
+      - link "FR" [ref=e321]:
+        - /url: /fr/contact
+        - text: FR
+  - alert [ref=e323]

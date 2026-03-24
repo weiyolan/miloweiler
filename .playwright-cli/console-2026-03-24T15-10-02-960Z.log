@@ -1,0 +1,14 @@
+Total messages: 11 (Errors: 0, Warnings: 9)
+
+[INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///./node_modules/react-dom/cjs/react-dom.development.js:29834
+[LOG] [HMR] connected @ webpack-internal:///./node_modules/next/dist/client/dev/error-overlay/websocket.js:45
+[WARNING] GSAP target .titleText1 not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth1Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth2Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth3Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .titleText1 not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth1Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth2Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] GSAP target .depth3Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[WARNING] Image with src "/images/mainpageStarsCut.jpg" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ webpack-internal:///./node_modules/next/dist/shared/lib/utils/warn-once.js:15

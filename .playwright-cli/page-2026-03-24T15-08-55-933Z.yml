@@ -1,0 +1,45 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - img "beautiful background image" [ref=e25]
+    - img "beautiful background image" [ref=e29]
+    - img "beautiful background image" [ref=e33]
+    - img "beautiful background image" [ref=e37]
+    - img "beautiful background image" [ref=e41]
+    - img "beautiful background image" [ref=e45]
+    - img "beautiful background image" [ref=e49]
+    - img "Beautiful picture shot by Milo Weiler." [ref=e54]
+    - img [ref=e56]
+    - img [ref=e182]
+    - img [ref=e200]
+    - img [ref=e208]
+    - generic [ref=e261]:
+      - img [ref=e262]
+      - img [ref=e266]
+    - generic [ref=e280]:
+      - link [ref=e281] [cursor=pointer]:
+        - /url: /commissioned
+      - link [ref=e282] [cursor=pointer]:
+        - /url: /contact
+      - link [ref=e283] [cursor=pointer]:
+        - /url: /contact#printing
+    - img [ref=e284]
+    - link [ref=e303] [cursor=pointer]:
+      - /url: /contact
+    - img [ref=e306]
+    - link [ref=e314] [cursor=pointer]:
+      - /url: /contact#printing
+    - link [ref=e318] [cursor=pointer]:
+      - /url: /contact
+    - link [ref=e323] [cursor=pointer]:
+      - /url: /contact
+    - paragraph [ref=e326]: Scroll down and I'll carry you through my photography journey, bringing you through four magical chapters.
+    - img [ref=e328]
+    - link "Home" [ref=e341] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e342]: Home
+    - generic [ref=e344] [cursor=pointer]:
+      - img [ref=e345]
+      - link "FR" [ref=e348]:
+        - /url: /fr
+        - text: FR
+  - alert [ref=e350]

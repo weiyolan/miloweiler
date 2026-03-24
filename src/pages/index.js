@@ -14,7 +14,6 @@ import StoryTitle from "@/components/line/StoryTitle";
 import Image from "next/image";
 import PageDescription from "@/components/line/PageDescription";
 import Page1Photos from "@/components/line/Page1Photos";
-// import ScrollVisual from '@/components/line/ScrollVisual'
 import BackgroundSplit from "@/components/BackgroundSplit";
 import Page2Photos from "@/components/line/Page2Photos";
 import Page3Photos from "@/components/line/Page3Photos";
@@ -31,25 +30,20 @@ import PageDescription5 from "@/components/line/PageDescription5";
 import Page5Milo from "@/components/line/Page5Milo";
 // import { ScrollDown } from '@/components/ScrollDown'
 import NavigationMobile from "@/components/NavigationMobile";
-// import MobileScrollbar from '@/components/MobileScrollbar'
 import Page0Logo from "@/components/line/Page0Logo";
 import Page1Moon from "@/components/line/Page1Moon";
 import Page2Waves from "@/components/line/Page2Waves";
 import Page3Animals from "@/components/line/Page3Animals";
-// import ScrollVisual from '@/components/line/ScrollVisual'
 import FadeDiv from "@/components/FadeDiv";
 // import Line from '@/components/Line'
 import ScrollDown from "@/components/ScrollDown";
 import client from "../../lib/sanity";
 import PageIndicator from "@/components/PageIndicator";
 // import useMinimizeScroll from "@/utils/useMinimizeScroll";
-// import ScrollVisual from '@/components/line/ScrollVisual'
-// import LanguageToggle from '@/components/LanguageToggle'
 import BackgroundMain from "@/components/BackgroundMain";
 const SplashScreen = dynamic(() => import("@/components/SplashScreen"), { ssr: false });
 import LanguageToggle from "@/components/LanguageToggle";
 import StoryTitle2 from "@/components/line/StoryTitle2";
-// import useWindowResize from '@/utils/useWindowResize'
 
 export default function Home({ projects, sectionInfo, introImages }) {
   const {

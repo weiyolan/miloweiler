@@ -12,7 +12,6 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { Observer } from "gsap/dist/Observer";
-import { usePreserveScroll } from "@/utils/usePreserveScroll";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer);
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react"
 // import { useDimensions } from "@/utils/useDimensions"
 import { useAppContext } from "@utils/appContext.js"
 // import { Path, TextAnimate } from 'garbage/pathUtils'
-// import { SVGWrapper } from "./contextSVG"
 // import { usePageContext } from "@utils/pageContext"
 // import { PageWrapper } from "@context/pageContext"
 // import AnimateSVG from "../../../garbage/AnimateSVG"

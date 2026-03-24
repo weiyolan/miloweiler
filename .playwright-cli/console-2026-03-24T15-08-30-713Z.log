@@ -1,0 +1,10 @@
+[   25119ms] [WARNING] GSAP target .titleText1 not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25123ms] [WARNING] GSAP target .depth1Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25123ms] [WARNING] GSAP target .depth2Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25123ms] [WARNING] GSAP target .depth3Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25425ms] [WARNING] GSAP target .titleText1 not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25426ms] [WARNING] GSAP target .depth1Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25427ms] [WARNING] GSAP target .depth2Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25427ms] [WARNING] GSAP target .depth3Title not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[   25620ms] [WARNING] Image with src "/images/mainpageStarsCut.jpg" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ webpack-internal:///./node_modules/next/dist/shared/lib/utils/warn-once.js:15

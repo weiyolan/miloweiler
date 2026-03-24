@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useAppContext } from "@utils/appContext.js"
-import { useSVGContext } from "@/components/line/contextSVG"
 import { usePageContext } from "@utils/pageContext"
 
 export function PathGSAPStandalone(props) {

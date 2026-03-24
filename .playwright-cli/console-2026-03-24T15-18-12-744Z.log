@@ -1,0 +1,10 @@
+Total messages: 8 (Errors: 0, Warnings: 2)
+
+[LOG] [Fast Refresh] rebuilding @ webpack-internal:///./node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:198
+[LOG] [Fast Refresh] done in 1497ms @ webpack-internal:///./node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js:167
+[INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ webpack-internal:///./node_modules/react-dom/cjs/react-dom.development.js:29834
+[LOG] [HMR] connected @ webpack-internal:///./node_modules/next/dist/client/dev/error-overlay/websocket.js:45
+[LOG] Lenis r @ webpack-internal:///./node_modules/@studio-freight/react-lenis/dist/react-lenis.modern.mjs:11
+[WARNING] GSAP target .project-pictures not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99
+[LOG] Lenis r @ webpack-internal:///./node_modules/@studio-freight/react-lenis/dist/react-lenis.modern.mjs:11
+[WARNING] GSAP target .project-pictures not found. https://greensock.com @ webpack-internal:///./node_modules/gsap/dist/gsap.js:99

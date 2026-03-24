@@ -1,0 +1,33 @@
+Total messages: 5 (Errors: 1, Warnings: 0)
+Returning 1 messages for level "error"
+
+[ERROR] Warning: Received `%s` for a non-boolean attribute `%s`.
+
+If you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.
+
+If you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.%s false print print false print print print 
+    at img
+    at eval (webpack-internal:///./node_modules/next/dist/client/image-component.js:130:11)
+    at eval (webpack-internal:///./node_modules/next/dist/client/image-component.js:239:47)
+    at div
+    at SanityImage (webpack-internal:///./src/components/SanityImage.jsx:18:11)
+    at div
+    at div
+    at div
+    at ProjectThumb (webpack-internal:///./src/components/ProjectThumb.jsx:32:11)
+    at div
+    at div
+    at Layout (webpack-internal:///./src/components/Layout.jsx:10:11)
+    at PageWrapper (webpack-internal:///./src/utils/pageContext.js:14:11)
+    at main
+    at eval (webpack-internal:///./node_modules/@studio-freight/react-lenis/dist/react-lenis.modern.mjs:12:713)
+    at Gallery (webpack-internal:///./src/pages/commissioned/index.js:48:11)
+    at div
+    at AppWrapper (webpack-internal:///./src/utils/appContext.js:22:11)
+    at App (webpack-internal:///./src/pages/_app.js:53:11)
+    at PathnameContextProviderAdapter (webpack-internal:///./node_modules/next/dist/shared/lib/router/adapters.js:80:11)
+    at ErrorBoundary (webpack-internal:///./node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:26:6864)
+    at ReactDevOverlay (webpack-internal:///./node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:26:9247)
+    at Container (webpack-internal:///./node_modules/next/dist/client/index.js:80:1)
+    at AppContainer (webpack-internal:///./node_modules/next/dist/client/index.js:213:11)
+    at Root (webpack-internal:///./node_modules/next/dist/client/index.js:437:11) @ webpack-internal:///./node_modules/next/dist/compiled/@next/react-dev-overlay/dist/client.js:25
