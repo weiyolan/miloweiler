@@ -3,9 +3,10 @@ import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { Poppins, Lora, Work_Sans, Roboto_Mono, Inter, Montserrat } from "next/font/google";
-import { AppWrapper } from "@utils/appContext";
-// import Script from 'next/script';
+import { AppWrapper, useAppContext } from "@utils/appContext";
 import { Toaster } from "react-hot-toast";
+import Navigation from "@/components/Navigation";
+import NavigationMobile from "@/components/NavigationMobile";
 
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -103,9 +104,15 @@ export default function App({ Component, pageProps }) {
       </Head>
       {/* ${poppins.variable} */}
       <AppWrapper scrolled={scrolled} className={`${montserrat.variable} ${poppins.variable} font-pop relative w-full min-h-screen`}>
+        <NavRenderer />
         <Component {...pageProps} />
         <Toaster />
       </AppWrapper>
     </>
   );
+}
+
+function NavRenderer() {
+  const { isMobile } = useAppContext()
+  return isMobile ? <NavigationMobile /> : <Navigation />
 }

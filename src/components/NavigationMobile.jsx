@@ -1,173 +1,143 @@
-import { usePageContext } from '@/utils/pageContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap/dist/gsap'
-import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import NavToggle from './NavToggle'
-import LanguageToggle from './LanguageToggle'
+import { useAppContext } from '@/utils/appContext'
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 
 gsap.registerPlugin(Observer)
 
 export default function NavigationMobile() {
-  let { darkMode, locale } = usePageContext()
-  let [hiding, setHiding] = useState(true) //removed bar onLoad and then animate in.
-  const ctx = useRef(gsap.context(() => { }));
+  const { locale, navTheme } = useAppContext()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [toggleVisible, setToggleVisible] = useState(true)
+  const menuRef = useRef(null)
+  const itemsRef = useRef([])
+  const toggleRef = useRef(null)
+  const scrollTimerRef = useRef(null)
+  const router = useRouter()
+  const isDark = navTheme === 'dark'
 
+  // Close menu on route change
   useEffect(() => {
-    // setHiding(false)
-    return () => { ctx.current.revert() };
-  }, []);
+    const handleRouteChange = () => setMenuOpen(false)
+    router.events.on('routeChangeStart', handleRouteChange)
+    return () => router.events.off('routeChangeStart', handleRouteChange)
+  }, [router])
 
-  // =================================OPEN/CLOSE=================================
+  // Scroll lock when menu open
   useEffect(() => {
-    let observer1 = Observer.create({
-      target: ".navToggle",        // can be any element (selector text is fine)
-      ignore: [window],
-      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  // Hide hamburger while scrolling, show when stopped
+  useEffect(() => {
+    if (menuOpen) return
+    const observer = Observer.create({
+      target: window,
+      type: 'scroll',
       preventDefault: false,
-      onClick: (e) => {
-        setHiding(!hiding)
+      onChangeY: () => {
+        setToggleVisible(false)
+        clearTimeout(scrollTimerRef.current)
+        scrollTimerRef.current = setTimeout(() => setToggleVisible(true), 300)
       },
     })
-    let observer2 = Observer.create({
-      target: ".navButtons",        // can be any element (selector text is fine)
-      ignore: [window],
-      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
-      preventDefault: false,
-      onClick: (e) => {
-        setHiding(!hiding)
-      },
-    })
-    let observer3 = Observer.create({
-      target: ".navBackground",        // can be any element (selector text is fine)
-      ignore: [window],
-      type: "touch",    // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
-      preventDefault: false,
-      onClick: (e) => {
-        setHiding(!hiding)
-      },
-    })
-    return () => { observer1.disable(); observer2.disable(); observer3.disable() }
-  }, [hiding])
+    return () => {
+      observer.disable()
+      clearTimeout(scrollTimerRef.current)
+    }
+  }, [menuOpen])
 
+  // Animate hamburger visibility
   useEffect(() => {
-    // console.log(visible)
-    ctx.current.add(() => {
-      gsap.to(['.navButton'], {
-        autoAlpha: () => hiding ? 0 : 1,
-        y: () => hiding ? -20 : 0,
-        x: () => hiding ? 10 : 0,
-        stagger: 0.1,
-        duration: 1,
-        ease: 'expo.out',
-      });
-      gsap.to(['.navButtons'], {
-        autoAlpha: () => hiding ? 0 : 1,
-        duration: 0.5,
-        ease: 'power2.out',
-        delay: () => hiding ? 0.2 : 0,
-      });
-      gsap.to('.navBackground', {
-        y: () => hiding ? +50 : 0,
-        yPercent: () => hiding ? -100 : 0,
-        x: () => hiding ? -50 : 0,
-        xPercent: () => hiding ? 100 : 0,
-        duration: 1,
-        ease: 'expo.out',
-        delay: () => hiding ? 0.15 : 0,
+    if (menuOpen || !toggleRef.current) return
+    gsap.to(toggleRef.current, {
+      autoAlpha: toggleVisible ? 1 : 0,
+      duration: 0.2,
+      ease: 'power2.out',
+    })
+  }, [toggleVisible, menuOpen])
+
+  // Menu open/close animation
+  useEffect(() => {
+    if (!menuRef.current) return
+
+    if (menuOpen) {
+      gsap.to(menuRef.current, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' })
+      // Staggered fade-in for items
+      itemsRef.current.forEach((el, i) => {
+        if (!el) return
+        gsap.fromTo(el,
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.3, delay: 0.05 * i, ease: 'power2.out' }
+        )
       })
-    });
-  }, [hiding]);
+    } else {
+      gsap.to(menuRef.current, { autoAlpha: 0, duration: 0.2, ease: 'power2.in' })
+    }
+  }, [menuOpen])
+
+  const setItemRef = (i) => (el) => { itemsRef.current[i] = el }
+  const { pathname } = router
+  let itemIndex = 0
 
   return (
-    <div className={`navBar fixed w-full h-0 top-0 `}>
-      <div className={`navBackground ${darkMode ? 'bg-[#FFEAD6c]/1' : 'bg-[#FFEAD6]/20'} backdrop-blur-sm rounded-bl-3xl w-screen h-screen top-0 translate-x-full -translate-y-full absolute `} />
-      <div className={`navButtons flex flex-col w-[screen] h-[calc(100vh-50px)] relative items-end gap-5 mt-[50px] px-6 sm:px-4 py-2  `}>
-        <PortfolioExpandable locale={locale} />
-        <Button text={locale === 'fr' ? 'À Propos' : 'About Me'} to='/about' />
-        <Button text='Contact' to='/contact' />
-        <div className={`relative w-fit h-fit  text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}>
-          <LanguageToggle />
-        </div>
-
+    <div className="fixed w-full top-0 z-50">
+      {/* Hamburger toggle */}
+      <div ref={toggleRef} className="absolute top-0 right-0 z-50">
+        <NavToggle open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
       </div>
-      <NavToggle className={`navToggle `} open={!hiding} />
-    </div>
-  )
-}
 
-function PortfolioExpandable({ locale }) {
-  let { darkMode } = usePageContext()
-  const { pathname } = useRouter()
-  let [expanded, setExpanded] = useState(false)
-  let selected = pathname === '/' || pathname.startsWith('/projects')
+      {/* Fullscreen menu overlay */}
+      <div
+        ref={menuRef}
+        className={`fixed inset-0 ${isDark ? 'bg-darkGrey/95' : 'bg-primary/95'} backdrop-blur-sm invisible opacity-0`}
+      >
+        <div className="flex flex-col items-end gap-4 mt-[80px] px-8 py-4">
+          {/* Portfolio — main link */}
+          <Link
+            ref={setItemRef(itemIndex++)}
+            href="/"
+            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
+          >
+            Portfolio
+          </Link>
 
-  return (
-    <div className="flex flex-col items-end gap-2">
-      <div className={`navButton relative opacity-0 visible text-3xl md:text-xl lg:text-2xl text-center font-lora cursor-pointer ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
-        <div className="w-fit ml-auto flex items-center gap-2">
-          <Link href="/">Portfolio</Link>
-          <span onClick={() => setExpanded(!expanded)}>{expanded ? '−' : '+'}</span>
-          {selected && <Line className={`mx-auto ${darkMode ? 'border-primary' : 'border-darkPrimary'} w-full absolute bottom-0 left-0`} />}
-        </div>
-      </div>
-      {expanded && (
-        <div className="flex flex-col items-end gap-2 pr-4">
+          {/* Subcategories — always visible, indented */}
           {ALL_CATEGORY_SLUGS.map(slug => (
-            <Link key={slug} href={`/projects/${slug}`} className={`navButton opacity-0 visible text-xl font-lora ${darkMode ? 'text-primary' : 'text-darkPrimary'} ${pathname === `/projects/${slug}` ? 'font-bold' : ''}`}>
+            <Link
+              key={slug}
+              ref={setItemRef(itemIndex++)}
+              href={`/projects/${slug}`}
+              className={`text-xl font-pop pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${pathname === `/projects/${slug}` ? 'font-bold' : 'font-normal'}`}
+            >
               {CATEGORY_LABELS[slug][locale]}
             </Link>
           ))}
+
+          {/* About */}
+          <Link
+            ref={setItemRef(itemIndex++)}
+            href="/about"
+            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
+          >
+            {locale === 'fr' ? 'À Propos' : 'About Me'}
+          </Link>
+
+          {/* Contact */}
+          <Link
+            ref={setItemRef(itemIndex++)}
+            href="/contact"
+            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
+          >
+            Contact
+          </Link>
         </div>
-      )}
-    </div>
-  )
-}
-
-function Button({ text, to }) {
-  let { darkMode } = usePageContext()
-  // darkMode=false;
-  const { pathname } = useRouter()
-  let [hover, setHover] = useState(false)
-  let [selected, setSelected] = useState(false)
-  const ctx = useRef(gsap.context(() => { }));
-
-  useEffect(() => {
-    // setLoaded(true)
-    return () => { ctx.current.revert() };
-  }, []);
-
-  useEffect(() => {
-    setSelected(pathname === to)
-  }, [pathname])
-
-  useEffect(() => {
-    ctx.current.add(() => {
-      gsap.to(`.navButton${text}`, {
-        scale: (hover) ? 1.1 : 1,
-        duration: 0.2,
-      })
-      gsap.to(`.navLine${text}`, {
-        scaleX: (hover || selected) ? 1 : 0,
-        borderColor: (hover || selected) ? (darkMode ? '#FFF5EA' : '#000000') : 'transparent',
-        duration: 0.2,
-      })
-    })
-  }, [hover, selected])
-
-  return (
-    <Link onMouseEnter={() => setHover(true)} onMouseLeave={() => { setHover(false) }} className={`navButton navButton${text}  relative opacity-0 visible text-3xl md:text-xl lg:text-2xl  text-center font-lora  ${darkMode ? 'text-primary' : 'text-darkPrimary '} `}
-      href={`${to}`}
-    // onClick={() => handleClick(to)}
-    // title={`Go to the ${text} page`}
-    >
-      <div className={`w-fit ml-auto`}>
-        {text}
-        <Line className={`mx-auto navLine${text} ${darkMode ? 'border-primary' : 'border-darkPrimary'} w-full origin-left scale-x-0`} />
       </div>
-    </Link>
+    </div>
   )
 }

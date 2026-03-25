@@ -6,17 +6,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap/dist/gsap";
 import client from "../../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
-import Navigation from "@/components/Navigation";
 import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
-import NavigationMobile from "@/components/NavigationMobile";
 import Layout from "@/components/Layout";
-import LanguageToggle from "@/components/LanguageToggle";
 import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } from "@/utils/categories";
 
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
-  let pageMobile = width < 648;
   let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
   const ctx = useRef(gsap.context(() => {}));
@@ -25,7 +21,7 @@ export default function CategoryGallery({ projects, category }) {
     ctx.current = gsap.context(() => {
       gsap.from('.galleryPage > *', {
         autoAlpha: 0,
-        y: 30,
+        // y: 30,
         duration: 0.6,
         stagger: 0.12,
         ease: 'power2.out',
@@ -87,9 +83,6 @@ export default function CategoryGallery({ projects, category }) {
             </Layout>
 
             <Footer2 className="relative" noMotion noMargin />
-
-            {pageMobile ? <NavigationMobile /> : <Navigation />}
-            {pageMobile ? <></> : <LanguageToggle />}
           </PageWrapper>
         </main>
       </ReactLenis>

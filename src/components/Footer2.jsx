@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link"
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // import useWindowSize from "@utils/useWindowSize";
 
@@ -40,14 +41,14 @@ const contactList = {
 
 const financialInfo = {
   en: [
-    '2024 MiloWeiler, Inc. All rights reserved.',
+    '2026 MiloWeiler, Inc. All rights reserved.',
     // 'VAT: BE0794.586.584',
     // 'legal address: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgium',
     // 'tel: +33638565302', 
     // 'email: contact@ywdesign.co', 
   ],
   fr: [
-    '2024 MiloWeiler, Inc. Tous droits réservés.',
+    '2026 MiloWeiler, Inc. Tous droits réservés.',
     // 'TVA: BE0794.586.584',
     // 'adresse juridique: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgique',
     // 'tel: +33638565302', 
@@ -98,7 +99,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
 
   return (
-    <Layout style={{ ...style }} className={`relative bg-darkGrey   ${noMargin ? '' : 'mt-4 md:mt-10'}`}>
+    <Layout style={{ ...style }} className={`relative bg-darkGrey  ${noMargin ? '' : 'mt-4 md:mt-24'}`}>
       <section
         className={`relative lg:px-16 xl:px-24  max-w-7xl pt-2 px-4 pb-2 lg:pt-4 w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row items-center sm:items-start justify-between max-w-6xl mx-auto'>
@@ -116,6 +117,9 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
         </div>
 
         <div role='presentation' className='w-full text-xs text-center mt-2 text-primary font-thin'>
+          <div className="flex justify-center items-center gap-3 mb-1">
+            <LanguageSwitch />
+          </div>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
             {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '∘ '}${val}`}</li>) })}
             <li className="pl-1 ">
@@ -168,6 +172,29 @@ function List({ list, mobile }) {
       })}
     </ul>
 
+  )
+}
+
+function LanguageSwitch() {
+  const router = useRouter()
+  const { locales, locale: activeLocale, pathname, query, asPath } = router
+
+  return (
+    <div className="flex items-center gap-2 font-pop text-sm text-primary">
+      {(locales || []).map((loc, i) => (
+        <span key={loc} className="flex items-center gap-2">
+          {i > 0 && <span className="text-primary/40">|</span>}
+          <Link
+            href={{ pathname, query }}
+            as={asPath}
+            locale={loc}
+            className={`transition-opacity duration-200 hover:opacity-100 ${loc === activeLocale ? 'font-semibold opacity-100' : 'font-extralight opacity-60'}`}
+          >
+            {loc.toUpperCase()}
+          </Link>
+        </span>
+      ))}
+    </div>
   )
 }
 

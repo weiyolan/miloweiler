@@ -5,11 +5,8 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap/dist/gsap";
 import client from "../../lib/sanity";
 import Footer2 from "@/components/Footer2";
-import Navigation from "@/components/Navigation";
 import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
-import NavigationMobile from "@/components/NavigationMobile";
 import Layout from "@/components/Layout";
-import LanguageToggle from "@/components/LanguageToggle";
 import GalleryTitle from "@/components/GalleryTitle";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_MAP } from "@/utils/categories";
 import SanityImage from "@/components/SanityImage";
@@ -26,7 +23,6 @@ const SLUG_TO_QUERY_KEY = {
 
 export default function Home({ categoryImages }) {
   let { width, locale } = useAppContext();
-  let pageMobile = width < 648;
   let darkMode = true;
   const ctx = useRef(gsap.context(() => {}));
 
@@ -113,9 +109,6 @@ export default function Home({ categoryImages }) {
             </Layout>
 
             <Footer2 className={`relative`} noMotion noMargin />
-
-            {pageMobile ? <NavigationMobile /> : <Navigation />}
-            {pageMobile ? <></> : <LanguageToggle />}
           </PageWrapper>
         </main>
       </ReactLenis>

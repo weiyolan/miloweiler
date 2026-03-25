@@ -20,10 +20,7 @@ import Logo from '@/components/Logo'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
 import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
-import Navigation from '@/components/Navigation'
 import Footer2 from '@/components/Footer2'
-import NavigationMobile from '@/components/NavigationMobile'
-import LanguageToggle from '@/components/LanguageToggle'
 // import { useRouter } from 'next/router';
 
 
@@ -304,10 +301,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               </LayoutSection>
             </Layout>
             {/* <Footer /> */}
-            <Footer2 className={`relative mt-8`} noMotion noMargin />
+            <Footer2 className={`relative `} noMotion />
 
-            {pageMobile ? <NavigationMobile /> : <Navigation />}
-            {pageMobile ? <></> : <LanguageToggle />}
           </PageWrapper>
         </main>
       </ReactLenis>

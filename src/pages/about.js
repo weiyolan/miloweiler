@@ -23,13 +23,11 @@ import Page3Photos from "@/components/line/Page3Photos";
 // import Story2Waves from '@/components/line/Story2Waves'
 // import Story3Animals from '@/components/line/Story3Animals'
 import PageDescription4 from "@/components/line/PageDescription4";
-import Navigation from "@/components/Navigation";
 import Page3KakScrub from "@/components/line/Page3KakScrub";
 import Page4Kakje from "@/components/line/Page4Kakje";
 import PageDescription5 from "@/components/line/PageDescription5";
 import Page5Milo from "@/components/line/Page5Milo";
 // import { ScrollDown } from '@/components/ScrollDown'
-import NavigationMobile from "@/components/NavigationMobile";
 import Page0Logo from "@/components/line/Page0Logo";
 import Page1Moon from "@/components/line/Page1Moon";
 import Page2Waves from "@/components/line/Page2Waves";
@@ -42,7 +40,6 @@ import PageIndicator from "@/components/PageIndicator";
 // import useMinimizeScroll from "@/utils/useMinimizeScroll";
 import BackgroundMain from "@/components/BackgroundMain";
 const SplashScreen = dynamic(() => import("@/components/SplashScreen"), { ssr: false });
-import LanguageToggle from "@/components/LanguageToggle";
 import StoryTitle2 from "@/components/line/StoryTitle2";
 
 export default function Home({ projects, sectionInfo, introImages }) {
@@ -1850,8 +1847,6 @@ overscroll-behavior: none;
           )}
           {/* <PageIndicator className={`fixed top-1/2 right-full md:right-2 translate-x-full md:translate-x-0 -translate-y-1/2 md:top-full md:-translate-y-[80%]`} /> */}
 
-          {mobile ? <NavigationMobile /> : <Navigation />}
-          {mobile ? <></> : <LanguageToggle />}
         </PageWrapper>
       </main>
       {/* </ReactLenis> */}

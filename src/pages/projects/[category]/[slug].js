@@ -5,9 +5,6 @@ import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import client from "../../../../lib/sanity";
-import Navigation from "@/components/Navigation";
-import NavigationMobile from "@/components/NavigationMobile";
-import LanguageToggle from "@/components/LanguageToggle";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
@@ -358,7 +355,6 @@ export default function Project({ project, slug, slugs, category }) {
                 </Masonry>
               )}
             </Layout>
-                       {pageMobile ? <NavigationMobile /> : <Navigation />}
 <nav className={`flex absolute w-full lg:w-full top-3  px-3 lg:px-6  lg:gap-12 justify-between `}>
               {/* =======================BACK TO GALLERY======================= */}
               <Link
@@ -423,8 +419,6 @@ export default function Project({ project, slug, slugs, category }) {
                 <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} rotate-180 transition-all `} />
               </Link> */}
             </nav>
-            {pageMobile ? <></> : <LanguageToggle />}
-
             <ProjectCarousel
               prevVisibility={prevVisibility}
               nextVisibility={nextVisibility}
