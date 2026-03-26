@@ -61,12 +61,15 @@ export default function CategoryGallery({ projects, category }) {
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
         <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary" : "bg-primary text-darkPrimary"}`}>
           <PageWrapper darkMode={darkMode}>
-            <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12 flex-1">
+            <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-full mb-12 flex-1">
               <GalleryTitle h1 className="">
                 {label}
               </GalleryTitle>
 
               <GalleryTitle className="">{label}</GalleryTitle>
+              {/* {ALL_CATEGORY_SLUGS.map(slug => (
+                              <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/projects/${slug}`} isDark={isDark} />
+                            ))} */}
 
               <div className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project, i) => (

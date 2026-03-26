@@ -12,7 +12,7 @@ const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowC
       <Link tabIndex={tabIndex} className={`${inherit ? 'text-inherit' : darkMode ? 'text-primary fill-primary font-semibold' : 'text-darkPrimary fill-darkPrimary font-semibold'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer ${containerClass ? containerClass : ''}`}
         href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }} rel="noopener noreferrer" target='_blank'>
 
-        <span className={`inline-flex items-center text-xl md:text-base ${inText ? 'mt-0' : 'mt-4'} relative ${className ? className : ''}`}
+        <span className={`inline-flex items-center md:text-base ${inText ? 'mt-0' : 'mt-4'} relative ${className ? className : ''}`}
           onMouseEnter={() => setHovering(true)}
           onMouseLeave={() => setHovering(false)}>
           {text}
@@ -25,7 +25,7 @@ const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowC
   return (
     <Link tabIndex={tabIndex} className={` ${inherit ? 'text-inherit font-medium' : darkMode ? 'text-primary fill-primary font-semibold' : 'text-darkPrimary fill-darkPrimary font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap ${containerClass ? containerClass : ''}  `}
       href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }}>
-      <span className={`inline-flex items-center text-xl md:text-base ${inText ? 'mt-0' : 'mt-4'} relative  ${className ? className : ''}`}
+      <span className={`inline-flex items-center  md:text-base ${inText ? 'mt-0' : 'mt-4'} relative  ${className ? className : ''}`}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}>
         {text}

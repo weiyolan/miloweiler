@@ -99,10 +99,10 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
 
   return (
-    <Layout style={{ ...style }} className={`relative bg-darkGrey  ${noMargin ? '' : 'mt-4 md:mt-24'}`}>
+    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-transparent pt-24 sm:pt-32 to-[#202020]  ${noMargin ? '' : 'mt-8 md:mt-16'}`}>
       <section
         className={`relative lg:px-16 xl:px-24  max-w-7xl pt-2 px-4 pb-2 lg:pt-4 w-full mx-auto ${className}`}>
-        <div className='flex flex-col sm:flex-row items-center sm:items-start justify-between max-w-6xl mx-auto'>
+        <div className='flex flex-col sm:flex-row  items-center sm:items-start justify-between max-w-6xl mx-auto'>
 
           <Links mobile={mobile} title='Navigate' list={navigateList[locale]} />
           <Links mobile={mobile} title='Socials' list={socialList[locale]} />
@@ -116,10 +116,11 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
         </div>
 
-        <div role='presentation' className='w-full text-xs text-center mt-2 text-primary font-thin'>
-          <div className="flex justify-center items-center gap-3 mb-1">
+          <div className="flex justify-center items-center mt-4 gap-3 mb-1">
             <LanguageSwitch />
           </div>
+
+        <div role='presentation' className='w-full text-xs text-center mt-4 text-primary font-thin font-mono'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
             {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '∘ '}${val}`}</li>) })}
             <li className="pl-1 ">
@@ -138,7 +139,7 @@ function Links({ title, list, mobile }) {
   return (
     // <div className={`${position === 'center' ? 'text-center ' : position === 'left' ? 'text-left ' : 'text-right '}  align-start px-0`}>
     <div className={`text-center sm:text-left `}>
-      <SubTitle small noMargin className='pt-2 md:text-left text-center' left={mobile?false:true} mainTitle={title} darkMode={true} />
+      <SubTitle small noMargin className='pt-4 font-sans md:text-left text-center ' left={mobile?false:true} mainTitle={title} darkMode={true} />
       <List mobile={mobile} list={list} />
     </div>
   )
@@ -147,12 +148,12 @@ function Links({ title, list, mobile }) {
 function List({ list, mobile }) {
 
   return (
-    <ul className='font-pop flex flex-wrap sm:flex-col sm:flex-nowrap justify-center gap-x-2 '>
+    <ul className='font-sans flex flex-wrap sm:flex-col sm:flex-nowrap justify-center gap-x-2 '>
       {list.map((item, i) => {
         if (item.ext) {
           return (
             <li key={i}
-              className={`text-primary font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
+              className={`text-primary font-mono font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
               <Link href={item.link} target='_blank' className='focus:outline-none cursor-pointer focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-white hover:border-b-white ' rel="noopener noreferrer" >
                 {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
               </Link>
@@ -162,7 +163,7 @@ function List({ list, mobile }) {
         else {
           return (
             <li key={i}
-              className={`${item.disabled ? 'text-primary/50' : 'text-primary'} font-extralight whitespace-nowrap text-sm sm:text-sm `} >
+              className={`${item.disabled ? 'text-primary/50' : 'text-primary'} font-mono font-extralight whitespace-nowrap text-sm sm:text-sm `} >
               {item.disabled ? item.text :
                 <Link className='focus:outline-none focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-white hover:border-b-white  ' href={item.link}>
                   {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
@@ -180,7 +181,7 @@ function LanguageSwitch() {
   const { locales, locale: activeLocale, pathname, query, asPath } = router
 
   return (
-    <div className="flex items-center gap-2 font-pop text-sm text-primary">
+    <div className="flex items-center gap-2 font-mono text-sm text-primary">
       {(locales || []).map((loc, i) => (
         <span key={loc} className="flex items-center gap-2">
           {i > 0 && <span className="text-primary/40">|</span>}

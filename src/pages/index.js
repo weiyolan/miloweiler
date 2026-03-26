@@ -97,7 +97,7 @@ export default function Home({ categoryImages }) {
                           containerClass="rounded-none"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent ">
-                          <span className="text-white text-xl font-semibold tracking-wide">
+                          <span className="text-white font-serif text-xl font-black tracking-wide">
                             {label}
                           </span>
                         </div>

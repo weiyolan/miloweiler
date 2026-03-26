@@ -54,14 +54,14 @@ export default function LanguageToggle({ toggleNav }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       // onClick={()=>toggleNav()}
-      className={`absolute md:fixed navButton top-0 right-0 ${darkMode ? 'text-primary' : 'text-darkPrimary'} text-2xl xs:text-xl sm:text-base text-center flex justify-center items-center font-lora  
+      className={`absolute md:fixed navButton top-0 right-0 ${darkMode ? 'text-primary' : 'text-darkPrimary'} text-2xl xs:text-xl sm:text-base text-center flex justify-center items-center font-serif  
     font-black  border border-transparent 
     focus-within:outline-darkGrey cursor-pointer select-none m-2 md:m-4 lg:m-5 `}>
       {/* self-center inline-flex */}
 
 
       <TfiWorld className={`relative inline-flex md:absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-5 h-5 languageIcon ${darkMode?'text-primary':'text-darkPrimary'}`} />
-      <div className='inline-flex align-middle font-lora items-center languageText'>
+      <div className='inline-flex align-middle font-serif items-center languageText'>
         {otherLocales.map((locale) => {
           const { pathname, query, asPath } = router
           return (

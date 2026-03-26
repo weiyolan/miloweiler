@@ -6,10 +6,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // pop: ["var(--font-montserrat)", ...fontFamily.sans],
-        pop: ["var(--font-poppins)", ...fontFamily.sans],
-        lora: ["var(--font-montserrat)", ...fontFamily.serif],
-        // lora: ['var(--font-lora)', ...fontFamily.serif],
+        sans: ["var(--font-instrument)", ...fontFamily.sans],
+        serif: ["var(--font-playfair)", ...fontFamily.serif],
+        mono: ["var(--font-spacemono)", ...fontFamily.mono],
       },
       letterSpacing: {
         max: ".25em",

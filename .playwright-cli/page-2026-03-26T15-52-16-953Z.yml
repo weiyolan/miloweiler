@@ -1,0 +1,106 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e5]:
+        - link "Portfolio" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: Portfolio
+        - link "About Me" [ref=e10] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=e11]: About Me
+        - link "Contact" [ref=e12] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e13]: Contact
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Highlighted" [level=2] [ref=e16]
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - heading "Come Back" [level=3] [ref=e19]
+            - generic [ref=e21] [cursor=pointer]:
+              - img "A woman standing in front of a mirror while smoking a cigarette . you can see her reflection and the two red curtains hanging next to the mirror." [ref=e23]
+              - generic [ref=e24]:
+                - heading [level=3]
+                - generic [ref=e25]: by Savage Film
+                - generic [ref=e26]: Commissioned
+                - link:
+                  - /url: /projects/set-photography/comeback
+          - generic [ref=e27] [cursor=pointer]:
+            - heading [level=3]
+            - generic [ref=e28]: by Streamz
+            - generic [ref=e29]: Commissioned
+            - link:
+              - /url: /projects/set-photography/oh-otto
+          - generic [ref=e30] [cursor=pointer]:
+            - heading [level=3]
+            - generic [ref=e31]: by me
+            - generic [ref=e32]: Commissioned
+            - link:
+              - /url: /projects/corporate-events/come-back-film-festival-oostende
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - heading "Navigate" [level=2] [ref=e38]
+            - list [ref=e39]:
+              - listitem [ref=e40]:
+                - link "Home" [ref=e41] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e42]:
+                - link "Commissioned" [ref=e43] [cursor=pointer]:
+                  - /url: /commissioned
+              - listitem [ref=e44]:
+                - link "Personal" [ref=e45] [cursor=pointer]:
+                  - /url: /personal
+              - listitem [ref=e46]:
+                - link "Contact" [ref=e47] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e48]:
+                - link "Printing" [ref=e49] [cursor=pointer]:
+                  - /url: /contact#printing
+          - generic [ref=e50]:
+            - heading "Socials" [level=2] [ref=e52]
+            - list [ref=e53]:
+              - listitem [ref=e54]:
+                - link "Instagram" [ref=e55] [cursor=pointer]:
+                  - /url: https://www.instagram.com/miloweiler/
+              - listitem [ref=e56]:
+                - link "Unsplash" [ref=e57] [cursor=pointer]:
+                  - /url: https://unsplash.com/@miloweiler
+              - listitem [ref=e58]:
+                - link "LinkedIn" [ref=e59] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/mwphotography
+          - generic [ref=e60]:
+            - heading "Contact" [level=2] [ref=e62]
+            - list [ref=e63]:
+              - listitem [ref=e64]:
+                - link "Call" [ref=e65] [cursor=pointer]:
+                  - /url: tel:+32476506209
+              - listitem [ref=e66]:
+                - link "WhatsApp" [ref=e67] [cursor=pointer]:
+                  - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+              - listitem [ref=e68]:
+                - link "contact@miloweiler.com" [ref=e69] [cursor=pointer]:
+                  - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+          - generic [ref=e70]:
+            - heading "Legal" [level=2] [ref=e72]
+            - list [ref=e73]:
+              - listitem [ref=e74]:
+                - link "Legal Notice" [ref=e75] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e76]:
+                - link "Terms of Use" [ref=e77] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e78]:
+                - link "Cookie Notice" [ref=e79] [cursor=pointer]:
+                  - /url: /aboutme
+        - generic [ref=e81]:
+          - link "EN" [ref=e83] [cursor=pointer]:
+            - /url: /projects/highlighted
+          - generic [ref=e84]:
+            - generic [ref=e85]: "|"
+            - link "FR" [ref=e86] [cursor=pointer]:
+              - /url: /fr/projects/highlighted
+        - text: 2026 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+        - link "ywdesign.co" [ref=e87] [cursor=pointer]:
+          - /url: https://www.ywdesign.co
+  - alert [ref=e88]

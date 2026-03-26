@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Poppins, Lora, Work_Sans, Roboto_Mono, Inter, Montserrat } from "next/font/google";
+import { Playfair_Display, Instrument_Sans, Space_Mono } from "next/font/google";
 import { AppWrapper, useAppContext } from "@utils/appContext";
 import { Toaster } from "react-hot-toast";
 import Navigation from "@/components/Navigation";
@@ -16,36 +16,23 @@ import { Observer } from "gsap/dist/Observer";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer);
 
-// import Lenis from '@studio-freight/lenis'
-// const roboto = Roboto_Mono({
-//   subsets: ["latin"],
-//   variable: "--font-roboto",
-// });
-const montserrat = Montserrat({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-playfair",
+  weight: ["700", "900"],
 });
-// const inter = Inter({
-//   subsets: ["latin"],
-//   variable: "--font-inter",
-// });
 
-// const workSans = Work_Sans({
-//   subsets: ["latin"],
-//   variable: "--font-worksans",
-//   // display: 'swap',
-// });
-const poppins = Poppins({
+const instrument = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-poppins",
-  // display: 'optional',
-  weight: ["100", "200", "400", "500", "600", "800", "900"],
+  variable: "--font-instrument",
+  weight: ["400", "500", "600", "700"],
 });
-// const lora = Lora({
-//   subsets: ["latin"],
-//   variable: "--font-lora",
-//   // display: 'swap',
-// });
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-spacemono",
+  weight: ["400"],
+});
 
 export default function App({ Component, pageProps }) {
   let scrolled = useRef(0);
@@ -103,7 +90,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} className={`${montserrat.variable} ${poppins.variable} font-pop relative w-full min-h-screen`}>
+      <AppWrapper scrolled={scrolled} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
         <NavRenderer />
         <Component {...pageProps} />
         <Toaster />

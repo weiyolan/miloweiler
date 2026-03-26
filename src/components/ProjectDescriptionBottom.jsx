@@ -111,7 +111,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
       {/* <div className={`absolute bottom-2 mobm:bottom-3 flex mx-auto text-lg mobm:text-2xl md:text-3xl mt-2 w-[85vw] left-1/2 -translate-x-1/2 justify-between transition-all  
       ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
       </div> */}
-      <div className={`relative font-lora text-lg md:text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <div className={`relative font-serif text-lg md:text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
         <h1 className={``}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -131,7 +131,7 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
       {/* <div></div> */}
       {/* <Line className={`border-spacing-2 `}/> */}
 
-      <div className="flex flex-row gap-4 relative font-lora ">
+      <div className="flex flex-row gap-4 relative font-serif ">
         <div className="w-full md:w-1/3 flex flex-col gap-4">
           {project?.date ? <Detail          title={locale==='fr'?'An':'Year'}                         text={[project.date.slice(0, 4)]} /> : null}
           {project?.album ? <Detail         title='Album'                                             text={[project.album]} /> : null}
@@ -144,9 +144,9 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
           {project?.artist ? <Detail        title={locale==='fr'?`Artiste${project.artist.length > 1 ? 's' : ''}`:`Artist${project.artist.length > 1 ? 's' : ''}`} text={project.artist} /> : null}
         </div>
 
-        <div className="w-full md:w-2/3 text-lg font-pop ignore-swipe font-extralight text-justify  whitespace-pre-wrap">
-          {/* <h3 className="font-lora text-xl">About: </h3> */}
-          <p ref={textRef} className='text-xs md:text-sm ignore-swipe first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora'>{project?.description?.[locale] || ''}</p>
+        <div className="w-full md:w-2/3 text-lg font-sans ignore-swipe font-extralight text-justify  whitespace-pre-wrap">
+          {/* <h3 className="font-serif text-xl">About: </h3> */}
+          <p ref={textRef} className='text-xs md:text-sm ignore-swipe first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif'>{project?.description?.[locale] || ''}</p>
         </div>
       </div>
     </div>
@@ -175,7 +175,7 @@ function Detail({ title, text }) {
 
 
 function Span({ text, detail }) {
-  return <span className={`font-pop font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
+  return <span className={`font-mono font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
 }
 
 

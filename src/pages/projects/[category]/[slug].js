@@ -8,7 +8,7 @@ import client from "../../../../lib/sanity";
 // import { IoClose} from 'react-icons/io5'
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import {  AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import Layout from "@/components/Layout";
 // import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 import { gsap } from "gsap/dist/gsap";
@@ -251,7 +251,55 @@ export default function Project({ project, slug, slugs, category }) {
             {/* <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
             {/* </div> */}
             <Layout cardSection className={"relative w-full h-full flex flex-col flex-1 gap-6 md:gap-8 max-w-7xl px-6 "}>
-              <div className={`relative mt-12 md:mt-24 text-3xl  flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
+              <nav className={`flex mt-16 md:mt-20 lg:gap-12 justify-between text-sm`}>
+                {/* =======================BACK TO GALLERY======================= */}
+                <Link
+                  title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
+                  className={`group relative flex gap-1 items-center w-fit h-fit font-mono font-normal transition-all `}
+                  href={`/projects/${category}`}>
+                  {/* <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} transition-all`} /> */}
+                    <Arrow/>
+                  <div>
+                    {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
+                    {/* <Line
+                      className={`w-0 group-hover:w-full border-transparent ${
+                        darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
+                      } group-focus:w-full transition-all duration-300`}
+                    /> */}
+                  </div>
+                </Link>
+                <div className={`flex font-mono font-normal gap-4 mr-auto`}>
+                  {/* =======================PREVIOUS======================= */}
+                  <Link
+                    title={locale === "fr" ? "Précédent projet" : "Previous project"}
+                    className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
+                    href={`/projects/${category}/${prevSlug()}`}>
+                    <AiFillCaretLeft className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
+                    <div>
+                      {locale === "fr" ? "Précédent" : "Previous"}
+                      {/* <Line
+                        className={`w-0 group-hover:w-full border-transparent ${
+                          darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
+                        } group-focus:w-full transition-all duration-300`}
+                      /> */}
+                    </div>
+                  </Link>
+                  {/* =======================NEXT======================= */}
+                  <Link
+                    title={locale === "fr" ? "Suivant projet" : "Next project"}
+                    className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
+                    href={`/projects/${category}/${nextSlug()}`}>
+                    <div>
+                      {locale === "fr" ? "Suivant" : "Next"}
+                      {/* <Line    className={`w-0 group-hover:w-full border-transparent ${ darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
+                        } group-focus:w-full transition-all duration-300`}
+                      /> */}
+                    </div>
+                    <AiFillCaretRight className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
+                  </Link>
+                </div>
+              </nav>
+              <div className={`relative text-5xl md:text-7xl font-serif flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
                 <h1 className={``}>
                   {project.title}
                   {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -285,7 +333,7 @@ export default function Project({ project, slug, slugs, category }) {
               </div>
               <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative mb-16">
                 {project?.minimalText == false && (
-                  <div className="relative flex flex-col gap-4 md:basis-1/3  font-lora ">
+                  <div className="relative flex flex-col gap-4 md:basis-1/3  font-serif ">
                     {project?.date ? <Detail title={locale === "fr" ? "An" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
                     {project?.album ? <Detail title="Album" text={[project.album]} /> : null}
                     {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : "Directed By"} text={project.directed} /> : null}
@@ -301,7 +349,7 @@ export default function Project({ project, slug, slugs, category }) {
                 )}
 
                 <p
-                  className={`text-base w-full max-w-3xl ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>
+                  className={`text-base w-full max-w-3xl ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif`}>
                   {project?.description?.[locale] || ""}
                 </p>
               </div>
@@ -355,70 +403,6 @@ export default function Project({ project, slug, slugs, category }) {
                 </Masonry>
               )}
             </Layout>
-<nav className={`flex absolute w-full lg:w-full top-3  px-3 lg:px-6  lg:gap-12 justify-between `}>
-              {/* =======================BACK TO GALLERY======================= */}
-              <Link
-                title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
-                className={` group flex gap-1 items-center w-fit h-fit font-pop  font-normal transition-all `}
-                href={`/projects/${category}`}>
-                <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} transition-all `} />
-                <div>
-                  {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
-                  <Line
-                    className={`w-0 group-hover:w-full border-transparent  ${
-                      darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                    } group-focus:w-full transition-all duration-300`}
-                  />
-                </div>
-              </Link>
-              <div className={`flex font-pop  font-normal gap-4 mr-auto`}>
-                {/* =======================PREVIOUS======================= */}
-                <Link
-                  title={locale === "fr" ? "Précédent projet" : "Previous project"}
-                  className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit `}
-                  href={`/projects/${category}/${prevSlug()}`}>
-                  <AiFillCaretLeft className={` ${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all`} />
-                  <div>
-                    {locale === "fr" ? "Précédent" : "Previous"}
-                    <Line
-                      className={`w-0 group-hover:w-full  border-transparent ${
-                        darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                      }  group-focus:w-full transition-all duration-300`}
-                    />
-                  </div>
-                </Link>
-                {/* =======================NEXT======================= */}
-                <Link
-                  title={locale === "fr" ? "Suivant projet" : "Next project"}
-                  className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
-                  href={`/projects/${category}/${nextSlug()}`}>
-                  <div>
-                    {locale === "fr" ? "Suivant" : "Next"}
-                    <Line
-                      className={`w-0 group-hover:w-full border-transparent ${
-                        darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                      }  group-focus:w-full transition-all duration-300`}
-                    />
-                  </div>
-                  <AiFillCaretRight className={` ${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all `} />
-                </Link>
-              </div>
-              {/* =======================CONTACT ME======================= */}
-              {/* <Link
-                title={locale === "fr" ? "Contactez-moi" : "Contact me"}
-                className={` group flex items-center w-fit h-fit font-pop gap-2 font-normal transition-all  ml-auto `}
-                href="/contact">
-                <div>
-                  {locale === "fr" ? "Contactez-moi" : "Contact me"}
-                  <Line
-                    className={`w-0 group-hover:w-full border-transparent  ${
-                      darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                    } group-focus:w-full transition-all duration-300`}
-                  />
-                </div>
-                <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} rotate-180 transition-all `} />
-              </Link> */}
-            </nav>
             <ProjectCarousel
               prevVisibility={prevVisibility}
               nextVisibility={nextVisibility}
@@ -436,6 +420,19 @@ export default function Project({ project, slug, slugs, category }) {
       </ReactLenis>
     </>
   );
+}
+
+function Arrow({arrowClassName="" }) {
+  return (
+    <span className='block duration-300 relative  w-10 h-5 overflow-hidden -ml-4 '>
+      <span className={`absolute duration-300 top-1/2 right-0 -translate-y-1/2 group-hover:-translate-x-full group-hover:scale-105 group-hover:opacity-0 opacity-100`}>
+        <IoArrowBack className={`text-inherit fill-inherit text-xl md:text-xl ${arrowClassName}`} />
+      </span>
+      <span className={`absolute duration-300 top-1/2 right-0 -translate-y-1/2 group-hover:-translate-x-1/4 group-hover:scale-105 group-hover:opacity-100 translate-x-[100%] opacity-0'}`}>
+        <IoArrowBack className={`text-inherit fill-inherit text-xl md:text-xl ${arrowClassName}`} />
+      </span>
+    </span>
+  )
 }
 
 function Photo({ image, i, ...props }) {
@@ -595,7 +592,7 @@ function Detail({ title, text }) {
 }
 
 function Span({ text, detail }) {
-  return <span className={`font-pop font-medium text-sm ${detail ? "text-base" : ""}`}>{text}</span>;
+  return <span className={`font-mono font-medium text-sm ${detail ? "text-base" : ""}`}>{text}</span>;
 }
 
 export async function getStaticPaths({ locales }) {

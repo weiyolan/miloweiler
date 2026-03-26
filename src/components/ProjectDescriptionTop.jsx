@@ -115,7 +115,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
 
   return (
 
-    <div ref={descriptionRef} className='description-box relative w-full min-h-screen font-lora flex flex-col justify-start bg-black/40 shadow-2xl backdrop-blur cursor-pointer rounded-b-[30px] gap-4 translate-y-10 mobm:translate-y-14 py-10 mobm:py-14 px-4 xs:px-8'
+    <div ref={descriptionRef} className='description-box relative w-full min-h-screen font-serif flex flex-col justify-start bg-black/40 shadow-2xl backdrop-blur cursor-pointer rounded-b-[30px] gap-4 translate-y-10 mobm:translate-y-14 py-10 mobm:py-14 px-4 xs:px-8'
       // onMouseEnter={({ currentTarget }) => gsap.to(currentTarget, { yPercent: -100, translateY: 0, ease: 'expo.inout', duration: 0.7 })}
       // onMouseEnter={handleEnter}
       // onMouseLeave={handleLeave}
@@ -149,10 +149,10 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
         {project?.artist ? <Detail        title={locale==='fr'?`Artiste${project.artist.length > 1 ? 's' : ''}`:`Artist${project.artist.length > 1 ? 's' : ''}`} text={project.artist} /> : null}
       </div>
 
-      {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-pop font-extralight text-justify whitespace-pre-wrap"> */}
-      <FadeDiv style={{ height: maxTextHeight || '50%' }} type='bottom' amount={15} className={`${textHeight > maxTextHeight ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-pop font-extralight text-justify whitespace-pre-wrap`}>
-        {/* <h3 className="font-lora text-xl">About: </h3> */}
-        <p ref={textRef} className={`pb-10 ${textHeight > maxTextHeight ? 'pr-2 ignore-swipe' : ''} whitespace-pre-wrap text-sm mobm:text-base lg:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-lora`}>{project?.description?.[locale] || ''}</p>
+      {/* <div className="ignore-swipe flex-1 w-full md:w-2/3 text-lg font-sans font-extralight text-justify whitespace-pre-wrap"> */}
+      <FadeDiv style={{ height: maxTextHeight || '50%' }} type='bottom' amount={15} className={`${textHeight > maxTextHeight ? 'ignore-swipe scroll-bar-small scroll-bar-primary overflow-y-scroll' : ''} overflow-hidden lg:w-2/3 w-full h-full text-lg font-sans font-extralight text-justify whitespace-pre-wrap`}>
+        {/* <h3 className="font-serif text-xl">About: </h3> */}
+        <p ref={textRef} className={`pb-10 ${textHeight > maxTextHeight ? 'pr-2 ignore-swipe' : ''} whitespace-pre-wrap text-sm mobm:text-base lg:text-sm first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif`}>{project?.description?.[locale] || ''}</p>
       </FadeDiv>
 
       {/* </div> */}
@@ -197,6 +197,6 @@ function Detail({ title, text }) {
 }
 
 function Span({ text, detail }) {
-  return <span className={`font-pop font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
+  return <span className={`font-mono font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
 }
 

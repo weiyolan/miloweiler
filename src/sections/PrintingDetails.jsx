@@ -45,7 +45,7 @@ export default function PrintingDetails({ printingData }) {
       <div ref={parent} key='printing' id='printing' className='printing-parent flex flex-col h-full justify-center'>
         <SubTitle child='printing' mainTitle={printingData.title[locale]} subTitle={printingData.text[locale]} left />
         <AccentTitle className='printing-child' text={printingData.subTitle[locale]} />
-        <ul className='list-disc pl-8'>
+        <ul className='list-disc pl-8 font-mono text-sm -mt-2'>
           {printingData.list.map((item, i) => <li className='printing-child' key={i}>{item[locale]}</li>)}
         </ul>
         <ContactB className={'printing-child'} />

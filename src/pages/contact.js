@@ -220,7 +220,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             // ctx={ctx} tl={tl}
           >
             <Layout className={"relative lg:px-16 xl:px-24 max-w-7xl flex-1"}>
-              <h1 className="invisible uppercase font-lora text-center text-3xl ">Contact Page</h1>
+              <h1 className="invisible uppercase font-serif text-center text-3xl ">Contact Page</h1>
 
               {/* =======CONTACT DETAILS======== */}
               <ContactDetails contactDetails={contactDetailsData} portfolioLink={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
@@ -275,7 +275,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                   {!pageMobile && <ArrowLink inText className="ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12">
                     <div className="flex-1 flex flex-col justify-start">
-                      <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
+                      <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
                       <p
                         ref={textRef}
                         className={`text-justify  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
@@ -286,7 +286,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <ArrowLink inText className="ml-8 w-fit mt-5" text="Go to homepage" to="/" />
                     </div>
                     <div className="flex-1 flex flex-col justify-start">
-                      <h3 className="font-pop font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
+                      <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
                       <p
                         style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}
                         className={`text-justify  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${

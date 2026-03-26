@@ -29,12 +29,12 @@ export default function TrustedBy({ trustedBy }) {
       // tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '50%'}`, invalidateOnRefresh: true, markers: false } })
         // .from('.title', { opacity: 0, duration: 1 })
         .to('.artist-title', { opacity: 1, duration: 1 })
-        .to('.artist-line', { width: 224, duration: 0.8, }, '<')
+        .to('.artist-line', { width: 100, duration: 0.8, }, '<')
         .to('.logo-artist', {
           opacity: 1, duration: 0.7, ease: 'back', stagger: 0.2,
         }, '-=1')
         .to('.company-title', { opacity: 1, duration: 1 }, '-=1.5')
-        .to('.company-line', { width: 224, duration: 0.8, }, '<')
+        .to('.company-line', { width: 150, duration: 0.8, }, '<')
         .to('.logo-company', {
           opacity: 1, duration: 0.7, ease: 'back', stagger: 0.2,
         }, '-=1')

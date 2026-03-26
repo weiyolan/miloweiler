@@ -1,0 +1,114 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e5]:
+        - link "Portfolio" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: Portfolio
+        - link "About Me" [ref=e10] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=e11]: About Me
+        - link "Contact" [ref=e12] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e13]: Contact
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Portfolio" [level=2] [ref=e16]
+        - generic [ref=e17]:
+          - link "[object Object] Highlighted" [ref=e18] [cursor=pointer]:
+            - /url: /projects/highlighted
+            - generic [ref=e19]:
+              - img "[object Object]" [ref=e21]
+              - generic [ref=e23]: Highlighted
+          - link "[object Object] Set Photography" [ref=e85] [cursor=pointer]:
+            - /url: /projects/set-photography
+            - generic [ref=e86]:
+              - img "[object Object]" [ref=e88]
+              - generic [ref=e90]: Set Photography
+          - link "[object Object] Portraits" [ref=e91] [cursor=pointer]:
+            - /url: /projects/portraits
+            - generic [ref=e92]:
+              - img "[object Object]" [ref=e94]
+              - generic [ref=e96]: Portraits
+          - link "[object Object] Corporate & Events" [ref=e97] [cursor=pointer]:
+            - /url: /projects/corporate-events
+            - generic [ref=e98]:
+              - img "[object Object]" [ref=e100]
+              - generic [ref=e102]: Corporate & Events
+          - link "[object Object] Products" [ref=e103] [cursor=pointer]:
+            - /url: /projects/products
+            - generic [ref=e104]:
+              - img "[object Object]" [ref=e106]
+              - generic [ref=e108]: Products
+          - link "[object Object] Personal Work" [ref=e109] [cursor=pointer]:
+            - /url: /projects/personal-work
+            - generic [ref=e110]:
+              - img "[object Object]" [ref=e112]
+              - generic [ref=e114]: Personal Work
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - heading "Navigate" [level=2] [ref=e34]
+            - list [ref=e35]:
+              - listitem [ref=e36]:
+                - link "Home" [ref=e37] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e38]:
+                - link "Commissioned" [ref=e39] [cursor=pointer]:
+                  - /url: /commissioned
+              - listitem [ref=e40]:
+                - link "Personal" [ref=e41] [cursor=pointer]:
+                  - /url: /personal
+              - listitem [ref=e42]:
+                - link "Contact" [ref=e43] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e44]:
+                - link "Printing" [ref=e45] [cursor=pointer]:
+                  - /url: /contact#printing
+          - generic [ref=e46]:
+            - heading "Socials" [level=2] [ref=e48]
+            - list [ref=e49]:
+              - listitem [ref=e50]:
+                - link "Instagram" [ref=e51] [cursor=pointer]:
+                  - /url: https://www.instagram.com/miloweiler/
+              - listitem [ref=e52]:
+                - link "Unsplash" [ref=e53] [cursor=pointer]:
+                  - /url: https://unsplash.com/@miloweiler
+              - listitem [ref=e54]:
+                - link "LinkedIn" [ref=e55] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/mwphotography
+          - generic [ref=e56]:
+            - heading "Contact" [level=2] [ref=e58]
+            - list [ref=e59]:
+              - listitem [ref=e60]:
+                - link "Call" [ref=e61] [cursor=pointer]:
+                  - /url: tel:+32476506209
+              - listitem [ref=e62]:
+                - link "WhatsApp" [ref=e63] [cursor=pointer]:
+                  - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+              - listitem [ref=e64]:
+                - link "contact@miloweiler.com" [ref=e65] [cursor=pointer]:
+                  - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+          - generic [ref=e66]:
+            - heading "Legal" [level=2] [ref=e68]
+            - list [ref=e69]:
+              - listitem [ref=e70]:
+                - link "Legal Notice" [ref=e71] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e72]:
+                - link "Terms of Use" [ref=e73] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e74]:
+                - link "Cookie Notice" [ref=e75] [cursor=pointer]:
+                  - /url: /aboutme
+        - generic [ref=e77]:
+          - link "EN" [ref=e79] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e80]:
+            - generic [ref=e81]: "|"
+            - link "FR" [ref=e82] [cursor=pointer]:
+              - /url: /fr
+        - text: 2026 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+        - link "ywdesign.co" [ref=e83] [cursor=pointer]:
+          - /url: https://www.ywdesign.co
+  - alert [ref=e84]

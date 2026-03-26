@@ -74,7 +74,7 @@ function DropdownItem({ text, to, isDark }) {
   const selected = pathname === to
 
   return (
-    <Link href={to} className={`block py-1.5 px-2 rounded text-sm font-pop transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} ${isDark ? 'text-primary hover:bg-primary/10' : 'text-darkPrimary hover:bg-darkPrimary/10'}`}>
+    <Link href={to} className={`block py-1.5 px-2 rounded text-sm font-mono transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} ${isDark ? 'text-primary hover:bg-primary/10' : 'text-darkPrimary hover:bg-darkPrimary/10'}`}>
       {text}
     </Link>
   )
@@ -102,7 +102,7 @@ function NavButton({ text, to, isPortfolio, isDark, locale }) {
     <Link
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className={`relative min-w-[7rem] text-center font-pop font-extrabold uppercase ${isDark ? 'text-primary' : 'text-darkPrimary'}`}
+      className={`relative min-w-[7rem] text-center font-mono font-normal ${isDark ? 'text-primary' : 'text-darkPrimary'}`}
       href={to}
     >
       <div className="w-fit mx-auto">

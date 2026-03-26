@@ -28,7 +28,9 @@
       "Bash(npm ls:*)",
       "Bash(grep:*)",
       "Bash(playwright-cli screenshot:*)",
-      "Bash(find D:/Documenten/WebDev/miloweiler/src/sections -name *.jsx -type f)"
+      "Bash(find D:/Documenten/WebDev/miloweiler/src/sections -name *.jsx -type f)",
+      "Bash(find /d/Documenten/WebDev/miloweiler/src -name *.tsx -o -name *.jsx -o -name *.css)",
+      "Bash(playwright-cli resize:*)"
     ]
   }
 }

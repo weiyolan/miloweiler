@@ -4,7 +4,7 @@ import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
-const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, quality, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, ...props }, ref) {
+const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, quality=80, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, ...props }, ref) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
 
   let landscape = width / height > 1;

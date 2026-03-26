@@ -92,7 +92,6 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 
   return (
     <div className='select-none overflow-hidden h-full group' >
-      <h3 className='font-pop  uppercase'>{project?.title}</h3>
       <div
         onClick={() => setActiveIndex?.(index)}
         onMouseUp={handleMouseUp}
@@ -111,27 +110,28 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           <SanityImage className={` projectThumb${index}`} onLoad={() => setLoaded(true)} print={false} blur sizes='(max-width: 460px) 50vw, (max-width: 780px) 33vw, 25vw' containerClass={'rounded-none '} fill absolute image={project.mainImage.image} alt={project.mainImage.alt[locale]}
           />
 
+          <h3 className='font-mono text-sm absolute top-2 left-4'>{project?.title}</h3>
           <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/10 duration-300 group-hover:backdrop-blur-sm  ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
-            <h3 className={`text-left font-lora text-base sm:text-lg md:text-xl invert-0 duration-500 `}>{/* ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '} */}
+            <h4 className={`text-left font-serif text-base sm:text-lg md:text-xl invert-0 duration-500 `}>{/* ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '} */}
 
               {/* {console.log(project)} */}
               {false && project?.title}
               {false && project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
               {/* {width > 648 && project?.date} */}
-            </h3>
-            <div className='text-right font-lora'>
+            </h4>
+            <div className='text-right font-serif'>
               <Span text='by' />
               {` ${project?.by?.[0] ? project?.by?.[0] : 'me'}`}
             </div>
 
             {project.commissionedBool && (
-              <span className="absolute top-2 right-2 bg-darkPrimary/60 text-primary text-xs font-pop px-2 py-0.5 rounded">
+              <span className="absolute top-2 right-2 bg-darkPrimary/60 text-primary text-xs font-mono px-2 py-0.5 rounded">
                 Commissioned
               </span>
             )}
 
             <Link href={`/projects/${categorySlug}/${project.slug.current}`}
-              className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-pop text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
+              className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-sans text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
               {width < 648 && '+'}
             </Link>
           </div>
@@ -142,11 +142,11 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseEnter={() => { setLineHover(true); }}
         onMouseLeave={() => { setLineHover(false); handleMouseLeave() }}>
         <Link href={`./gallery/${project.slug.current}`}>
-          <h2 className={` font-lora text-base max-w-fit sm:text-lg truncate font-semibold md:text-xl invert-0 duration-500 mb-1`}>
+          <h2 className={` font-serif text-base max-w-fit sm:text-lg truncate font-semibold md:text-xl invert-0 duration-500 mb-1`}>
             {project?.title}
             <Line className={`galleryThumbLine${index} border-transparent w-0`} />
           </h2>
-          <p className='font-pop font-extralight text-sm line-clamp-3 '>
+          <p className='font-sans font-extralight text-sm line-clamp-3 '>
             {project?.description?.[locale] && project.description[locale].slice(0, 120) || ''}
           </p>
         </Link>
@@ -179,6 +179,6 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
 // }
 
 function Span({ text, detail }) {
-  return <span className={`font-pop font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
+  return <span className={`font-mono font-extralight ${detail ? 'text-sm mobm:text-base' : 'text-xs mobm:text-sm'}`}>{text}</span>
 }
 

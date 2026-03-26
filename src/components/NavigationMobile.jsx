@@ -102,7 +102,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/"
-            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
           >
             Portfolio
           </Link>
@@ -113,7 +113,7 @@ export default function NavigationMobile() {
               key={slug}
               ref={setItemRef(itemIndex++)}
               href={`/projects/${slug}`}
-              className={`text-xl font-pop pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${pathname === `/projects/${slug}` ? 'font-bold' : 'font-normal'}`}
+              className={`text-xl font-mono pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${pathname === `/projects/${slug}` ? 'font-bold' : 'font-normal'}`}
             >
               {CATEGORY_LABELS[slug][locale]}
             </Link>
@@ -123,7 +123,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/about"
-            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
           >
             {locale === 'fr' ? 'À Propos' : 'About Me'}
           </Link>
@@ -132,7 +132,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/contact"
-            className={`text-3xl font-pop font-extrabold uppercase opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
           >
             Contact
           </Link>
