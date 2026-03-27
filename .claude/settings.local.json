@@ -30,7 +30,16 @@
       "Bash(playwright-cli screenshot:*)",
       "Bash(find D:/Documenten/WebDev/miloweiler/src/sections -name *.jsx -type f)",
       "Bash(find /d/Documenten/WebDev/miloweiler/src -name *.tsx -o -name *.jsx -o -name *.css)",
-      "Bash(playwright-cli resize:*)"
+      "Bash(playwright-cli resize:*)",
+      "Bash(playwright-cli click:*)",
+      "Bash(playwright-cli press:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(find /d/Documenten/WebDev/miloweiler/src -type f -name *.css -o -name *.scss)",
+      "Bash(find /d/Documenten/WebDev/miloweiler -maxdepth 2 -type d ! -name node_modules ! -name .next ! -name .git ! -name .netlify ! -path */.git/*)",
+      "Bash(npx next:*)"
     ]
   }
 }

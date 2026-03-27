@@ -19,7 +19,7 @@ import Logo from '@/components/Logo'
 // import { gsap } from 'gsap/dist/gsap'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
-import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+import { ReactLenis } from 'lenis/react'
 import Footer2 from '@/components/Footer2'
 // import { useRouter } from 'next/router';
 
@@ -278,7 +278,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
                       <p
                         ref={textRef}
-                        className={`text-justify  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
+                        className={`text-justify font-mono  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
                           darkMode ? "font-extralight" : "font-normal"
                         }`}>
                         {inspirationData.text1[locale]}
@@ -289,7 +289,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
                       <p
                         style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}
-                        className={`text-justify  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
+                        className={`text-justify font-mono  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
                           darkMode ? "font-extralight" : "font-normal"
                         }`}>
                         {inspirationData.text2[locale]}

@@ -99,9 +99,9 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
 
   return (
-    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-transparent pt-24 sm:pt-32 to-[#202020]  ${noMargin ? '' : 'mt-8 md:mt-16'}`}>
+    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-transparent pt-24 md:pt-32 to-[#202020]  ${noMargin ? '' : ''}`}>
       <section
-        className={`relative lg:px-16 xl:px-24  max-w-7xl pt-2 px-4 pb-2 lg:pt-4 w-full mx-auto ${className}`}>
+        className={`relative lg:px-16 xl:px-24  max-w-7xl  px-4 pb-2  w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row  items-center sm:items-start justify-between max-w-6xl mx-auto'>
 
           <Links mobile={mobile} title='Navigate' list={navigateList[locale]} />

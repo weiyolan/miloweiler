@@ -17,7 +17,7 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import Line from "@/components/Line";
 import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
-import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis } from "lenis/react";
 const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { ssr: false });
 import Footer2 from "@/components/Footer2";
 import { CATEGORY_MAP } from "@/utils/categories";
@@ -29,6 +29,7 @@ export default function Project({ project, slug, slugs, category }) {
   const { width, locale, height } = useAppContext();
   let pageMobile = width < 648;
 
+  const lenisRef = useRef();
   const [carouselIsOpen, setCarouselIsOpen] = useState(false);
   let [descriptionOpen, setDescriptionOpen] = useState(false);
   let [animating, setAnimating] = useState(false);
@@ -191,30 +192,16 @@ export default function Project({ project, slug, slugs, category }) {
     }
   }
 
-  const showDialog = () => {
-    setCarouselIsOpen(true);
-    const scrollY = document.documentElement.style.getPropertyValue("--scroll-y");
-    const body = document.body;
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}`;
-  };
-  const closeDialog = () => {
-    const body = document.body;
-    const scrollY = body.style.top;
-    body.style.position = "";
-    body.style.top = "";
-    window.scrollTo(0, parseInt(scrollY || "0") * -1);
-    setCarouselIsOpen(false);
-  };
-
   useEffect(() => {
-    function setScroll() {
-      document.documentElement.style.setProperty("--scroll-y", `${window.scrollY}px`);
+    if (carouselIsOpen) {
+      lenisRef.current?.lenis?.stop();
+    } else {
+      lenisRef.current?.lenis?.start();
     }
-    window.addEventListener("scroll", setScroll);
+  }, [carouselIsOpen]);
 
-    return () => window.removeEventListener("scroll", setScroll);
-  }, []);
+  const showDialog = () => setCarouselIsOpen(true);
+  const closeDialog = () => setCarouselIsOpen(false);
 
   return (
     <>
@@ -240,7 +227,7 @@ export default function Project({ project, slug, slugs, category }) {
         <meta name="twitter:image" content={`${project.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
       {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
+      <ReactLenis ref={lenisRef} root options={{ wheelMultiplier: 0.9 }}>
         <main
           onKeyDown={(e) => {
             e.key === "Escape" && closeDialog();
@@ -250,33 +237,29 @@ export default function Project({ project, slug, slugs, category }) {
             {/* <div className={`w-full h-full absolute`}> */}
             {/* <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
             {/* </div> */}
-            <Layout cardSection className={"relative w-full h-full flex flex-col flex-1 gap-6 md:gap-8 max-w-7xl px-6 "}>
-              <nav className={`flex mt-16 md:mt-20 lg:gap-12 justify-between text-sm`}>
-                {/* =======================BACK TO GALLERY======================= */}
-                <Link
-                  title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
-                  className={`group relative flex gap-1 items-center w-fit h-fit font-mono font-normal transition-all `}
-                  href={`/projects/${category}`}>
-                  {/* <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} transition-all`} /> */}
-                    <Arrow/>
-                  <div>
-                    {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
-                    {/* <Line
-                      className={`w-0 group-hover:w-full border-transparent ${
-                        darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                      } group-focus:w-full transition-all duration-300`}
-                    /> */}
-                  </div>
-                </Link>
-                <div className={`flex font-mono font-normal gap-4 mr-auto`}>
-                  {/* =======================PREVIOUS======================= */}
+            <ProjectCarousel
+              prevVisibility={prevVisibility}
+              nextVisibility={nextVisibility}
+              handleVisibility={handleVisibility}
+              visibleItem={visibleItem}
+              setVisibleItem={(array) => setVisibleItem(array)}
+              project={project}
+              slug={slug}
+              open={carouselIsOpen}
+              closeModal={() => closeDialog()}
+            />
+            <Layout cardSection className={"relative w-full h-full flex flex-col flex-1 gap-6 md:gap-8 px-6 mt-12"}>
+              <div className={"relative w-full flex flex-col flex-1 gap-6 md:gap-8 max-w-7xl mx-auto"}>
+                <nav className={`flex mt-16 md:mt-20 lg:gap-12 justify-between text-sm`}>
+                  {/* =======================BACK TO GALLERY======================= */}
                   <Link
-                    title={locale === "fr" ? "Précédent projet" : "Previous project"}
-                    className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
-                    href={`/projects/${category}/${prevSlug()}`}>
-                    <AiFillCaretLeft className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
+                    title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
+                    className={`group relative flex gap-1 items-center w-fit h-fit font-mono font-normal transition-all `}
+                    href={`/projects/${category}`}>
+                    {/* <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} transition-all`} /> */}
+                      <Arrow/>
                     <div>
-                      {locale === "fr" ? "Précédent" : "Previous"}
+                      {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
                       {/* <Line
                         className={`w-0 group-hover:w-full border-transparent ${
                           darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
@@ -284,74 +267,91 @@ export default function Project({ project, slug, slugs, category }) {
                       /> */}
                     </div>
                   </Link>
-                  {/* =======================NEXT======================= */}
-                  <Link
-                    title={locale === "fr" ? "Suivant projet" : "Next project"}
-                    className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
-                    href={`/projects/${category}/${nextSlug()}`}>
-                    <div>
-                      {locale === "fr" ? "Suivant" : "Next"}
-                      {/* <Line    className={`w-0 group-hover:w-full border-transparent ${ darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                        } group-focus:w-full transition-all duration-300`}
-                      /> */}
-                    </div>
-                    <AiFillCaretRight className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
-                  </Link>
-                </div>
-              </nav>
-              <div className={`relative text-5xl md:text-7xl font-serif flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
-                <h1 className={``}>
-                  {project.title}
-                  {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
-                </h1>
-                {project?.minimalText == false && project?.by?.[0] ? (
-                  <h2>
-                    <Span text={locale === "fr" ? "par " : "by "} />
+                  <div className={`flex font-mono font-normal gap-4 mr-auto`}>
+                    {/* =======================PREVIOUS======================= */}
                     <Link
-                      className={`w-fit relative inline-flex ${project?.partnerLink ? "group" : "select-none cursor-default"}`}
-                      // as={project?.partnerLink ? "a" : "div"}
-                      title={project?.partnerLink ? `${locale === "fr" ? "Visitez le site" : "Visit the website"}` : undefined}
-                      target="_blank"
-                      href={project?.partnerLink ? project?.partnerLink : ""}
-                      rel="noopener noreferrer"
-                      onClick={(e) => {
-                        project?.partnerLink === undefined && e.preventDefault();
-                      }}>
+                      title={locale === "fr" ? "Précédent projet" : "Previous project"}
+                      className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
+                      href={`/projects/${category}/${prevSlug()}`}>
+                      <AiFillCaretLeft className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
                       <div>
-                        {`${project?.by?.[0]}`}
-                        <Line
-                          className={`w-0 group-hover:w-full border-transparent  ${
+                        {locale === "fr" ? "Précédent" : "Previous"}
+                        {/* <Line
+                          className={`w-0 group-hover:w-full border-transparent ${
                             darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
                           } group-focus:w-full transition-all duration-300`}
-                        />
+                        /> */}
                       </div>
                     </Link>
-                  </h2>
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative mb-16">
-                {project?.minimalText == false && (
-                  <div className="relative flex flex-col gap-4 md:basis-1/3  font-serif ">
-                    {project?.date ? <Detail title={locale === "fr" ? "An" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
-                    {project?.album ? <Detail title="Album" text={[project.album]} /> : null}
-                    {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : "Directed By"} text={project.directed} /> : null}
-                    {project?.produced ? <Detail title={locale === "fr" ? "Produit Par" : "Produced By"} text={project.produced} /> : null}
-                    {project?.designed ? <Detail title={locale === "fr" ? "Conçu Par" : "Designed By"} text={project.designed} /> : null}
-                    {project?.created ? <Detail title={locale === "fr" ? "Créé Par" : "Created By"} text={project.created} /> : null}
-                    {project?.developed ? <Detail title={locale === "fr" ? "Développé Par" : "Developed By"} text={project.developed} /> : null}
-                    {project?.commissioned ? <Detail title={locale === "fr" ? "Commandée Par" : "Commissioned By"} text={project.commissioned} /> : null}
-                    {project?.artist ? (
-                      <Detail title={locale === "fr" ? `Artiste${project.artist.length > 1 ? "s" : ""}` : `Artist${project.artist.length > 1 ? "s" : ""}`} text={project.artist} />
-                    ) : null}
+                    {/* =======================NEXT======================= */}
+                    <Link
+                      title={locale === "fr" ? "Suivant projet" : "Next project"}
+                      className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
+                      href={`/projects/${category}/${nextSlug()}`}>
+                      <div>
+                        {locale === "fr" ? "Suivant" : "Next"}
+                        {/* <Line    className={`w-0 group-hover:w-full border-transparent ${ darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
+                          } group-focus:w-full transition-all duration-300`}
+                        /> */}
+                      </div>
+                      <AiFillCaretRight className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
+                    </Link>
                   </div>
-                )}
+                </nav>
+                <div className={`relative text-5xl md:text-7xl font-serif flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
+                  <h1 className={``}>
+                    {project.title}
+                    {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
+                  </h1>
+                  {project?.minimalText == false && project?.by?.[0] ? (
+                    <h2>
+                      <Span text={locale === "fr" ? "par " : "by "} />
+                      <Link
+                        className={`w-fit relative inline-flex ${project?.partnerLink ? "group" : "select-none cursor-default"}`}
+                        // as={project?.partnerLink ? "a" : "div"}
+                        title={project?.partnerLink ? `${locale === "fr" ? "Visitez le site" : "Visit the website"}` : undefined}
+                        target="_blank"
+                        href={project?.partnerLink ? project?.partnerLink : ""}
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          project?.partnerLink === undefined && e.preventDefault();
+                        }}>
+                        <div>
+                          {`${project?.by?.[0]}`}
+                          <Line
+                            className={`w-0 group-hover:w-full border-transparent  ${
+                              darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
+                            } group-focus:w-full transition-all duration-300`}
+                          />
+                        </div>
+                      </Link>
+                    </h2>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative mb-16">
+                  {project?.minimalText == false && (
+                    <div className="relative flex flex-col gap-4 md:basis-1/3  font-serif ">
+                      {project?.date ? <Detail title={locale === "fr" ? "An" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
+                      {project?.album ? <Detail title="Album" text={[project.album]} /> : null}
+                      {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : "Directed By"} text={project.directed} /> : null}
+                      {project?.produced ? <Detail title={locale === "fr" ? "Produit Par" : "Produced By"} text={project.produced} /> : null}
+                      {project?.designed ? <Detail title={locale === "fr" ? "Conçu Par" : "Designed By"} text={project.designed} /> : null}
+                      {project?.created ? <Detail title={locale === "fr" ? "Créé Par" : "Created By"} text={project.created} /> : null}
+                      {project?.developed ? <Detail title={locale === "fr" ? "Développé Par" : "Developed By"} text={project.developed} /> : null}
+                      {project?.commissioned ? <Detail title={locale === "fr" ? "Commandée Par" : "Commissioned By"} text={project.commissioned} /> : null}
+                      {project?.artist ? (
+                        <Detail title={locale === "fr" ? `Artiste${project.artist.length > 1 ? "s" : ""}` : `Artist${project.artist.length > 1 ? "s" : ""}`} text={project.artist} />
+                      ) : null}
+                    </div>
+                  )}
 
-                <p
-                  className={`text-base w-full max-w-3xl ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif`}>
-                  {project?.description?.[locale] || ""}
-                </p>
+                  <p
+                    className={`text-base w-full max-w-3xl ${project?.minimalText == false && " md:basis-2/3"} font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif`}>
+                    {project?.description?.[locale] || ""}
+                  </p>
+                </div>
               </div>
               {project?.grid ? (
                 <div
@@ -361,11 +361,11 @@ export default function Project({ project, slug, slugs, category }) {
                     //   project?.gridCols?.[width < 648 ? "sm" : "lg"]
                     // }))`,
                     // gridAutoRows: `calc(calc(minmax(calc(100vw - ${2 * 8}px), 1280px) - calc(8px * calc(${24} - 1))) / ${24})`,
-                    gridAutoRows: `calc(calc(calc(min(calc(100vw - ${2 * (width < 648 ? 8 : 40)}px), 1200px)) - calc(${width < 648 ? 4 : 8}px * calc(${
+                    gridAutoRows: `calc(calc(calc(min(calc(100vw - ${2 * (width < 648 ? 8 : 40)}px), 12000px)) - calc(${width < 648 ? 4 : 8}px * calc(${
                       project?.gridCols?.[width < 648 ? "sm" : "lg"]
                     } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
                   }}
-                  className="grid gap-1 sm:gap-2 w-full mb-16">
+                  className="grid gap-1 sm:gap-2 w-full mb-6">
                   {/* <div className="bg-red-300  row-start-1 col-start-1 row-span-2 col-span-3"></div> */}
                   {[...project.otherImages].map((image, i) => (
                     <GridPhoto
@@ -403,17 +403,7 @@ export default function Project({ project, slug, slugs, category }) {
                 </Masonry>
               )}
             </Layout>
-            <ProjectCarousel
-              prevVisibility={prevVisibility}
-              nextVisibility={nextVisibility}
-              handleVisibility={handleVisibility}
-              visibleItem={visibleItem}
-              setVisibleItem={(array) => setVisibleItem(array)}
-              project={project}
-              slug={slug}
-              open={carouselIsOpen}
-              closeModal={() => closeDialog()}
-            />
+            
             <Footer2 className={`relative mt-24`} noMotion noMargin />
           </PageWrapper>
         </main>

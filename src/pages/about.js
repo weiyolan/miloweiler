@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-// import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+// import { ReactLenis } from 'lenis/react'
 // import '../styles/globals.css'
 
 import { gsap } from "gsap/dist/gsap";

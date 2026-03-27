@@ -208,11 +208,13 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
     <div
       tabIndex={0} 
       // style={{ backgroundColor: palette.dominant.background }}
-      className={`carouselContainer focus:outline-none w-screen h-[100dvh] bg-opacity-80 backdrop-blur bg-darkPrimary ${open ? 'block' : 'hidden'} fixed top-0 left-0  duration-700   ${darkMode ? "text-primary" : "text-darkPrimary"}`}
+      className={`carouselContainer focus:outline-none w-full h-[100dvh] bg-opacity-80 bg-darkPrimary z-[100] fixed overscroll-y-none overflow-y-hidden top-0 transition-[opacity,visibility] duration-500 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'} ${darkMode ? "text-primary" : "text-darkPrimary"}`}
       onClick={(e) => { if (e.target === document.getElementById("carouselContainer")) { closeModal() } }}
       // onClick={(e) => console.log(e.target, Array.from(document.querySelectorAll(".carouselContainer")))}
       onKeyDown={(e) => {
-        if (e.key === "ArrowLeft") {
+        if (e.key === "Escape") {
+          closeModal();
+        } else if (e.key === "ArrowLeft") {
           prevVisibility();
         } else if (e.key === "ArrowRight") {
           nextVisibility();

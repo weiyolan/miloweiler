@@ -26,13 +26,13 @@ html {
 }
 
 .blackToWhite {
-  filter: invert(96%) sepia(42%) saturate(411%) hue-rotate(297deg) brightness(100%) contrast(109%);
+  filter: brightness(0) invert(1);
 }
 
 #viewport {
   position: fixed;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: overlay;
   height: 100vh;
   width: 100vw;
   -webkit-overscroll-behavior: none;
@@ -63,6 +63,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 body {
   overflow: overlay;
+  scrollbar-color: #ffffff #303030;
 }
 
 /* ============== Selection styling ===============*/
@@ -86,7 +87,7 @@ body {
   /* margin:2; */
   /* height: 8px; */
   /* background: url(../public/images/background2.svg); */
-  background-color: #FFF5EA;
+  background-color: #303030;
   /* right: 5px; */
 }
 
@@ -115,12 +116,12 @@ body {
 
 /* THUMB */
 ::-webkit-scrollbar-thumb {
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 5rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #000000;
+  background-color: #ffffffcc;
 }
 
 .dark-scrollbar::-webkit-scrollbar-thumb {

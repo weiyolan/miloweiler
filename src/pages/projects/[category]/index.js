@@ -6,7 +6,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap/dist/gsap";
 import client from "../../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
-import { Lenis as ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis } from "lenis/react";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } from "@/utils/categories";

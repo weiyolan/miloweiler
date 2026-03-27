@@ -1,0 +1,227 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e5]:
+        - link "Portfolio" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: Portfolio
+        - link "About Me" [ref=e10] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=e11]: About Me
+        - link "Contact" [ref=e12] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e13]: Contact
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - navigation [ref=e16]:
+          - link "Back to gallery" [ref=e17] [cursor=pointer]:
+            - /url: /projects/set-photography
+            - generic [ref=e18]:
+              - img [ref=e20]
+              - img [ref=e23]
+            - generic [ref=e25]: Back to gallery
+          - generic [ref=e26]:
+            - link "Previous" [ref=e27] [cursor=pointer]:
+              - /url: /projects/set-photography/the-longing
+              - img [ref=e28]
+              - generic [ref=e30]: Previous
+            - link "Next" [ref=e31] [cursor=pointer]:
+              - /url: /projects/set-photography/what-remains
+              - generic [ref=e32]: Next
+              - img [ref=e33]
+        - heading "Come Back (movie)" [level=1] [ref=e36]
+        - paragraph [ref=e38]: "\"Comeback\" is a 2025 Belgian film written and directed by brothers Jan and Raf Roosens, marking their feature film debut. The lead roles are played by Veerle Baetens, Billie-Louise Vlegels, and Zwangere Guy. Fourteen-year-old Ava has lived with her father since her parents’ divorce. Her mother, Naomi, a former successful techno DJ, suddenly reappears after years away, determined to make a comeback. She drags Ava into the nightclub scene, ignoring the disapproval of Ava’s father, Dominique, who left that world behind. As Naomi struggles to reclaim her place, Ava is pulled in too. She tries to adapt but soon finds herself torn between her parents' opposing worlds, fighting to hold on to her own identity."
+        - generic [ref=e39]:
+          - img "Project picture 1" [ref=e42] [cursor=pointer]
+          - img "Project picture 2" [ref=e45] [cursor=pointer]
+          - img "Project picture 3" [ref=e48] [cursor=pointer]
+          - img "Project picture 4" [ref=e51] [cursor=pointer]
+          - img "Project picture 5" [ref=e54] [cursor=pointer]
+          - img "Project picture 6" [ref=e57] [cursor=pointer]
+          - img "Project picture 7" [ref=e60] [cursor=pointer]
+          - img "Project picture 8" [ref=e63] [cursor=pointer]
+          - img "Project picture 9" [ref=e66] [cursor=pointer]
+          - img "Project picture 10" [ref=e69] [cursor=pointer]
+          - img "Project picture 11" [ref=e72] [cursor=pointer]
+          - img "Project picture 12" [ref=e75] [cursor=pointer]
+          - img "Project picture 13" [ref=e78] [cursor=pointer]
+          - img "Project picture 14" [ref=e81] [cursor=pointer]
+          - img "Project picture 15" [ref=e84] [cursor=pointer]
+          - img "Project picture 16" [ref=e87] [cursor=pointer]
+          - img "Project picture 17" [ref=e90] [cursor=pointer]
+          - img "Project picture 18" [ref=e93] [cursor=pointer]
+          - img "Project picture 19" [ref=e96] [cursor=pointer]
+          - img "Project picture 20" [ref=e99] [cursor=pointer]
+          - img "Project picture 21" [ref=e102] [cursor=pointer]
+          - img "Project picture 22" [ref=e105] [cursor=pointer]
+          - img "Project picture 23" [ref=e108] [cursor=pointer]
+          - img "Project picture 24" [ref=e111] [cursor=pointer]
+          - img "Project picture 25" [ref=e114] [cursor=pointer]
+          - img "Project picture 26" [ref=e117] [cursor=pointer]
+          - img "Project picture 27" [ref=e120] [cursor=pointer]
+          - img "Project picture 28" [ref=e123] [cursor=pointer]
+          - img "Project picture 29" [ref=e126] [cursor=pointer]
+          - img "Project picture 30" [ref=e129] [cursor=pointer]
+          - img "Project picture 31" [ref=e132] [cursor=pointer]
+          - img "Project picture 32" [ref=e135] [cursor=pointer]
+          - img "Project picture 33" [ref=e138] [cursor=pointer]
+          - img "Project picture 34" [ref=e141] [cursor=pointer]
+          - img "Project picture 35" [ref=e144] [cursor=pointer]
+          - img "Project picture 36" [ref=e147] [cursor=pointer]
+          - img "Project picture 37" [ref=e150] [cursor=pointer]
+          - img "Project picture 38" [ref=e153] [cursor=pointer]
+      - generic [ref=e212]:
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - img "Project image 1" [ref=e217]
+            - img [ref=e256] [cursor=pointer]
+            - img [ref=e259] [cursor=pointer]
+          - generic [ref=e261]:
+            - img [ref=e262] [cursor=pointer]
+            - img [ref=e264]
+            - img [ref=e266] [cursor=pointer]
+            - img [ref=e268] [cursor=pointer]
+            - img [ref=e270] [cursor=pointer]
+            - img [ref=e272] [cursor=pointer]
+            - img [ref=e274] [cursor=pointer]
+            - img [ref=e276] [cursor=pointer]
+            - img [ref=e278] [cursor=pointer]
+            - img [ref=e280] [cursor=pointer]
+            - img [ref=e282] [cursor=pointer]
+            - img [ref=e284] [cursor=pointer]
+            - img [ref=e286] [cursor=pointer]
+            - img [ref=e288] [cursor=pointer]
+            - img [ref=e290] [cursor=pointer]
+            - img [ref=e292] [cursor=pointer]
+            - img [ref=e294] [cursor=pointer]
+            - img [ref=e296] [cursor=pointer]
+            - img [ref=e298] [cursor=pointer]
+            - img [ref=e300] [cursor=pointer]
+            - img [ref=e302] [cursor=pointer]
+            - img [ref=e304] [cursor=pointer]
+            - img [ref=e306] [cursor=pointer]
+            - img [ref=e308] [cursor=pointer]
+            - img [ref=e310] [cursor=pointer]
+            - img [ref=e312] [cursor=pointer]
+            - img [ref=e314] [cursor=pointer]
+            - img [ref=e316] [cursor=pointer]
+            - img [ref=e318] [cursor=pointer]
+            - img [ref=e320] [cursor=pointer]
+            - img [ref=e322] [cursor=pointer]
+            - img [ref=e324] [cursor=pointer]
+            - img [ref=e326] [cursor=pointer]
+            - img [ref=e328] [cursor=pointer]
+            - img [ref=e330] [cursor=pointer]
+            - img [ref=e332] [cursor=pointer]
+            - img [ref=e334] [cursor=pointer]
+            - img [ref=e336] [cursor=pointer]
+            - img [ref=e338] [cursor=pointer]
+          - generic [ref=e341]:
+            - img "Preview of picture 0 of this project" [ref=e345] [cursor=pointer]
+            - img "Preview of picture 1 of this project" [ref=e349] [cursor=pointer]
+            - img "Preview of picture 2 of this project" [ref=e353] [cursor=pointer]
+            - img "Preview of picture 3 of this project" [ref=e357] [cursor=pointer]
+            - img "Preview of picture 4 of this project" [ref=e361] [cursor=pointer]
+            - img "Preview of picture 5 of this project" [ref=e365] [cursor=pointer]
+            - img "Preview of picture 6 of this project" [ref=e369] [cursor=pointer]
+            - img "Preview of picture 7 of this project" [ref=e373] [cursor=pointer]
+            - img "Preview of picture 8 of this project" [ref=e377] [cursor=pointer]
+            - img "Preview of picture 9 of this project" [ref=e381] [cursor=pointer]
+            - img "Preview of picture 10 of this project" [ref=e385] [cursor=pointer]
+            - img "Preview of picture 11 of this project" [ref=e389] [cursor=pointer]
+            - img "Preview of picture 12 of this project" [ref=e393] [cursor=pointer]
+            - img "Preview of picture 13 of this project" [ref=e397] [cursor=pointer]
+            - img "Preview of picture 14 of this project" [ref=e401] [cursor=pointer]
+            - img "Preview of picture 15 of this project" [ref=e405] [cursor=pointer]
+            - img "Preview of picture 16 of this project" [ref=e409] [cursor=pointer]
+            - img "Preview of picture 17 of this project" [ref=e413] [cursor=pointer]
+            - img "Preview of picture 18 of this project" [ref=e425] [cursor=pointer]
+            - img "Preview of picture 19 of this project" [ref=e437] [cursor=pointer]
+            - img "Preview of picture 20 of this project" [ref=e449] [cursor=pointer]
+            - img "Preview of picture 21 of this project" [ref=e461] [cursor=pointer]
+            - img "Preview of picture 22 of this project" [ref=e473] [cursor=pointer]
+            - img "Preview of picture 23 of this project" [ref=e485] [cursor=pointer]
+            - img "Preview of picture 24 of this project" [ref=e497] [cursor=pointer]
+            - img "Preview of picture 25 of this project" [ref=e509] [cursor=pointer]
+            - img "Preview of picture 26 of this project" [ref=e521] [cursor=pointer]
+            - img "Preview of picture 27 of this project" [ref=e533] [cursor=pointer]
+            - img "Preview of picture 28 of this project" [ref=e545] [cursor=pointer]
+            - img "Preview of picture 29 of this project" [ref=e557] [cursor=pointer]
+            - img "Preview of picture 30 of this project" [ref=e569] [cursor=pointer]
+            - img "Preview of picture 31 of this project" [ref=e581] [cursor=pointer]
+            - img "Preview of picture 32 of this project" [ref=e593] [cursor=pointer]
+            - img "Preview of picture 33 of this project" [ref=e605] [cursor=pointer]
+            - img "Preview of picture 34 of this project" [ref=e617] [cursor=pointer]
+            - img "Preview of picture 35 of this project" [ref=e629] [cursor=pointer]
+            - img "Preview of picture 36 of this project" [ref=e641] [cursor=pointer]
+            - img "Preview of picture 37 of this project" [ref=e653] [cursor=pointer]
+            - img "Preview of picture 38 of this project" [ref=e665] [cursor=pointer]
+        - button "Close carousel" [ref=e674] [cursor=pointer]:
+          - img [ref=e675]
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - heading "Navigate" [level=2] [ref=e159]
+            - list [ref=e160]:
+              - listitem [ref=e161]:
+                - link "Home" [ref=e162] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e163]:
+                - link "Commissioned" [ref=e164] [cursor=pointer]:
+                  - /url: /commissioned
+              - listitem [ref=e165]:
+                - link "Personal" [ref=e166] [cursor=pointer]:
+                  - /url: /personal
+              - listitem [ref=e167]:
+                - link "Contact" [ref=e168] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e169]:
+                - link "Printing" [ref=e170] [cursor=pointer]:
+                  - /url: /contact#printing
+          - generic [ref=e171]:
+            - heading "Socials" [level=2] [ref=e173]
+            - list [ref=e174]:
+              - listitem [ref=e175]:
+                - link "Instagram" [ref=e176] [cursor=pointer]:
+                  - /url: https://www.instagram.com/miloweiler/
+              - listitem [ref=e177]:
+                - link "Unsplash" [ref=e178] [cursor=pointer]:
+                  - /url: https://unsplash.com/@miloweiler
+              - listitem [ref=e179]:
+                - link "LinkedIn" [ref=e180] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/mwphotography
+          - generic [ref=e181]:
+            - heading "Contact" [level=2] [ref=e183]
+            - list [ref=e184]:
+              - listitem [ref=e185]:
+                - link "Call" [ref=e186] [cursor=pointer]:
+                  - /url: tel:+32476506209
+              - listitem [ref=e187]:
+                - link "WhatsApp" [ref=e188] [cursor=pointer]:
+                  - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+              - listitem [ref=e189]:
+                - link "contact@miloweiler.com" [ref=e190] [cursor=pointer]:
+                  - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+          - generic [ref=e191]:
+            - heading "Legal" [level=2] [ref=e193]
+            - list [ref=e194]:
+              - listitem [ref=e195]:
+                - link "Legal Notice" [ref=e196] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e197]:
+                - link "Terms of Use" [ref=e198] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e199]:
+                - link "Cookie Notice" [ref=e200] [cursor=pointer]:
+                  - /url: /aboutme
+        - generic [ref=e202]:
+          - link "EN" [ref=e204] [cursor=pointer]:
+            - /url: /projects/set-photography/comeback
+          - generic [ref=e205]:
+            - generic [ref=e206]: "|"
+            - link "FR" [ref=e207] [cursor=pointer]:
+              - /url: /fr/projects/set-photography/comeback
+        - text: 2026 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+        - link "ywdesign.co" [ref=e208] [cursor=pointer]:
+          - /url: https://www.ywdesign.co
+  - alert [ref=e209]

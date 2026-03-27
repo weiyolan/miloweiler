@@ -1,0 +1,189 @@
+- generic [active] [ref=e1]:
+  - main [ref=e210]:
+    - generic [ref=e211]:
+      - heading "Set Photography" [level=2] [ref=e212]
+      - generic [ref=e213]:
+        - generic [ref=e216] [cursor=pointer]:
+          - img "A woman standing in front of a mirror while smoking a cigarette . you can see her reflection and the two red curtains hanging next to the mirror." [ref=e218]
+          - heading "Come Back" [level=3] [ref=e219]
+          - generic [ref=e220]:
+            - heading [level=4]
+            - generic [ref=e221]: by Savage Film
+            - generic [ref=e222]: Commissioned
+            - link:
+              - /url: /projects/set-photography/comeback
+        - generic [ref=e225] [cursor=pointer]:
+          - img "Close-up of the face of a bearded, elderly man." [ref=e227]
+          - heading "What Remains" [level=3] [ref=e228]
+          - generic [ref=e229]:
+            - heading [level=4]
+            - generic [ref=e230]: by Zoë Demoustier
+            - generic [ref=e231]: Commissioned
+            - link:
+              - /url: /projects/set-photography/what-remains
+        - generic [ref=e234] [cursor=pointer]:
+          - 'img "Three people stand in front of a red-lit Ferris wheel at night. From left to right: a Black woman wearing a green coat, a white boy in a red jacket, and another white boy wearing a denim jacket and a hat." [ref=e236]'
+          - heading "Oh Otto!" [level=3] [ref=e237]
+          - generic [ref=e238]:
+            - heading [level=4]
+            - generic [ref=e239]: by Streamz
+            - generic [ref=e240]: Commissioned
+            - link:
+              - /url: /projects/set-photography/oh-otto
+        - generic [ref=e243] [cursor=pointer]:
+          - img "Silhouette of a girl illuminated by a street lantern, exhaling a visible puff of warm breath in the cold night air." [ref=e245]
+          - heading "Het beste moet nog komen" [level=3] [ref=e246]
+          - generic [ref=e247]:
+            - heading [level=4]
+            - generic [ref=e248]: by Pommelien Thijs
+            - generic [ref=e249]: Commissioned
+            - link [ref=e250]:
+              - /url: /projects/set-photography/het-beste-moet-nog-komen
+        - generic [ref=e253] [cursor=pointer]:
+          - img "the script of the movie in a a red folder with the names of the directors written on it." [ref=e255]
+          - heading "beetje bang voor niks" [level=3] [ref=e256]
+          - generic [ref=e257]:
+            - heading [level=4]
+            - generic [ref=e258]: by Toneelgroep Misschien
+            - generic [ref=e259]: Commissioned
+            - link:
+              - /url: /projects/set-photography/beetje-bang-voor-niks
+        - generic [ref=e262] [cursor=pointer]:
+          - img "the script of the movie in a a red folder with the names of the directors written on it." [ref=e264]
+          - heading "The Weight Of Sand" [level=3] [ref=e265]
+          - generic [ref=e266]:
+            - heading [level=4]
+            - generic [ref=e267]: by me
+            - generic [ref=e268]: Commissioned
+            - link:
+              - /url: /projects/set-photography/the-weight-of-sand
+        - generic [ref=e271] [cursor=pointer]:
+          - img "A man, blurred in the foreground with a santa-claus hat - and a woman in the background visibly frustrated. Warm, pastel-like colors in different tints of brown and grey." [ref=e273]
+          - heading "Nora - een poppenhuis" [level=3] [ref=e274]
+          - generic [ref=e275]:
+            - heading [level=4]
+            - generic [ref=e276]: by campustoneel
+            - generic [ref=e277]: Commissioned
+            - link:
+              - /url: /projects/set-photography/nora-een-poppenhuis
+        - generic [ref=e280] [cursor=pointer]:
+          - img "A sunflower planted on a remake of the moon's surface, Angèle standing next to it while looking in the distance. And lastlly Tamino on the right right, also looking into the distance" [ref=e282]
+          - heading "Sunflower" [level=3] [ref=e283]
+          - generic [ref=e284]:
+            - heading [level=4]
+            - generic [ref=e285]: by Tamino & Angèle
+            - generic [ref=e286]: Commissioned
+            - link:
+              - /url: /projects/set-photography/sunflower
+        - generic [ref=e289] [cursor=pointer]:
+          - img "Silhouette of 3 guys standing in 3 different spotlights. One on the drums, one holding a saxophone and one on a big piano." [ref=e291]
+          - heading "315" [level=3] [ref=e292]
+          - generic [ref=e293]:
+            - heading [level=4]
+            - generic [ref=e294]: by Why Panda, Why?
+            - generic [ref=e295]: Commissioned
+            - link:
+              - /url: /projects/set-photography/315
+        - generic [ref=e298] [cursor=pointer]:
+          - img "Tamino standing in a diagonal ray of light enlighting the countours of his head and torso" [ref=e300]
+          - heading "The First Disciple" [level=3] [ref=e301]
+          - generic [ref=e302]:
+            - heading [level=4]
+            - generic [ref=e303]: by Tamino
+            - generic [ref=e304]: Commissioned
+            - link:
+              - /url: /projects/set-photography/the-first-disciple
+        - generic [ref=e307] [cursor=pointer]:
+          - img "Tamino in a dark room with a faint light showing part of his face." [ref=e309]
+          - heading "You Don't Own Me" [level=3] [ref=e310]
+          - generic [ref=e311]:
+            - heading [level=4]
+            - generic [ref=e312]: by Tamino
+            - generic [ref=e313]: Commissioned
+            - link:
+              - /url: /projects/set-photography/you-dont-own-me
+        - generic [ref=e316] [cursor=pointer]:
+          - img "The main singers of the band Blackwave chilling on a playground." [ref=e318]
+          - heading "i miss" [level=3] [ref=e319]
+          - generic [ref=e320]:
+            - heading [level=4]
+            - generic [ref=e321]: by blackwave.
+            - generic [ref=e322]: Commissioned
+            - link:
+              - /url: /projects/set-photography/i-miss
+        - generic [ref=e325] [cursor=pointer]:
+          - img "Tamino in a dark room with a faint light showing part of his face." [ref=e327]
+          - heading "The Longing" [level=3] [ref=e328]
+          - generic [ref=e329]:
+            - heading [level=4]
+            - generic [ref=e330]: by Tamino
+            - generic [ref=e331]: Commissioned
+            - link:
+              - /url: /projects/set-photography/the-longing
+    - generic [ref=e333]:
+      - generic [ref=e334]:
+        - generic [ref=e335]:
+          - heading "Navigate" [level=2] [ref=e337]
+          - list [ref=e338]:
+            - listitem [ref=e339]:
+              - link "Home" [ref=e340] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e341]:
+              - link "Commissioned" [ref=e342] [cursor=pointer]:
+                - /url: /commissioned
+            - listitem [ref=e343]:
+              - link "Personal" [ref=e344] [cursor=pointer]:
+                - /url: /personal
+            - listitem [ref=e345]:
+              - link "Contact" [ref=e346] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e347]:
+              - link "Printing" [ref=e348] [cursor=pointer]:
+                - /url: /contact#printing
+        - generic [ref=e349]:
+          - heading "Socials" [level=2] [ref=e351]
+          - list [ref=e352]:
+            - listitem [ref=e353]:
+              - link "Instagram" [ref=e354] [cursor=pointer]:
+                - /url: https://www.instagram.com/miloweiler/
+            - listitem [ref=e355]:
+              - link "Unsplash" [ref=e356] [cursor=pointer]:
+                - /url: https://unsplash.com/@miloweiler
+            - listitem [ref=e357]:
+              - link "LinkedIn" [ref=e358] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/mwphotography
+        - generic [ref=e359]:
+          - heading "Contact" [level=2] [ref=e361]
+          - list [ref=e362]:
+            - listitem [ref=e363]:
+              - link "Call" [ref=e364] [cursor=pointer]:
+                - /url: tel:+32476506209
+            - listitem [ref=e365]:
+              - link "WhatsApp" [ref=e366] [cursor=pointer]:
+                - /url: https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A
+            - listitem [ref=e367]:
+              - link "contact@miloweiler.com" [ref=e368] [cursor=pointer]:
+                - /url: mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A
+        - generic [ref=e369]:
+          - heading "Legal" [level=2] [ref=e371]
+          - list [ref=e372]:
+            - listitem [ref=e373]:
+              - link "Legal Notice" [ref=e374] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e375]:
+              - link "Terms of Use" [ref=e376] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e377]:
+              - link "Cookie Notice" [ref=e378] [cursor=pointer]:
+                - /url: /aboutme
+      - generic [ref=e380]:
+        - link "EN" [ref=e382] [cursor=pointer]:
+          - /url: /projects/set-photography
+        - generic [ref=e383]:
+          - generic [ref=e384]: "|"
+          - link "FR" [ref=e385] [cursor=pointer]:
+            - /url: /fr/projects/set-photography
+      - text: 2026 MiloWeiler, Inc. All rights reserved. ∘ Powered By
+      - link "ywdesign.co" [ref=e386] [cursor=pointer]:
+        - /url: https://www.ywdesign.co
+  - alert [ref=e209]: Milo Weiler | Set Photography
