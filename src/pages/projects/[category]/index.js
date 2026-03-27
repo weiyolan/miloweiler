@@ -10,6 +10,7 @@ import { ReactLenis } from "lenis/react";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } from "@/utils/categories";
+import Link from "next/link";
 
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
@@ -66,10 +67,19 @@ export default function CategoryGallery({ projects, category }) {
                 {label}
               </GalleryTitle>
 
-              <GalleryTitle className="">{label}</GalleryTitle>
-              {/* {ALL_CATEGORY_SLUGS.map(slug => (
-                              <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/projects/${slug}`} isDark={isDark} />
-                            ))} */}
+              {/* <GalleryTitle className="">{label}</GalleryTitle> */}
+
+              <nav className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
+                {ALL_CATEGORY_SLUGS.map((slug) => (
+                  <Link
+                    key={slug}
+                    href={`/projects/${slug}`}
+                    className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
+                  >
+                    {CATEGORY_LABELS[slug]?.[locale] || slug}
+                  </Link>
+                ))}
+              </nav>
 
               <div className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project, i) => (

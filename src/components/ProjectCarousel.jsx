@@ -22,10 +22,22 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
   // const { width, height, locale } = useAppContext()
   // let [visibleItem, setVisibleItem] = useState(initiateVisibility())
   // let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
+  const containerRef = useRef(null)
   let [indicatorPosition, setIndicatorPosition] = useState(null)
   let [mainPictureHeight, setMainPictureHeight] = useState(null)
   let [mainPictureWidth, setMainPictureWidth] = useState(null)
 
+
+  useEffect(() => {
+    if (!open) return
+    function handleKeyDown(e) {
+      if (e.key === "Escape") closeModal()
+      else if (e.key === "ArrowLeft") prevVisibility()
+      else if (e.key === "ArrowRight") nextVisibility()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [open, prevVisibility, nextVisibility])
 
   useEffect(() => {
     // console.log(descriptionPosition)
@@ -206,20 +218,13 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
 
   return (
     <div
-      tabIndex={0} 
+      ref={containerRef}
+      tabIndex={-1}
       // style={{ backgroundColor: palette.dominant.background }}
       className={`carouselContainer focus:outline-none w-full h-[100dvh] bg-opacity-80 bg-darkPrimary z-[100] fixed overscroll-y-none overflow-y-hidden top-0 transition-[opacity,visibility] duration-500 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'} ${darkMode ? "text-primary" : "text-darkPrimary"}`}
       onClick={(e) => { if (e.target === document.getElementById("carouselContainer")) { closeModal() } }}
       // onClick={(e) => console.log(e.target, Array.from(document.querySelectorAll(".carouselContainer")))}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") {
-          closeModal();
-        } else if (e.key === "ArrowLeft") {
-          prevVisibility();
-        } else if (e.key === "ArrowRight") {
-          nextVisibility();
-        }
-      }}>
+>
       <PageWrapper palette={palette} >
         <Layout cardSection className={"carouselContainer relative h-full flex items-center justify-center"}>
           <div style={{}} className={`carouselContainer relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>

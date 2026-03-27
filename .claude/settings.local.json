@@ -39,7 +39,8 @@
       "Bash(git show:*)",
       "Bash(find /d/Documenten/WebDev/miloweiler/src -type f -name *.css -o -name *.scss)",
       "Bash(find /d/Documenten/WebDev/miloweiler -maxdepth 2 -type d ! -name node_modules ! -name .next ! -name .git ! -name .netlify ! -path */.git/*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(npx rimraf:*)"
     ]
   }
 }

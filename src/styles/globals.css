@@ -178,6 +178,7 @@ html.lenis {
 
 .lenis.lenis-stopped {
   overflow: hidden;
+  scrollbar-gutter: stable;
 }
 
 .lenis.lenis-scrolling iframe {
