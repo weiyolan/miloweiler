@@ -1,5 +1,6 @@
 import { defineField, defineType } from 'sanity'
 import { PresentationIcon } from '@sanity/icons'
+import { ImageImportInput } from '../components/ImageImportInput'
 
 export default defineType({
   name: "project",
@@ -297,6 +298,9 @@ export default defineType({
       title: "Project Images",
       type: "array",
       // of: [{type: 'metaImage'}],
+      components: {
+        input: ImageImportInput,
+      },
       options: {
         layout: "list",
       },
