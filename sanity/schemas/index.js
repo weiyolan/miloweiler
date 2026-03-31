@@ -1,9 +1,9 @@
 import trustedByLogo from './trustedByLogo'
 import altImage from './altImage'
-import metaImage from './metaImage'
 import blockContent from './blockContent'
 
 import localeString from './localeString'
+import localeStringOptional from './localeStringOptional'
 import localeText from './localeText'
 import localeBlockContent from './localeBlockContent'
 
@@ -27,9 +27,9 @@ export const schemaTypes = [
   trustedByLogo,
   blockContent,
   altImage,
-  metaImage,
   localeBlockContent,
   localeString,
+  localeStringOptional,
   localeText,
   project,
   contactPageCDS,

@@ -389,10 +389,11 @@ export default function Project({ project, slug, slugs, category }) {
                   }}
                   className="flex w-auto ml-[-6px] mt-6 md:mt-12 mb-12 relative"
                   columnClassName="pl-[6px] bg-clip-padding ">
-                  {[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)].map((image, i) => (
+                  {[{ image: project.mainImage.image, alt: project.mainImage.alt }, ...project.otherImages.map((oImage) => ({ image: oImage.image, alt: oImage.alt }))].map((item, i) => (
                     <Photo
                       key={i}
-                      image={image}
+                      image={item.image}
+                      alt={item.alt}
                       i={i}
                       onClick={() => {
                         handleVisibility(i, "left");
@@ -425,11 +426,11 @@ function Arrow({arrowClassName="" }) {
   )
 }
 
-function Photo({ image, i, ...props }) {
+function Photo({ image, alt: altText, i, ...props }) {
   const [loaded, setLoaded] = useState(false);
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
-  const { width } = useAppContext();
+  const { width, locale } = useAppContext();
   useEffect(() => {
     // function onLoad() {
     if (loaded) {
@@ -474,7 +475,7 @@ function Photo({ image, i, ...props }) {
       factor={width < 850 ? 0.1 : 0.2}
       image={image}
       sizes="(max-width: 700px) 50vw, 25vw"
-      alt={`Project picture ${i + 1}`}
+      alt={altText?.[locale] || `Project picture ${i + 1}`}
       {...props}
     />
   );
@@ -484,7 +485,7 @@ function GridPhoto({ image, i, ...props }) {
   const [loaded, setLoaded] = useState(false);
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
-  const { width } = useAppContext();
+  const { width, locale } = useAppContext();
   const { darkMode } = usePageContext();
   useEffect(() => {
     // function onLoad() {
@@ -547,7 +548,7 @@ function GridPhoto({ image, i, ...props }) {
         factor={width < 850 ? 0.1 : 0.2}
         image={image.image}
         sizes="(max-width: 700px) 50vw, 25vw"
-        alt={`Project picture ${i + 1}`}
+        alt={image?.alt?.[locale] || `Project picture ${i + 1}`}
         {...props}
       />
     </div>
@@ -601,7 +602,7 @@ export async function getStaticProps({ params }) {
   const cat = getCatFromSlug(params.category);
   const [project, categorySlugs] = await Promise.all([
     client.fetch(
-      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,border,position,image{asset->{url,metadata},...asset{_ref}}}}`
+      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,alt,border,position,image{asset->{url,metadata},...asset{_ref}}}}`
     ),
     client.fetch(`*[_type == "project" && cat == "${cat}"]|order(date desc){slug}`),
   ]);

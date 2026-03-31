@@ -1616,7 +1616,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
         {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
-        <meta property="og:image" itemProp="image" content={`${introImages.images[0].asset.url}?w=500&h=500&fit=crop`} />
+        <meta property="og:image" itemProp="image" content={`${introImages.images[0]?.image?.asset?.url}?w=500&h=500&fit=crop`} />
         {/* <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} /> */}
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com/about`} />
@@ -1627,7 +1627,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
         <meta property="twitter:url" content="https://www.miloweiler.com/about" />
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
-        <meta name="twitter:image" content={`${introImages.images[0].asset.url}?w=500&h=500&fit=crop`} />
+        <meta name="twitter:image" content={`${introImages.images[0]?.image?.asset?.url}?w=500&h=500&fit=crop`} />
         {/* <meta property="twitter:card" content="summary_large_image" /> */}
         {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
         {/* <meta property="og:image:width" content="1200" /> */}
@@ -1857,10 +1857,10 @@ overscroll-behavior: none;
 export async function getStaticProps() {
   const [projects, introImages, sectionInfo] = await Promise.all([
     client.fetch(
-      `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
+      `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type,alt, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
     ),
     client.fetch(
-      `*[_type == "mainPageXIntro"][0]{images[]{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}`
+      `*[_type == "mainPageXIntro"][0]{images[]{alt,image{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}}`
     ),
     client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`),
   ]);

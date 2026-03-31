@@ -11,7 +11,7 @@ export default defineType({
       name: 'images',
       title: 'Randomized Images',
       type: 'array',
-      of: [{type: 'metaImage'}],
+      of: [{type: 'altImage'}],
       // group: ['details', 'images'],
       // group: 'images',
       validation: (Rule) => Rule.required(),

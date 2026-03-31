@@ -7,6 +7,19 @@ export default defineType({
   type: 'object',
   options: { collapsible: true, collapsed: false },
 
+  preview: {
+    select: {
+      media: 'image',
+      alt: 'alt.en',
+    },
+    prepare({ media, alt }) {
+      return {
+        title: alt || 'Image',
+        media,
+      }
+    },
+  },
+
   fields: [
     defineField({
       name: 'image', title: 'Image', type: 'image',
@@ -20,8 +33,7 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
-      name: 'alt', title: 'Description', type: 'localeString', description: 'A simple description of what is shown on the picture for people using screenreaders.',
-      validation: Rule => Rule.required()
+      name: 'alt', title: 'Alt', type: 'localeStringOptional', description: 'A simple description of what is shown on the picture for people using screenreaders.'
     }),
   ]
 })

@@ -1,12 +1,16 @@
 import { defineField, defineType } from 'sanity'
 import { PresentationIcon } from '@sanity/icons'
 import { ImageImportInput } from '../components/ImageImportInput'
+import { ProjectPreview } from '../components/ProjectPreview'
 
 export default defineType({
   name: "project",
   title: "Gallery",
   type: "document",
   icon: PresentationIcon,
+  components: {
+    preview: ProjectPreview,
+  },
   groups: [
     {
       name: "details",
@@ -37,14 +41,18 @@ export default defineType({
       by: "by",
       date: "date",
       media: "mainImage",
+      _id: "_id",
+      _rev: "_rev",
     },
 
     prepare(selection) {
-      const { title, date, cat, by, subTitle, media } = selection;
+      const { title, date, cat, by, subTitle, media, _id, _rev } = selection;
       return {
         title: getTitle(title, subTitle),
         subtitle: getSubTitle(cat, by, date),
         media: media?.image,
+        _id,
+        _rev,
       };
     },
   },
@@ -189,7 +197,7 @@ export default defineType({
     defineField({
       name: "cat",
       title: "Category",
-      description: "Fine Art projecten verschijnen nooit bij de commissioned projecten. Kijk de toggle dus goed na ;)",
+      description: "",
       type: "string",
       group: "details",
       options: {
@@ -198,7 +206,7 @@ export default defineType({
           { title: "Portrait", value: "docu" },
           { title: "Corporate Events", value: "events" },
           { title: "Product", value: "studio" },
-          { title: "Fine Art", value: "art" },
+          { title: "Personal Work", value: "art" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -326,7 +334,19 @@ export default defineType({
             },
           },
           fields: [
-            { type: "metaImage", name: "image" },
+            {
+              type: "image",
+              name: "image",
+              options: {
+                hotspot: true,
+                metadata: ['lqip', 'palette'],
+              },
+            },
+            {
+              type: "localeStringOptional",
+              name: "alt",
+              title: "Alt Text",
+            },
             { type: "boolean", name: "border", title: "Border", initialValue: false },
             {
               type: "object",

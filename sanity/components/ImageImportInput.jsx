@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import { set, useClient, useFormValue } from 'sanity'
 import {
   Button,
@@ -12,7 +12,7 @@ import {
   Code,
   useToast,
 } from '@sanity/ui'
-import { UploadIcon, CheckmarkCircleIcon, CloseCircleIcon, TrashIcon } from '@sanity/icons'
+import { UploadIcon, CheckmarkCircleIcon, CloseCircleIcon, TrashIcon, EditIcon } from '@sanity/icons'
 import { parseSvg } from './svgParser'
 
 function generateKey() {
@@ -36,8 +36,12 @@ export function ImageImportInput(props) {
   const [mobileResult, setMobileResult] = useState(null)
   const [svgError, setSvgError] = useState(null)
 
-  // Image files
+  // Image files (optional — only for new images)
   const [imageFiles, setImageFiles] = useState([])
+
+  // Existing items asset map: baseName → existingItem
+  const [existingMap, setExistingMap] = useState(new Map())
+  const [loadingAssets, setLoadingAssets] = useState(false)
 
   // Import state
   const [importing, setImporting] = useState(false)
@@ -45,6 +49,56 @@ export function ImageImportInput(props) {
 
   const client = useClient({ apiVersion: '2024-03-14' })
   const toast = useToast()
+
+  // --- Fetch existing item filenames when dialog opens ---
+
+  useEffect(() => {
+    if (!open) return
+    const items = props.value || []
+    if (items.length === 0) {
+      setExistingMap(new Map())
+      return
+    }
+
+    const assetIds = items
+      .map((item) => item.image?.asset?._ref)
+      .filter(Boolean)
+
+    if (assetIds.length === 0) {
+      setExistingMap(new Map())
+      return
+    }
+
+    setLoadingAssets(true)
+    client
+      .fetch(
+        `*[_type == "sanity.imageAsset" && _id in $ids]{_id, originalFilename}`,
+        { ids: assetIds },
+      )
+      .then((assets) => {
+        const assetNameMap = new Map()
+        for (const asset of assets) {
+          if (asset.originalFilename) {
+            assetNameMap.set(asset._id, stripExtension(asset.originalFilename))
+          }
+        }
+
+        const map = new Map()
+        for (const item of items) {
+          const ref = item.image?.asset?._ref
+          const baseName = assetNameMap.get(ref)
+          if (baseName) {
+            map.set(baseName, item)
+          }
+        }
+        setExistingMap(map)
+      })
+      .catch((err) => {
+        console.error('Failed to fetch asset filenames:', err)
+        setExistingMap(new Map())
+      })
+      .finally(() => setLoadingAssets(false))
+  }, [open, props.value, client])
 
   // --- SVG handlers ---
 
@@ -78,58 +132,90 @@ export function ImageImportInput(props) {
     setImageFiles(Array.from(e.target.files))
   }, [])
 
-  // --- Matching ---
+  // --- Matching (3-way: existing items, new files, unmatched) ---
 
   const matches = useMemo(() => {
-    if (!desktopResult?.images?.length || !mobileResult?.images?.length || !imageFiles.length) {
-      return { matched: [], unmatchedFiles: [], unmatchedDesktop: [], unmatchedMobile: [] }
-    }
+    const empty = { existingMatches: [], newMatches: [], unmatchedFiles: [], unmatchedSvg: [] }
+    if (!desktopResult?.images?.length || !mobileResult?.images?.length) return empty
 
     const desktopMap = new Map(desktopResult.images.map((img) => [img.id, img]))
-    const mobilMap = new Map(mobileResult.images.map((img) => [img.id, img]))
+    const mobileMap = new Map(mobileResult.images.map((img) => [img.id, img]))
 
-    const matched = []
-    const unmatchedFiles = []
-
-    for (const file of imageFiles) {
-      const baseName = stripExtension(file.name)
-      const desktop = desktopMap.get(baseName)
-      const mobile = mobilMap.get(baseName)
-
-      if (desktop && mobile) {
-        matched.push({ file, desktop, mobile })
-        desktopMap.delete(baseName)
-        mobilMap.delete(baseName)
-      } else {
-        unmatchedFiles.push({
-          name: file.name,
-          hasDesktop: !!desktop,
-          hasMobile: !!mobile,
-        })
+    // Find all SVG entries present in BOTH desktop and mobile
+    const svgEntries = []
+    for (const [id, desktop] of desktopMap) {
+      const mobile = mobileMap.get(id)
+      if (mobile) {
+        svgEntries.push({ id, desktop, mobile })
       }
     }
 
-    return {
-      matched,
-      unmatchedFiles,
-      unmatchedDesktop: Array.from(desktopMap.values()),
-      unmatchedMobile: Array.from(mobilMap.values()),
+    const existingMatches = []
+    const newMatches = []
+    const unmatchedSvg = []
+
+    // Build a file map for uploaded files
+    const fileMap = new Map()
+    for (const file of imageFiles) {
+      fileMap.set(stripExtension(file.name), file)
     }
-  }, [desktopResult, mobileResult, imageFiles])
+
+    for (const entry of svgEntries) {
+      const existingItem = existingMap.get(entry.id)
+      if (existingItem) {
+        existingMatches.push({ existingItem, desktop: entry.desktop, mobile: entry.mobile, id: entry.id })
+      } else {
+        const file = fileMap.get(entry.id)
+        if (file) {
+          newMatches.push({ file, desktop: entry.desktop, mobile: entry.mobile })
+          fileMap.delete(entry.id)
+        } else {
+          unmatchedSvg.push(entry)
+        }
+      }
+    }
+
+    // Remaining uploaded files that didn't match any SVG entry
+    const unmatchedFiles = Array.from(fileMap.entries()).map(([baseName, file]) => ({
+      name: file.name,
+      hasDesktop: desktopMap.has(baseName),
+      hasMobile: mobileMap.has(baseName),
+    }))
+
+    return { existingMatches, newMatches, unmatchedFiles, unmatchedSvg }
+  }, [desktopResult, mobileResult, imageFiles, existingMap])
+
+  const totalMatches = matches.existingMatches.length + matches.newMatches.length
 
   // --- Import ---
 
   const handleImport = useCallback(async () => {
-    if (matches.matched.length === 0) return
+    if (totalMatches === 0) return
 
     setImporting(true)
-    setProgress({ current: 0, total: matches.matched.length })
+    setProgress({ current: 0, total: matches.newMatches.length })
 
+    // Step 1: Update existing items in place
+    const existingKeys = new Set(matches.existingMatches.map((m) => m.existingItem._key))
+    const updatedItems = (props.value || []).map((item) => {
+      const match = matches.existingMatches.find((m) => m.existingItem._key === item._key)
+      if (!match) return item
+      return {
+        ...item,
+        border: match.desktop.border || match.mobile.border,
+        position: {
+          lg: { x: match.desktop.col, y: match.desktop.row, width: match.desktop.colSpan, height: match.desktop.rowSpan },
+          sm: { x: match.mobile.col, y: match.mobile.row, width: match.mobile.colSpan, height: match.mobile.rowSpan },
+        },
+      }
+    })
+
+    // Step 2: Upload + create new items
     const newItems = []
     const errors = []
 
-    for (let i = 0; i < matches.matched.length; i++) {
-      const { file, desktop, mobile } = matches.matched[i]
+    for (let i = 0; i < matches.newMatches.length; i++) {
+      const { file, desktop, mobile } = matches.newMatches[i]
       try {
         const asset = await client.assets.upload('image', file, {
           filename: file.name,
@@ -147,49 +233,36 @@ export function ImageImportInput(props) {
           },
           border: desktop.border || mobile.border,
           position: {
-            lg: {
-              x: desktop.col,
-              y: desktop.row,
-              width: desktop.colSpan,
-              height: desktop.rowSpan,
-            },
-            sm: {
-              x: mobile.col,
-              y: mobile.row,
-              width: mobile.colSpan,
-              height: mobile.rowSpan,
-            },
+            lg: { x: desktop.col, y: desktop.row, width: desktop.colSpan, height: desktop.rowSpan },
+            sm: { x: mobile.col, y: mobile.row, width: mobile.colSpan, height: mobile.rowSpan },
           },
         })
       } catch (err) {
         errors.push(`${file.name}: ${err.message}`)
       }
 
-      setProgress({ current: i + 1, total: matches.matched.length })
+      setProgress({ current: i + 1, total: matches.newMatches.length })
     }
 
-    if (newItems.length > 0) {
-      const existing = props.value || []
-      props.onChange(set([...existing, ...newItems]))
-    }
+    // Step 3: Set the full array (updated existing + new)
+    props.onChange(set([...updatedItems, ...newItems]))
 
-    if (errors.length > 0) {
-      toast.push({
-        title: `Imported ${newItems.length} images (${errors.length} failed)`,
-        status: 'warning',
-        description: errors.join(', '),
-      })
-    } else {
-      toast.push({
-        title: `Imported ${newItems.length} images`,
-        status: 'success',
-      })
-    }
+    // Toast
+    const parts = []
+    if (matches.existingMatches.length > 0) parts.push(`${matches.existingMatches.length} updated`)
+    if (newItems.length > 0) parts.push(`${newItems.length} imported`)
+    if (errors.length > 0) parts.push(`${errors.length} failed`)
+
+    toast.push({
+      title: parts.join(', '),
+      status: errors.length > 0 ? 'warning' : 'success',
+      description: errors.length > 0 ? errors.join(', ') : undefined,
+    })
 
     setImporting(false)
     setOpen(false)
     resetState()
-  }, [matches, client, props, toast])
+  }, [totalMatches, matches, client, props, toast])
 
   function resetState() {
     setDesktopResult(null)
@@ -213,6 +286,17 @@ export function ImageImportInput(props) {
 
   const desktopParsed = desktopResult?.images?.length ?? 0
   const mobileParsed = mobileResult?.images?.length ?? 0
+
+  // Build import button text
+  let importText = 'Import'
+  if (importing) {
+    importText = 'Importing...'
+  } else {
+    const parts = []
+    if (matches.existingMatches.length > 0) parts.push(`Update ${matches.existingMatches.length}`)
+    if (matches.newMatches.length > 0) parts.push(`Import ${matches.newMatches.length} New`)
+    importText = parts.length > 0 ? parts.join(' + ') : 'Import 0 Images'
+  }
 
   return (
     <Stack space={3}>
@@ -247,6 +331,25 @@ export function ImageImportInput(props) {
         >
           <Box padding={4}>
             <Stack space={4}>
+              {/* Loading existing assets */}
+              {loadingAssets && (
+                <Card padding={3} radius={2} shadow={1}>
+                  <Flex align="center" gap={3}>
+                    <Spinner muted />
+                    <Text size={1}>Loading existing images...</Text>
+                  </Flex>
+                </Card>
+              )}
+
+              {/* Existing items info */}
+              {!loadingAssets && existingMap.size > 0 && (
+                <Card padding={3} radius={2} tone="transparent" shadow={1}>
+                  <Text size={1} muted>
+                    {existingMap.size} existing image(s) available for metadata update
+                  </Text>
+                </Card>
+              )}
+
               {/* Step 1: Desktop SVG */}
               <Card padding={3} radius={2} shadow={1}>
                 <Stack space={3}>
@@ -289,11 +392,14 @@ export function ImageImportInput(props) {
                 </Stack>
               </Card>
 
-              {/* Step 3: Image files */}
+              {/* Step 3: New image files (optional) */}
               <Card padding={3} radius={2} shadow={1}>
                 <Stack space={3}>
                   <Text weight="semibold" size={1}>
-                    3. Select Image Files
+                    3. New Image Files (optional)
+                  </Text>
+                  <Text size={0} muted>
+                    Only needed for images not already in the list.
                   </Text>
                   <input
                     type="file"
@@ -325,14 +431,36 @@ export function ImageImportInput(props) {
                 </Card>
               )}
 
-              {/* Match preview */}
-              {matches.matched.length > 0 && (
+              {/* Existing matches (updates) */}
+              {matches.existingMatches.length > 0 && (
+                <Card padding={3} radius={2} tone="primary" shadow={1}>
+                  <Stack space={2}>
+                    <Text size={1} weight="semibold">
+                      {matches.existingMatches.length} existing image(s) to update
+                    </Text>
+                    {matches.existingMatches.map(({ id, desktop, mobile }) => (
+                      <Flex key={id} align="center" gap={2}>
+                        <Text size={1}>
+                          <EditIcon />
+                        </Text>
+                        <Text size={1}>
+                          {id} — lg({desktop.col},{desktop.row},{desktop.colSpan},{desktop.rowSpan}) sm({mobile.col},{mobile.row},{mobile.colSpan},{mobile.rowSpan})
+                          {(desktop.border || mobile.border) ? ' border' : ''}
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Stack>
+                </Card>
+              )}
+
+              {/* New matches (uploads) */}
+              {matches.newMatches.length > 0 && (
                 <Card padding={3} radius={2} tone="positive" shadow={1}>
                   <Stack space={2}>
                     <Text size={1} weight="semibold">
-                      {matches.matched.length} matched
+                      {matches.newMatches.length} new image(s) to import
                     </Text>
-                    {matches.matched.map(({ file, desktop, mobile }) => (
+                    {matches.newMatches.map(({ file, desktop, mobile }) => (
                       <Flex key={file.name} align="center" gap={2}>
                         <Text size={1}>
                           <CheckmarkCircleIcon />
@@ -371,6 +499,27 @@ export function ImageImportInput(props) {
                 </Card>
               )}
 
+              {/* Unmatched SVG entries */}
+              {matches.unmatchedSvg.length > 0 && (
+                <Card padding={3} radius={2} tone="caution" shadow={1}>
+                  <Stack space={2}>
+                    <Text size={1} weight="semibold">
+                      {matches.unmatchedSvg.length} SVG entry(s) without matching image
+                    </Text>
+                    {matches.unmatchedSvg.map(({ id }) => (
+                      <Flex key={id} align="center" gap={2}>
+                        <Text size={1}>
+                          <CloseCircleIcon />
+                        </Text>
+                        <Text size={1} muted>
+                          {id} — no existing or uploaded image
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Stack>
+                </Card>
+              )}
+
               {/* Progress */}
               {importing && (
                 <Card padding={3} radius={2} shadow={1}>
@@ -385,15 +534,11 @@ export function ImageImportInput(props) {
 
               {/* Import button */}
               <Button
-                text={
-                  importing
-                    ? 'Importing...'
-                    : `Import ${matches.matched.length} Image${matches.matched.length !== 1 ? 's' : ''}`
-                }
+                text={importText}
                 icon={UploadIcon}
                 onClick={handleImport}
                 tone="positive"
-                disabled={importing || matches.matched.length === 0}
+                disabled={importing || totalMatches === 0}
               />
             </Stack>
           </Box>
