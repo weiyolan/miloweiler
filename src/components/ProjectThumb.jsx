@@ -98,7 +98,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseDown={handleMouseDown}
         onMouseEnter={() => { setHover(true); }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
-        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card hover:scale-[0.98]  transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card   transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
 
 
         {/* <div className={`absolute top-0 left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>

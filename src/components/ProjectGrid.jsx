@@ -34,7 +34,7 @@ function GridPhoto({ image, i, ...props }) {
 
   return (
     <div
-      className={`relative opacity-0 cursor-pointer transition-transform duration-200 hover:scale-[0.97] ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
+      className={`relative -mx-2 opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
       ref={fotoThumb}
       style={{
         width: "auto",
