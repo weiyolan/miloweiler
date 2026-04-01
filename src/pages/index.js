@@ -105,6 +105,9 @@ export async function getStaticProps() {
       const item = data[queryKey];
       if (!item?.mainImage?.image) return null;
 
+      const palette = item.mainImage.image?.asset?.metadata?.palette
+      const bgColor =  palette?.darkMuted?.background ||'#1a1a1a'
+
       return {
         slug,
         image: item.mainImage.image,
@@ -112,6 +115,7 @@ export async function getStaticProps() {
         projectCount: data[`${queryKey}Count`] || 0,
         year: item.date ? item.date.slice(0, 4) : '',
         href: `/projects/${slug}`,
+        bgColor,
         ogUrl: item.mainImage.image?.asset?.url
           ? `${item.mainImage.image.asset.url}?w=500&h=500&fit=crop`
           : null,
