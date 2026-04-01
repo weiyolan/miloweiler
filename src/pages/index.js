@@ -1,16 +1,12 @@
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap/dist/gsap";
+import React from "react";
+import dynamic from "next/dynamic";
 import client from "../../lib/sanity";
-import Footer2 from "@/components/Footer2";
-import { ReactLenis } from "lenis/react";
-import Layout from "@/components/Layout";
-import GalleryTitle from "@/components/GalleryTitle";
-import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_MAP } from "@/utils/categories";
-import SanityImage from "@/components/SanityImage";
-import Link from "next/link";
+import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from "@/utils/categories";
+
+const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
 
 const SLUG_TO_QUERY_KEY = {
   'highlighted': 'highlighted',
@@ -21,114 +17,111 @@ const SLUG_TO_QUERY_KEY = {
   'personal-work': 'art',
 };
 
-export default function Home({ categoryImages }) {
-  let { width, locale } = useAppContext();
-  let darkMode = true;
-  const ctx = useRef(gsap.context(() => {}));
+export default function Home({ categories }) {
+  const { locale } = useAppContext();
 
-  useEffect(() => {
-    ctx.current = gsap.context(() => {
-      gsap.from('.category-tile', {
-        autoAlpha: 0,
-        // y: 30,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-      });
-    });
-    return () => ctx.current.revert();
-  }, []);
+  const localizedCategories = categories.map((cat) => ({
+    ...cat,
+    label: CATEGORY_LABELS[cat.slug]?.[locale] || CATEGORY_LABELS[cat.slug]?.en || cat.slug,
+  }));
 
-  const firstImage = categoryImages?.[Object.keys(categoryImages).find((k) => categoryImages[k]?.mainImage)];
+  const firstImage = categories.find((c) => c.image);
 
   return (
     <>
       <Head>
         <title>{"Milo Weiler Photography | Witness The Beauty Of Life"}</title>
         <meta name="description" content="Specialised Set & Studio Photography" />
-
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
-        <meta property="og:description" content={`Specialised Set & Studio Photography`} />
+        <meta property="og:description" content="Specialised Set & Studio Photography" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        {firstImage?.mainImage && (
-          <meta property="og:image" itemProp="image" content={`${firstImage.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+        {firstImage?.ogUrl && (
+          <meta property="og:image" itemProp="image" content={firstImage.ogUrl} />
         )}
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}`} />
         <meta property="fb:app_id" content="659504862954849" />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content="https://www.miloweiler.com/" />
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
-        {firstImage?.mainImage && (
-          <meta name="twitter:image" content={`${firstImage.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+        {firstImage?.ogUrl && (
+          <meta name="twitter:image" content={firstImage.ogUrl} />
         )}
       </Head>
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary" : "bg-primary text-darkPrimary"}`}>
-          <PageWrapper darkMode={darkMode}>
-            <Layout className={`relative pt-12 lg:px-16 xl:px-24 max-w-7xl mb-12 flex-1`}>
-              <GalleryTitle h1 className="">
-                Portfolio
-              </GalleryTitle>
-              <GalleryTitle className="">Portfolio</GalleryTitle>
-
-              <div className="w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6">
-                {ALL_CATEGORY_SLUGS.map((slug) => {
-                  const queryKey = SLUG_TO_QUERY_KEY[slug];
-                  const data = categoryImages?.[queryKey];
-                  const label = CATEGORY_LABELS[slug]?.[locale] || CATEGORY_LABELS[slug]?.en || slug;
-
-                  if (!data?.mainImage) return null;
-
-                  return (
-                    <Link href={`/projects/${slug}`} key={slug}>
-                      <div className="category-tile relative aspect-[3/2] overflow-hidden group">
-                        <SanityImage
-                          image={data.mainImage.image}
-                          fill
-                          blur
-                          sizes="(max-width: 640px) 100vw, 50vw"
-                          alt={data.mainImage.alt || label}
-                          className="group-hover:scale-105 transition-transform duration-500"
-                          containerClass="rounded-none"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent ">
-                          <span className="text-white font-serif text-xl font-black tracking-wide">
-                            {label}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </Layout>
-
-            <Footer2 className={`relative`} noMotion noMargin />
-          </PageWrapper>
-        </main>
-      </ReactLenis>
+      <main className="w-full h-screen overflow-hidden bg-darkGrey text-primary">
+        <PageWrapper darkMode={true}>
+          <CardCarousel categories={localizedCategories} />
+        </PageWrapper>
+      </main>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const categoryImages = await client.fetch(`{
-    'highlighted': *[_type == "project" && highlighted == true]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
-    'bts': *[_type == "project" && cat == "bts"]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
-    'docu': *[_type == "project" && cat == "docu"]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
-    'events': *[_type == "project" && cat == "events"]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
-    'studio': *[_type == "project" && cat == "studio"]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
-    'art': *[_type == "project" && cat == "art"]|order(date desc)[0]{mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}},
+  const data = await client.fetch(`{
+    'highlighted': *[_type == "project" && highlighted == true]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'highlightedCount': count(*[_type == "project" && highlighted == true]),
+
+    'bts': *[_type == "project" && cat == "bts"]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'btsCount': count(*[_type == "project" && cat == "bts"]),
+
+    'docu': *[_type == "project" && cat == "docu"]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'docuCount': count(*[_type == "project" && cat == "docu"]),
+
+    'events': *[_type == "project" && cat == "events"]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'eventsCount': count(*[_type == "project" && cat == "events"]),
+
+    'studio': *[_type == "project" && cat == "studio"]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'studioCount': count(*[_type == "project" && cat == "studio"]),
+
+    'art': *[_type == "project" && cat == "art"]|order(date desc)[0]{
+      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'artCount': count(*[_type == "project" && cat == "art"]),
   }`);
+
+  const categories = ALL_CATEGORY_SLUGS
+    .map((slug) => {
+      const queryKey = SLUG_TO_QUERY_KEY[slug];
+      const item = data[queryKey];
+      if (!item?.mainImage?.image) return null;
+
+      return {
+        slug,
+        image: item.mainImage.image,
+        alt: item.mainImage.alt || '',
+        projectCount: data[`${queryKey}Count`] || 0,
+        year: item.date ? item.date.slice(0, 4) : '',
+        href: `/projects/${slug}`,
+        ogUrl: item.mainImage.image?.asset?.url
+          ? `${item.mainImage.image.asset.url}?w=500&h=500&fit=crop`
+          : null,
+      };
+    })
+    .filter(Boolean);
 
   return {
     props: {
-      categoryImages,
+      categories,
     },
   };
 }
