@@ -16,6 +16,7 @@ export default function ScrollHint({ visible }) {
   return (
     <div
       ref={ref}
+      data-transition="scroll-hint"
       className="fixed top-0 right-0 z-40 pr-6 md:pr-10 pt-4 md:pt-5 pointer-events-none"
     >
       <div className="flex items-center gap-2 font-mono text-xs text-white/40">

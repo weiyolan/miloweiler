@@ -507,7 +507,7 @@ export async function getStaticProps({ params }) {
   const cat = getCatFromSlug(params.category);
   const [project, categorySlugs] = await Promise.all([
     client.fetch(
-      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,alt,border,position,image{asset->{url,metadata},...asset{_ref}}}}`
+      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{...,asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,alt,border,position,image{...,asset->{url,metadata},...asset{_ref}}}}`
     ),
     client.fetch(`*[_type == "project" && cat == "${cat}"]|order(date desc){slug}`),
   ]);

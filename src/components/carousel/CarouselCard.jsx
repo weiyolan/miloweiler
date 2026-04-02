@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react'
-import Link from 'next/link'
+import React, { forwardRef, useRef, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import SanityImage from '@/components/SanityImage'
 
 const CarouselCard = forwardRef(function CarouselCard({
@@ -12,15 +12,41 @@ const CarouselCard = forwardRef(function CarouselCard({
   href,
   isFront,
   titleVisible,
+  onTransitionClick,
 }, ref) {
+  const router = useRouter()
+  const localRef = useRef(null)
+  const setRefs = useCallback((el) => {
+    localRef.current = el
+    if (typeof ref === 'function') ref(el)
+    else if (ref) ref.current = el
+  }, [ref])
+
   const showTitle = isFront && titleVisible
+
+  function handleClick(e) {
+    e.preventDefault()
+    if (!isFront) return
+    // Transition disabled — navigate directly
+    router.push(href)
+    // if (!onTransitionClick) return
+    // const rect = localRef.current?.getBoundingClientRect()
+    // if (!rect) return
+    // onTransitionClick(
+    //   { src: image.asset.url, lqip: image.asset?.metadata?.lqip, alt: alt || label },
+    //   rect,
+    //   href,
+    // )
+  }
+
   return (
     <div
-      ref={ref}
+      ref={setRefs}
+      data-transition={isFront ? 'front-card' : 'non-front-card'}
       className="absolute inset-0 cursor-pointer"
-      style={{ backfaceVisibility: 'hidden', willChange: 'transform' }}
+      style={{ opacity: 0, visibility: 'hidden', backfaceVisibility: 'hidden', willChange: 'transform' }}
     >
-      <Link href={href} className="block w-full h-full group">
+      <a onClick={handleClick} className="block w-full h-full group">
         <div className="absolute inset-0 rounded-sm md:rounded-md overflow-hidden brightness-100 transition-[filter] duration-500 ease-out group-hover:brightness-110">
           <SanityImage
             image={image}
@@ -81,7 +107,7 @@ const CarouselCard = forwardRef(function CarouselCard({
             </h2>
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   )
 })

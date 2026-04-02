@@ -86,7 +86,7 @@ export default function NavigationMobile() {
   let itemIndex = 0
 
   return (
-    <div className="fixed w-full top-0 z-50">
+    <div data-transition="nav" className="fixed w-full top-0 z-50">
       {/* Hamburger toggle */}
       <div ref={toggleRef} className="absolute top-0 right-0 z-50">
         <NavToggle open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />

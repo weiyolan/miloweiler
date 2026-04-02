@@ -47,7 +47,7 @@ export default function CategoryList({ categories, activeIndex, scrollCount, onC
   }
 
   return (
-    <div className="fixed left-0 top-1/2 -translate-y-1/2 pl-6 md:pl-10 z-40">
+    <div data-transition="category-list" className="fixed left-0 top-0 translate-y-1/2 pl-6 md:pl-10 z-40">
       <div
         className="overflow-hidden"
         style={{

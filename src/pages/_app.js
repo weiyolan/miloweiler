@@ -7,6 +7,8 @@ import { AppWrapper, useAppContext } from "@utils/appContext";
 import { Toaster } from "react-hot-toast";
 import Navigation from "@/components/Navigation";
 import NavigationMobile from "@/components/NavigationMobile";
+// import TransitionOverlay from "@/components/TransitionOverlay";
+import { TransitionProvider } from "@/utils/transitionContext";
 
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -91,8 +93,11 @@ export default function App({ Component, pageProps }) {
       </Head>
       {/* ${poppins.variable} */}
       <AppWrapper scrolled={scrolled} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
-        <NavRenderer />
-        <Component {...pageProps} />
+        <TransitionProvider>
+          <NavRenderer />
+          <Component {...pageProps} />
+          {/* <TransitionOverlay /> */}
+        </TransitionProvider>
         <Toaster />
       </AppWrapper>
     </>

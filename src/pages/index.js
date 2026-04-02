@@ -63,37 +63,37 @@ export default function Home({ categories }) {
 export async function getStaticProps() {
   const data = await client.fetch(`{
     'highlighted': *[_type == "project" && highlighted == true]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'highlightedCount': count(*[_type == "project" && highlighted == true]),
 
     'bts': *[_type == "project" && cat == "bts"]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'btsCount': count(*[_type == "project" && cat == "bts"]),
 
     'docu': *[_type == "project" && cat == "docu"]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'docuCount': count(*[_type == "project" && cat == "docu"]),
 
     'events': *[_type == "project" && cat == "events"]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'eventsCount': count(*[_type == "project" && cat == "events"]),
 
     'studio': *[_type == "project" && cat == "studio"]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'studioCount': count(*[_type == "project" && cat == "studio"]),
 
     'art': *[_type == "project" && cat == "art"]|order(date desc)[0]{
-      mainImage{alt, image{asset->{url, metadata}, ...asset{_ref}}},
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
     },
     'artCount': count(*[_type == "project" && cat == "art"]),

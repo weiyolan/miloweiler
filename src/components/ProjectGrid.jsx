@@ -70,7 +70,7 @@ export default function ProjectGrid({ project, onImageClick }) {
           project?.gridCols?.[width < 648 ? "sm" : "lg"]
         } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
       }}
-      className="grid gap-1 sm:gap-2 w-full mb-6">
+      className="grid gap-1 sm:gap-2 md:gap-3 w-full mb-6">
       {[...project.otherImages].map((image, i) => (
         <GridPhoto
           key={image._key || i}
