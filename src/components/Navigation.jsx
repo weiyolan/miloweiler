@@ -50,7 +50,7 @@ export default function Navigation() {
   const isDark = navTheme === 'dark'
 
   return (
-    <nav ref={navRef} className="fixed w-full top-0 z-50 flex justify-center">
+    <nav ref={navRef} data-transition="nav" className="fixed w-full top-0 z-50 flex justify-center">
       <div className="inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2">
         <div className="relative group">
           <NavButton text="Portfolio" to="/" isPortfolio isDark={isDark} locale={locale} />

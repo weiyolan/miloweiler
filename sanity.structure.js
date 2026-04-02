@@ -7,7 +7,7 @@ export const myStructure = (S) => {
     .title("Content ~ Enjoy Broertje ❤️")
     .items([
       S.listItem()
-        .title("Main Page")
+        .title("About Page")
         .icon(MasterDetailIcon)
         .child(
           S.list()

@@ -8,12 +8,16 @@ const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blu
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
 
   let landscape = width / height > 1;
+  const hotspot = image?.hotspot;
+  const hotspotPosition = hotspot
+    ? `${hotspot.x * 100}% ${hotspot.y * 100}%`
+    : 'center';
 
   if (fill) {
     return (
       <div ref={ref} data-imagecontainer={move ? 'true' : 'false'} className={twMerge(`select-none  ${absolute ? 'absolute' : 'relative'} rounded-2xl h-full w-full overflow-hidden`, `${containerClass && containerClass}`)}>
         <Image fill
-          style={{ objectFit: 'cover', objectPosition: 'center', ...style }}
+          style={{ objectFit: 'cover', objectPosition: hotspotPosition, ...style }}
           sizes={sizes || "(max-width: 700px) 100vw, 50vw"}
           className={`imageFill${name ? name : ''} ${className ? className : ''}`}
           src={src}

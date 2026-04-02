@@ -2,8 +2,7 @@ import ProjectThumb from "@/components/ProjectThumb";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React, { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap/dist/gsap";
+import React, { useState, useEffect } from "react";
 import client from "../../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import { ReactLenis } from "lenis/react";
@@ -11,25 +10,22 @@ import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } from "@/utils/categories";
 import Link from "next/link";
+// import { useTransition } from "@/utils/transitionContext";
 
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
+  // const { phase, signalCategoryReady } = useTransition()
   let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
-  const ctx = useRef(gsap.context(() => {}));
 
-  useEffect(() => {
-    ctx.current = gsap.context(() => {
-      gsap.from('.galleryPage > *', {
-        autoAlpha: 0,
-        // y: 30,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: 'power2.out',
-      });
-    });
-    return () => ctx.current.revert();
-  }, []);
+  // // Signal overlay that this page is ready for the curtain reveal
+  // useEffect(() => {
+  //   if (phase === 'forward-animating') {
+  //     requestAnimationFrame(() => {
+  //       signalCategoryReady()
+  //     })
+  //   }
+  // }, [phase, signalCategoryReady])
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
 
@@ -114,13 +110,13 @@ export async function getStaticProps({ params }) {
   let projects;
   if (params.category === 'highlighted') {
     projects = await client.fetch(
-      `*[_type == "project" && highlighted == true]|order(date desc){title, subTitle, partnerLink, by, cat, commissionedBool, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
+      `*[_type == "project" && highlighted == true]|order(date desc){title, subTitle, partnerLink, by, cat, commissionedBool, date, description, mainImage{alt,image{..., asset->{url,metadata}, ...asset{_ref}}}, slug}`
     );
   } else {
     const cat = getCatFromSlug(params.category);
     if (!cat) return { notFound: true };
     projects = await client.fetch(
-      `*[_type == "project" && cat == "${cat}"]|order(date desc){title, subTitle, partnerLink, by, cat, commissionedBool, date, description, mainImage{alt,image{asset->{url,metadata}, ...asset{_ref}}}, slug}`
+      `*[_type == "project" && cat == "${cat}"]|order(date desc){title, subTitle, partnerLink, by, cat, commissionedBool, date, description, mainImage{alt,image{..., asset->{url,metadata}, ...asset{_ref}}}, slug}`
     );
   }
 
