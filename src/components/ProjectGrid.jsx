@@ -34,7 +34,7 @@ function GridPhoto({ image, i, ...props }) {
 
   return (
     <div
-      className={`relative -mx-2 opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
+      className={`relative opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
       ref={fotoThumb}
       style={{
         width: "auto",
@@ -70,7 +70,7 @@ export default function ProjectGrid({ project, onImageClick }) {
           project?.gridCols?.[width < 648 ? "sm" : "lg"]
         } - 1))) / ${project?.gridCols?.[width < 648 ? "sm" : "lg"]})`,
       }}
-      className="grid gap-1 sm:gap-2 md:gap-3 w-full mb-6">
+      className="grid gap-1 sm:gap-2 md:gap-3 w-full mb-6 -mx-2">
       {[...project.otherImages].map((image, i) => (
         <GridPhoto
           key={image._key || i}
