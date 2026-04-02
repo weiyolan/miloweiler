@@ -2,8 +2,7 @@ import ProjectThumb from "@/components/ProjectThumb";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React, { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap/dist/gsap";
+import React, { useState } from "react";
 import client from "../../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import { ReactLenis } from "lenis/react";
@@ -16,20 +15,6 @@ export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
   let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
-  const ctx = useRef(gsap.context(() => {}));
-
-  useEffect(() => {
-    ctx.current = gsap.context(() => {
-      gsap.from('.galleryPage > *', {
-        autoAlpha: 0,
-        // y: 30,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: 'power2.out',
-      });
-    });
-    return () => ctx.current.revert();
-  }, []);
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
 

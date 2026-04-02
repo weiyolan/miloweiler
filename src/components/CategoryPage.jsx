@@ -93,7 +93,7 @@ export default function CategoryPage({ projects, category }) {
             onClose={closeFocus}
           />
 
-          <Layout cardSection className="relative pt-12 max-w-full mb-12 flex-1">
+          <Layout cardSection className="relative pt-12 max-w-[80vw] mb-12 flex-1">
             {/* Category Title */}
             <GalleryTitle h1>{label}</GalleryTitle>
 
@@ -115,10 +115,10 @@ export default function CategoryPage({ projects, category }) {
               <section
                 key={project.slug.current}
                 id={`project-${project.slug.current}`}
-                className="relative mb-24"
+                className="relative mb-32 md:mb-40 overflow-visible"
               >
                 {/* Background title */}
-                <div className="pointer-events-none select-none text-[12vw] md:text-[8vw] font-serif font-black text-white/[0.03] leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap z-0">
+                <div className="pointer-events-none select-none text-[20vw] md:text-[12vw] font-serif font-black text-white/[0.20] leading-none absolute top-1/2 left-0 -translate-y-1/2 -rotate-90 whitespace-nowrap z-0">
                   {project.title}
                 </div>
 
@@ -149,7 +149,7 @@ export default function CategoryPage({ projects, category }) {
                       )}
                     </div>
                     {project?.description?.[locale] && (
-                      <p className="text-base w-full max-w-3xl md:basis-2/3 font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif">
+                      <p className="text-base w-full max-w-prose md:basis-2/3 font-normal text-justify whitespace-pre-wrap first-letter:float-left first-letter:text-4xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase first-letter:font-serif">
                         {project.description[locale]}
                       </p>
                     )}

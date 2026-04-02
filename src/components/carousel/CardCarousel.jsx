@@ -5,6 +5,8 @@ import { useAppContext } from '@/utils/appContext'
 import CarouselCard from './CarouselCard'
 import CarouselIndicator from './CarouselIndicator'
 import ScrollHint from './ScrollHint'
+import CategoryList from './CategoryList'
+import AsciiMarkers from './AsciiMarkers'
 
 gsap.registerPlugin(Observer)
 
@@ -59,6 +61,7 @@ export default function CardCarousel({ categories }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [scrollHintVisible, setScrollHintVisible] = useState(true)
   const [titleVisible, setTitleVisible] = useState(true)
+  const [scrollCount, setScrollCount] = useState(0)
   const prevIndex = useRef(0)
 
   const bgColor = useMemo(() => {
@@ -66,6 +69,7 @@ export default function CardCarousel({ categories }) {
     return darkenColor(color)
   }, [activeIndex, categories])
 
+  const wrapperRef = useRef(null)
   const cardRefs = useRef([])
   const scrollValue = useRef(0)
   const currentValue = useRef(0)
@@ -90,38 +94,49 @@ export default function CardCarousel({ categories }) {
   }, [width, height])
   const cardHeight = cardWidth * (9 / 16)
 
-  // Wheel/touch input via Observer — one card per gesture
-  useEffect(() => {
-    function goTo(direction) {
-      if (isAnimating.current) return
-      isAnimating.current = true
+  // Shared scroll-by-delta logic
+  const scrollBy = useCallback((delta) => {
+    if (delta === 0) return
+    if (isAnimating.current) return
+    isAnimating.current = true
 
-      cardIndex.current += direction
-      scrollValue.current = cardIndex.current * Z_DISTANCE
-      setTitleVisible(false)
+    cardIndex.current += delta
+    scrollValue.current = cardIndex.current * Z_DISTANCE
+    setScrollCount(cardIndex.current)
+    setTitleVisible(false)
 
-      if (!hasScrolled.current) {
-        hasScrolled.current = true
-        setScrollHintVisible(false)
-      }
-
-      // Unlock after the lerp has mostly settled, show title
-      setTimeout(() => {
-        isAnimating.current = false
-        setTitleVisible(true)
-      }, 800)
+    if (!hasScrolled.current) {
+      hasScrolled.current = true
+      setScrollHintVisible(false)
     }
 
+    setTimeout(() => {
+      isAnimating.current = false
+      setTitleVisible(true)
+    }, 800)
+  }, [])
+
+  // Jump to a specific category index (shortest path)
+  const goToIndex = useCallback((targetIndex) => {
+    const current = ((cardIndex.current % TOTAL_REAL) + TOTAL_REAL) % TOTAL_REAL
+    let delta = targetIndex - current
+    if (delta > TOTAL_REAL / 2) delta -= TOTAL_REAL
+    else if (delta < -TOTAL_REAL / 2) delta += TOTAL_REAL
+    scrollBy(delta)
+  }, [scrollBy])
+
+  // Wheel/touch input via Observer — one card per gesture
+  useEffect(() => {
     const observer = Observer.create({
       target: window,
       type: 'wheel,touch',
       preventDefault: true,
-      onUp: () => goTo(-1),
-      onDown: () => goTo(1),
+      onUp: () => scrollBy(-1),
+      onDown: () => scrollBy(1),
       tolerance: 50,
     })
     return () => observer.disable()
-  }, [])
+  }, [scrollBy])
 
   // GSAP ticker render loop
   useEffect(() => {
@@ -175,34 +190,19 @@ export default function CardCarousel({ categories }) {
     return () => gsap.ticker.remove(onTick)
   }, [totalCards, totalZDistance])
 
-  // Intro animation
+  // Intro fade-in on the whole container
   useEffect(() => {
-    ctxRef.current = gsap.context(() => {
-      // Set initial state — all invisible and scaled down
-      cardRefs.current.forEach((el) => {
-        if (el) gsap.set(el, { autoAlpha: 0, scale: 0.85 })
-      })
-
-      // Stagger the first few visible cards in
-      const visibleCards = cardRefs.current.slice(0, Math.min(5, totalCards)).filter(Boolean)
-      gsap.to(visibleCards, {
-        autoAlpha: 1,
-        scale: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power3.out',
-        delay: 0.4,
-      })
-    })
-
-    return () => {
-      if (ctxRef.current) ctxRef.current.revert()
-    }
-  }, [totalCards])
+    if (!wrapperRef.current) return
+    gsap.fromTo(wrapperRef.current,
+      { autoAlpha: 0 },
+      { autoAlpha: 1, duration: 1, ease: 'power2.out', delay: 0.3 }
+    )
+  }, [])
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center"
+      ref={wrapperRef}
+      className="fixed inset-0 flex items-center justify-center invisible"
       style={{ backgroundColor: bgColor, transition: 'background-color 0.8s ease' }}
     >
       {/* Card container */}
@@ -233,8 +233,20 @@ export default function CardCarousel({ categories }) {
         </div>
       </div>
 
+      <CategoryList
+        categories={categories.map(c => c.label)}
+        activeIndex={activeIndex}
+        scrollCount={scrollCount}
+        onCategoryClick={goToIndex}
+      />
+    <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
+        <CarouselIndicator activeIndex={activeIndex} totalCategories={TOTAL_REAL} />
+        <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} />
+      <span className="font-mono text-xs md:text-sm text-white/60 whitespace-nowrap">
+        Brussels, Belgium
+        </span>
+    </div>
       <ScrollHint visible={scrollHintVisible} />
-      <CarouselIndicator activeIndex={activeIndex} totalCategories={TOTAL_REAL} />
     </div>
   )
 }
