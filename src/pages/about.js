@@ -1710,9 +1710,16 @@ overscroll-behavior: none;
           <Background type="both" amount={10} src="/images/mainpageArt.jpg" height="h-[115vh]" animationName={"page3"} className={"opacity-0 top-[5vh]"} />
           {/*h-100vh no specification needed   */}
 
-          <Background type="both" amount={0} src={artImages[0].image?.asset.url} animationName={"artPhoto0"} className={"top-0 opacity-0"} />
-          <Background type="both" amount={0} src={artImages[1].image?.asset.url} animationName={"artPhoto1"} className={"top-0 opacity-0"} />
-          <Background type="both" amount={0} src={artImages[2].image?.asset.url} animationName={"artPhoto2"} className={"top-0 opacity-0"} />
+          {artImages.map((artImg, i) => (
+  <Background
+    key={artImg.slug + i}
+    type="both"
+    amount={0}
+    src={artImg.image?.asset?.url}
+    animationName={`artPhoto${i}`}
+    className={"top-0 opacity-0"}
+  />
+))}
 
           <Background type="both" amount={10} src="/images/mainpageDocu.jpg" height="h-[115vh]" animationName={"page2"} className={"opacity-0 top-[25vh]"} />
           <Background type="both" amount={10} src="/images/mainpageMoon.jpg" height="h-[110vh]" animationName={"page1"} className={"opacity-0 top-[30vh]"} />
