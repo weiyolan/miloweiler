@@ -57,7 +57,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
   let [artImages, setArtImages] = useState(() => {
     let photos = [];
     let project = projects.filter((project) => project.cat === "art")[0];
-    project.otherImages.forEach((img) => {
+    project?.otherImages?.forEach((img) => {
       // console.log(img);
       photos = [...photos, { image: img, slug: project.slug.current }];
     });
@@ -84,7 +84,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
     let artProjects = projects.filter((project) => project.cat === "art");
     let artProject = artProjects[Math.floor(Math.random() * artProjects?.length)];
     let newPhotos = [];
-    artProject.otherImages.forEach((img) => {
+    artProject?.otherImages?.forEach((img) => {
       newPhotos = [...newPhotos, { image: img, slug: artProject.slug.current }];
     });
     let shuffledPhotos = shuffle([...newPhotos]);
