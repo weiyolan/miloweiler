@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Head from 'next/head'
+import { canonicalUrl } from '@/utils/seo'
 import SubTitle from '@components/SubTitle'
 import Layout from '@/components/Layout'
 import LayoutSection from '@/components/LayoutSection'
@@ -170,26 +171,27 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       <Head>
         <title>Milo Weiler Photography | A Unique Style In Artistic Photography</title>
         <meta name="description" content="Discover the power of visual storytelling through my lens." />
-
+        <link rel="canonical" href={canonicalUrl(locale, '/contact')} />
+        <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/contact')} />
+        <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/contact')} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/contact')} />
         <meta property="og:title" content={"A Unique Style In Artistic Photography"} />
         <meta property="og:description" content={`Discover the power of visual storytelling through my lens.`} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta
-          property="og:image"
-          itemProp="image"
-          content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`}
-        />
+        <meta property="og:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Milo Weiler Photography - Contact" />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}contact`} />
+        <meta property="og:url" content={canonicalUrl(locale, '/contact')} />
         <meta property="fb:app_id" content="659504862954849" />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content="https://www.miloweiler.com/contact" />
+        <meta property="twitter:url" content={canonicalUrl(locale, '/contact')} />
         <meta name="twitter:title" content="A Unique Style In Artistic Photography" />
         <meta name="twitter:description" content="Discover the power of visual storytelling through my lens." />
-        <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=500&h=500&fit=crop`} />
+        <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop`} />
       </Head>
       {/* duration:0.9,  */}
       <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9, print: false }}>

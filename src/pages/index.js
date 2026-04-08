@@ -5,6 +5,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import client from "../../lib/sanity";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from "@/utils/categories";
+import { canonicalUrl } from "@/utils/seo";
 
 const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
 
@@ -34,25 +35,63 @@ export default function Home({ categories }) {
       <Head>
         <title>{"Milo Weiler Photography | Witness The Beauty Of Life"}</title>
         <meta name="description" content="Specialised Set & Studio Photography" />
+        <link rel="canonical" href={canonicalUrl(locale, '/')} />
+        <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/')} />
+        <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/')} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/')} />
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
         <meta property="og:description" content="Specialised Set & Studio Photography" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
         {firstImage?.ogUrl && (
-          <meta property="og:image" itemProp="image" content={firstImage.ogUrl} />
+          <>
+            <meta property="og:image" content={firstImage.ogUrl} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content="Milo Weiler Photography" />
+          </>
         )}
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}`} />
+        <meta property="og:url" content={canonicalUrl(locale, '/')} />
         <meta property="fb:app_id" content="659504862954849" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content="https://www.miloweiler.com/" />
+        <meta property="twitter:url" content={canonicalUrl(locale, '/')} />
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
         {firstImage?.ogUrl && (
           <meta name="twitter:image" content={firstImage.ogUrl} />
         )}
       </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Milo Weiler Photography',
+          url: 'https://miloweiler.com',
+          telephone: '+32476506209',
+          email: 'milo.weiler@gmail.com',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Hof Savelkoul 40',
+            addressLocality: 'Mortsel',
+            postalCode: '2640',
+            addressCountry: 'BE',
+          },
+          ...(firstImage?.ogUrl ? { image: firstImage.ogUrl } : {}),
+          sameAs: [
+            'https://www.instagram.com/miloweiler/',
+            'https://unsplash.com/@miloweiler',
+            'https://www.linkedin.com/in/mwphotography',
+          ],
+          founder: {
+            '@type': 'Person',
+            name: 'Milo Weiler',
+            jobTitle: 'Photographer',
+          },
+        }).replace(/</g, '\\u003c') }}
+      />
       <main className="w-full h-screen overflow-hidden bg-background text-foreground force-dark">
         <PageWrapper>
           <CardCarousel categories={localizedCategories} />
@@ -159,7 +198,7 @@ export async function getStaticProps() {
         bgColor,
         customBgColor,
         ogUrl: image?.asset?.url
-          ? `${image.asset.url}?w=500&h=500&fit=crop`
+          ? `${image.asset.url}?w=1200&h=630&fit=crop`
           : null,
       };
     })

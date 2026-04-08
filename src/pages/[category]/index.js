@@ -2,6 +2,7 @@ import ProjectRow from "@/components/ProjectRow";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
+import { canonicalUrl } from "@/utils/seo";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
@@ -23,25 +24,32 @@ export default function CategoryGallery({ projects, category }) {
       <Head>
         <title>{`Milo Weiler | ${label}`}</title>
         <meta name="description" content="Specialised Set & Studio Photography" />
-
+        <link rel="canonical" href={canonicalUrl(locale, `/${category}`)} />
+        <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}`)} />
+        <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}`)} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}`)} />
         <meta property="og:title" content={label} />
         <meta property="og:description" content="Specialised Set & Studio Photography" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
         {projects[0]?.mainImage?.image?.asset?.url && (
-          <meta property="og:image" itemProp="image" content={`${projects[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+          <>
+            <meta property="og:image" content={`${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content={`Milo Weiler - ${label}`} />
+          </>
         )}
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}${category}`} />
+        <meta property="og:url" content={canonicalUrl(locale, `/${category}`)} />
         <meta property="fb:app_id" content="659504862954849" />
-
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={`https://www.miloweiler.com/${category}`} />
+        <meta property="twitter:url" content={canonicalUrl(locale, `/${category}`)} />
         <meta name="twitter:title" content={label} />
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
         {projects[0]?.mainImage?.image?.asset?.url && (
-          <meta name="twitter:image" content={`${projects[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
+          <meta name="twitter:image" content={`${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
         )}
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
