@@ -23,6 +23,7 @@ import localeFile from './localeFile'
 import portfolio from './portfolio'
 import mainPageXIntro from './mainPageXIntro'
 import siteSettings from './siteSettings'
+import categoryNames from './categoryNames'
 import homepageConfig from './homepageConfig'
 
 export const schemaTypes = [
@@ -46,5 +47,6 @@ export const schemaTypes = [
   localeFile,
   portfolio,
   siteSettings,
+  categoryNames,
   homepageConfig,
 ]

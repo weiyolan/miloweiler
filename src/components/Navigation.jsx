@@ -10,7 +10,7 @@ import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 gsap.registerPlugin(Observer)
 
 export default function Navigation() {
-  const { locale, navTheme } = useAppContext()
+  const { locale, navTheme, categoryLabels } = useAppContext()
   const [hiding, setHiding] = useState(false)
   const hasPlayedIntro = useRef(false)
   const navRef = useRef(null)
@@ -57,7 +57,7 @@ export default function Navigation() {
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             <div className="bg-darkGrey/90 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
               {ALL_CATEGORY_SLUGS.map(slug => (
-                <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/${slug}`} isDark={isDark} />
+                <DropdownItem key={slug} text={categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug} to={`/${slug}`} isDark={isDark} />
               ))}
             </div>
           </div>

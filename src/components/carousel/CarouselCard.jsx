@@ -84,7 +84,7 @@ const CarouselCard = forwardRef(function CarouselCard({
                       opacity: showTitle ? 1 : 0,
                       transform: showTitle ? 'translateY(0)' : 'translateY(120%)',
                       transition: showTitle
-                        ? `transform 0.4s ease ${0.1 + wi * 0.25}s`
+                        ? `transform 0.4s ease-out ${0.1 + wi * 0.1}s`
                         : 'transform 0.15s ease',
                     }}
                   >

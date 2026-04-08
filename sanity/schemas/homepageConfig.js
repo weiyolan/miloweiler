@@ -5,10 +5,11 @@ import { ImagePickerInput } from '../components/ImagePickerInput'
 const CATEGORIES = [
   { name: 'highlighted', title: 'Highlighted', filter: 'highlighted == true' },
   { name: 'bts', title: 'Set Photography', filter: 'cat == "bts"' },
-  { name: 'docu', title: 'Portraits', filter: 'cat == "docu"' },
-  { name: 'events', title: 'Corporate & Events', filter: 'cat == "events"' },
-  { name: 'studio', title: 'Products', filter: 'cat == "studio"' },
-  { name: 'art', title: 'Personal Work', filter: 'cat == "art"' },
+  { name: 'corp', title: 'Corporate & Brand Photography', filter: 'cat == "corp"' },
+  { name: 'events', title: 'Event & Documentary Photography', filter: 'cat == "events"' },
+  { name: 'docu', title: 'Portraits & Professional Headshots', filter: 'cat == "docu"' },
+  { name: 'studio', title: 'Product & Food Photography', filter: 'cat == "studio"' },
+  { name: 'art', title: 'Fine Art & Personal Projects', filter: 'cat == "art"' },
 ]
 
 function categoryField({ name, title, filter }) {

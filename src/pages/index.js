@@ -11,18 +11,20 @@ const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"),
 const SLUG_TO_QUERY_KEY = {
   'highlighted': 'highlighted',
   'set-photography': 'bts',
+  'brand': 'corp',
+  'events': 'events',
   'portraits': 'docu',
-  'corporate-events': 'events',
   'products': 'studio',
   'personal-work': 'art',
 };
 
 export default function Home({ categories }) {
-  const { locale } = useAppContext();
+  const { locale, categoryLabels } = useAppContext();
+  const labels = categoryLabels || CATEGORY_LABELS;
 
   const localizedCategories = categories.map((cat) => ({
     ...cat,
-    label: CATEGORY_LABELS[cat.slug]?.[locale] || CATEGORY_LABELS[cat.slug]?.en || cat.slug,
+    label: labels[cat.slug]?.[locale] || labels[cat.slug]?.en || cat.slug,
   }));
 
   const firstImage = categories.find((c) => c.image);
@@ -74,6 +76,12 @@ export async function getStaticProps() {
     },
     'btsCount': count(*[_type == "project" && cat == "bts"]),
 
+    'corp': *[_type == "project" && cat == "corp"]|order(date desc)[0]{
+      mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
+      date
+    },
+    'corpCount': count(*[_type == "project" && cat == "corp"]),
+
     'docu': *[_type == "project" && cat == "docu"]|order(date desc)[0]{
       mainImage{alt, image{..., asset->{url, metadata}, ...asset{_ref}}},
       date
@@ -101,8 +109,9 @@ export async function getStaticProps() {
     'homepageConfig': *[_type == "homepageConfig" && _id == "homepageConfig"][0]{
       highlighted{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       bts{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
-      docu{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      corp{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       events{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      docu{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       studio{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       art{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor }
     }

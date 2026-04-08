@@ -10,7 +10,7 @@ import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 gsap.registerPlugin(Observer)
 
 export default function NavigationMobile() {
-  const { locale, navTheme } = useAppContext()
+  const { locale, navTheme, categoryLabels } = useAppContext()
   const [menuOpen, setMenuOpen] = useState(false)
   const [toggleVisible, setToggleVisible] = useState(true)
   const menuRef = useRef(null)
@@ -115,7 +115,7 @@ export default function NavigationMobile() {
               href={`/${slug}`}
               className={`text-xl font-mono pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
             >
-              {CATEGORY_LABELS[slug][locale]}
+              {categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug}
             </Link>
           ))}
 

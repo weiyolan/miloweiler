@@ -48,6 +48,8 @@ const nextConfig = withPWA({
     }));
 
     return [
+      { source: "/corporate-events", destination: "/events", permanent: true },
+      { source: "/corporate-events/:path*", destination: "/events/:path*", permanent: true },
       { source: "/commissioned", destination: "/set-photography", permanent: true },
       { source: "/personal", destination: "/personal-work", permanent: true },
       { source: "/projects/:category/:slug", destination: "/:category/:slug", permanent: true },

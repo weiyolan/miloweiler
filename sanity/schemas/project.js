@@ -25,12 +25,12 @@ export default defineType({
     {
       name: "details",
       title: "Project Details",
-      options: { collapsible: true, collapsed: false },
+      options: { collapsible: true, collapsed: true, columns: 2 },
     },
     {
       name: "options",
       title: "Options",
-      options: { collapsible: false, collapsed: false, columns: 3 },
+      options: { collapsible: true, collapsed: true, columns: 3 },
     },
   ],
   preview: {
@@ -57,6 +57,63 @@ export default defineType({
     },
   },
   fields: [
+    // =============TOP-LEVEL FIELDS=======================
+
+    defineField({
+      name: "title",
+      title: "Project Title",
+      type: "string",
+      description: "Title of your project baby!",
+      group: "details",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "subTitle",
+      title: "Subtitle",
+      type: "string",
+      description: "De tekst tussen haakjes vlak naast de titel",
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      description: "Komt hier: www.miloweiler.com/gallery/[slug]. ",
+      options: {
+        source: "title",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "cat",
+      title: "Category",
+      type: "string",
+      group: "details",
+      options: {
+        list: [
+          { title: "Set Photography", value: "bts" },
+          { title: "Corporate & Brand Photography", value: "corp" },
+          { title: "Event & Documentary Photography", value: "events" },
+          { title: "Portraits & Professional Headshots", value: "docu" },
+          { title: "Product & Food Photography", value: "studio" },
+          { title: "Fine Art & Personal Projects", value: "art" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "by",
+      title: "By",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "partnerLink",
+      title: "Partner Link",
+      type: "url",
+    }),
+
+    // =============OPTIONS FIELDSET=======================
+
     defineField({
       name: "grid",
       title: "Grid",
@@ -64,10 +121,7 @@ export default defineType({
       fieldset: ["options"],
       type: "boolean",
       initialValue: false,
-      // description: "Toggle om de foto's van je project al dan niet op een grid te plaatsen.",
-      // options: {columns: 3},
     }),
-
     defineField({
       name: "commissionedBool",
       title: "Commissioned",
@@ -92,8 +146,6 @@ export default defineType({
       group: ["details"],
       type: "boolean",
       initialValue: false,
-      // description: "Toggle om de foto's van je project al dan niet op een grid te plaatsen.",
-      // options: {columns: 3},
     }),
 
     defineField({
@@ -105,12 +157,6 @@ export default defineType({
       description: "Het aantal kolommen voor een groot en klein scherm.",
       options: { columns: 2 },
       fields: [
-        // defineField({
-        //   name: 'cols',
-        //   title: 'Aantal Kolommen',
-        //   type: 'object',
-        //   options: {columns: 2},
-        //   fields: [
         defineField({
           name: "lg",
           title: "Desktop",
@@ -126,90 +172,6 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
       ],
-      // validation: (Rule) => Rule.required(),
-      // }),
-      // defineField({
-      //   name: 'sm',
-      //   title: 'Mobile',
-      //   type: 'object',
-      //   options: {columns: 2},
-      //   fields: [
-      //     defineField({
-      //       name: 'cols',
-      //       title: 'Kolommen',
-      //       type: 'number',
-      //       initialValue: 12,
-      //       validation: (Rule) => Rule.required(),
-      //     }),
-      //     defineField({
-      //       name: 'rows',
-      //       title: 'Rijen',
-      //       type: 'number',
-      //       initialValue: 32,
-      //       validation: (Rule) => Rule.required(),
-      //     }),
-      //   ],
-      //   validation: (Rule) => Rule.required(),
-      // }),
-      // ],
-    }),
-    defineField({
-      name: "title",
-      title: "Project Title",
-      type: "string",
-      description: "Title of your project baby!",
-      group: "details",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "subTitle",
-      title: "Subtitle",
-      type: "string",
-      description: "De tekst tussen haakjes vlak naast de titel",
-      // group: 'details',
-      // validation: Rule => Rule.required()
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      description: "Komt hier: www.miloweiler.com/gallery/[slug]. ",
-      options: {
-        source: "title",
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "by",
-      title: "By",
-      type: "array",
-      of: [{ type: "string" }],
-      // group: 'details',
-    }),
-    defineField({
-      name: "partnerLink",
-      title: "Partner Link",
-      type: "url",
-      group: "details",
-      // validation: (Rule) => Rule.required(),
-      // group: 'details',
-    }),
-    defineField({
-      name: "cat",
-      title: "Category",
-      description: "",
-      type: "string",
-      group: "details",
-      options: {
-        list: [
-          { title: "Set Photography", value: "bts" },
-          { title: "Portrait", value: "docu" },
-          { title: "Corporate Events", value: "events" },
-          { title: "Product", value: "studio" },
-          { title: "Personal Work", value: "art" },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
     }),
 
     // =============DETAILS FIELDSET=======================
@@ -219,23 +181,18 @@ export default defineType({
       title: "Date",
       type: "date",
       fieldset: "details",
-      // group: 'details',
-      // options: {dateFormat: 'YYYY',calendarTodayLabel: 'Today'},
     }),
     defineField({
       name: "album",
       title: "Album",
       type: "string",
-      // group: 'details',
       fieldset: "details",
     }),
-
     defineField({
       name: "directed",
       title: "Directed By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -243,7 +200,6 @@ export default defineType({
       title: "Produced By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -251,7 +207,6 @@ export default defineType({
       title: "Designed By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -259,7 +214,6 @@ export default defineType({
       title: "Created By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -267,7 +221,6 @@ export default defineType({
       title: "Developed By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -275,7 +228,6 @@ export default defineType({
       title: "Commissioned By",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
     defineField({
@@ -283,9 +235,11 @@ export default defineType({
       title: "Artists",
       type: "array",
       of: [{ type: "string" }],
-      // group: 'details',
       fieldset: "details",
     }),
+
+    // =============CONTENT & IMAGES=======================
+
     defineField({
       name: "description",
       title: "Description",
@@ -297,7 +251,6 @@ export default defineType({
       name: "mainImage",
       title: "Main Image",
       type: "altImage",
-      // group: 'images',
       group: ["details", "images"],
       validation: (Rule) => Rule.required(),
     }),
