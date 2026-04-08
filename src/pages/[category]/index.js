@@ -1,8 +1,8 @@
-import ProjectThumb from "@/components/ProjectThumb";
+import ProjectRow from "@/components/ProjectRow";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import { ReactLenis } from "lenis/react";
@@ -14,7 +14,7 @@ import Link from "next/link";
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
   let darkMode = true;
-  let [activeIndex, setActiveIndex] = useState(null);
+  let [hoveredRow, setHoveredRow] = useState(null);
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
 
@@ -53,28 +53,37 @@ export default function CategoryGallery({ projects, category }) {
               </GalleryTitle>
 
               <nav className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
-                {ALL_CATEGORY_SLUGS.map((slug) => (
-                  <Link
-                    key={slug}
-                    href={`/${slug}`}
-                    className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
-                  >
-                    {CATEGORY_LABELS[slug]?.[locale] || slug}
-                  </Link>
+                {ALL_CATEGORY_SLUGS.map((slug, i) => (
+                  <React.Fragment key={slug}>
+                    {i > 0 && <span className="opacity-60 select-none">|</span>}
+                    <Link
+                      href={`/${slug}`}
+                      className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
+                    >
+                      {CATEGORY_LABELS[slug]?.[locale] || slug}
+                    </Link>
+                  </React.Fragment>
                 ))}
               </nav>
 
-              <div className="galleryPage w-full mx-auto relative grid gap-8 py-1 md:px-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="galleryPage w-full mx-auto relative flex flex-col">
                 {projects.map((project, i) => (
-                  <ProjectThumb
-                    categorySlug={category === 'highlighted' ? getCategorySlug(project.cat) : category}
-                    activeIndex={activeIndex}
-                    setActiveIndex={setActiveIndex}
-                    index={i}
-                    key={i}
-                    project={project}
-                  />
+                  <React.Fragment key={project.slug?.current || i}>
+                    <div className={`h-px bg-primary transition-opacity duration-300 ${
+                      hoveredRow === i || hoveredRow === i - 1 ? 'opacity-100' : 'opacity-0'
+                    }`} />
+                    <ProjectRow
+                      project={project}
+                      index={i}
+                      categorySlug={category === 'highlighted' ? getCategorySlug(project.cat) : category}
+                      onMouseEnter={() => setHoveredRow(i)}
+                      onMouseLeave={() => setHoveredRow(null)}
+                    />
+                  </React.Fragment>
                 ))}
+                <div className={`h-px bg-primary transition-opacity duration-300 ${
+                  hoveredRow === projects.length - 1 ? 'opacity-100' : 'opacity-0'
+                }`} />
               </div>
             </Layout>
 
