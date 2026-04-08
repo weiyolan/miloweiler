@@ -29,7 +29,7 @@ module.exports = {
         white: "#fff",
       },
       backgroundImage: {
-        blackWhite: "linear-gradient(to right, rgb(var(--color-foreground)) 50%, rgb(var(--color-background)) 50%)",
+        blackWhite: "linear-gradient(to right, rgb(var(--color-background)) 50%, rgb(var(--color-foreground)) 50%)",
       },
       boxShadow: {
         "top-xl": "0 -20px 25px -5px rgb(0 0 0 / 0.1), 0 -8px 10px -6px rgb(0 0 0 / 0.1)",

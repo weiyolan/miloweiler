@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Spinner({ className, cube }) {
-  const fgVar = 'var(--color-foreground)'
+  const fgVar = 'rgb(var(--color-foreground))'
 
   return (
     <>

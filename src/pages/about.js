@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import { canonicalUrl } from "@/utils/seo";
 // import { ReactLenis } from 'lenis/react'
 // import '../styles/globals.css'
 
@@ -1610,28 +1611,27 @@ export default function Home({ projects, sectionInfo, introImages }) {
       <Head>
         <title>Milo Weiler Photography | About Me</title>
         <meta name="description" content="From behind the scenes Set Photography to the Studio and Outdoors." />
-
+        <link rel="canonical" href={canonicalUrl(locale, '/about')} />
+        <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/about')} />
+        <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/about')} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/about')} />
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
         <meta property="og:type" content="website" />
         <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
         <meta property="og:site_name" content="miloweiler.com" />
-        {/* {console.log(projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url)} */}
-        <meta property="og:image" itemProp="image" content={`${introImages.images[0]?.image?.asset?.url}?w=500&h=500&fit=crop`} />
-        {/* <meta property="og:image" itemProp="image" content={`${projects.filter(({ slug }) => slug.current === "sunflower")[0].otherImages[0].asset.url}?w=500&h=500&fit=crop`} /> */}
+        <meta property="og:image" content={`${introImages.images[0]?.image?.asset?.url}?w=1200&h=630&fit=crop`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Milo Weiler Photography - About Me" />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/about`} />
+        <meta property="og:url" content={canonicalUrl(locale, '/about')} />
         <meta property="fb:app_id" content="659504862954849" />
-        {/* Twitter images should be sized at 1024 pixels by 512 pixels. */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content="https://www.miloweiler.com/about" />
+        <meta property="twitter:url" content={canonicalUrl(locale, '/about')} />
         <meta name="twitter:title" content="Witness The Beauty Of Life" />
         <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
-        <meta name="twitter:image" content={`${introImages.images[0]?.image?.asset?.url}?w=500&h=500&fit=crop`} />
-        {/* <meta property="twitter:card" content="summary_large_image" /> */}
-        {/* <meta property="twitter:image" content="INSERT IMAGE URL" /> */}
-        {/* <meta property="og:image:width" content="1200" /> */}
-        {/* <meta property="og:image:height" content="630" /> */}
+        <meta name="twitter:image" content={`${introImages.images[0]?.image?.asset?.url}?w=1200&h=630&fit=crop`} />
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
@@ -1791,7 +1791,7 @@ overscroll-behavior: none;
             introAnimationTl={introAnimationTlRef.current}
           />
 
-          {mobile && <FadeDiv type={"top"} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-foreground/80 `} />}
+          {mobile && <FadeDiv type={"top"} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-background/80 `} />}
           <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5Ref.current} />
           {/* info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} */}
           <PageDescription5
