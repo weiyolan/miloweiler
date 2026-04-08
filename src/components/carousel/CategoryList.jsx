@@ -5,46 +5,54 @@ const ROW_HEIGHT = 28
 export default function CategoryList({ categories, activeIndex, scrollCount, onCategoryClick }) {
   const total = categories.length
   const listRef = useRef(null)
-  const internalOffset = useRef(0)
   const [translateY, setTranslateY] = useState(0)
   const [animate, setAnimate] = useState(true)
 
-  // Render 5 copies for ample headroom in both directions
   const copies = 5
   const duplicated = Array.from({ length: copies }, () => categories).flat()
-  const centerSetStart = Math.floor(copies / 2) * total // index where middle set starts
+  const centerStart = Math.floor(copies / 2) * total
+
+  const prevCountRef = useRef(0)
+  const targetRowRef = useRef(centerStart)
+
+  function getY(row) {
+    return -row * ROW_HEIGHT + ROW_HEIGHT * 2
+  }
+
+  // Initial position
+  useEffect(() => {
+    setTranslateY(getY(centerStart))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // Position: center the active item from the middle set
-    const targetRow = centerSetStart + ((scrollCount % total + total) % total)
-    // Track accumulated delta for smooth continuous scrolling
-    const newOffset = -(scrollCount) * ROW_HEIGHT
-    internalOffset.current = newOffset
+    const delta = scrollCount - prevCountRef.current
+    prevCountRef.current = scrollCount
+    if (delta === 0) return
 
-    setAnimate(true)
-    // Center the active row in the visible window (offset by 2 rows for centering)
-    setTranslateY(-(centerSetStart * ROW_HEIGHT) + newOffset + ROW_HEIGHT * 2)
-  }, [scrollCount, total, centerSetStart])
+    let target = targetRowRef.current + delta
 
-  // After transition ends, silently reset if we've drifted far from center
-  function handleTransitionEnd() {
-    const setsFromCenter = Math.abs(scrollCount) % total
-    // Only reset if we've scrolled a full cycle
-    if (Math.abs(internalOffset.current) >= total * ROW_HEIGHT) {
-      const normalized = ((scrollCount % total) + total) % total
-      const resetOffset = -normalized * ROW_HEIGHT
-      internalOffset.current = resetOffset
-
+    // If we've drifted near the edge of available copies, silently snap back to center
+    if (target < total || target >= (copies - 1) * total) {
+      const snapRow = centerStart + ((targetRowRef.current % total) + total) % total
       setAnimate(false)
-      setTranslateY(-(centerSetStart * ROW_HEIGHT) + resetOffset + ROW_HEIGHT * 2)
-      // Re-enable transition on next frame
+      setTranslateY(getY(snapRow))
+      targetRowRef.current = snapRow
+      target = snapRow + delta
+
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setAnimate(true)
+          setTranslateY(getY(target))
+          targetRowRef.current = target
         })
       })
+      return
     }
-  }
+
+    setAnimate(true)
+    setTranslateY(getY(target))
+    targetRowRef.current = target
+  }, [scrollCount, total, centerStart, copies])
 
   return (
     <div data-transition="category-list" className="fixed left-0 top-0 translate-y-1/2 pl-6 md:pl-10 z-40">
@@ -59,7 +67,6 @@ export default function CategoryList({ categories, activeIndex, scrollCount, onC
         <div
           ref={listRef}
           className="flex flex-col"
-          onTransitionEnd={handleTransitionEnd}
           style={{
             transform: `translateY(${translateY}px)`,
             transition: animate ? 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',

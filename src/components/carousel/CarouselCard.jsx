@@ -63,13 +63,7 @@ const CarouselCard = forwardRef(function CarouselCard({
 
         {/* Metadata */}
         <div className="absolute inset-0 p-5 md:p-7 flex flex-col justify-between">
-          <div
-            className="flex justify-between items-start"
-            style={{
-              opacity: showTitle ? 1 : 0,
-              transition: showTitle ? 'opacity 0.5s ease 0.1s' : 'opacity 0.15s ease',
-            }}
-          >
+          <div className="flex justify-between items-start">
             <span className="font-mono text-xs md:text-sm text-white/70">
               {String(index).padStart(2, '0')}
             </span>
@@ -78,13 +72,7 @@ const CarouselCard = forwardRef(function CarouselCard({
             </span>
           </div>
           <div className="flex justify-between items-end overflow-hidden">
-            <span
-              className="font-mono text-xs md:text-sm text-white/70"
-              style={{
-                opacity: showTitle ? 1 : 0,
-                transition: showTitle ? 'opacity 0.5s ease 0.1s' : 'opacity 0.15s ease',
-              }}
-            >
+            <span className="font-mono text-xs md:text-sm text-white/70">
               {year}
             </span>
             <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-white font-bold text-right leading-tight flex flex-wrap justify-end gap-x-[0.3em]">
@@ -96,8 +84,8 @@ const CarouselCard = forwardRef(function CarouselCard({
                       opacity: showTitle ? 1 : 0,
                       transform: showTitle ? 'translateY(0)' : 'translateY(120%)',
                       transition: showTitle
-                        ? `transform 0.5s ease ${0.15 + wi * 0.3}s`
-                        : 'transform 0.2s ease',
+                        ? `transform 0.4s ease ${0.1 + wi * 0.25}s`
+                        : 'transform 0.15s ease',
                     }}
                   >
                     {word}
