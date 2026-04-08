@@ -83,7 +83,7 @@ export default function StoryTitle2({ scrubTl, shadow, ctx }) {
           I am a Photographer specialised in set photography and portraits.
         </h1>
 
-        <p className='text-foreground font-mono max-w-prose absolute text-center top-[80%] left-1/2 titleText titleText2 opacity-0 -translate-x-1/2 -translate-y-1/2 '>{locale === 'en' ? "Scroll down and I'll carry you through my photography journey, bringing you through four magical chapters." : "Défilez et je vous accompagnerai tout au long de mon voyage photographique, à travers quatre chapitres magiques."}</p>
+        <p className='text-foreground font-sans max-w-prose absolute text-center top-[80%] left-1/2 titleText titleText2 opacity-0 -translate-x-1/2 -translate-y-1/2 '>{locale === 'en' ? "Scroll down and I'll carry you through my photography journey, bringing you through four magical chapters." : "Défilez et je vous accompagnerai tout au long de mon voyage photographique, à travers quatre chapitres magiques."}</p>
 
         {/* <svg className={`rotate-[0.0001deg] absolute top-[12%] md:top-[10%] right-[-1%] md:right-[2%] w-[60%] md:w-[30vw]`} viewBox="0 0 505 535" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
         {/* <Text animationName='depth3Title' className={'cursor-default font-serif depth2  titleText opacity-0 titleText2 scale-90'} fill="#FFF5EA" style={{ whiteSpace: "pre" }} fontSize="52.5204" letterSpacing="0em">

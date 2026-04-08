@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 
-const ROW_HEIGHT = 28
+const ROW_HEIGHT = 35
 
 function buildMaskGradient(centerPct) {
   const c = Math.max(0, Math.min(100, centerPct))
@@ -37,7 +37,7 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
       gsap.to(maskCenter.current, {
         value: targetPx,
         duration: 0.3,
-        ease: 'power2.out',
+        ease: 'ease.out',
         onUpdate: () => {
           if (!containerRef.current) return
           const center = maskCenter.current.value
@@ -58,12 +58,12 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
     ctx.current.add(() => {
       if (itemRefs.current[prev]) {
         gsap.to(itemRefs.current[prev], {
-          fontWeight: 300, duration: 0.5, ease: 'power2.out',
+          fontWeight: 300, duration: 0.5, ease: 'ease.out',
         })
       }
       if (itemRefs.current[activeIndex]) {
         gsap.to(itemRefs.current[activeIndex], {
-          fontWeight: 600, duration: 0.5, ease: 'power2.out',
+          fontWeight: 600, duration: 0.5, ease: 'ease.out',
         })
       }
     })
@@ -72,7 +72,7 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
   const initialGradient = buildMaskGradient((ROW_HEIGHT / 2) / (total * ROW_HEIGHT) * 100)
 
   return (
-    <div data-transition="category-list" className="fixed left-0 top-0 translate-y-1/2 pl-6 md:pl-10 z-40">
+    <div data-transition="category-list" className="fixed left-0 top-1/4 pl-6 md:pl-10 z-40">
       <div
         ref={containerRef}
         style={{
