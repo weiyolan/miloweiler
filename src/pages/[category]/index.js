@@ -3,29 +3,18 @@ import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
-import client from "../../../../lib/sanity";
+import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
 import { ReactLenis } from "lenis/react";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
-import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS } from "@/utils/categories";
+import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS, RESERVED_SLUGS } from "@/utils/categories";
 import Link from "next/link";
-// import { useTransition } from "@/utils/transitionContext";
 
 export default function CategoryGallery({ projects, category }) {
   let { width, locale } = useAppContext();
-  // const { phase, signalCategoryReady } = useTransition()
   let darkMode = true;
   let [activeIndex, setActiveIndex] = useState(null);
-
-  // // Signal overlay that this page is ready for the curtain reveal
-  // useEffect(() => {
-  //   if (phase === 'forward-animating') {
-  //     requestAnimationFrame(() => {
-  //       signalCategoryReady()
-  //     })
-  //   }
-  // }, [phase, signalCategoryReady])
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
 
@@ -43,12 +32,12 @@ export default function CategoryGallery({ projects, category }) {
           <meta property="og:image" itemProp="image" content={`${projects[0].mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
         )}
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}projects/${category}`} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}${category}`} />
         <meta property="fb:app_id" content="659504862954849" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={`https://www.miloweiler.com/projects/${category}`} />
+        <meta property="twitter:url" content={`https://www.miloweiler.com/${category}`} />
         <meta name="twitter:title" content={label} />
         <meta name="twitter:description" content="Specialised Set & Studio Photography" />
         {projects[0]?.mainImage?.image?.asset?.url && (
@@ -63,13 +52,11 @@ export default function CategoryGallery({ projects, category }) {
                 {label}
               </GalleryTitle>
 
-              {/* <GalleryTitle className="">{label}</GalleryTitle> */}
-
               <nav className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
                 {ALL_CATEGORY_SLUGS.map((slug) => (
                   <Link
                     key={slug}
-                    href={`/projects/${slug}`}
+                    href={`/${slug}`}
                     className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
                   >
                     {CATEGORY_LABELS[slug]?.[locale] || slug}
@@ -100,9 +87,11 @@ export default function CategoryGallery({ projects, category }) {
 }
 
 export async function getStaticPaths({ locales }) {
-  const paths = ALL_CATEGORY_SLUGS.flatMap((category) =>
-    locales.map((locale) => ({ params: { category }, locale }))
-  );
+  const paths = ALL_CATEGORY_SLUGS
+    .filter((category) => !RESERVED_SLUGS.includes(category))
+    .flatMap((category) =>
+      locales.map((locale) => ({ params: { category }, locale }))
+    );
   return { paths, fallback: false };
 }
 

@@ -43,9 +43,8 @@ function generateSiteMap(projects) {
       </url>
     ${urlEntry('/about')}
     ${urlEntry('/contact')}
-    ${ALL_CATEGORY_SLUGS.map(slug => urlEntry(`/projects/${slug}`)).join('')}
     ${ALL_CATEGORY_SLUGS.map(slug => urlEntry(`/${slug}`)).join('')}
-    ${projects.map(({ cat, slug }) => urlEntry(`/projects/${CATEGORY_MAP[cat]}/${slug}`)).join('')}
+    ${projects.map(({ cat, slug }) => urlEntry(`/${CATEGORY_MAP[cat]}/${slug}`)).join('')}
   </urlset>
 `;
 }

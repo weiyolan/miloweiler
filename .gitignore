@@ -36,6 +36,9 @@ yarn-error.log*
 # Local Netlify folder
 .netlify
 
+# Playwright CLI logs
+.playwright-cli/
+
 
 # Auto Generated PWA files
 /public/sw.js

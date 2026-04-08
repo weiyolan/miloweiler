@@ -114,7 +114,7 @@ export async function getStaticProps() {
         alt: item.mainImage.alt || '',
         projectCount: data[`${queryKey}Count`] || 0,
         year: item.date ? item.date.slice(0, 4) : '',
-        href: `/projects/${slug}`,
+        href: `/${slug}`,
         bgColor,
         ogUrl: item.mainImage.image?.asset?.url
           ? `${item.mainImage.image.asset.url}?w=500&h=500&fit=crop`

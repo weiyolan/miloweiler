@@ -4,13 +4,11 @@ import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import client from "../../../../lib/sanity";
-// import { IoClose} from 'react-icons/io5'
+import client from "../../../lib/sanity";
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
 import {  AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import Layout from "@/components/Layout";
-// import ProjectDescriptionTop from "@/components/ProjectDescriptionTop";
 import { gsap } from "gsap/dist/gsap";
 import { Observer } from "gsap/dist/Observer";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
@@ -25,7 +23,6 @@ import { CATEGORY_MAP } from "@/utils/categories";
 import { getCatFromSlug } from "@/utils/categories";
 
 export default function Project({ project, slug, slugs, category }) {
-  // console.log(project)
   let darkMode = true;
   const { width, locale, height } = useAppContext();
   let pageMobile = width < 648;
@@ -34,7 +31,6 @@ export default function Project({ project, slug, slugs, category }) {
   const [carouselIsOpen, setCarouselIsOpen] = useState(false);
   let [descriptionOpen, setDescriptionOpen] = useState(false);
   let [animating, setAnimating] = useState(false);
-  // const [firstIndex, setFirstIndex] = useState(0);
   const ctx = useRef(gsap.context(() => {}));
   let [visibleItem, setVisibleItem] = useState(initiateVisibility());
 
@@ -46,13 +42,11 @@ export default function Project({ project, slug, slugs, category }) {
     let currentItem = slugs.indexOf(slug);
     let nextItem = currentItem === 0 ? slugs.length - 1 : currentItem - 1;
     return slugs[nextItem];
-    // console.log(slugs[nextItem])
   }
   function nextSlug() {
     let currentItem = slugs.indexOf(slug);
     let nextItem = currentItem === slugs.length - 1 ? 0 : currentItem + 1;
     return slugs[nextItem];
-    // console.log(slugs[nextItem])
   }
 
   function initiateVisibility() {
@@ -63,18 +57,14 @@ export default function Project({ project, slug, slugs, category }) {
 
   useEffect(() => {
     let observer = Observer.create({
-      target: window, // can be any element (selector text is fine)
+      target: window,
       ignore: ".project-pictures, .project-grid, .imageFill",
-      type: "touch, scroll, pointer", // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+      type: "touch, scroll, pointer",
       preventDefault: false,
       onRight: () => {
-        // console.log('right/prev');
-        // setAnimating(true)
         prevVisibility();
       },
       onLeft: () => {
-        // console.log('left/next');
-        // setAnimating(true)
         nextVisibility();
       },
       lockAxis: true,
@@ -84,23 +74,17 @@ export default function Project({ project, slug, slugs, category }) {
     };
   }, [visibleItem, animating]);
 
-  // console.log(animating)
-
   function vanish(index1, index2, direction) {
     let xAmount = 30;
     let scaleAmount = 0.95;
     gsap.killTweensOf(`.mainPicture-${index1}`);
     gsap.killTweensOf(`.mainPicture-${index2}`);
-    // tl.current
-    // , ' appeared: ', index2, ' to: ', direction
-    // { onComplete: () => { console.log('vanished: ', index1, ' appeared: ', index2, ' to: ', direction) } }
     let tl = gsap
       .timeline({ autoRemoveChildren: true, onComplete: () => setAnimating(false) })
       .set(`.mainPicture-${index2}`, {
         x: () => (direction === "left" ? `${xAmount}` : `-${xAmount}`),
         scale: scaleAmount,
         borderRadius: 0,
-        // autoAlpha: 0,
       })
       .to(`.mainPicture-${index1}`, {
         x: () => (direction === "left" ? `-=${xAmount}` : `+=${xAmount}`),
@@ -108,7 +92,6 @@ export default function Project({ project, slug, slugs, category }) {
         autoAlpha: 0,
         borderRadius: 0,
         ease: "expo.out",
-        // ease:'power4.out',
         duration: 0.7,
       })
       .to(
@@ -119,34 +102,23 @@ export default function Project({ project, slug, slugs, category }) {
           autoAlpha: 1,
           borderRadius: 5,
           ease: "expo.out",
-          // ease:'power4.out',
           duration: 0.7,
         },
         "<+=0.1"
       );
-    // .set(`.mainPicture-${index1}`,
-    //   {
-    //     x: 0,
-    //   scale:0.8,
-    //   // autoAlpha: 0,
-    //   })
   }
 
   useEffect(() => {
     ctx.current.add(() => {
       gsap.to(".project-pictures", {
-        // x: selected === id ? 200 : 0,
         scrollTo: { x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width < 350 ? (width - 80) / 2 : (width - 112) / 2 },
         ease: "power1.inout",
         duration: 0.7,
-        // duration: width < 1024 ? 0.7 : 1,
-        // ease: 'expo.inout',
       });
     });
   }, [visibleItem]);
 
   function handleVisibility(nextItem, direction) {
-    // console.log(visibleItem)
     let currentItem = visibleItem.indexOf(true);
     let newVisibility = new Array(visibleItem.length).fill(false);
     newVisibility[nextItem] = true;
@@ -157,39 +129,23 @@ export default function Project({ project, slug, slugs, category }) {
   }
 
   function nextVisibility() {
-    // console.log(visibleItem)
-
     if (animating && width < 1024) return;
 
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
-      // handleVisibility(true, 0) // Cannot hurt to provide safety against no visibility although should not happen apriori.
-      // handleVisibility(0) // Cannot hurt to provide safety against no visibility although should not happen apriori.
-      // console.log('currentItem is -1!')
     } else {
       let nextItem = currentItem === visibleItem.length - 1 ? 0 : currentItem + 1;
-      // handleVisibility(true, nextItem)
       handleVisibility(nextItem, "left");
-      // vanish(currentItem, nextItem, 'left')
-      // console.log(currentItem, nextItem)
     }
   }
 
   function prevVisibility() {
     if (animating && width < 1024) return;
-    // console.log('prev')
     let currentItem = visibleItem.indexOf(true);
     if (currentItem === -1) {
-      // handleVisibility(0)
-      // console.log('currentItem is -1!')
-      // handleVisibility(true, 0)
     } else {
       let nextItem = currentItem === 0 ? visibleItem.length - 1 : currentItem - 1;
       handleVisibility(nextItem, "right");
-      // vanish(nextItem, 'right')
-      // vanishToLeft(currentItem, nextItem)
-
-      // handleVisibility(true, nextItem)
     }
   }
 
@@ -211,23 +167,21 @@ export default function Project({ project, slug, slugs, category }) {
         <meta name="description" content={`${project?.description?.[locale]}`} />
 
         <meta property="og:title" content={project.title} />
-        {/* <meta property="og:type" content="article" /> */}
         <meta property="og:type" content="website" />
         <meta property="og:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
         <meta property="og:site_name" content="miloweiler.com" />
         <meta property="og:image" itemProp="image" content={`${project.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
         <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}projects/${category}/${slug}`} />
+        <meta property="og:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}${category}/${slug}`} />
         <meta property="fb:app_id" content="659504862954849" />
         {/* TWITTER */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}projects/${category}/${slug}`} />
+        <meta property="twitter:url" content={`https://miloweiler.com/${locale === "en" ? "" : locale + "/"}${category}/${slug}`} />
         <meta name="twitter:title" content={project.title} />
         <meta name="twitter:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
         <meta name="twitter:image" content={`${project.mainImage.image.asset.url}?w=500&h=500&fit=crop`} />
       </Head>
-      {/* bg-gradient-to-br  from-darkGrey to-[#070013] */}
       <ReactLenis ref={lenisRef} root options={{ wheelMultiplier: 0.9 }}>
         <main
           onKeyDown={(e) => {
@@ -235,9 +189,6 @@ export default function Project({ project, slug, slugs, category }) {
           }}
           className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen flex flex-col  ${darkMode ? "text-primary bg-darkGrey" : "text-darkPrimary bg-primary"}`}>
           <PageWrapper darkMode={darkMode}>
-            {/* <div className={`w-full h-full absolute`}> */}
-            {/* <Logo darkMode={darkMode} className="w-1/4 fixed left-1/2 top-1/2 z-0 -translate-x-[50%] -translate-y-1/2 opacity-5" /> */}
-            {/* </div> */}
             <ProjectCarousel
               prevVisibility={prevVisibility}
               nextVisibility={nextVisibility}
@@ -256,16 +207,10 @@ export default function Project({ project, slug, slugs, category }) {
                   <Link
                     title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
                     className={`group relative flex gap-1 items-center w-fit h-fit font-mono font-normal transition-all `}
-                    href={`/projects/${category}`}>
-                    {/* <IoArrowBack className={`w-5 h-5 ${darkMode ? "fill-primary" : "fill-darkPrimary"} transition-all`} /> */}
+                    href={`/${category}`}>
                       <Arrow/>
                     <div>
                       {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
-                      {/* <Line
-                        className={`w-0 group-hover:w-full border-transparent ${
-                          darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                        } group-focus:w-full transition-all duration-300`}
-                      /> */}
                     </div>
                   </Link>
                   <div className={`flex font-mono font-normal gap-4 mr-auto`}>
@@ -273,27 +218,19 @@ export default function Project({ project, slug, slugs, category }) {
                     <Link
                       title={locale === "fr" ? "Précédent projet" : "Previous project"}
                       className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
-                      href={`/projects/${category}/${prevSlug()}`}>
+                      href={`/${category}/${prevSlug()}`}>
                       <AiFillCaretLeft className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
                       <div>
                         {locale === "fr" ? "Précédent" : "Previous"}
-                        {/* <Line
-                          className={`w-0 group-hover:w-full border-transparent ${
-                            darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                          } group-focus:w-full transition-all duration-300`}
-                        /> */}
                       </div>
                     </Link>
                     {/* =======================NEXT======================= */}
                     <Link
                       title={locale === "fr" ? "Suivant projet" : "Next project"}
                       className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
-                      href={`/projects/${category}/${nextSlug()}`}>
+                      href={`/${category}/${nextSlug()}`}>
                       <div>
                         {locale === "fr" ? "Suivant" : "Next"}
-                        {/* <Line    className={`w-0 group-hover:w-full border-transparent ${ darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                          } group-focus:w-full transition-all duration-300`}
-                        /> */}
                       </div>
                       <AiFillCaretRight className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
                     </Link>
@@ -309,7 +246,6 @@ export default function Project({ project, slug, slugs, category }) {
                       <Span text={locale === "fr" ? "par " : "by "} />
                       <Link
                         className={`w-fit relative inline-flex ${project?.partnerLink ? "group" : "select-none cursor-default"}`}
-                        // as={project?.partnerLink ? "a" : "div"}
                         title={project?.partnerLink ? `${locale === "fr" ? "Visitez le site" : "Visit the website"}` : undefined}
                         target="_blank"
                         href={project?.partnerLink ? project?.partnerLink : ""}
@@ -368,7 +304,6 @@ export default function Project({ project, slug, slugs, category }) {
                     default: 4,
                     1100: 3,
                     700: 2,
-                    // 500: 1,
                   }}
                   className="flex w-auto ml-[-6px] mt-6 md:mt-12 mb-12 relative"
                   columnClassName="pl-[6px] bg-clip-padding ">
@@ -387,7 +322,7 @@ export default function Project({ project, slug, slugs, category }) {
                 </Masonry>
               )}
             </Layout>
-            
+
             <Footer2 className={`relative mt-24`} noMotion noMargin />
           </PageWrapper>
         </main>
@@ -415,36 +350,25 @@ function Photo({ image, alt: altText, i, ...props }) {
   const ctx = useRef(gsap.context(() => {}));
   const { width, locale } = useAppContext();
   useEffect(() => {
-    // function onLoad() {
     if (loaded) {
       ctx.current.add(() => {
         gsap.to(fotoThumb.current, {
-          // scale: 1,
           opacity: 1,
           duration: 0.5,
-          // delay: 0.2,
           stagger: 0.5,
           ease: "expo.out",
           scrollTrigger: {
             scroller: window,
             trigger: fotoThumb.current,
-            // start: '-=50% bottom',
             start: "+=10% bottom",
-            // end: '150% top',
             end: "90% top",
-            // pin:true,width < 1024
-            // scrub: 1,
             toggleActions: "play reverse play reverse",
-            // markers: true,
             invalidateOnRefresh: true,
           },
-          // onStart: () => console.log('start')
         });
       });
     }
     return () => ctx.current.revert();
-    // }
-    // onLoad()
   }, [loaded]);
 
   return (
@@ -474,7 +398,6 @@ function Detail({ title, text }) {
   } else if (text.length === 2) {
     string = text[0] + (locale === "fr" ? " et " : " and ") + text[1];
   } else {
-    // console.log(text);
     let firsts = text.slice(0, -1);
     string = firsts.join(", ") + (locale === "fr" ? " et " : " and ") + text.slice(-1);
   }
@@ -502,7 +425,6 @@ export async function getStaticPaths({ locales }) {
   return { paths, fallback: false };
 }
 
-// `getStaticPaths` requires using `getStaticProps`
 export async function getStaticProps({ params }) {
   const cat = getCatFromSlug(params.category);
   const [project, categorySlugs] = await Promise.all([

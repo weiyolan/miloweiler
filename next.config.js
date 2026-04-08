@@ -43,14 +43,15 @@ const nextConfig = withPWA({
 
     const projectRedirects = projects.map((p) => ({
       source: `/${p.commissionedBool ? "commissioned" : "personal"}/${p.slug.current}`,
-      destination: `/projects/${CATEGORY_MAP[p.cat]}/${p.slug.current}`,
+      destination: `/${CATEGORY_MAP[p.cat]}/${p.slug.current}`,
       permanent: true,
     }));
 
     return [
-      { source: "/commissioned", destination: "/projects/set-photography", permanent: true },
-      { source: "/personal", destination: "/projects/personal-work", permanent: true },
-      { source: "/projects/fine-art", destination: "/projects/personal-work", permanent: true },
+      { source: "/commissioned", destination: "/set-photography", permanent: true },
+      { source: "/personal", destination: "/personal-work", permanent: true },
+      { source: "/projects/:category/:slug", destination: "/:category/:slug", permanent: true },
+      { source: "/projects/:category", destination: "/:category", permanent: true },
       ...projectRedirects,
     ];
   },

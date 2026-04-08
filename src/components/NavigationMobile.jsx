@@ -104,7 +104,7 @@ export default function NavigationMobile() {
             href="/"
             className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
           >
-            Portfolio
+           { locale === 'fr' ? 'Accueil' : 'Home'}
           </Link>
 
           {/* Subcategories — always visible, indented */}
@@ -112,8 +112,8 @@ export default function NavigationMobile() {
             <Link
               key={slug}
               ref={setItemRef(itemIndex++)}
-              href={`/projects/${slug}`}
-              className={`text-xl font-mono pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${pathname === `/projects/${slug}` ? 'font-bold' : 'font-normal'}`}
+              href={`/${slug}`}
+              className={`text-xl font-mono pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
             >
               {CATEGORY_LABELS[slug][locale]}
             </Link>

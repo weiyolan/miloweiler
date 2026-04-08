@@ -53,11 +53,11 @@ export default function Navigation() {
     <nav ref={navRef} data-transition="nav" className="fixed w-full top-0 z-50 flex justify-center">
       <div className="inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2">
         <div className="relative group">
-          <NavButton text="Portfolio" to="/" isPortfolio isDark={isDark} locale={locale} />
+          <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio isDark={isDark} locale={locale} />
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             <div className="bg-darkGrey/90 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
               {ALL_CATEGORY_SLUGS.map(slug => (
-                <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/projects/${slug}`} isDark={isDark} />
+                <DropdownItem key={slug} text={CATEGORY_LABELS[slug][locale]} to={`/${slug}`} isDark={isDark} />
               ))}
             </div>
           </div>
@@ -70,8 +70,8 @@ export default function Navigation() {
 }
 
 function DropdownItem({ text, to, isDark }) {
-  const { pathname } = useRouter()
-  const selected = pathname === to
+  const { query } = useRouter()
+  const selected = to === `/${query.category}`
 
   return (
     <Link href={to} className={`block py-1.5 px-2 rounded text-sm font-mono transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} ${isDark ? 'text-primary hover:bg-primary/10' : 'text-darkPrimary hover:bg-darkPrimary/10'}`}>
@@ -86,7 +86,7 @@ function NavButton({ text, to, isPortfolio, isDark, locale }) {
   const lineRef = useRef(null)
 
   const selected = isPortfolio
-    ? (pathname === to || pathname.startsWith('/projects'))
+    ? (pathname === to || pathname === '/[category]' || pathname === '/[category]/[slug]')
     : pathname === to
 
   useEffect(() => {

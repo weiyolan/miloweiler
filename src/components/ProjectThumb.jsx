@@ -130,7 +130,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
               </span>
             )}
 
-            <Link href={`/projects/${categorySlug}/${project.slug.current}`}
+            <Link href={`/${categorySlug}/${project.slug.current}`}
               className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-sans text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
               {width < 648 && '+'}
             </Link>
