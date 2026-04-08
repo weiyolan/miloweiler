@@ -58,64 +58,47 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
-      // tl.current = gsap.timeline({ paused: false });
-      gsap.to(".contact-image0", { opacity: 1, duration: 1.2, delay: 0.5 });
-      gsap.to(".contact-image1", {
-        opacity: 1,
-        duration: 1.2,
-        scrollTrigger: { trigger: ".contact-image1", start: `20% ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
-      });
-      gsap.to(".contact-image2", {
-        opacity: 1,
-        duration: 1.2,
-        scrollTrigger: { trigger: ".contact-image2", start: `20% ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
-      });
-      gsap.to(".contact-image3", {
-        opacity: 1,
-        duration: 1.2,
-        scrollTrigger: { trigger: ".contact-image3", start: `top ${width < 648 ? "85%" : "60%"}`, markers: false, invalidateOnRefresh: true },
-      });
-      gsap.to(".portfolioImage", {
-        x: 0,
-        opacity: 1,
-        stagger: 0.2,
-        ease: "ease.out",
+      let mobile = width < 648;
+
+      // Form section staggered fade
+      gsap.timeline({
         scrollTrigger: {
-          trigger: ".portfolioImage",
-          start: `top ${width < 648 ? "90%" : "85%"}`,
-          end: `top ${width < 648 ? "80%" : "40%"}`,
+          trigger: ".form-parent",
+          start: `top ${mobile ? "90%" : "80%"}`,
+          end: `top ${mobile ? "50%" : "40%"}`,
+          scrub: 1,
           invalidateOnRefresh: true,
-          toggleActions: "play none reverse none",
-          scrub: 2,
-          markers: false,
         },
-      });
-      gsap.to(".portfolioText", {
-        x: 0,
-        opacity: 1,
-        ease: "ease.out",
+      })
+        .from(".form-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .from(".form-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+
+      // Portfolio section staggered fade
+      gsap.timeline({
         scrollTrigger: {
-          trigger: ".portfolioText",
-          start: `top ${width < 648 ? "90%" : "85%"}`,
-          end: `top ${width < 648 ? "80%" : "65%"}`,
+          trigger: ".portfolio-parent",
+          start: `top ${mobile ? "90%" : "80%"}`,
+          end: `top ${mobile ? "50%" : "40%"}`,
+          scrub: 1,
           invalidateOnRefresh: true,
-          toggleActions: "play none reverse none",
-          scrub: 2,
-          markers: false,
         },
-      });
-      // gsap.to('.portfolioImage', {
-      //   x: -192, opacity: 0,  stagger: 0.2, ease: 'back', scrollTrigger: {
-      //     trigger: '.portfolioImage',
-      //     start: `top ${width < 648 ? '15%' : '25%'}`,
-      //     end: `top ${width < 648 ? '10%' : '0%'}`,
-      //     invalidateOnRefresh: true, toggleActions: 'play none reverse none',
-      //     scrub: 2,
-      //     markers: true
-      //   }
-      // })
-      gsap.to(".form-title", { opacity: 1, duration: 0.8, scrollTrigger: { trigger: ".form-title", start: `top ${width < 648 ? "85%" : "60%"}`, invalidateOnRefresh: true } });
-      // gsap.set("[data-speed]", {position:'fixed'})
+      })
+        .from(".portfolio-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .from(".portfolio-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+
+      // Inspiration section staggered fade
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: ".inspiration-parent",
+          start: `top ${mobile ? "90%" : "80%"}`,
+          end: `top ${mobile ? "50%" : "40%"}`,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+        .from(".inspiration-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .from(".inspiration-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         // console.log(logo)
         // console.log(logo.getAttribute("data-speed"))
@@ -229,37 +212,35 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <TrustedBy trustedBy={trustedByData} />
 
               {/* =======OFFER FORM======== */}
-              <LayoutSection right className={`flex-col-reverse`}>
-                <div className="flex flex-col w-full">
+              <LayoutSection right className={`flex-col-reverse form-parent`}>
+                <div className="flex flex-col w-full form-child">
                   {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
-                  <SubTitle className="form-title" mainTitle={contactFormData.title[locale]} SubTitle="" left />
+                  <SubTitle mainTitle={contactFormData.title[locale]} SubTitle="" left />
                   <Form />
                 </div>
-                <SanityImage fill containerClass="contact-image1 opacity-0" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
+                <SanityImage fill containerClass="form-child" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
               </LayoutSection>
 
               {/* =======PRINTING SERVICE======== */}
               <PrintingDetails printingData={printingData} />
 
               {/* ======PRORTFOLIO======== */}
-              <LayoutSection center>
+              <LayoutSection center className="portfolio-parent">
                 <div className="w-full text-center">
-                  <SubTitle className="portfolioText max-w-[750px] mx-auto mb-2" mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
-                  <ArrowLink className="portfolioText ml-8 " inText text="download" to={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
+                  <SubTitle className="portfolio-child max-w-[750px] mx-auto mb-2" mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
+                  <ArrowLink className="portfolio-child ml-8 " inText text="download" to={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
                   <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4">
-                    {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
-                    {/* <div className=' bg-black/30 w-full h-56 rounded-2xl' /> */}
                     <SanityImage
                       intrinsic
                       priority
-                      className="w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto"
+                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child flex-1 rounded-2xl my-auto"
                       image={portfolioData.image1.image.asset}
                       alt={portfolioData.image1.alt[locale]}
                     />
                     <SanityImage
                       intrinsic
                       priority
-                      className="w-full xs:w-4/5 sm:w-1/3 translate-x-12 portfolioImage flex-1 rounded-2xl opacity-0 my-auto"
+                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child flex-1 rounded-2xl my-auto"
                       image={portfolioData.image2.image.asset}
                       alt={portfolioData.image2.alt[locale]}
                     />
@@ -268,12 +249,12 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               </LayoutSection>
 
               {/* ======INSPIRATION======== */}
-              <LayoutSection center>
+              <LayoutSection center className="inspiration-parent">
                 <div className="w-full text-center mb-4">
-                  <SubTitle className="max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
-                  {!pageMobile && <ArrowLink inText className="ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
+                  <SubTitle className="inspiration-child max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
+                  {!pageMobile && <ArrowLink inText className="inspiration-child ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12">
-                    <div className="flex-1 flex flex-col justify-start">
+                    <div className="inspiration-child flex-1 flex flex-col justify-start">
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
                       <p
                         ref={textRef}
@@ -284,7 +265,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       </p>
                       <ArrowLink inText className="ml-8 w-fit mt-5" text="Go to homepage" to="/" />
                     </div>
-                    <div className="flex-1 flex flex-col justify-start">
+                    <div className="inspiration-child flex-1 flex flex-col justify-start">
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
                       <p
                         style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}

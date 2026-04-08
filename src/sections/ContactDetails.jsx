@@ -19,25 +19,37 @@ let mailLink = "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=
 export default function ContactDetails({ contactDetails, portfolioLink }) {
   let ctx = useRef(null)
   let tl = useRef(null)
-  // const { width } = useAppContext();
+  let parent = useRef(null)
+  const { width, locale } = useAppContext();
 
   useLayoutEffect(() => {
+    if (!parent.current) return
     ctx.current = gsap.context(() => {
-      tl.current = gsap.timeline()
+      tl.current = gsap.timeline({
+        scrollTrigger: {
+          trigger: parent.current,
+          start: `top ${width < 648 ? '90%' : '80%'}`,
+          end: `top ${width < 648 ? '50%' : '40%'}`,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      })
         .from('.contact-child', { opacity: 0, duration: 1, ease: 'bounce', stagger: 0.1 })
-    }, '.contact-parent')
-    return () => ctx.current.revert()
-  }, [])
+        .from('.contact-child', { translateX: -20, duration: 1, ease: 'ease.out', stagger: 0.1 }, '<')
+        .from('.contact-image0', { opacity: 0, duration: 1 }, 0)
+    }, parent.current)
+    return () => ctx.current?.revert()
+  }, [width])
 
-  const { locale } = useAppContext();
   // console.log(contactDetails.image)
   return (
+    <div ref={parent} className="contact-parent">
     <LayoutSection right className={`flex-col sm:flex-row relative`}>
 
-      <SanityImage move style={{ objectPosition: 'top' }} containerClass='w-[46vw] -mt-6 xs:mt-0 xs:w-2/5 min-h-[40vh] xs:min-h-0 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0 opacity-0'
+      <SanityImage move style={{ objectPosition: 'top' }} containerClass='w-[46vw] -mt-6 xs:mt-0 xs:w-2/5 min-h-[40vh] xs:min-h-0 xs:h-56 bottom-0 xs:top-14 right-0 xs:right-4 sm:top-0 sm:right-0 sm:relative sm:h-full sm:w-full contact-image0'
         priority absolute={false} fill image={contactDetails.image.image.asset} alt={contactDetails.image.alt[locale]} />
 
-      <div id='contactSection' className=' relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
+      <div id='contactSection' className=' relative flex flex-col w-full md:py-6 lg:py-12'>
         <SubTitle child='contact' mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`contact-child`} />
         <p className='font-sans font-light  text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>
@@ -57,5 +69,6 @@ export default function ContactDetails({ contactDetails, portfolioLink }) {
           </div>
         </div>
       </div>
-    </LayoutSection>)
+    </LayoutSection>
+    </div>)
 }

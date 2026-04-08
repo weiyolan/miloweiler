@@ -33,18 +33,18 @@ export default function PrintingDetails({ printingData }) {
           markers: false
         }
       })
-        .from('.printing-child', { opacity: 0 ,duration: 1, ease: 'bounce', stagger: 0.1 })
-        .from('.printing-child', { translateX: -20 ,duration: 1, ease: 'ease.out', stagger: 0.1 },'<')
+        .from('.printing-child', { opacity: 0, duration: 1, ease: 'ease.out', stagger: 0.1 })
+        .from('.printing-child', { translateX: -20, duration: 1, ease: 'ease.out', stagger: 0.1 }, '<')
     }, '.printing-parent')
     return () => ctx.current.revert()
   }, [width])
 
   const { locale } = useAppContext();
   return (
-    <LayoutSection left>
-      <div ref={parent} key='printing' id='printing' className='printing-parent flex flex-col h-full justify-center'>
+    <LayoutSection left className="printing-parent">
+      <div ref={parent} key='printing' id='printing' className='flex flex-col h-full justify-center'>
         <SubTitle child='printing' mainTitle={printingData.title[locale]}/>
-        <p className="font-sans max-w-prose mx-auto mb-4"> {printingData.text[locale]} </p>
+        <p className="font-sans max-w-prose mx-auto mb-4 printing-child"> {printingData.text[locale]} </p>
         <AccentTitle className='printing-child' text={printingData.subTitle[locale]} />
         <ul className='list-disc pl-8 font-sans  -mt-2'>
           {printingData.list.map((item, i) => <li className='printing-child' key={i}>{item[locale]}</li>)}
@@ -52,8 +52,8 @@ export default function PrintingDetails({ printingData }) {
         <ContactB className={'printing-child'} />
       </div>
       <div className='flex-col flex h-full gap-2 sm:gap-4 lg:gap-6 justify-center'>
-        <SanityImage priority className='rounded-t-2xl contact-image2 opacity-0' image={printingData.image1.image.asset} alt={printingData.image1.alt[locale]} />
-        <SanityImage priority className='rounded-b-2xl contact-image3 opacity-0' image={printingData.image2.image.asset} alt={printingData.image2.alt[locale]} />
+        <SanityImage priority className='rounded-t-2xl printing-child' image={printingData.image1.image.asset} alt={printingData.image1.alt[locale]} />
+        <SanityImage priority className='rounded-b-2xl printing-child' image={printingData.image2.image.asset} alt={printingData.image2.alt[locale]} />
       </div>
     </LayoutSection>)
 }
