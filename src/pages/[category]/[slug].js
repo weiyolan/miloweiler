@@ -164,29 +164,29 @@ export default function Project({ project, slug, slugs, category }) {
   return (
     <>
       <Head>
-        <title>{`Milo Weiler | ${project?.title}`}</title>
-        <meta name="description" content={`${project?.description?.[locale]}`} />
+        <title>{`Milo Weiler | ${project?.seoTitle?.[locale] || project?.title}`}</title>
+        <meta name="description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
         <link rel="canonical" href={canonicalUrl(locale, `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}/${slug}`)} />
-        <meta property="og:title" content={project.title} />
+        <meta property="og:title" content={project?.seoTitle?.[locale] || project?.title} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
+        <meta property="og:description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={`${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+        <meta property="og:image" content={project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={project.title} />
+        <meta property="og:image:alt" content={project?.seoTitle?.[locale] || project?.title} />
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={canonicalUrl(locale, `/${category}/${slug}`)} />
         <meta property="fb:app_id" content="659504862954849" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, `/${category}/${slug}`)} />
-        <meta name="twitter:title" content={project.title} />
-        <meta name="twitter:description" content={project?.by?.[0] !== undefined ? `In collaboration with ${project?.by?.[0]}` : "Get Inspired By The Best Of"} />
-        <meta name="twitter:image" content={`${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+        <meta name="twitter:title" content={project?.seoTitle?.[locale] || project?.title} />
+        <meta name="twitter:description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
+        <meta name="twitter:image" content={project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
       </Head>
       <script
         type="application/ld+json"
@@ -195,7 +195,7 @@ export default function Project({ project, slug, slugs, category }) {
           '@type': 'CreativeWork',
           name: project.title,
           ...(project?.description?.[locale] ? { description: project.description[locale] } : {}),
-          image: `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`,
+          image: project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`,
           ...(project?.date ? { dateCreated: project.date } : {}),
           creator: { '@type': 'Person', name: 'Milo Weiler' },
           ...(project?.by?.filter(Boolean)?.length ? {
@@ -449,7 +449,7 @@ export async function getStaticProps({ params }) {
   const cat = getCatFromSlug(params.category);
   const [project, categorySlugs] = await Promise.all([
     client.fetch(
-      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{...,asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,alt,border,position,image{...,asset->{url,metadata},...asset{_ref}}}}`
+      `*[_type == "project" && slug.current == "${params.slug}"][0]{...,grid,gridSize,commissionedBool,mainImage{alt,image{...,asset->{url,metadata},...asset{_ref}}},otherImages[]{_key,_type,alt,border,position,image{...,asset->{url,metadata},...asset{_ref}}},seoImage{...,asset->{url}}}`
     ),
     client.fetch(`*[_type == "project" && cat == "${cat}"]|order(date desc){slug}`),
   ]);

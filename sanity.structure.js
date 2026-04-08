@@ -9,18 +9,6 @@ export const myStructure = (S) => {
     .title("Content ~ Enjoy Broertje ❤️")
     .items([
       S.listItem()
-        .title("Site Settings")
-        .icon(CogIcon)
-        .child(
-          S.list()
-            .title("Settings")
-            .items([
-              S.listItem().title("Theme").icon(BlockElementIcon).child(S.document().schemaType("siteSettings").documentId("siteSettings")),
-              S.listItem().title("Fonts").icon(BlockElementIcon).child(S.document().schemaType("fontSettings").documentId("fontSettings")),
-              S.listItem().title("Category Names").icon(BlockElementIcon).child(S.document().schemaType("categoryNames").documentId("categoryNames")),
-            ])
-        ),
-      S.listItem()
         .title("Homepage")
         .icon(HomeIcon)
         .child(
@@ -76,7 +64,27 @@ export const myStructure = (S) => {
             "fontSettings",
             "categoryNames",
             "homepageConfig",
+            "businessInfo",
+            "legalNotice",
+            "termsOfUse",
+            "cookieNotice",
           ].includes(listItem.getId())
       ),
+      S.listItem()
+        .title("Site Settings")
+        .icon(CogIcon)
+        .child(
+          S.list()
+            .title("Settings")
+            .items([
+              S.listItem().title("Theme").icon(BlockElementIcon).child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+              S.listItem().title("Fonts").icon(BlockElementIcon).child(S.document().schemaType("fontSettings").documentId("fontSettings")),
+              S.listItem().title("Category Names").icon(BlockElementIcon).child(S.document().schemaType("categoryNames").documentId("categoryNames")),
+              S.listItem().title("Business Info").icon(BlockElementIcon).child(S.document().schemaType("businessInfo").documentId("businessInfo")),
+              S.listItem().title("Legal Notice").icon(BlockElementIcon).child(S.document().schemaType("legalNotice").documentId("legalNotice")),
+              S.listItem().title("Terms of Use").icon(BlockElementIcon).child(S.document().schemaType("termsOfUse").documentId("termsOfUse")),
+              S.listItem().title("Cookie Notice").icon(BlockElementIcon).child(S.document().schemaType("cookieNotice").documentId("cookieNotice")),
+            ])
+        ),
     ]);
 }

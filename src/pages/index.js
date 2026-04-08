@@ -4,8 +4,9 @@ import Head from "next/head";
 import React from "react";
 import dynamic from "next/dynamic";
 import client from "../../lib/sanity";
-import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from "@/utils/categories";
+import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
 import { canonicalUrl } from "@/utils/seo";
+import CategoryDescriptions from "@/sections/CategoryDescriptions";
 
 const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
 
@@ -20,8 +21,9 @@ const SLUG_TO_QUERY_KEY = {
 };
 
 export default function Home({ categories }) {
-  const { locale, categoryLabels } = useAppContext();
+  const { locale, categoryLabels, categoryDescriptions } = useAppContext();
   const labels = categoryLabels || CATEGORY_LABELS;
+  const descriptions = categoryDescriptions || CATEGORY_DESCRIPTIONS;
 
   const localizedCategories = categories.map((cat) => ({
     ...cat,
@@ -92,10 +94,13 @@ export default function Home({ categories }) {
           },
         }).replace(/</g, '\\u003c') }}
       />
-      <main className="w-full h-screen overflow-hidden bg-background text-foreground force-dark">
-        <PageWrapper>
-          <CardCarousel categories={localizedCategories} />
-        </PageWrapper>
+      <main className="w-full bg-background text-foreground force-dark">
+        <div className="h-screen overflow-hidden">
+          <PageWrapper>
+            <CardCarousel categories={localizedCategories} />
+          </PageWrapper>
+        </div>
+        <CategoryDescriptions descriptions={descriptions} labels={labels} />
       </main>
     </>
   );

@@ -3,47 +3,61 @@ import Link from "next/link"
 import { useRouter } from "next/router";
 
 import { useAppContext } from "@/utils/appContext";
-import { usePageContext } from "@/utils/pageContext";
+import { CATEGORY_SLUGS } from "@/utils/categories";
 import SubTitle from "./SubTitle";
 import Layout from "./Layout";
 
-const socialList = {
-  en: [{ text: 'Instagram', ext: true, link: 'https://www.instagram.com/miloweiler/' }, { text: 'Unsplash', ext: true, link: 'https://unsplash.com/@miloweiler' }, { text: 'LinkedIn', ext: true, link: 'https://www.linkedin.com/in/mwphotography' }],
-  fr: [{ text: 'Instagram', ext: true, link: 'https://www.instagram.com/miloweiler/' }, { text: 'Unsplash', ext: true, link: 'https://unsplash.com/@miloweiler' }, { text: 'LinkedIn', ext: true, link: 'https://www.linkedin.com/in/mwphotography' }],
-};
-const navigateList = {
-  en: [{ text: 'Home', link: '/' }, { text: 'Commissioned', link: '/commissioned', disabled: false }, { text: 'Personal', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Printing', link: '/contact/#printing', disabled: false }],
-  fr: [{ text: 'Acceuil', link: '/', disabled: false }, { text: 'Commande', link: '/commissioned', disabled: false }, { text: 'Personel', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Impression', link: '/contact/#printing', disabled: false }],
-};
-const legalList = {
-  en: [{ text: 'Legal Notice', link: '/', disable: true }, { text: 'Terms of Use', link: '/services', disable: true }, { text: 'Cookie Notice', link: '/aboutme', disable: true }],
-  fr: [{ text: 'Legal Notice', link: '/', disable: true }, { text: 'Terms of Use', link: '/services', disable: true }, { text: 'Cookie Notice', link: '/aboutme', disable: true }],
-};
-const contactList = {
-  en: [
-    { text: 'Call', ext: false, link: 'tel:+32476506209' },
-    { text: 'WhatsApp', ext: true, link: 'https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
-    { text: 'milo.weiler@gmail.com', ext: true, link: "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
-  ], fr: [
-    { text: 'Appeler', ext: false, link: 'tel:+32476506209' },
-    { text: 'WhatsApp', ext: true, link: 'https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
-    { text: 'milo.weiler@gmail.com', ext: true, link: "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
-  ]
+const financialInfo = {
+  en: '2026 MiloWeiler, Inc. All rights reserved.',
+  fr: '2026 MiloWeiler, Inc. Tous droits r\u00e9serv\u00e9s.',
+  nl: '2026 MiloWeiler, Inc. Alle rechten voorbehouden.',
 };
 
-const financialInfo = {
+const legalLinks = {
   en: [
-    '2026 MiloWeiler, Inc. All rights reserved.',
+    { text: 'Legal Notice', link: '/legal-notice' },
+    { text: 'Terms of Use', link: '/terms-of-use' },
+    { text: 'Cookie Notice', link: '/cookie-notice' },
   ],
   fr: [
-    '2026 MiloWeiler, Inc. Tous droits reserves.',
-  ]
+    { text: 'Mentions l\u00e9gales', link: '/legal-notice' },
+    { text: "Conditions d'utilisation", link: '/terms-of-use' },
+    { text: 'Politique de cookies', link: '/cookie-notice' },
+  ],
+  nl: [
+    { text: 'Juridische mededeling', link: '/legal-notice' },
+    { text: 'Gebruiksvoorwaarden', link: '/terms-of-use' },
+    { text: 'Cookieverklaring', link: '/cookie-notice' },
+  ],
 };
 
 
 export default function Footer2({ style, className, noMotion, noMargin, setFooterHeight, setFooterNormalHeight }) {
-  let { locale } = useAppContext();
-  let { mobile } = usePageContext();
+  let { locale, isMobile: mobile, businessInfo, categoryShortLabels } = useAppContext();
+
+  // Build dynamic lists from businessInfo context
+  const phoneRaw = (businessInfo?.phone || '').replace(/\s/g, '');
+  const whatsappMsg = encodeURIComponent(businessInfo?.whatsappMessage?.[locale] || '');
+  const mailSubject = encodeURIComponent(businessInfo?.mailtoSubject?.[locale] || '');
+  const mailBody = encodeURIComponent(businessInfo?.mailtoBody?.[locale] || '');
+
+  const contactItems = [
+    { text: locale === 'fr' ? 'Appeler' : locale === 'nl' ? 'Bellen' : 'Call', link: `tel:${phoneRaw}` },
+    { text: 'WhatsApp', ext: true, link: `https://wa.me/${businessInfo?.whatsappNumber || ''}?text=${whatsappMsg}` },
+    { text: businessInfo?.email || '', ext: true, link: `mailto:${businessInfo?.email || ''}?subject=${mailSubject}&body=${mailBody}` },
+    { text: locale === 'fr' ? 'Page de contact' : locale === 'nl' ? 'Contactpagina' : 'Contact Page', link: '/contact' },
+  ];
+
+  const socialItems = [
+    businessInfo?.socialInstagram && { text: 'Instagram', ext: true, link: businessInfo.socialInstagram },
+    businessInfo?.socialUnsplash && { text: 'Unsplash', ext: true, link: businessInfo.socialUnsplash },
+    businessInfo?.socialLinkedin && { text: 'LinkedIn', ext: true, link: businessInfo.socialLinkedin },
+  ].filter(Boolean);
+
+  const portfolioItems = CATEGORY_SLUGS.map(slug => ({
+    text: categoryShortLabels?.[slug]?.[locale] || slug,
+    link: `/${slug}`,
+  }));
 
   return (
     <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-surface text-foreground pt-12 mt-12 md:mt-24 to-surface force-dark  ${noMargin ? '' : ''}`}>
@@ -51,10 +65,10 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
         className={`relative lg:px-16 xl:px-24  max-w-7xl  px-4 pb-2  w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row  items-center sm:items-start justify-between max-w-6xl mx-auto'>
 
-          <Links mobile={mobile} title='Navigate' list={navigateList[locale]} />
-          <Links mobile={mobile} title='Socials' list={socialList[locale]} />
-          <Links mobile={mobile} title='Contact' list={contactList[locale]} />
-          <Links mobile={mobile} title='Legal' list={legalList[locale]} />
+          <Links mobile={mobile} title='Portfolio' list={portfolioItems} />
+          <Links mobile={mobile} title='Socials' list={socialItems} />
+          <Links mobile={mobile} title='Contact' list={contactItems} />
+          <Links mobile={mobile} title='Legal' list={legalLinks[locale] || legalLinks.en} />
 
         </div>
 
@@ -66,7 +80,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
         <div role='presentation' className='w-full text-xs text-center mt-4 text-foreground font-thin font-mono'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
-            {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '| '}${val}`}</li>) })}
+            <li>{financialInfo[locale] || financialInfo.en}</li>
             <li className="pl-1 ">
               | Powered By <Link className="underline" href={'https://www.ywdesign.co'} rel="noopener noreferrer">ywdesign.co</Link>
             </li>

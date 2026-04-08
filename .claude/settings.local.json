@@ -92,7 +92,8 @@
       "Bash(find /d/Documenten/WebDev/miloweiler -name _document.* -o -name _app.js -o -name tailwind.config.js -o -name globals.css -o -name sanity.config.js -o -name sanity.structure.js -o -name client.js -o -name sanity.js -o -name config.js)",
       "Bash(rm:*)",
       "Bash(npm info:*)",
-      "Bash(find d:/Documenten/WebDev/miloweiler -type f -name *nav* -o -name *header* -o -name *navbar*)"
+      "Bash(find d:/Documenten/WebDev/miloweiler -type f -name *nav* -o -name *header* -o -name *navbar*)",
+      "Bash(node:*)"
     ],
     "deny": [
       "Bash(git push:*)"

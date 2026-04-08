@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const AppContext = createContext();
 
-export function AppWrapper({ children, scrolled, categoryLabels, className }) {
+export function AppWrapper({ children, scrolled, categoryLabels, categoryShortLabels, categoryDescriptions, businessInfo, className }) {
   let { width, height, mobileHeight } = useWindowSize();
   let { locale } = useRouter();
   // const [navIsOpen, toggleNav] = useCycle(false, true);
@@ -40,6 +40,9 @@ export function AppWrapper({ children, scrolled, categoryLabels, className }) {
         keepScroll: keepScroll,
         isMobile: isMobile,
         categoryLabels: categoryLabels,
+        categoryShortLabels: categoryShortLabels,
+        categoryDescriptions: categoryDescriptions,
+        businessInfo: businessInfo,
         // setKeepScroll: setKeepScroll,
         // navIsOpen: navIsOpen,
         // toggleNav: toggleNav,

@@ -24,23 +24,25 @@ const Form = () => {
 
   useEffect(() => {
     ctx.current = gsap.context(() => {
-      gsap.from('.form-el', {
-        translateX: -50,
-        translateY: 80,
-        opacity: 0,
-        ease: 'back',
-        duration: 0.5,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: '.form-container',
-          start: `top bottom`,
-          // start: `top ${width < 648 ? '85%' : '60%'}`,
-          end: 'top 50%',
-          // toggleActions:'restart none none reverse',
-          scrub: 1,
-          markers: false
-        }
-      })
+      gsap.fromTo('.form-el',
+        { translateX: -50, translateY: 80 },
+        {
+          translateX: 0,
+          translateY: 0,
+          autoAlpha: 1,
+          ease: 'back',
+          duration: 0.5,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: '.form-container',
+            start: `top bottom`,
+            // start: `top ${width < 648 ? '85%' : '60%'}`,
+            end: 'top 50%',
+            // toggleActions:'restart none none reverse',
+            scrub: 1,
+            markers: false
+          }
+        })
     })
     return () => ctx.current.revert()
 
@@ -108,13 +110,13 @@ const Form = () => {
       <input type='hidden' name='form-name' value='ContactForm' />
       <p className='hidden'>
 
-        <label>{`${locale === 'en' ? "Don't fill this out if you're human:" : 'Ne pas remplir si vous êtes humain.'}`}<input name="bot-field" value={honey} onChange={(e) => setHoney(e.target.value)} /></label>
+        <label>{`${locale === 'en' ? "Don't fill this out if you're human:" : locale === 'nl' ? 'Vul dit niet in als u een mens bent.' : 'Ne pas remplir si vous \u00eates humain.'}`}<input name="bot-field" value={honey} onChange={(e) => setHoney(e.target.value)} /></label>
       </p>
 
       <div className={`grid gap-1 xs:gap-6 grid-cols-3 w-full relative min-w-[30vw] lg:min-w-fit auto-rows-min font-normal placeholder:text-xs min-[400px]:placeholder:text-sm text-foreground placeholder:text-foreground`}>
         <div className='grid col-start-1 col-span-3 min-[500px]:col-span-2 '>
-          <div className='form-el inline-block relative col-start-1 col-span-1 pr-3'>
-            <label className='cursor-pointer font-mono font-light whitespace-nowrap text-sm inline-flex  mb-2 ml-1' htmlFor='name'>{`${locale === 'en' ? 'Name' : "Prénom"}`}</label>
+          <div className='form-el invisible inline-block relative col-start-1 col-span-1 pr-3'>
+            <label className='cursor-pointer font-mono font-light whitespace-nowrap text-sm inline-flex  mb-2 ml-1' htmlFor='name'>{`${locale === 'en' ? 'Name' : locale === 'nl' ? 'Voornaam' : "Pr\u00e9nom"}`}</label>
             <input required name='name' className={`block  
               rounded-full   valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
@@ -122,13 +124,13 @@ const Form = () => {
               placeholder:text-foreground/50 hover:border-foreground/40 autofill:bg-foreground/10 bg-foreground/10 focus:outline-foreground/20
               focus:-outline-offset-2  p-2 w-full text-sm `} id='name'
               type='text'
-              placeholder={`${locale === 'en' ? "First name" : "Ou surnom"}`}
+              placeholder={`${locale === 'en' ? "First name" : locale === 'nl' ? "Of bijnaam" : "Ou surnom"}`}
               value={name}
               onChange={(e) => { setName(e.target.value) }} />
           </div>
 
-          <div className='form-el inline-block relative col-start-2 col-span-1 pl-3'>
-            <label className=' cursor-pointer font-mono font-light whitespace-nowrap text-sm inline-flex  mb-2 ml-1' htmlFor='lastname'>{`${locale === 'en' ? 'Last Name' : "Nom"}`}</label>
+          <div className='form-el invisible inline-block relative col-start-2 col-span-1 pl-3'>
+            <label className=' cursor-pointer font-mono font-light whitespace-nowrap text-sm inline-flex  mb-2 ml-1' htmlFor='lastname'>{`${locale === 'en' ? 'Last Name' : locale === 'nl' ? 'Achternaam' : "Nom"}`}</label>
             <input required name='lastname'
               className={`block 
               rounded-full   valid:scale-[0.99] 
@@ -140,14 +142,14 @@ const Form = () => {
               focus:-outline-offset-2  p-2 w-full text-sm `}
               id='lastname'
               type="text"
-              placeholder={`${locale === 'en' ? "Or family name" : "Nom de famille"}`}
+              placeholder={`${locale === 'en' ? "Or family name" : locale === 'nl' ? "Familienaam" : "Nom de famille"}`}
               value={lastName}
               onChange={(e) => { setLastName(e.target.value) }} />
           </div>
         </div>
 
-        <div className='form-el  inline-block relative col-start-1 col-span-3 min-[400px]:col-span-2 min-[400px]:pr-4 min-[500px]:pr-0'>
-          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='email'>{`${locale === 'en' ? 'Email' : "Email"}`}</label>
+        <div className='form-el invisible  inline-block relative col-start-1 col-span-3 min-[400px]:col-span-2 min-[400px]:pr-4 min-[500px]:pr-0'>
+          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='email'>{`${locale === 'en' ? 'Email' : locale === 'nl' ? 'E-mail' : "Email"}`}</label>
           <input required name='email' className={`block  
               rounded-full  valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
@@ -160,8 +162,8 @@ const Form = () => {
             onChange={(e) => { setEmail(e.target.value) }} />
         </div>
 
-        <div className='form-el overscroll-contain inline-flex flex-col w-full col-start-1 col-span-3 '>
-          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='message'>{`${locale === 'en' ? 'Message' : "Message"}`}</label>
+        <div className='form-el invisible overscroll-contain inline-flex flex-col w-full col-start-1 col-span-3 '>
+          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='message'>{`${locale === 'en' ? 'Message' : locale === 'nl' ? 'Bericht' : "Message"}`}</label>
           <textarea required data-lenis-prevent className={`block  
                  valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
@@ -172,15 +174,16 @@ const Form = () => {
             name='message'
             placeholder={
               `${locale === 'en' ? 'To begin, just start typing. For example: \nHi Milo, \nI need a photographer for a project. \nCould we meet up to talk about it? \nKind regards' :
-                "Pour commencer, il suffit de taper. Par exemple: \nBonjour Milo, \nje voudrais un nouveau logo et un nouveau site web pour ma boutique. \nPourrions-nous nous rencontrer pour en parler ? \nA bientôt !"}`}
+                locale === 'nl' ? 'Begin gewoon met typen. Bijvoorbeeld: \nHallo Milo, \nik heb een fotograaf nodig voor een project. \nKunnen we afspreken om erover te praten? \nMet vriendelijke groeten' :
+                "Pour commencer, il suffit de taper. Par exemple: \nBonjour Milo, \nje voudrais un nouveau logo et un nouveau site web pour ma boutique. \nPourrions-nous nous rencontrer pour en parler ? \nA bient\u00f4t !"}`}
             value={message}
             onChange={(e) => { setMessage(e.target.value) }}>
           </textarea>
         </div>
 
         {/* SUBJECT */}
-        <div className='form-el flex flex-col relative w-full col-start-1 col-span-2 min-[400px]:col-span-1 xs:pr-0 row-start-4 min-[400px]:col-start-3 min-[400px]:row-start-2 min-h-[50px] justify-start items-start min-[400px]:justify-end'>
-          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='subject'>{`${locale === 'en' ? 'Subject' : "Sujet"}`}</label>
+        <div className='form-el invisible flex flex-col relative w-full col-start-1 col-span-2 min-[400px]:col-span-1 xs:pr-0 row-start-4 min-[400px]:col-start-3 min-[400px]:row-start-2 min-h-[50px] justify-start items-start min-[400px]:justify-end'>
+          <label className=' cursor-pointer whitespace-nowrap font-mono text-sm inline-flex max-w-fit mb-2 ml-1' htmlFor='subject'>{`${locale === 'en' ? 'Subject' : locale === 'nl' ? 'Onderwerp' : "Sujet"}`}</label>
           <input name='subject' className={`block  
               rounded-full   valid:scale-[0.99] 
               outline-none -outline-offset-2 focus:outline-none focus:animate-outlinePulse
@@ -195,7 +198,7 @@ const Form = () => {
         {/* <div className='col-start-2 row-start-4 min-[400px]:col-start-1 min-[400px]:row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 ' data-netlify-recaptcha="true"></div> */}
 
         {/* BUTTON */}
-        <div className='form-el w-full flex items-end justify-end  col-start-3 row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 relative '>
+        <div className='form-el invisible w-full flex items-end justify-end  col-start-3 row-start-4 min-[500px]:col-start-3 min-[500px]:row-start-1 relative '>
           <button key='submit' type={success ? 'reset' : 'submit'} onClick={() => { if (success) { setSuccess(false) } }}
             className={`inline-flex shadow-sm left-0 bottom-0
           border-2 border-solid rounded-full min-w-[80px] lg:min-w-[100px] px-2 justify-center xs:px-4 py-2  
@@ -205,7 +208,7 @@ const Form = () => {
               outline-none  border-transparent  
            uppercase`}
           >
-            {success ? <BsCheckLg className={`text-base font-sans font-medium`} /> : `${locale === 'en' ? 'Send' : "Envoyer"}`}
+            {success ? <BsCheckLg className={`text-base font-sans font-medium`} /> : `${locale === 'en' ? 'Send' : locale === 'nl' ? 'Verzenden' : "Envoyer"}`}
           </button>
         </div>
       </div>

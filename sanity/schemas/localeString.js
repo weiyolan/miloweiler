@@ -19,7 +19,7 @@ export default defineType({
   title: 'Localized string',
   name: 'localeString',
   type: 'object',
-  options: { collapsible: true, collapsed:true }, 
+  options: { collapsible: true, collapsed: true, columns: 3 },
   fieldsets: [
     {
       title: 'Translations',

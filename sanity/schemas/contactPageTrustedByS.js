@@ -13,6 +13,16 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
+      name: 'artistsLabel', title: 'Artists Label', type: 'localeString',
+      description: 'Heading above artist logos (e.g. "Artists")',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'companiesLabel', title: 'Companies Label', type: 'localeString',
+      description: 'Heading above company logos (e.g. "Companies")',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
       name: 'artists', title: 'Artist Logos', type: 'array', of: [{ type: 'trustedByLogo' }],
       // options: {collapsible: true, collapsed: true},
       validation: Rule => Rule.required()

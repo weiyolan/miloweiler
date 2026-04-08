@@ -71,8 +71,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           invalidateOnRefresh: true,
         },
       })
-        .from(".form-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
-        .from(".form-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+        .to(".form-child", { autoAlpha: 1, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .fromTo(".form-child", { translateX: -20 }, { translateX: 0, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
 
       // Portfolio section staggered fade
       gsap.timeline({
@@ -84,8 +84,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           invalidateOnRefresh: true,
         },
       })
-        .from(".portfolio-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
-        .from(".portfolio-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+        .to(".portfolio-child", { autoAlpha: 1, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .fromTo(".portfolio-child", { translateX: -20 }, { translateX: 0, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
 
       // Inspiration section staggered fade
       gsap.timeline({
@@ -97,8 +97,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           invalidateOnRefresh: true,
         },
       })
-        .from(".inspiration-child", { opacity: 0, duration: 1, ease: "ease.out", stagger: 0.1 })
-        .from(".inspiration-child", { translateX: -20, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
+        .to(".inspiration-child", { autoAlpha: 1, duration: 1, ease: "ease.out", stagger: 0.1 })
+        .fromTo(".inspiration-child", { translateX: -20 }, { translateX: 0, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
 
       gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
         // console.log(logo)
@@ -174,6 +174,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <link rel="canonical" href={canonicalUrl(locale, '/contact')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/contact')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/contact')} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/contact')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/contact')} />
         <meta property="og:title" content={"A Unique Style In Artistic Photography"} />
         <meta property="og:description" content={`Discover the power of visual storytelling through my lens.`} />
@@ -215,12 +216,12 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
               {/* =======OFFER FORM======== */}
               <LayoutSection right className={`flex-col-reverse form-parent`}>
-                <div className="flex flex-col w-full form-child">
+                <div className="flex flex-col w-full form-child invisible">
                   {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
                   <SubTitle mainTitle={contactFormData.title[locale]} SubTitle="" left />
                   <Form />
                 </div>
-                <SanityImage fill containerClass="form-child" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
+                <SanityImage fill containerClass="form-child invisible" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
               </LayoutSection>
 
               {/* =======PRINTING SERVICE======== */}
@@ -229,20 +230,20 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               {/* ======PRORTFOLIO======== */}
               <LayoutSection center className="portfolio-parent">
                 <div className="w-full text-center">
-                  <SubTitle className="portfolio-child max-w-[750px] mx-auto mb-2" mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
-                  <ArrowLink className="portfolio-child ml-8 " inText text="download" to={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
+                  <SubTitle className="portfolio-child invisible max-w-[750px] mx-auto mb-2" mainTitle={portfolioData.title[locale]} subTitle={portfolioData.text[locale]} />
+                  <ArrowLink className="portfolio-child invisible ml-8 " inText text="download" to={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />
                   <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-24 px-0 sm:px-12 mt-4">
                     <SanityImage
                       intrinsic
                       priority
-                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child flex-1 rounded-2xl my-auto"
+                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child invisible flex-1 rounded-2xl my-auto"
                       image={portfolioData.image1.image.asset}
                       alt={portfolioData.image1.alt[locale]}
                     />
                     <SanityImage
                       intrinsic
                       priority
-                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child flex-1 rounded-2xl my-auto"
+                      className="w-full xs:w-4/5 sm:w-1/3 portfolio-child invisible flex-1 rounded-2xl my-auto"
                       image={portfolioData.image2.image.asset}
                       alt={portfolioData.image2.alt[locale]}
                     />
@@ -253,10 +254,10 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               {/* ======INSPIRATION======== */}
               <LayoutSection center className="inspiration-parent">
                 <div className="w-full text-center mb-4">
-                  <SubTitle className="inspiration-child max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
-                  {!pageMobile && <ArrowLink inText className="inspiration-child ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
+                  <SubTitle className="inspiration-child invisible max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
+                  {!pageMobile && <ArrowLink inText className="inspiration-child invisible ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12">
-                    <div className="inspiration-child flex-1 flex flex-col justify-start">
+                    <div className="inspiration-child invisible flex-1 flex flex-col justify-start">
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle1[locale]}</h3>
                       <p
                         ref={textRef}
@@ -267,7 +268,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       </p>
                       <ArrowLink inText className="ml-8 w-fit mt-5" text="Go to homepage" to="/" />
                     </div>
-                    <div className="inspiration-child flex-1 flex flex-col justify-start">
+                    <div className="inspiration-child invisible flex-1 flex flex-col justify-start">
                       <h3 className="font-sans font-semibold text-lg sm:text-xl mt-2 mb-2 sm:mb-5">{inspirationData.subTitle2[locale]}</h3>
                       <p
                         style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}

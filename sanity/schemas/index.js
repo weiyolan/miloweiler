@@ -26,6 +26,10 @@ import siteSettings from './siteSettings'
 import fontSettings from './fontSettings'
 import categoryNames from './categoryNames'
 import homepageConfig from './homepageConfig'
+import businessInfo from './businessInfo'
+import legalNotice from './legalNotice'
+import termsOfUse from './termsOfUse'
+import cookieNotice from './cookieNotice'
 
 export const schemaTypes = [
   trustedByLogo,
@@ -51,4 +55,8 @@ export const schemaTypes = [
   fontSettings,
   categoryNames,
   homepageConfig,
+  businessInfo,
+  legalNotice,
+  termsOfUse,
+  cookieNotice,
 ]

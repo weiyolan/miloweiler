@@ -20,12 +20,21 @@ export default defineType({
       name: "images",
       title: "Images",
     },
+    {
+      name: "seo",
+      title: "SEO",
+    },
   ],
   fieldsets: [
     {
       name: "details",
       title: "Project Details",
       options: { collapsible: true, collapsed: true, columns: 2 },
+    },
+    {
+      name: "info",
+      title: "Info",
+      options: { columns: 2 },
     },
     {
       name: "options",
@@ -72,16 +81,31 @@ export default defineType({
       title: "Subtitle",
       type: "string",
       description: "De tekst tussen haakjes vlak naast de titel",
+      fieldset: "info",
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
       description: "Komt hier: www.miloweiler.com/gallery/[slug]. ",
+      fieldset: "info",
       options: {
         source: "title",
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "by",
+      title: "By",
+      type: "array",
+      of: [{ type: "string" }],
+      fieldset: "info",
+    }),
+    defineField({
+      name: "partnerLink",
+      title: "Partner Link",
+      type: "url",
+      fieldset: "info",
     }),
     defineField({
       name: "cat",
@@ -99,17 +123,6 @@ export default defineType({
         ],
       },
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "by",
-      title: "By",
-      type: "array",
-      of: [{ type: "string" }],
-    }),
-    defineField({
-      name: "partnerLink",
-      title: "Partner Link",
-      type: "url",
     }),
 
     // =============OPTIONS FIELDSET=======================
@@ -396,6 +409,33 @@ export default defineType({
       group: ["details", "images"],
       // group: 'images',
       validation: (Rule) => Rule.required(),
+    }),
+
+    // =============SEO=======================
+
+    defineField({
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "localeStringOptional",
+      group: "seo",
+      description: "Overrides the project title for search engines and social sharing. Leave empty to use the project title.",
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "localeStringOptional",
+      group: "seo",
+      description: "Custom description for search engines and social sharing. Keep under 160 characters.",
+    }),
+    defineField({
+      name: "seoImage",
+      title: "SEO Image",
+      type: "image",
+      group: "seo",
+      description: "Custom image for social sharing (1200x630 recommended). Leave empty to use the main image.",
+      options: {
+        hotspot: true,
+      },
     }),
   ],
 });

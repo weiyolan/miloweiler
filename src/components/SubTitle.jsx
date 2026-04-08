@@ -12,11 +12,11 @@ export default function SubTitle({ mainTitle, subTitle, left, right, style, smal
     <div style={style} className={`${style === undefined ? 'relative' : ''} w-full text-foreground ${className}`}>
       <h2 className={`font-serif font-extrabold  
       whitespace-pre-wrap md:whitespace-nowrap
-      ${small?'text-lg':'text-2xl mobm:text-2xl sm:text-3xl mb-2 sm:mb-2 lg:mb-6'}  ${child?child+'-child':''}`}>
+      ${small?'text-lg':'text-2xl mobm:text-2xl sm:text-3xl mb-2 sm:mb-2 lg:mb-6'}  ${child?child+'-child invisible':''}`}>
             {mainTitle}
       </h2>
 {/* whitespace-pre-wrap sm:whitespace-nowrap md:whitespace-nowrap */}
-      <div className={`font-sans mb-4 whitespace-pre-wrap ${left||right?'text-justify':''} ${child?child+'-child':''}`}>
+      <div className={`font-sans mb-4 whitespace-pre-wrap ${left||right?'text-justify':''} ${child?child+'-child invisible':''}`}>
         {subTitle}
       </div>
 

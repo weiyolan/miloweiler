@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { Playfair_Display, Instrument_Sans, Space_Mono } from "next/font/google";
 import { AppWrapper, useAppContext } from "@utils/appContext";
-import { buildCategoryLabels } from "@utils/categories";
+import { buildCategoryLabels, buildCategoryShortLabels, buildCategoryDescriptions } from "@utils/categories";
 import client from "../../lib/sanity";
 import { Toaster } from "react-hot-toast";
 import Navigation from "@/components/Navigation";
@@ -38,7 +38,7 @@ const spaceMono = Space_Mono({
   weight: ["400"],
 });
 
-export default function App({ Component, pageProps, categoryLabels }) {
+export default function App({ Component, pageProps, categoryLabels, categoryShortLabels, categoryDescriptions, businessInfo }) {
   let scrolled = useRef(0);
   // const router = useRouter();
   // usePreserveScroll();
@@ -94,7 +94,7 @@ export default function App({ Component, pageProps, categoryLabels }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
+      <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} categoryShortLabels={categoryShortLabels} categoryDescriptions={categoryDescriptions} businessInfo={businessInfo} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
         <TransitionProvider>
           <NavRenderer />
           <Component {...pageProps} />
@@ -112,11 +112,20 @@ App.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
   try {
-    const catNames = await client.fetch(`*[_type == "categoryNames" && _id == "categoryNames"][0]`);
-    return { pageProps, categoryLabels: buildCategoryLabels(catNames) };
+    const [catNames, bizInfo] = await Promise.all([
+      client.fetch(`*[_type == "categoryNames" && _id == "categoryNames"][0]`),
+      client.fetch(`*[_type == "businessInfo" && _id == "businessInfo"][0]{email,phone,vat,address,mailtoSubject,mailtoBody,whatsappNumber,whatsappMessage,socialInstagram,socialUnsplash,socialLinkedin}`),
+    ]);
+    return {
+      pageProps,
+      categoryLabels: buildCategoryLabels(catNames),
+      categoryShortLabels: buildCategoryShortLabels(catNames),
+      categoryDescriptions: buildCategoryDescriptions(catNames),
+      businessInfo: bizInfo || null,
+    };
   } catch (e) {
-    console.error("Failed to fetch category names:", e);
-    return { pageProps, categoryLabels: buildCategoryLabels(null) };
+    console.error("Failed to fetch app data:", e);
+    return { pageProps, categoryLabels: buildCategoryLabels(null), categoryShortLabels: buildCategoryShortLabels(null), categoryDescriptions: buildCategoryDescriptions(null), businessInfo: null };
   }
 };
 

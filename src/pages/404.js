@@ -27,18 +27,20 @@ export default function Custom404() {
                 404
               </p>
               <h1 className="font-serif text-5xl md:text-7xl mb-6">
-                {locale === "fr" ? "Pellicule vierge" : "Blank Film"}
+                {locale === "fr" ? "Pellicule vierge" : locale === "nl" ? "Blanco film" : "Blank Film"}
               </h1>
               <p className="font-mono text-base max-w-md opacity-80 mb-10">
                 {locale === "fr"
                   ? "Cette page n\u2019a jamais \u00e9t\u00e9 d\u00e9velopp\u00e9e. Peut-\u00eatre qu\u2019elle le sera un jour."
+                  : locale === "nl"
+                  ? "Dit frame is nooit ontwikkeld. Misschien op een dag."
                   : "This frame was never developed. Maybe one day it will be."}
               </p>
               <Link
                 href="/"
                 className="font-mono text-sm border border-foreground/40 px-6 py-3 rounded hover:bg-foreground/10 transition-colors"
               >
-                {locale === "fr" ? "Retour \u00e0 l\u2019accueil" : "Back to Portfolio"}
+                {locale === "fr" ? "Retour \u00e0 l\u2019accueil" : locale === "nl" ? "Terug naar portfolio" : "Back to Portfolio"}
               </Link>
             </Layout>
             <Footer2 className="relative" noMotion noMargin />

@@ -19,7 +19,7 @@ export default function TrustedBy({ trustedBy }) {
   let ctx = useRef(null)
   let tl = useRef(null)
   let trusted = useRef()
-  let { width } = useAppContext()
+  let { width, locale } = useAppContext()
   useLayoutEffect(() => {
     ctx.current = gsap.context(() => {
       tl.current = gsap.timeline({ scrollTrigger: { trigger: trusted.current, start: `top ${width < 668 ? '85%' : '80%'}`, invalidateOnRefresh: true, markers: false } })
@@ -78,13 +78,13 @@ export default function TrustedBy({ trustedBy }) {
   return (
     <LayoutSection center>
       <div ref={trusted} className='trusted-by trusted-by-div relative w-full text-center'>
-        <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle='Trusted By' subTitle={''} />
-        <AccentTitle noMargin className={'artist-title opacity-0'} text='Artists' />
+        <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle={trustedBy.title?.[locale] || 'Trusted By'} subTitle={''} />
+        <AccentTitle noMargin className={'artist-title opacity-0'} text={trustedBy.artistsLabel?.[locale] || 'Artists'} />
         <Line style={{}} className={`opacity-100 w-0 mx-auto mb-2 artist-line border-foreground`} />
         <div className='artist-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
           {trustedBy.artists.map((logo, i) => { return <Logo dataDirection={getDirection(i)} dataSpeed={`${getSpeed(i)}`} type='artist' logo={logo} key={i} link={logo.link} /> })}
         </div>
-        <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text='Companies' />
+        <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text={trustedBy.companiesLabel?.[locale] || 'Companies'} />
         <Line style={{}} className={`opacity-100 w-0 mx-auto mb-2 company-line border-foreground`} />
         <div className='company-container flex justify-center flex-wrap sm:flex-nowrap gap-12 sm:gap-6 lg:gap-12'>
           {trustedBy.companies.map((logo, i) => { return <Logo dataDirection={getDirection(i, true)} dataSpeed={`${getSpeed(i, true)}`} type='company' logo={logo} key={i} link={logo.link} /> })}
