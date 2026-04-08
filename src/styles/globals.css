@@ -5,7 +5,7 @@
 html {
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: none;
-  background-color: #000000;
+  background-color: rgb(var(--color-darkPrimary));
   /* For lenis scroll-library */
 }
 
@@ -21,7 +21,7 @@ html {
 }
 
 *:focus-visible {
-  outline: rgba(255, 255, 255, 0.203) solid 2px;
+  outline: rgb(var(--color-primary) / 0.2) solid 2px;
   outline-offset: -2px;
 }
 
@@ -63,19 +63,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 body {
   overflow: overlay;
-  scrollbar-color: #ffffff #303030;
+  scrollbar-color: rgb(var(--color-primary)) rgb(var(--color-darkGrey));
 }
 
 /* ============== Selection styling ===============*/
 *::selection {
   color: white;
-  background: #4200a431;
-  /* background:#ffffff83; */
+  background: rgb(var(--color-accent) / 0.19);
 }
 
 *::-moz-selection {
   color: white;
-    background: #4200a431;
+  background: rgb(var(--color-accent) / 0.19);
 }
 
 /* ============== Scrollbar styling ===============*/
@@ -87,7 +86,7 @@ body {
   /* margin:2; */
   /* height: 8px; */
   /* background: url(../public/images/background2.svg); */
-  background-color: #303030;
+  background-color: rgb(var(--color-darkGrey));
   /* right: 5px; */
 }
 
@@ -116,12 +115,12 @@ body {
 
 /* THUMB */
 ::-webkit-scrollbar-thumb {
-  background-color: #ffffff;
+  background-color: rgb(var(--color-primary));
   border-radius: 5rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #ffffffcc;
+  background-color: rgb(var(--color-primary) / 0.8);
 }
 
 .dark-scrollbar::-webkit-scrollbar-thumb {

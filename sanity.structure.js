@@ -1,11 +1,22 @@
 // import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 import { MasterDetailIcon } from '@sanity/icons'
 import { BlockElementIcon } from '@sanity/icons'
+import { CogIcon } from '@sanity/icons'
 
 export const myStructure = (S) => {
   return S.list()
     .title("Content ~ Enjoy Broertje ❤️")
     .items([
+      S.listItem()
+        .title("Site Settings")
+        .icon(CogIcon)
+        .child(
+          S.list()
+            .title("Settings")
+            .items([
+              S.listItem().title("Theme").icon(BlockElementIcon).child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+            ])
+        ),
       S.listItem()
         .title("About Page")
         .icon(MasterDetailIcon)
@@ -50,6 +61,7 @@ export const myStructure = (S) => {
             "mainPageXXX",
             "mainPageXIntro",
             "mainPageYYY",
+            "siteSettings",
           ].includes(listItem.getId())
       ),
     ]);

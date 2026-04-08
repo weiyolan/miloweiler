@@ -1,8 +1,31 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import client from "../../lib/sanity";
 
-export default function Document() {
+const FALLBACK = {
+  primary: "255 255 255",
+  darkPrimary: "0 0 0",
+  darkGrey: "48 48 48",
+  accent: "65 0 164",
+};
+
+function hexToRgbChannels(hex) {
+  if (!hex || typeof hex !== 'string') return null;
+  const match = hex.replace('#', '').match(/.{2}/g);
+  if (!match || match.length < 3) return null;
+  return match.slice(0, 3).map((c) => parseInt(c, 16)).join(' ');
+}
+
+export default function MyDocument({ themeColors }) {
+  const colors = themeColors || FALLBACK;
+  const style = {
+    "--color-primary": colors.primary,
+    "--color-darkPrimary": colors.darkPrimary,
+    "--color-darkGrey": colors.darkGrey,
+    "--color-accent": colors.accent,
+  };
+
   return (
-    <Html className="snap-y snap-mandatory md:snap-none ">
+    <Html className="snap-y snap-mandatory md:snap-none " style={style}>
       <Head>
         <meta name="apple-mobile-web-app-title" content="Milo Weiler Photograpy" />
         <meta name="application-name" content="Milo Weiler Photograpy" />
@@ -23,3 +46,24 @@ export default function Document() {
     </Html>
   );
 }
+
+MyDocument.getInitialProps = async (ctx) => {
+  const initialProps = await Document.getInitialProps(ctx);
+  try {
+    const settings = await client.fetch(`*[_type == "siteSettings"][0]`);
+    if (settings) {
+      return {
+        ...initialProps,
+        themeColors: {
+          primary: hexToRgbChannels(settings.primary) || FALLBACK.primary,
+          darkPrimary: hexToRgbChannels(settings.darkPrimary) || FALLBACK.darkPrimary,
+          darkGrey: hexToRgbChannels(settings.darkGrey) || FALLBACK.darkGrey,
+          accent: hexToRgbChannels(settings.accent) || FALLBACK.accent,
+        },
+      };
+    }
+  } catch (e) {
+    console.error("Failed to fetch theme settings:", e);
+  }
+  return initialProps;
+};
