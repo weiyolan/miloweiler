@@ -173,17 +173,28 @@ export default function CardCarousel({ categories }) {
     signalCarouselReady(freshRect)
   }, [carouselScrollIndex, signalCarouselReady])
 
-  // Wheel/touch input via Observer — one card per gesture
+  // Wheel/touch input via separate Observers — touch direction is inverted
   useEffect(() => {
-    const observer = Observer.create({
+    const wheelObs = Observer.create({
       target: window,
-      type: 'wheel,touch',
+      type: 'wheel',
       preventDefault: true,
       onUp: () => scrollBy(-1),
       onDown: () => scrollBy(1),
       tolerance: 50,
     })
-    return () => observer.disable()
+    const touchObs = Observer.create({
+      target: window,
+      type: 'touch',
+      preventDefault: true,
+      onUp: () => scrollBy(1),
+      onDown: () => scrollBy(-1),
+      tolerance: 50,
+    })
+    return () => {
+      wheelObs.disable()
+      touchObs.disable()
+    }
   }, [scrollBy])
 
   // GSAP ticker render loop
