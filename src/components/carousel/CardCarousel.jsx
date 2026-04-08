@@ -63,7 +63,7 @@ export default function CardCarousel({ categories }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [scrollHintVisible, setScrollHintVisible] = useState(true)
   const [titleVisible, setTitleVisible] = useState(true)
-  const [scrollCount, setScrollCount] = useState(0)
+
   const prevIndex = useRef(0)
   const restoredRef = useRef(false)
 
@@ -108,7 +108,7 @@ export default function CardCarousel({ categories }) {
 
     cardIndex.current += delta
     scrollValue.current = cardIndex.current * Z_DISTANCE
-    setScrollCount(cardIndex.current)
+
     setTitleVisible(false)
 
     if (!hasScrolled.current) {
@@ -150,7 +150,7 @@ export default function CardCarousel({ categories }) {
     cardIndex.current = carouselScrollIndex
     scrollValue.current = carouselScrollIndex * Z_DISTANCE
     currentValue.current = carouselScrollIndex * Z_DISTANCE
-    setScrollCount(carouselScrollIndex)
+
     setScrollHintVisible(false)
     hasScrolled.current = true
 
@@ -359,7 +359,6 @@ export default function CardCarousel({ categories }) {
       <CategoryList
         categories={categories.map(c => c.label)}
         activeIndex={activeIndex}
-        scrollCount={scrollCount}
         onCategoryClick={goToIndex}
       />
     <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
