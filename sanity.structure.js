@@ -2,6 +2,7 @@
 import { MasterDetailIcon } from '@sanity/icons'
 import { BlockElementIcon } from '@sanity/icons'
 import { CogIcon } from '@sanity/icons'
+import { HomeIcon } from '@sanity/icons'
 
 export const myStructure = (S) => {
   return S.list()
@@ -16,6 +17,14 @@ export const myStructure = (S) => {
             .items([
               S.listItem().title("Theme").icon(BlockElementIcon).child(S.document().schemaType("siteSettings").documentId("siteSettings")),
             ])
+        ),
+      S.listItem()
+        .title("Homepage")
+        .icon(HomeIcon)
+        .child(
+          S.document()
+            .schemaType("homepageConfig")
+            .documentId("homepageConfig")
         ),
       S.listItem()
         .title("About Page")
@@ -62,6 +71,7 @@ export const myStructure = (S) => {
             "mainPageXIntro",
             "mainPageYYY",
             "siteSettings",
+            "homepageConfig",
           ].includes(listItem.getId())
       ),
     ]);

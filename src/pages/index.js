@@ -97,27 +97,60 @@ export async function getStaticProps() {
       date
     },
     'artCount': count(*[_type == "project" && cat == "art"]),
+
+    'homepageConfig': *[_type == "homepageConfig" && _id == "homepageConfig"][0]{
+      highlighted{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      bts{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      docu{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      events{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      studio{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      art{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor }
+    }
   }`);
+
+  const hpConfig = data.homepageConfig || {};
 
   const categories = ALL_CATEGORY_SLUGS
     .map((slug) => {
       const queryKey = SLUG_TO_QUERY_KEY[slug];
-      const item = data[queryKey];
-      if (!item?.mainImage?.image) return null;
+      const latestProject = data[queryKey];
+      const override = hpConfig[queryKey];
 
-      const palette = item.mainImage.image?.asset?.metadata?.palette
-      const bgColor =  palette?.darkMuted?.background ||'#1a1a1a'
+      // Image: use override only when BOTH project AND image are set
+      const hasOverride = override?.project?._id && override?.image?.asset;
+      const image = hasOverride ? override.image : latestProject?.mainImage?.image;
+      const alt = hasOverride ? '' : (latestProject?.mainImage?.alt || '');
+
+      if (!image) return null;
+
+      // Color fallback: custom bgColor (as-is) → override image palette → latest project palette → #1a1a1a
+      const overridePaletteBg = override?.image?.asset?.metadata?.palette?.darkMuted?.background;
+      const latestPaletteBg = latestProject?.mainImage?.image?.asset?.metadata?.palette?.darkMuted?.background;
+
+      let bgColor;
+      let customBgColor = false;
+      if (override?.bgColor) {
+        bgColor = override.bgColor;
+        customBgColor = true;
+      } else if (hasOverride && overridePaletteBg) {
+        bgColor = overridePaletteBg;
+      } else if (latestPaletteBg) {
+        bgColor = latestPaletteBg;
+      } else {
+        bgColor = '#1a1a1a';
+      }
 
       return {
         slug,
-        image: item.mainImage.image,
-        alt: item.mainImage.alt || '',
+        image,
+        alt,
         projectCount: data[`${queryKey}Count`] || 0,
-        year: item.date ? item.date.slice(0, 4) : '',
+        year: latestProject?.date ? latestProject.date.slice(0, 4) : '',
         href: `/${slug}`,
         bgColor,
-        ogUrl: item.mainImage.image?.asset?.url
-          ? `${item.mainImage.image.asset.url}?w=500&h=500&fit=crop`
+        customBgColor,
+        ogUrl: image?.asset?.url
+          ? `${image.asset.url}?w=500&h=500&fit=crop`
           : null,
       };
     })

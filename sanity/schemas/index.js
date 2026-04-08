@@ -23,6 +23,7 @@ import localeFile from './localeFile'
 import portfolio from './portfolio'
 import mainPageXIntro from './mainPageXIntro'
 import siteSettings from './siteSettings'
+import homepageConfig from './homepageConfig'
 
 export const schemaTypes = [
   trustedByLogo,
@@ -45,4 +46,5 @@ export const schemaTypes = [
   localeFile,
   portfolio,
   siteSettings,
+  homepageConfig,
 ]

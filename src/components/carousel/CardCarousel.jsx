@@ -68,7 +68,9 @@ export default function CardCarousel({ categories }) {
   const restoredRef = useRef(false)
 
   const bgColor = useMemo(() => {
-    const color = categories[activeIndex]?.bgColor || '#1a1a1a'
+    const cat = categories[activeIndex]
+    const color = cat?.bgColor || '#1a1a1a'
+    if (cat?.customBgColor) return color
     return darkenColor(color)
   }, [activeIndex, categories])
 
