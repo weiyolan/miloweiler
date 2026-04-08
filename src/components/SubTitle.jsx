@@ -16,7 +16,7 @@ export default function SubTitle({ mainTitle, subTitle, left, right, style, smal
             {mainTitle}
       </h2>
 {/* whitespace-pre-wrap sm:whitespace-nowrap md:whitespace-nowrap */}
-      <div className={`font-mono mb-4 whitespace-pre-wrap ${left||right?'text-justify':''} ${child?child+'-child':''}`}>
+      <div className={`font-sans mb-4 whitespace-pre-wrap ${left||right?'text-justify':''} ${child?child+'-child':''}`}>
         {subTitle}
       </div>
 

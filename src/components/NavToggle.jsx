@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 export default function NavToggle({ open, onClick, className }) {
   const { locale } = useAppContext()
   return (
-    <button onClick={onClick} title={`${locale === 'en' ? 'Menu toggle' : 'Ouvrir et fermer le menu'}`} className={'flex justify-center items-center w-[50px] h-[50px] text-white ' + (className || '')}>
+    <button onClick={onClick} title={`${locale === 'en' ? 'Menu toggle' : 'Ouvrir et fermer le menu'}`} className={'flex justify-center items-center w-[50px] h-[50px] text-foreground ' + (className || '')}>
       <svg className='w-[17px] sm:w-[23px]' viewBox="0 0 23 23">
         <Path open={open}
           closeD="M 2 2.5 L 20 2.5"

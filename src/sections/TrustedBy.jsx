@@ -4,7 +4,6 @@ import Line from '@/components/Line';
 import SubTitle from '@/components/SubTitle';
 import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
-import Image from 'next/image';
 import { gsap } from 'gsap/dist/gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 // import { usePageContext } from '@/utils/pageContext';
@@ -127,21 +126,24 @@ function Logo({ dataSpeed, dataDirection, type, logo, link }) {
 
 
   function getImage() {
-    return (<Image
-      src={src}
-      data-speed={dataSpeed}
-      data-direction={dataDirection}
-      width={width}
-      height={height}
-      loader={loader}
-      style={{ width: ar > 2.5 ? '120px' : ar > 1 ? '100px' : '80px', height: 'auto' }} // layout="responsive" prior to Next 13.0.0
-      className=""
-      alt={`Logo of the ${type} ${logo.name}`}
+    let displayWidth = ar > 2.5 ? 120 : ar > 1 ? 100 : 80;
+    let displayHeight = displayWidth / ar;
 
-    // sizes="100px"
-    // placeholder="blur"
-    // blurDataURL={trustedBy[1].image.asset.metadata.lqip} 
-    />)
+    return (
+      <div
+        data-speed={dataSpeed}
+        data-direction={dataDirection}
+        className="bg-foreground mask-image"
+        style={{
+          width: `${displayWidth}px`,
+          height: `${displayHeight}px`,
+          WebkitMaskImage: `url(${src})`,
+          maskImage: `url(${src})`,
+        }}
+        role="img"
+        aria-label={`Logo of the ${type} ${logo.name}`}
+      />
+    );
   }
 
   // if (link === undefined) {

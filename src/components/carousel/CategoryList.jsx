@@ -23,6 +23,8 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
   const total = categories.length
   const containerRef = useRef(null)
   const maskCenter = useRef({ value: ROW_HEIGHT / 2 })
+  const itemRefs = useRef([])
+  const prevActiveRef = useRef(activeIndex)
   const ctx = useRef(gsap.context(() => {}))
 
   useEffect(() => {
@@ -48,6 +50,25 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
     })
   }, [activeIndex, total])
 
+  useEffect(() => {
+    const prev = prevActiveRef.current
+    prevActiveRef.current = activeIndex
+    if (prev === activeIndex) return
+
+    ctx.current.add(() => {
+      if (itemRefs.current[prev]) {
+        gsap.to(itemRefs.current[prev], {
+          fontWeight: 300, duration: 0.5, ease: 'power2.out',
+        })
+      }
+      if (itemRefs.current[activeIndex]) {
+        gsap.to(itemRefs.current[activeIndex], {
+          fontWeight: 600, duration: 0.5, ease: 'power2.out',
+        })
+      }
+    })
+  }, [activeIndex])
+
   const initialGradient = buildMaskGradient((ROW_HEIGHT / 2) / (total * ROW_HEIGHT) * 100)
 
   return (
@@ -64,11 +85,14 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick 
           {categories.map((name, i) => (
             <span
               key={i}
+              ref={(el) => { itemRefs.current[i] = el }}
               onClick={() => onCategoryClick?.(i)}
-              className={`font-sans text-xs md:text-sm whitespace-nowrap cursor-pointer select-none text-white transition-[font-weight] duration-300 ${
-                i === activeIndex ? 'font-bold' : 'font-normal'
-              }`}
-              style={{ height: ROW_HEIGHT, lineHeight: `${ROW_HEIGHT}px` }}
+              className="font-sans text-xs md:text-sm whitespace-nowrap cursor-pointer select-none text-foreground"
+              style={{
+                height: ROW_HEIGHT,
+                lineHeight: `${ROW_HEIGHT}px`,
+                fontWeight: i === activeIndex ? 600 : 300,
+              }}
             >
               {name}
             </span>

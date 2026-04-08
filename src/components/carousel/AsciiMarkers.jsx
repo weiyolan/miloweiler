@@ -9,7 +9,7 @@ export default function AsciiMarkers({ activeIndex, total }) {
           <span
             key={i}
             className={`font-mono text-xs leading-none transition-all duration-300 ${
-              i === activeIndex ? 'text-white/60' : 'text-white/25'
+              i === activeIndex ? 'text-foreground/60' : 'text-foreground/25'
             }`}
           >
             {i === activeIndex ? '*' : '·'}

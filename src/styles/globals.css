@@ -2,6 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============== Local font faces ===============*/
+@font-face {
+  font-family: "Brandon Grotesque";
+  src: url("/fonts/brandon-grotesque/Brandon-Grotesque-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brandon Grotesque";
+  src: url("/fonts/brandon-grotesque/Brandon-Grotesque-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Brandon Grotesque";
+  src: url("/fonts/brandon-grotesque/Brandon-Grotesque-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fiona";
+  src: url("/fonts/fiona/Fiona-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 150%;
+}
+
+@font-face {
+  font-family: "Monotalic";
+  src: url("/fonts/monotalic/Monotalic-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic";
+  src: url("/fonts/monotalic/Monotalic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic";
+  src: url("/fonts/monotalic/Monotalic-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic";
+  src: url("/fonts/monotalic/Monotalic-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monotalic Narrow";
+  src: url("/fonts/monotalic-narrow/Monotalic-NarrowLight.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Narrow";
+  src: url("/fonts/monotalic-narrow/Monotalic-Narrow.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Narrow";
+  src: url("/fonts/monotalic-narrow/Monotalic-NarrowMedium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Narrow";
+  src: url("/fonts/monotalic-narrow/Monotalic-NarrowBold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monotalic Wide";
+  src: url("/fonts/monotalic-wide/Monotalic-WideLight.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Wide";
+  src: url("/fonts/monotalic-wide/Monotalic-Wide.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Wide";
+  src: url("/fonts/monotalic-wide/Monotalic-WideMedium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Monotalic Wide";
+  src: url("/fonts/monotalic-wide/Monotalic-WideBold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============== Color mode switching ===============*/
 :root {
   --color-background: var(--color-background-light);
@@ -10,6 +129,10 @@
   --color-link: var(--color-link-light);
   --color-surface: var(--color-surface-light);
   --color-muted: var(--color-muted-light);
+
+  --font-sans-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-serif-family: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-mono-family: var(--font-spacemono), ui-monospace, monospace;
 }
 html.dark {
   --color-background: var(--color-background-dark);
@@ -216,4 +339,15 @@ html.lenis {
 @keyframes sk-bounce {
   0%, 100% { transform: scale(0.0); -webkit-transform: scale(0.0); }
   50% { transform: scale(1.0); -webkit-transform: scale(1.0); }
+}
+
+@layer utilities {
+  .mask-image {
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
 }

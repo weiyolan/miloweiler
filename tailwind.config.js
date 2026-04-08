@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-instrument)", ...fontFamily.sans],
-        serif: ["var(--font-playfair)", ...fontFamily.serif],
-        mono: ["var(--font-spacemono)", ...fontFamily.mono],
+        sans: ["var(--font-sans-family)", ...fontFamily.sans],
+        serif: ["var(--font-serif-family)", ...fontFamily.serif],
+        mono: ["var(--font-mono-family)", ...fontFamily.mono],
       },
       letterSpacing: {
         max: ".25em",
@@ -38,6 +38,10 @@ module.exports = {
         "inner-3xl": "inset 0 0px 50px 10px rgba(0, 0, 0, 0.3)",
       },
       keyframes: {
+        "loading-bar": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
         wiggle: {
           "0%, 100%": { transform: "rotate(-3deg)" },
           "50%": { transform: "rotate(3deg)" },
@@ -51,6 +55,7 @@ module.exports = {
       },
     },
     animation: {
+      "loading-bar": "loading-bar 1.2s ease-in-out infinite",
       wiggle: "wiggle 1s ease infinite",
       outlinePulse: "outlinePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       borderPulse: "borderPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",

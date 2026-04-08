@@ -40,7 +40,7 @@ export default function ContactDetails({ contactDetails, portfolioLink }) {
       <div id='contactSection' className=' relative contact-parent flex flex-col w-full md:py-6 lg:py-12'>
         <SubTitle child='contact' mainTitle={contactDetails.title[locale]} SubTitle='' left />
         <AccentTitle noMargin text={contactDetails.subTitle[locale]} className={`contact-child`} />
-        <p className='font-mono font-light  text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>
+        <p className='font-sans font-light  text-justify contact-child text-sm mobm:text-base xs:w-1/2 sm:w-auto'>
           {contactDetails.text[locale]}
         </p>
         <div className='flex flex-col xs:flex-row font-sans gap-6 mt-4'>

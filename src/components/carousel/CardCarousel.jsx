@@ -364,7 +364,7 @@ export default function CardCarousel({ categories }) {
     <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
         <CarouselIndicator activeIndex={activeIndex} totalCategories={TOTAL_REAL} />
         <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} />
-      <span className="font-mono text-xs md:text-sm text-white/60 whitespace-nowrap">
+      <span className="font-mono text-xs md:text-sm text-foreground/60 whitespace-nowrap">
         Brussels, Belgium
         </span>
     </div>

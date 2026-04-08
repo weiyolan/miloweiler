@@ -82,10 +82,11 @@ export default function NavigationMobile() {
 
   const setItemRef = (i) => (el) => { itemsRef.current[i] = el }
   const { pathname } = router
+  const forceDark = pathname === '/' ||  pathname === '/about'
   let itemIndex = 0
 
   return (
-    <div data-transition="nav" className="fixed w-full top-0 z-50">
+    <div data-transition="nav" className={`fixed font-sans w-full top-0 z-50 ${forceDark ? 'force-dark' : ''}`}>
       {/* Hamburger toggle */}
       <div ref={toggleRef} className="absolute top-0 right-0 z-50">
         <NavToggle open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
@@ -101,7 +102,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/"
-            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
+            className={`text-xl font-normal opacity-0 invisible text-foreground ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
           >
            { locale === 'fr' ? 'Accueil' : 'Home'}
           </Link>
@@ -112,7 +113,7 @@ export default function NavigationMobile() {
               key={slug}
               ref={setItemRef(itemIndex++)}
               href={`/${slug}`}
-              className={`text-xl font-mono pr-2 opacity-0 invisible text-foreground/80 ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
+              className={`text-base pr-2 opacity-0 invisible text-foreground/80 ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
             >
               {categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug}
             </Link>
@@ -122,7 +123,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/about"
-            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
+            className={`text-xl font-normal opacity-0 invisible text-foreground ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
           >
             {locale === 'fr' ? 'À Propos' : 'About Me'}
           </Link>
@@ -131,7 +132,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/contact"
-            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
+            className={`text-xl font-normal opacity-0 invisible text-foreground ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
           >
             Contact
           </Link>

@@ -1659,7 +1659,7 @@ overscroll-behavior: none;
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
       <main
         // style={{ height: !pageLoaded ? "100vh" : "auto" }}
-        className={`w-full ${!pageLoaded && "h-[100svh] md:h-screen overflow-hidden"} mainBackground relative bg-black force-dark`}>
+        className={`w-full ${!pageLoaded && "h-[100svh] md:h-screen overflow-hidden"} mainBackground relative bg-black force-dark text-foreground`}>
         <div className=" h-[83lvh] relative w-full  snap-end snap-always" />
         <div className="h-[103lvh] relative w-full snap-end snap-always" />
         <div className="h-[103lvh] relative w-full snap-end snap-always" />

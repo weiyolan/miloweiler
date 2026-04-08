@@ -11,9 +11,11 @@ gsap.registerPlugin(Observer)
 
 export default function Navigation() {
   const { locale, categoryLabels } = useAppContext()
+  const { pathname } = useRouter()
   const [hiding, setHiding] = useState(false)
   const hasPlayedIntro = useRef(false)
   const navRef = useRef(null)
+  const forceDark = pathname === '/' ||  pathname === '/about'
 
   // Intro animation — runs once
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function Navigation() {
   }, [hiding])
 
   return (
-    <nav ref={navRef} data-transition="nav" className="fixed w-full top-0 z-50 flex justify-center">
+    <nav ref={navRef} data-transition="nav" className={`fixed w-full font-sans top-0 z-50 flex justify-center ${forceDark ? 'force-dark' : ''}`}>
       <div className="inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2">
         <div className="relative group">
           <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio locale={locale} />
@@ -72,7 +74,7 @@ function DropdownItem({ text, to }) {
   const selected = to === `/${query.category}`
 
   return (
-    <Link href={to} className={`block py-1.5 px-2 rounded text-sm font-mono transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} text-foreground hover:bg-foreground/10`}>
+    <Link href={to} className={`block py-1.5 px-2 rounded text-sm  transition-colors duration-150 ${selected ? 'font-semibold' : 'font-normal'} text-foreground hover:bg-foreground/10`}>
       {text}
     </Link>
   )
@@ -100,12 +102,12 @@ function NavButton({ text, to, isPortfolio, locale }) {
     <Link
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative min-w-[7rem] text-center font-mono font-normal text-white"
+      className="relative min-w-[7rem] text-center  font-normal text-foreground"
       href={to}
     >
       <div className="w-fit mx-auto">
         {text}
-        <div ref={lineRef} className="border-b mx-auto border-white w-full origin-left scale-x-0" />
+        <div ref={lineRef} className="border-b mx-auto border-foreground w-full origin-left scale-x-0" />
       </div>
     </Link>
   )

@@ -29,7 +29,7 @@ const playfair = Playfair_Display({
 const instrument = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-instrument",
-  weight: ["400", "500", "600", "700"],
+  weight: "variable",
 });
 
 const spaceMono = Space_Mono({

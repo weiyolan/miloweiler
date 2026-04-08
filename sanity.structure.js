@@ -16,6 +16,7 @@ export const myStructure = (S) => {
             .title("Settings")
             .items([
               S.listItem().title("Theme").icon(BlockElementIcon).child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+              S.listItem().title("Fonts").icon(BlockElementIcon).child(S.document().schemaType("fontSettings").documentId("fontSettings")),
               S.listItem().title("Category Names").icon(BlockElementIcon).child(S.document().schemaType("categoryNames").documentId("categoryNames")),
             ])
         ),
@@ -72,6 +73,7 @@ export const myStructure = (S) => {
             "mainPageXIntro",
             "mainPageYYY",
             "siteSettings",
+            "fontSettings",
             "categoryNames",
             "homepageConfig",
           ].includes(listItem.getId())

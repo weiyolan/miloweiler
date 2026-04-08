@@ -62,29 +62,29 @@ const CarouselCard = forwardRef(function CarouselCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20 rounded-sm md:rounded-md transition-opacity duration-500 group-hover:opacity-80" />
 
         {/* Metadata */}
-        <div className="absolute inset-0 p-5 md:p-7 flex flex-col justify-between">
+        <div className="absolute inset-0 p-5 flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            <span className="font-mono text-xs md:text-sm text-white/70">
+            <span className="font-mono text-xs md:text-sm text-foreground">
               {String(index).padStart(2, '0')}
             </span>
-            <span className="font-mono text-xs md:text-sm text-white/70">
+            <span className="font-mono text-xs md:text-sm text-foreground">
               {projectCount} {projectCount === 1 ? 'project' : 'projects'}
             </span>
           </div>
           <div className="flex justify-between items-end overflow-hidden">
-            <span className="font-mono text-xs md:text-sm text-white/70">
+            <span className="font-mono text-xs md:text-sm text-foreground">
               {year}
             </span>
-            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-white font-bold text-right leading-tight flex flex-wrap justify-end gap-x-[0.3em]">
+            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-foreground font-bold text-right leading-tight flex flex-wrap justify-end gap-x-[0.3em]">
               {label.split(' ').map((word, wi) => (
-                <span key={wi} className="overflow-hidden py-2 inline-flex">
+                <span key={wi} className="overflow-hidden py-4 inline-flex">
                   <span
                     style={{
                       display: 'inline-block',
                       opacity: showTitle ? 1 : 0,
-                      transform: showTitle ? 'translateY(0)' : 'translateY(120%)',
+                      transform: showTitle ? 'translateY(0)' : 'translateY(200%)',
                       transition: showTitle
-                        ? `transform 0.4s ease-out ${0.1 + wi * 0.1}s`
+                        ? `transform 0.5s ease-out ${0.1 + wi * 0.1}s`
                         : 'transform 0.15s ease',
                     }}
                   >

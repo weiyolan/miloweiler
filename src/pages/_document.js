@@ -12,6 +12,23 @@ const FALLBACK = {
   muted:      { light: "160 102 2", dark: "160 102 2" },
 };
 
+const FONT_FAMILY_MAP = {
+  'instrument-sans': '"Instrument Sans", ui-sans-serif, system-ui, sans-serif',
+  'brandon-grotesque': '"Brandon Grotesque", ui-sans-serif, system-ui, sans-serif',
+  'playfair-display': '"Playfair Display", ui-serif, Georgia, serif',
+  'fiona': '"Fiona", ui-serif, Georgia, serif',
+  'monotalic': '"Monotalic", ui-monospace, monospace',
+  'monotalic-narrow': '"Monotalic Narrow", ui-monospace, monospace',
+  'monotalic-wide': '"Monotalic Wide", ui-monospace, monospace',
+  'space-mono': '"Space Mono", ui-monospace, monospace',
+};
+
+const FONT_DEFAULTS = {
+  fontSans: 'instrument-sans',
+  fontSerif: 'playfair-display',
+  fontMono: 'space-mono',
+};
+
 function hexToRgbChannels(hex) {
   if (!hex || typeof hex !== 'string') return null;
   const match = hex.replace('#', '').match(/.{2}/g);
@@ -21,14 +38,18 @@ function hexToRgbChannels(hex) {
 
 const THEME_SCRIPT = `(function(){try{var p=localStorage.getItem('theme');if(p==='dark'||(!p&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`;
 
-export default function MyDocument({ themeColors }) {
+export default function MyDocument({ themeColors, fontSettings }) {
   const colors = themeColors || FALLBACK;
+  const fonts = fontSettings || FONT_DEFAULTS;
 
   const style = {};
   for (const token of TOKENS) {
     style[`--color-${token}-light`] = colors[token].light;
     style[`--color-${token}-dark`] = colors[token].dark;
   }
+  style['--font-sans-family'] = FONT_FAMILY_MAP[fonts.fontSans] || FONT_FAMILY_MAP[FONT_DEFAULTS.fontSans];
+  style['--font-serif-family'] = FONT_FAMILY_MAP[fonts.fontSerif] || FONT_FAMILY_MAP[FONT_DEFAULTS.fontSerif];
+  style['--font-mono-family'] = FONT_FAMILY_MAP[fonts.fontMono] || FONT_FAMILY_MAP[FONT_DEFAULTS.fontMono];
 
   return (
     <Html className="snap-y snap-mandatory md:snap-none" style={style}>
@@ -58,11 +79,12 @@ export default function MyDocument({ themeColors }) {
 MyDocument.getInitialProps = async (ctx) => {
   const initialProps = await Document.getInitialProps(ctx);
   try {
-    const settings = await client.fetch(
-      `*[_type == "siteSettings"][0]{ background, foreground, accent, link, surface, muted }`
-    );
+    const [settings, fonts] = await Promise.all([
+      client.fetch(`*[_type == "siteSettings"][0]{ background, foreground, accent, link, surface, muted }`),
+      client.fetch(`*[_type == "fontSettings"][0]{ fontSans, fontSerif, fontMono }`),
+    ]);
+    const themeColors = {};
     if (settings) {
-      const themeColors = {};
       for (const token of TOKENS) {
         const val = settings[token];
         themeColors[token] = {
@@ -70,8 +92,13 @@ MyDocument.getInitialProps = async (ctx) => {
           dark: (val && hexToRgbChannels(val.dark)) || FALLBACK[token].dark,
         };
       }
-      return { ...initialProps, themeColors };
     }
+    const fontSettings = {
+      fontSans: (fonts && fonts.fontSans) || FONT_DEFAULTS.fontSans,
+      fontSerif: (fonts && fonts.fontSerif) || FONT_DEFAULTS.fontSerif,
+      fontMono: (fonts && fonts.fontMono) || FONT_DEFAULTS.fontMono,
+    };
+    return { ...initialProps, themeColors: Object.keys(themeColors).length ? themeColors : undefined, fontSettings };
   } catch (e) {
     console.error("Failed to fetch theme settings:", e);
   }

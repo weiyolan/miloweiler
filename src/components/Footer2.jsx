@@ -46,7 +46,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
   let { mobile } = usePageContext();
 
   return (
-    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-surface text-background pt-24 md:pt-32 to-surface  ${noMargin ? '' : ''}`}>
+    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-surface text-foreground pt-12 mt-12 md:mt-24 to-surface force-dark  ${noMargin ? '' : ''}`}>
       <section
         className={`relative lg:px-16 xl:px-24  max-w-7xl  px-4 pb-2  w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row  items-center sm:items-start justify-between max-w-6xl mx-auto'>
@@ -60,11 +60,11 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
           <div className="flex justify-center items-center mt-4 gap-3 mb-1">
             <LanguageSwitch />
-            <span className="text-background/40">|</span>
+            <span className="text-foreground/40">|</span>
             <ThemeToggle />
           </div>
 
-        <div role='presentation' className='w-full text-xs text-center mt-4 text-background font-thin font-mono'>
+        <div role='presentation' className='w-full text-xs text-center mt-4 text-foreground font-thin font-mono'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
             {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '| '}${val}`}</li>) })}
             <li className="pl-1 ">
@@ -82,7 +82,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 function Links({ title, list, mobile }) {
   return (
     <div className={`text-center sm:text-left `}>
-      <SubTitle small noMargin className='pt-4 font-sans md:text-left text-center text-background' left={mobile?false:true} mainTitle={title} />
+      <SubTitle small noMargin className='pt-4 font-sans md:text-left text-center text-foreground' left={mobile?false:true} mainTitle={title} />
       <List mobile={mobile} list={list} />
     </div>
   )
@@ -96,8 +96,8 @@ function List({ list, mobile }) {
         if (item.ext) {
           return (
             <li key={i}
-              className={`text-background font-mono font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
-              <Link href={item.link} target='_blank' className='focus:outline-none cursor-pointer focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-background hover:border-b-background ' rel="noopener noreferrer" >
+              className={`text-foreground font-mono font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
+              <Link href={item.link} target='_blank' className='focus:outline-none cursor-pointer focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-foreground hover:border-b-foreground ' rel="noopener noreferrer" >
                 {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
               </Link>
             </li>
@@ -106,9 +106,9 @@ function List({ list, mobile }) {
         else {
           return (
             <li key={i}
-              className={`${item.disabled ? 'text-background/50' : 'text-background'} font-mono font-extralight whitespace-nowrap text-sm sm:text-sm `} >
+              className={`${item.disabled ? 'text-foreground/50' : 'text-foreground'} font-mono font-extralight whitespace-nowrap text-sm sm:text-sm `} >
               {item.disabled ? item.text :
-                <Link className='focus:outline-none focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-background hover:border-b-background  ' href={item.link}>
+                <Link className='focus:outline-none focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-foreground hover:border-b-foreground  ' href={item.link}>
                   {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
                 </Link>}
             </li>)
@@ -124,10 +124,10 @@ function LanguageSwitch() {
   const { locales, locale: activeLocale, pathname, query, asPath } = router
 
   return (
-    <div className="flex items-center gap-2 font-mono text-sm text-background">
+    <div className="flex items-center gap-2 font-mono text-sm text-foreground">
       {(locales || []).map((loc, i) => (
         <span key={loc} className="flex items-center gap-2">
-          {i > 0 && <span className="text-background/40">|</span>}
+          {i > 0 && <span className="text-foreground/40">|</span>}
           <Link
             href={{ pathname, query }}
             as={asPath}
@@ -155,7 +155,7 @@ function ThemeToggle() {
 
   return (
     <button onClick={toggle} aria-label="Toggle dark mode"
-      className="text-background font-mono text-sm transition-opacity hover:opacity-70">
+      className="text-foreground font-mono text-sm transition-opacity hover:opacity-70">
       <svg className="hidden dark:block w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="5" />
         <line x1="12" y1="1" x2="12" y2="3" />

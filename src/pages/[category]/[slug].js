@@ -401,7 +401,7 @@ function Detail({ title, text }) {
   }
 
   return (
-    <h3 className="text-base md:text-xl leading-4">
+    <h3 className=" font-mono ">
       {title + ": "}
       <Span detail text={string} />
     </h3>
@@ -409,7 +409,7 @@ function Detail({ title, text }) {
 }
 
 function Span({ text, detail }) {
-  return <span className={`font-mono font-medium text-sm ${detail ? "text-base" : ""}`}>{text}</span>;
+  return <span className={`font-mono font-medium  ${detail ? " " : " text-sm"}`}>{text}</span>;
 }
 
 export async function getStaticPaths({ locales }) {
