@@ -82,7 +82,9 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
         position: 0,
       }])
 
-    introAnimationTl && introAnimationTl
+    if (!introAnimationTl) return;
+
+    introAnimationTl
       .set('#introLogoGroup', {
         opacity: 1
       }, 0)
@@ -98,7 +100,9 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
         opacity: 1,
         duration: 1
       }, 2.5)
-      .to(['.titleText1'], {
+
+    if (document.querySelector('.titleText1')) {
+      introAnimationTl.to(['.titleText1'], {
         opacity: 1,
         scale: 1,
         transformOrigin: '50% 50%',
@@ -108,6 +112,9 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
         duration: 0.6,
         ease: 'none'
       }, 0.5)
+    }
+
+    introAnimationTl
       .to(['.titleText2'], {
         opacity: 1,
         scale: 1,

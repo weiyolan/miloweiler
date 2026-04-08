@@ -50,19 +50,25 @@ export default function Parallax({ children, scope, className, trigger, timeline
   // }, [])
 
   useEffect(() => {
-    timeline && timeline
-      .to(`.depth1${scope}`, {
+    if (!timeline) return;
+    if (document.querySelector(`.depth1${scope}`)) {
+      timeline.to(`.depth1${scope}`, {
         y: s? '-=85px' : xs? '-=55px' : xs2? '-=' + (55 + 20) +'px' : small ? '-=150px' : '-=300px',
         duration:duration,
       }, 0)
-      .to(`.depth2${scope}`, {
+    }
+    if (document.querySelector(`.depth2${scope}`)) {
+      timeline.to(`.depth2${scope}`, {
         y: s? '-=60px' : xs? '-=45px' : xs2? '-=' + (45 + 20) +'px' : small ? '-=100px' : '-=200px',
         duration:duration,
       }, 0)
-      .to(`.depth3${scope}`, {
+    }
+    if (document.querySelector(`.depth3${scope}`)) {
+      timeline.to(`.depth3${scope}`, {
         y: s? '-=35px' : xs? '-=35px' : xs2? '-=' + (35 + 20) +'px' : small ? '-=50px' : '-=100px',
         duration:duration,
       }, 0)
+    }
   }, [timeline])
 
   return (
