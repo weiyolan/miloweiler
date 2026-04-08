@@ -53,8 +53,8 @@ export default function Home({ categories }) {
           <meta name="twitter:image" content={firstImage.ogUrl} />
         )}
       </Head>
-      <main className="w-full h-screen overflow-hidden bg-darkGrey text-primary">
-        <PageWrapper darkMode={true}>
+      <main className="w-full h-screen overflow-hidden bg-background text-foreground">
+        <PageWrapper>
           <CardCarousel categories={localizedCategories} />
         </PageWrapper>
       </main>

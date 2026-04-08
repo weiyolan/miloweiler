@@ -51,7 +51,7 @@ export default function ProjectRow({ project, index, categorySlug, onMouseEnter,
       <Link href={`/${categorySlug}/${project.slug.current}`}>
         <div
           ref={rowRef}
-          className={`opacity-0 flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} cursor-pointer`}
+          className={`opacity-0 flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} cursor-pointer py-8`}
         >
           {/* Image side */}
           <div className="relative w-full md:w-1/2 h-[280px] sm:h-[300px] md:h-[360px] lg:h-[420px] xl:h-[480px] overflow-hidden">
@@ -70,14 +70,14 @@ export default function ProjectRow({ project, index, categorySlug, onMouseEnter,
 
             {/* Year overlay */}
             {year && (
-              <span className="absolute top-3 left-3 font-mono text-xs text-primary z-[2]">
+              <span className="absolute top-3 left-3 font-mono text-xs text-foreground z-[2]">
                 {year}
               </span>
             )}
 
             {/* Credits overlay */}
             {credits && (
-              <span className="absolute bottom-3 left-3 right-3 font-mono text-xs text-primary z-[2]">
+              <span className="absolute bottom-3 left-3 right-3 font-mono text-xs text-foreground z-[2]">
                 {prefix} {credits}
               </span>
             )}

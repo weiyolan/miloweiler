@@ -187,8 +187,8 @@ export default function Project({ project, slug, slugs, category }) {
           onKeyDown={(e) => {
             e.key === "Escape" && closeDialog();
           }}
-          className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen flex flex-col  ${darkMode ? "text-primary bg-darkGrey" : "text-darkPrimary bg-primary"}`}>
-          <PageWrapper darkMode={darkMode}>
+          className={`focus:outline-none w-full relative transition-colors duration-700 min-h-screen flex flex-col  text-foreground bg-background`}>
+          <PageWrapper>
             <ProjectCarousel
               prevVisibility={prevVisibility}
               nextVisibility={nextVisibility}
@@ -219,7 +219,7 @@ export default function Project({ project, slug, slugs, category }) {
                       title={locale === "fr" ? "Précédent projet" : "Previous project"}
                       className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
                       href={`/${category}/${prevSlug()}`}>
-                      <AiFillCaretLeft className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
+                      <AiFillCaretLeft className={`fill-foreground opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
                       <div>
                         {locale === "fr" ? "Précédent" : "Previous"}
                       </div>
@@ -232,11 +232,11 @@ export default function Project({ project, slug, slugs, category }) {
                       <div>
                         {locale === "fr" ? "Suivant" : "Next"}
                       </div>
-                      <AiFillCaretRight className={`${darkMode ? "fill-primary" : "fill-darkPrimary"} opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
+                      <AiFillCaretRight className={`fill-foreground opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
                     </Link>
                   </div>
                 </nav>
-                <div className={`relative text-5xl md:text-7xl font-serif flex-col w-fit  ${darkMode ? "text-primary" : "text-darkPrimary"}`}>
+                <div className={`relative text-5xl md:text-7xl font-serif flex-col w-fit  text-foreground`}>
                   <h1 className={``}>
                     {project.title}
                     {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -256,9 +256,7 @@ export default function Project({ project, slug, slugs, category }) {
                         <div>
                           {`${project?.by?.[0]}`}
                           <Line
-                            className={`w-0 group-hover:w-full border-transparent  ${
-                              darkMode ? "group-hover:border-b-primary" : "group-hover:border-b-darkPrimary"
-                            } group-focus:w-full transition-all duration-300`}
+                            className={`w-0 group-hover:w-full border-transparent  group-hover:border-b-foreground group-focus:w-full transition-all duration-300`}
                           />
                         </div>
                       </Link>

@@ -2,6 +2,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} \*/
 module.exports = {
+  darkMode: 'class',
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -19,14 +20,16 @@ module.exports = {
         mobm: "350px",
       },
       colors: {
-        primary: "rgb(var(--color-primary) / <alpha-value>)",
-        darkPrimary: "rgb(var(--color-darkPrimary) / <alpha-value>)",
-        darkGrey: "rgb(var(--color-darkGrey) / <alpha-value>)",
+        background: "rgb(var(--color-background) / <alpha-value>)",
+        foreground: "rgb(var(--color-foreground) / <alpha-value>)",
         accent: "rgb(var(--color-accent) / <alpha-value>)",
+        link: "rgb(var(--color-link) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        muted: "rgb(var(--color-muted) / <alpha-value>)",
         white: "#fff",
       },
       backgroundImage: {
-        blackWhite: "linear-gradient(to right, black 50%, #FFF5EA 50%)",
+        blackWhite: "linear-gradient(to right, rgb(var(--color-foreground)) 50%, rgb(var(--color-background)) 50%)",
       },
       boxShadow: {
         "top-xl": "0 -20px 25px -5px rgb(0 0 0 / 0.1), 0 -8px 10px -6px rgb(0 0 0 / 0.1)",

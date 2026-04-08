@@ -44,7 +44,7 @@ export default function Page3KakScrub({ className, scrubTl }) {
     position: 65
   }]])
 
-  let colorPrimary = "#FFF5EA";
+  let colorPrimary = "currentColor";
 
   useEffect(() => {
     setTweensAppear([[{

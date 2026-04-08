@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap/dist/gsap'
-import Spinner from './Spinner'
+import Logo from './Logo'
 
 export default function SplashScreen({ pageLoaded }) {
 
@@ -28,8 +28,8 @@ export default function SplashScreen({ pageLoaded }) {
   }, [])
 
   return (
-    <div className='fixed top-0 z-[9999] w-screen h-screen splashScreen bg-darkPrimary'>
-      <Spinner darkMode={true} cube className={`w-4 h-4 left-1/2 top-1/2 absolute -translate-x-1/2 splashSpinner -translate-y-1/2`} />
+    <div className='fixed top-0 z-[9999] w-screen h-screen splashScreen bg-background'>
+      <Logo className={`w-12 h-12 left-1/2 top-1/2 absolute -translate-x-1/2 splashSpinner -translate-y-1/2 text-foreground`} />
     </div>
   )
 }

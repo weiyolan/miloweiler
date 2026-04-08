@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, { createContext, useContext, useRef } from "react";
 import useWindowSize from "./useWindowSize";
 import { useRouter } from "next/router";
 // import useLocalStorage from './useLocalStorage';
@@ -13,7 +13,6 @@ export function AppWrapper({ children, scrolled, categoryLabels, className }) {
   // const [navIsOpen, toggleNav] = useCycle(false, true);
   // const [cartIsOpen, toggleCart] = useCycle(false, true);
 
-  const [navTheme, setNavTheme] = useState('dark');
   const isMobile = width < 648;
 
   // Only for main page:
@@ -39,8 +38,6 @@ export function AppWrapper({ children, scrolled, categoryLabels, className }) {
         // noBlur: true,
         scrolled: scrolled,
         keepScroll: keepScroll,
-        navTheme: navTheme,
-        setNavTheme: setNavTheme,
         isMobile: isMobile,
         categoryLabels: categoryLabels,
         // setKeepScroll: setKeepScroll,

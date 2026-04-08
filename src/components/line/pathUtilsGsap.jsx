@@ -54,9 +54,9 @@ export function PathGSAPStandalone(props) {
     pathProps.strokeDasharray = dashArray.length>0?dashArray:(pathLength) + ' ' + (pathLength);
 
     if (props?.ignoreVisibility) {
-      let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFF5EA'
+      let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'var(--color-foreground)'
       pathProps.stroke = props.animateStroke ? 'transparent' : myStroke
-      pathProps.fill = props.animateFill ? props?.fillColor || '#FFF5EA' : 'transparent';
+      pathProps.fill = props.animateFill ? props?.fillColor || 'var(--color-foreground)' : 'transparent';
     } else {
       pathProps.stroke = 'transparent'
       pathProps.fill = 'transparent'
@@ -125,7 +125,7 @@ export function PathGSAPStandalone(props) {
         let ratio = tween.ratio;
         let myNewOffset = (Math.min(Math.max(ratio, 0), 1) * (props.inverse ? 1 : -1) || 0);
         // let myNewOffset = (Math.min( Math.max(ratio*mySpeed, 0) , 1) * (props.inverse?1:-1) || 0);
-        let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'#FFF5EA';
+        let myStroke = props.myGradient?props.myGradient:props?.strokeColor||'var(--color-foreground)';
 
         // console.log((pathLength + (dashLineLength>0?0:0)) + (pathLength + (dashLineLength>0?0:0))*myNewOffset*(props?.transitStrokeAnimation?2:1))
         // console.log(tween.timeline)

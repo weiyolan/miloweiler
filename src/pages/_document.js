@@ -1,11 +1,15 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import client from "../../lib/sanity";
 
+const TOKENS = ['background', 'foreground', 'accent', 'link', 'surface', 'muted'];
+
 const FALLBACK = {
-  primary: "255 255 255",
-  darkPrimary: "0 0 0",
-  darkGrey: "48 48 48",
-  accent: "65 0 164",
+  background: { light: "252 249 238", dark: "48 48 48" },
+  foreground: { light: "60 11 3", dark: "252 249 238" },
+  accent:     { light: "0 22 67", dark: "0 22 67" },
+  link:       { light: "217 72 28", dark: "217 72 28" },
+  surface:    { light: "162 54 21", dark: "162 54 21" },
+  muted:      { light: "160 102 2", dark: "160 102 2" },
 };
 
 function hexToRgbChannels(hex) {
@@ -15,28 +19,32 @@ function hexToRgbChannels(hex) {
   return match.slice(0, 3).map((c) => parseInt(c, 16)).join(' ');
 }
 
+const THEME_SCRIPT = `(function(){try{var p=localStorage.getItem('theme');if(p==='dark'||(!p&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`;
+
 export default function MyDocument({ themeColors }) {
   const colors = themeColors || FALLBACK;
-  const style = {
-    "--color-primary": colors.primary,
-    "--color-darkPrimary": colors.darkPrimary,
-    "--color-darkGrey": colors.darkGrey,
-    "--color-accent": colors.accent,
-  };
+
+  const style = {};
+  for (const token of TOKENS) {
+    style[`--color-${token}-light`] = colors[token].light;
+    style[`--color-${token}-dark`] = colors[token].dark;
+  }
 
   return (
-    <Html className="snap-y snap-mandatory md:snap-none " style={style}>
+    <Html className="snap-y snap-mandatory md:snap-none" style={style}>
       <Head>
-        <meta name="apple-mobile-web-app-title" content="Milo Weiler Photograpy" />
-        <meta name="application-name" content="Milo Weiler Photograpy" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <meta name="apple-mobile-web-app-title" content="Milo Weiler Photography" />
+        <meta name="application-name" content="Milo Weiler Photography" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1.1" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1.1" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1.1" />
         <link rel="manifest" href="/site.webmanifest?v=1.1" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg?v=1.1" color="#212121" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg?v=1.1" color="#3C0B03" />
         <link rel="shortcut icon" href="/favicon.ico?v=1.1" />
-        <meta name="msapplication-TileColor" content="#212121" />
-        <meta name="theme-color" content="#212121" />
+        <meta name="msapplication-TileColor" content="#FCF9EE" />
+        <meta name="theme-color" content="#FCF9EE" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#303030" media="(prefers-color-scheme: dark)" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
@@ -50,17 +58,19 @@ export default function MyDocument({ themeColors }) {
 MyDocument.getInitialProps = async (ctx) => {
   const initialProps = await Document.getInitialProps(ctx);
   try {
-    const settings = await client.fetch(`*[_type == "siteSettings"][0]`);
+    const settings = await client.fetch(
+      `*[_type == "siteSettings"][0]{ background, foreground, accent, link, surface, muted }`
+    );
     if (settings) {
-      return {
-        ...initialProps,
-        themeColors: {
-          primary: hexToRgbChannels(settings.primary) || FALLBACK.primary,
-          darkPrimary: hexToRgbChannels(settings.darkPrimary) || FALLBACK.darkPrimary,
-          darkGrey: hexToRgbChannels(settings.darkGrey) || FALLBACK.darkGrey,
-          accent: hexToRgbChannels(settings.accent) || FALLBACK.accent,
-        },
-      };
+      const themeColors = {};
+      for (const token of TOKENS) {
+        const val = settings[token];
+        themeColors[token] = {
+          light: (val && hexToRgbChannels(val.light)) || FALLBACK[token].light,
+          dark: (val && hexToRgbChannels(val.dark)) || FALLBACK[token].dark,
+        };
+      }
+      return { ...initialProps, themeColors };
     }
   } catch (e) {
     console.error("Failed to fetch theme settings:", e);

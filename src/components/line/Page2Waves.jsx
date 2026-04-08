@@ -109,7 +109,7 @@ export default function Page2Waves({ className, style, scrubTl, transitionTl, an
         duration: 0.05,
       }, 1.95)
   }, [scrubTl])
-  let colorPrimary = '#FFF5EA'
+  let colorPrimary = 'currentColor'
   return (
     <div style={{ ...style }} className={`${animationName} ${className && className}`}>
       {mobile ?

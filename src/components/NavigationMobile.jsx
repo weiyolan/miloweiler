@@ -10,7 +10,7 @@ import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
 gsap.registerPlugin(Observer)
 
 export default function NavigationMobile() {
-  const { locale, navTheme, categoryLabels } = useAppContext()
+  const { locale, categoryLabels } = useAppContext()
   const [menuOpen, setMenuOpen] = useState(false)
   const [toggleVisible, setToggleVisible] = useState(true)
   const menuRef = useRef(null)
@@ -18,7 +18,6 @@ export default function NavigationMobile() {
   const toggleRef = useRef(null)
   const scrollTimerRef = useRef(null)
   const router = useRouter()
-  const isDark = navTheme === 'dark'
 
   // Close menu on route change
   useEffect(() => {
@@ -95,14 +94,14 @@ export default function NavigationMobile() {
       {/* Fullscreen menu overlay */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 ${isDark ? 'bg-darkGrey/95' : 'bg-primary/95'} backdrop-blur-sm invisible opacity-0`}
+        className="fixed inset-0 bg-background/95 backdrop-blur-sm invisible opacity-0"
       >
         <div className="flex flex-col items-end gap-4 mt-[80px] px-8 py-4">
           {/* Portfolio — main link */}
           <Link
             ref={setItemRef(itemIndex++)}
             href="/"
-            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/' ? 'underline underline-offset-4' : ''}`}
           >
            { locale === 'fr' ? 'Accueil' : 'Home'}
           </Link>
@@ -113,7 +112,7 @@ export default function NavigationMobile() {
               key={slug}
               ref={setItemRef(itemIndex++)}
               href={`/${slug}`}
-              className={`text-xl font-mono pr-2 opacity-0 invisible ${isDark ? 'text-primary/80' : 'text-darkPrimary/80'} ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
+              className={`text-xl font-mono pr-2 opacity-0 invisible text-foreground/80 ${router.query.category === slug ? 'font-bold' : 'font-normal'}`}
             >
               {categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug}
             </Link>
@@ -123,7 +122,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/about"
-            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
           >
             {locale === 'fr' ? 'À Propos' : 'About Me'}
           </Link>
@@ -132,7 +131,7 @@ export default function NavigationMobile() {
           <Link
             ref={setItemRef(itemIndex++)}
             href="/contact"
-            className={`text-3xl font-mono font-normal opacity-0 invisible ${isDark ? 'text-primary' : 'text-darkPrimary'} ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
+            className={`text-3xl font-mono font-normal opacity-0 invisible text-foreground ${pathname === '/contact' ? 'underline underline-offset-4' : ''}`}
           >
             Contact
           </Link>

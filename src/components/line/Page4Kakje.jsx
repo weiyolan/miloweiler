@@ -111,7 +111,7 @@ export default function Page4Kakje({ scrubTl, transitionTl }) {
   // let tl = useRef()
   // let [started, setStarted] = useState(false)
 
-  let colorPrimary = "#FFF5EA";
+  let colorPrimary = "currentColor";
 
   // const [tweenAppear, setTweenAppear] = useState({
   //   // timeline: transitionTl,

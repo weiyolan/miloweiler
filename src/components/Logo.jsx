@@ -1,9 +1,8 @@
 // import { usePageContext } from '@/utils/pageContext'
 import React from 'react'
 
-export default function Logo({ className, darkMode }) {
-  // let {darkMode} = usePageContext();
-  let fill = darkMode ? '#FFF5EA' : '#000'
+export default function Logo({ className }) {
+  let fill = 'currentColor'
   return (
     <svg className={className} viewBox="0 0 1924 1398" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Logo">

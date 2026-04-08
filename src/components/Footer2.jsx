@@ -1,11 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link"
-import Image from "next/image";
 import { useRouter } from "next/router";
 
-// import useWindowSize from "@utils/useWindowSize";
-
-import AccentTitle from "./AccentTitle";
 import { useAppContext } from "@/utils/appContext";
 import { usePageContext } from "@/utils/pageContext";
 import SubTitle from "./SubTitle";
@@ -17,7 +13,7 @@ const socialList = {
 };
 const navigateList = {
   en: [{ text: 'Home', link: '/' }, { text: 'Commissioned', link: '/commissioned', disabled: false }, { text: 'Personal', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Printing', link: '/contact/#printing', disabled: false }],
-  fr: [{ text: 'Acceuil', link: '/', disabled: false }, { text: 'Commandé', link: '/commissioned', disabled: false }, { text: 'Personel', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Impression', link: '/contact/#printing', disabled: false }],
+  fr: [{ text: 'Acceuil', link: '/', disabled: false }, { text: 'Commande', link: '/commissioned', disabled: false }, { text: 'Personel', link: '/personal', disabled: false }, { text: 'Contact', link: '/contact', disabled: false }, { text: 'Impression', link: '/contact/#printing', disabled: false }],
 };
 const legalList = {
   en: [{ text: 'Legal Notice', link: '/', disable: true }, { text: 'Terms of Use', link: '/services', disable: true }, { text: 'Cookie Notice', link: '/aboutme', disable: true }],
@@ -25,34 +21,22 @@ const legalList = {
 };
 const contactList = {
   en: [
-    // { text: 'Info', ext: false, link: '/contact/#informations' },
     { text: 'Call', ext: false, link: 'tel:+32476506209' },
     { text: 'WhatsApp', ext: true, link: 'https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
-    { text: 'contact@miloweiler.com', ext: true, link: "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
-    // { text: 'Whatsapp', ext: true, link: 'https://wa.me/32471124525?text=Hi+Yolan%2C+%0D%0AI+got+your+WhatsApp+from+your+website+ywdesign.co.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
+    { text: 'milo.weiler@gmail.com', ext: true, link: "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
   ], fr: [
-    // { text: 'Infos', ext: false, link: '/contact/#informations' },
     { text: 'Appeler', ext: false, link: 'tel:+32476506209' },
     { text: 'WhatsApp', ext: true, link: 'https://wa.me/32476506209?text=Hi+Milo%2C+%0D%0AI+got+your+WhatsApp+from+your+website+miloweiler.com.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
-    { text: 'contact@miloweiler.com', ext: true, link: "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
-    // { text: 'Whatsapp', ext: true, link: 'https://wa.me/32471124525?text=Hi+Yolan%2C+%0D%0AI+got+your+WhatsApp+from+your+website+ywdesign.co.+Are+you+free+to+talk+any+time+soon+about+a+project+I+have+in+mind%3F+%0D%0AThanks%2C%0D%0A' },
+    { text: 'milo.weiler@gmail.com', ext: true, link: "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A" },
   ]
 };
 
 const financialInfo = {
   en: [
     '2026 MiloWeiler, Inc. All rights reserved.',
-    // 'VAT: BE0794.586.584',
-    // 'legal address: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgium',
-    // 'tel: +33638565302', 
-    // 'email: contact@ywdesign.co', 
   ],
   fr: [
-    '2026 MiloWeiler, Inc. Tous droits réservés.',
-    // 'TVA: BE0794.586.584',
-    // 'adresse juridique: Hof Savelkoul 40, 2640 Mortsel, Antwerp, Belgique',
-    // 'tel: +33638565302', 
-    // 'email: contact@ywdesign.co', 
+    '2026 MiloWeiler, Inc. Tous droits reserves.',
   ]
 };
 
@@ -61,56 +45,14 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
   let { locale } = useAppContext();
   let { mobile } = usePageContext();
 
-  // let footerRef = useRef(null)
-
-  let [dimensions, setDimensions] = useState({ width: undefined, height: undefined })
-
-  // useEffect(() => {
-  //   function handleSize() {
-  //     const { width, y } = footerRef.current.getBoundingClientRect();
-  //     const height = footerRef.current.offsetHeight;
-  //     let styles = window.getComputedStyle(footerRef.current);
-  //     let margin = parseFloat(styles['marginTop']) +
-  //       parseFloat(styles['marginBottom']);
-  //     if (height > 0) {
-  //       // Math.ceil(height + margin);
-  //       setDimensions({ width: width, height: Math.ceil(height + margin), normalHeight: height, top: y, bottom: y + height });
-  //       // print && console.log('dimensions setted: ' + 'width: ' + width+' , height: '+ height+ ', top: '+y+', bottom: '+(y + height) )
-  //     }
-  //   }
-
-  //   window.addEventListener("resize", handleSize);
-  //   handleSize()
-  //   return () => window.removeEventListener("resize", handleSize);
-  //   // print && console.log(dimensions?.height === undefined || )
-
-  // }, [mobile])
-
-
-
-  // useEffect(() => {
-  //   // console.log(dimensions.height)
-  //   if (dimensions?.height > 0 && setFooterHeight) {
-  //     setFooterHeight(dimensions.height)
-  //   } else if (dimensions.normalHeight > 0 && setFooterNormalHeight !== undefined) {
-  //     setFooterNormalHeight(dimensions.normalHeight)
-  //   }
-  // }, [dimensions])
-
-
   return (
-    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-transparent pt-24 md:pt-32 to-[#202020]  ${noMargin ? '' : ''}`}>
+    <Layout style={{ ...style }} className={`relative bg-gradient-to-b from-surface text-background pt-24 md:pt-32 to-surface  ${noMargin ? '' : ''}`}>
       <section
         className={`relative lg:px-16 xl:px-24  max-w-7xl  px-4 pb-2  w-full mx-auto ${className}`}>
         <div className='flex flex-col sm:flex-row  items-center sm:items-start justify-between max-w-6xl mx-auto'>
 
           <Links mobile={mobile} title='Navigate' list={navigateList[locale]} />
           <Links mobile={mobile} title='Socials' list={socialList[locale]} />
-
-          {/* <div className='flex flex-col items-center gap-2 sm:items-start'>
-          <SubTitle darkMode={true} noMargin small className='pt-2' center mainTitle='Stay In Touch' />
-        </div> */}
-
           <Links mobile={mobile} title='Contact' list={contactList[locale]} />
           <Links mobile={mobile} title='Legal' list={legalList[locale]} />
 
@@ -118,13 +60,15 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
           <div className="flex justify-center items-center mt-4 gap-3 mb-1">
             <LanguageSwitch />
+            <span className="text-background/40">|</span>
+            <ThemeToggle />
           </div>
 
-        <div role='presentation' className='w-full text-xs text-center mt-4 text-primary font-thin font-mono'>
+        <div role='presentation' className='w-full text-xs text-center mt-4 text-background font-thin font-mono'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
-            {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '∘ '}${val}`}</li>) })}
+            {financialInfo[locale].map((val, i) => { return (<li role='' className={`${i === 0 ? '' : 'pl-1'}`} key={val}>{`${i === 0 ? '' : '| '}${val}`}</li>) })}
             <li className="pl-1 ">
-              ∘ Powered By <Link className="underline" href={'https://www.ywdesign.co'} rel="noopener noreferrer">ywdesign.co</Link>
+              | Powered By <Link className="underline" href={'https://www.ywdesign.co'} rel="noopener noreferrer">ywdesign.co</Link>
             </li>
           </ul>
         </div>
@@ -137,9 +81,8 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
 function Links({ title, list, mobile }) {
   return (
-    // <div className={`${position === 'center' ? 'text-center ' : position === 'left' ? 'text-left ' : 'text-right '}  align-start px-0`}>
     <div className={`text-center sm:text-left `}>
-      <SubTitle small noMargin className='pt-4 font-sans md:text-left text-center ' left={mobile?false:true} mainTitle={title} darkMode={true} />
+      <SubTitle small noMargin className='pt-4 font-sans md:text-left text-center text-background' left={mobile?false:true} mainTitle={title} />
       <List mobile={mobile} list={list} />
     </div>
   )
@@ -153,8 +96,8 @@ function List({ list, mobile }) {
         if (item.ext) {
           return (
             <li key={i}
-              className={`text-primary font-mono font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
-              <Link href={item.link} target='_blank' className='focus:outline-none cursor-pointer focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-white hover:border-b-white ' rel="noopener noreferrer" >
+              className={`text-background font-mono font-extralight whitespace-nowrap text-sm sm:text-sm  `} >
+              <Link href={item.link} target='_blank' className='focus:outline-none cursor-pointer focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-background hover:border-b-background ' rel="noopener noreferrer" >
                 {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
               </Link>
             </li>
@@ -163,9 +106,9 @@ function List({ list, mobile }) {
         else {
           return (
             <li key={i}
-              className={`${item.disabled ? 'text-primary/50' : 'text-primary'} font-mono font-extralight whitespace-nowrap text-sm sm:text-sm `} >
+              className={`${item.disabled ? 'text-background/50' : 'text-background'} font-mono font-extralight whitespace-nowrap text-sm sm:text-sm `} >
               {item.disabled ? item.text :
-                <Link className='focus:outline-none focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-white hover:border-b-white  ' href={item.link}>
+                <Link className='focus:outline-none focus-within:scale-110 duration-200 border border-transparent focus-within:border-b-background hover:border-b-background  ' href={item.link}>
                   {item.text} {mobile && i < list.length - 1 ? ' |' : ''}
                 </Link>}
             </li>)
@@ -181,10 +124,10 @@ function LanguageSwitch() {
   const { locales, locale: activeLocale, pathname, query, asPath } = router
 
   return (
-    <div className="flex items-center gap-2 font-mono text-sm text-primary">
+    <div className="flex items-center gap-2 font-mono text-sm text-background">
       {(locales || []).map((loc, i) => (
         <span key={loc} className="flex items-center gap-2">
-          {i > 0 && <span className="text-primary/40">|</span>}
+          {i > 0 && <span className="text-background/40">|</span>}
           <Link
             href={{ pathname, query }}
             as={asPath}
@@ -199,3 +142,34 @@ function LanguageSwitch() {
   )
 }
 
+function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const toggle = () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <button onClick={toggle} aria-label="Toggle dark mode"
+      className="text-background font-mono text-sm transition-opacity hover:opacity-70">
+      <svg className="hidden dark:block w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="5" />
+        <line x1="12" y1="1" x2="12" y2="3" />
+        <line x1="12" y1="21" x2="12" y2="23" />
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+        <line x1="1" y1="12" x2="3" y2="12" />
+        <line x1="21" y1="12" x2="23" y2="12" />
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      </svg>
+      <svg className="block dark:hidden w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
+  );
+}

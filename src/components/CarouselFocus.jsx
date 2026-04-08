@@ -33,10 +33,10 @@ export default function CarouselFocus({ image, alt, open, onClose }) {
           />
         </div>
       )}
-      <button title="Close" onClick={onClose} className="flex justify-center items-center w-[50px] h-[50px] fixed top-0 right-0">
+      <button title="Close" onClick={onClose} className="flex justify-center items-center w-[50px] h-[50px] fixed top-0 right-0 text-foreground">
         <svg className="w-[17px] sm:w-[20px]" viewBox="0 0 23 23">
-          <path d="M 3 16.5 L 17 2.5" fill="transparent" strokeWidth="2.5" stroke="#FFF5EA" strokeLinecap="round" />
-          <path d="M 3 2.5 L 17 16.346" fill="transparent" strokeWidth="2.5" stroke="#FFF5EA" strokeLinecap="round" />
+          <path d="M 3 16.5 L 17 2.5" fill="transparent" strokeWidth="2.5" stroke="currentColor" strokeLinecap="round" />
+          <path d="M 3 2.5 L 17 16.346" fill="transparent" strokeWidth="2.5" stroke="currentColor" strokeLinecap="round" />
         </svg>
       </button>
     </div>

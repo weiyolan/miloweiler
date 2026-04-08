@@ -153,7 +153,7 @@ export default function Page1Moon({ className, style, scrubTl0, scrubTl1, transi
 
 
   // let colorPrimary = "#FFF5EA";
-  let colorPrimary = "#FFF5EA";
+  let colorPrimary = "currentColor";
 
   //==============X FROM CENTER, Y FROM BOTTOM============
   // let originalY = 0.630861

@@ -20,7 +20,7 @@ export default function Custom404() {
         <meta name="robots" content="noindex" />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className="w-full min-h-screen flex flex-col bg-darkGrey text-primary">
+        <main className="w-full min-h-screen flex flex-col bg-background text-foreground">
           <PageWrapper darkMode={true}>
             <Layout className="relative pt-12 flex-1 flex flex-col items-center justify-center text-center">
               <p className="font-mono text-sm tracking-widest uppercase opacity-60 mb-4">
@@ -36,7 +36,7 @@ export default function Custom404() {
               </p>
               <Link
                 href="/"
-                className="font-mono text-sm border border-primary/40 px-6 py-3 rounded hover:bg-primary/10 transition-colors"
+                className="font-mono text-sm border border-foreground/40 px-6 py-3 rounded hover:bg-foreground/10 transition-colors"
               >
                 {locale === "fr" ? "Retour \u00e0 l\u2019accueil" : "Back to Portfolio"}
               </Link>

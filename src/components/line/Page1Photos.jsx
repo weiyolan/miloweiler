@@ -47,7 +47,7 @@ export default function xPage1Photos({ animateName, timeline, projects }) {
 
   return (
     // <>
-    <Parallax s duration={6.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-primary `}>
+    <Parallax s duration={6.3} scope='btsPhotos' timeline={timeline} start='100% 100%' className={`page1photosContainer fixed w-full h-screen top-0 text-foreground `}>
       <div className='page1photosContainerInner w-full h-full'>
         <Page1Image alt='' src='/images/page1photo6.jpg' image={images.lscape[0].image} slug={images.lscape[0].slug}
           // width='265' height='366'

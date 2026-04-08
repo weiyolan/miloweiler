@@ -55,7 +55,7 @@ export function ColorInput(props) {
           width: '140px',
         }}
       />
-      {value && (
+      {/* {value && (
         <div
           style={{
             width: SWATCH_SIZE,
@@ -66,7 +66,7 @@ export function ColorInput(props) {
             flexShrink: 0,
           }}
         />
-      )}
+      )} */}
     </div>
   )
 }

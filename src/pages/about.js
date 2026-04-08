@@ -1659,7 +1659,7 @@ overscroll-behavior: none;
       {/* onTouchEnd={(e)=>e.preventDefault()} */}
       <main
         // style={{ height: !pageLoaded ? "100vh" : "auto" }}
-        className={`w-full ${!pageLoaded && "h-[100svh] md:h-screen overflow-hidden"} mainBackground relative bg-black `}>
+        className={`w-full ${!pageLoaded && "h-[100svh] md:h-screen overflow-hidden"} mainBackground relative bg-black force-dark`}>
         <div className=" h-[83lvh] relative w-full  snap-end snap-always" />
         <div className="h-[103lvh] relative w-full snap-end snap-always" />
         <div className="h-[103lvh] relative w-full snap-end snap-always" />
@@ -1669,7 +1669,6 @@ overscroll-behavior: none;
         <div className="h-[103lvh] relative w-full snap-end snap-always" />
 
         <PageWrapper
-          darkMode={true}
           viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
           // svgWidth={""}
           // finished={false}
@@ -1792,7 +1791,7 @@ overscroll-behavior: none;
             introAnimationTl={introAnimationTlRef.current}
           />
 
-          {mobile && <FadeDiv type={"top"} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-darkPrimary/80 `} />}
+          {mobile && <FadeDiv type={"top"} amount={80} className={`fixed page5description bottom-[-5px] w-full h-[80lvh] invisible opacity-0 bg-foreground/80 `} />}
           <Page5Milo className={`w-[115.86vw]`} scrubTl={scrubTl5Ref.current} />
           {/* info={{ title: '', text: "I invite you to visit my gallery and experience the magic of my photography. From behind-the-scenes captures to fine art masterpieces, my images will leave you in awe. If you're interested in purchasing prints or working with me on a project, I'd be thrilled to hear from you. Let's capture the beauty of life together." }} */}
           <PageDescription5

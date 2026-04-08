@@ -9,7 +9,7 @@ export default function Background({ src, type, moves, alt, priority, amount, he
   return (
     <div style={{ transform: "translate3d(0, 0, 0)" }}   className={`fixed w-full ${height ? height : 'h-screen'} ${animationName ? animationName : ''}  ${className ? className : ''}`} >
       <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`w-full relative ${height ? height : 'h-full'} ${animationName ? animationName + 'Inner' : ''} `} type={type} amount={amount}>
-        <div className={`w-full relative ${height ? height : 'h-full'}  bg-gradient-to-br from-[#16002c] to-[#000000] z-0 overflow-hidden`} >
+        <div className={`w-full relative ${height ? height : 'h-full'}  bg-gradient-to-br from-background to-background z-0 overflow-hidden`} >
           {/* <div className='flex w-full absolute top-0 h-[100vh] ' > */}
           {/* {console.log(height*(1+overflow)+'px')} */}
           {/* {console.log(`translate(-${Y}px,0)`)} */}

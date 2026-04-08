@@ -62,7 +62,7 @@ export default function BackgroundMain({ projects, images, type, priority, amoun
   return (
     <div style={{ transform: "translate3d(0, 0, 0)" }} className={`fixed w-full ${height ? height : 'h-screen'} ${animationName ? animationName : ''}  ${className ? className : ''}`} >
       <FadeDiv style={{ transform: "translate3d(0, 0, 0)" }} className={`w-full relative ${height ? height : 'h-full'} ${animationName ? animationName + 'Inner' : ''} `} type={type} amount={amount}>
-        <div className={`w-full relative ${height ? height : 'h-full'}  bg-gradient-to-br from-[#16002c] to-[#000000] z-0 overflow-hidden`} >
+        <div className={`w-full relative ${height ? height : 'h-full'}  bg-gradient-to-br from-background to-background z-0 overflow-hidden`} >
           {switched && <SanityImage alt={images[mainImage]?.alt?.en || 'Beautiful picture shot by Milo Weiler.'}
             containerClass='rounded-none'
             className={`will-change-transform object-cover object-center  mainBackground opacity-0 ${objectPosition && objectPosition}`}

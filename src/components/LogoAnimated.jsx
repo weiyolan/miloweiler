@@ -1,9 +1,8 @@
 // import { usePageContext } from '@/utils/pageContext'
 import React, { useEffect } from 'react'
 
-export default function LogoAnimated({ className, darkMode, transitionTl }) {
-  // let {darkMode} = usePageContext();
-  let fill = darkMode ? '#FFF5EA' : '#000'
+export default function LogoAnimated({ className, transitionTl }) {
+  let fill = 'currentColor'
 
 
   useEffect(() => {

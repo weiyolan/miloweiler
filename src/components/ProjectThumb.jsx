@@ -98,7 +98,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
         onMouseDown={handleMouseDown}
         onMouseEnter={() => { setHover(true); }}
         onMouseLeave={() => { setHover(false); handleMouseLeave() }}
-        className={`relative cursor-pointer rounded-none text-primary before:block before:pt-[66%] card   transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
+        className={`relative cursor-pointer rounded-none text-foreground before:block before:pt-[66%] card transition-transform duration-300 ${hover || lineHover ? '' : 'inactiveCard'} index-${index} `}>
 
 
         {/* <div className={`absolute top-0 left-0 w-full h-full ${hover || lineHover ? 'inactiveCard' : ''}`}>
@@ -111,7 +111,7 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
           />
 
           <h3 className='font-mono text-sm absolute top-2 left-4'>{project?.title}</h3>
-          <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-black/10 duration-300 group-hover:backdrop-blur-sm  ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
+          <div className={`absolute rounded-none h-full w-full top-0 left-0 bg-foreground/10 duration-300 group-hover:backdrop-blur-sm  ${hover || lineHover ? 'opacity-100' : 'opacity-0'} flex  flex-col justify-between p-2 sm:p-4`}>
             <h4 className={`text-left font-serif text-base sm:text-lg md:text-xl invert-0 duration-500 `}>{/* ${hover || lineHover ? 'opacity-100 delay-100' : 'opacity-0 '} */}
 
               {/* {console.log(project)} */}
@@ -125,13 +125,13 @@ export default function ProjectThumb({ project, gridStaggerAnimation, activeInde
             </div>
 
             {project.commissionedBool && (
-              <span className="absolute top-2 right-2 bg-darkPrimary/60 text-primary text-xs font-mono px-2 py-0.5 rounded">
+              <span className="absolute top-2 right-2 bg-background/60 text-foreground text-xs font-mono px-2 py-0.5 rounded">
                 Commissioned
               </span>
             )}
 
             <Link href={`/${categorySlug}/${project.slug.current}`}
-              className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-sans text-primary font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
+              className={` absolute w-full h-full left-0 top-0 text-3xl md:text-7xl font-sans text-foreground font-extralight md:font-thin flex items-center justify-center transition-all duration-500 ${hover || lineHover ? 'opacity-100 delay-[100]' : 'opacity-0 pointer-events-none '}`} ref={projectThumb}>
               {width < 648 && '+'}
             </Link>
           </div>

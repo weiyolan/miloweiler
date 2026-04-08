@@ -8,7 +8,7 @@ import useDimensions from '@/utils/useDimensions'
 
 export default function ProjectDescriptionTop({ project, setPosition, setAnimateDescription }) {
   const { locale, width, height } = useAppContext()
-  const { darkMode, descriptionOpen, setDescriptionOpen } = usePageContext()
+  const { descriptionOpen, setDescriptionOpen } = usePageContext()
 
   let textRef = useRef(null)
   const descriptionRef = useRef(null)
@@ -121,7 +121,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
       // onMouseLeave={handleLeave}
       onClick={handleClick}
     >
-      <div className={`relative whitespace-nowrap text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <div className={`relative whitespace-nowrap text-lg mobm:text-2xl md:text-3xl mt-2 flex justify-between transition-all duration-700 delay-75 ${descriptionOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} text-foreground`}>
         <h1 className={`whitespace-normal`}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
@@ -160,7 +160,7 @@ export default function ProjectDescriptionTop({ project, setPosition, setAnimate
       {/* ============== ABSOLUTE TITLE =============== */}
       {/* <Line className={`border-spacing-2 `}/> */}
       <div className={`absolute bottom-2 mobm:bottom-3 cursor-pointer flex mx-auto text-lg mobm:text-2xl md:text-3xl whitespace-nowrap mt-2 w-full px-3 left-1/2 -translate-x-1/2 justify-between transition-all  
-      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}
+      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} text-foreground`}
         onClick={handleClick}>
         <div className={`cursor-pointer truncate`}>
           {project.title}

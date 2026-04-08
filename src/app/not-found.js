@@ -2,17 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main style={{
-      width: "100%",
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
-      backgroundColor: "#1a1a1a",
-      color: "#FFF5EA",
-    }}>
+    <main className="w-full min-h-screen flex flex-col items-center justify-center text-center bg-background text-foreground">
       <p style={{ fontFamily: "monospace", fontSize: "0.875rem", letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.6, marginBottom: "1rem" }}>
         404
       </p>
@@ -24,15 +14,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        style={{
-          fontFamily: "monospace",
-          fontSize: "0.875rem",
-          border: "1px solid rgba(255, 245, 234, 0.4)",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "0.25rem",
-          color: "inherit",
-          textDecoration: "none",
-        }}
+        className="font-mono text-sm border border-foreground/40 px-6 py-3 rounded text-inherit no-underline"
       >
         Back to Portfolio
       </Link>

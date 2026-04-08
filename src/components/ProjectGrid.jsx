@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useAppContext } from "@/utils/appContext";
-import { usePageContext } from "@/utils/pageContext";
 import { gsap } from "gsap/dist/gsap";
 import SanityImage from "@/components/SanityImage";
 
@@ -9,7 +8,6 @@ function GridPhoto({ image, i, ...props }) {
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
   const { width, locale } = useAppContext();
-  const { darkMode } = usePageContext();
   useEffect(() => {
     if (loaded) {
       ctx.current.add(() => {
@@ -34,7 +32,7 @@ function GridPhoto({ image, i, ...props }) {
 
   return (
     <div
-      className={`relative opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute ${darkMode ? "before:bg-darkGrey" : "before:bg-white"} before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
+      className={`relative opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute before:bg-background before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
       ref={fotoThumb}
       style={{
         width: "auto",

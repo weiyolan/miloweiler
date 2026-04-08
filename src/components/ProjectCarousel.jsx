@@ -18,7 +18,6 @@ gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger)
 
 export default function ProjectCarousel({ project, open, visibleItem, setVisibleItem, nextVisibility, prevVisibility, handleVisibility, closeModal }) {
   // let [animating, setAnimating] = useState(false)
-  let darkMode = true
   // const { width, height, locale } = useAppContext()
   // let [visibleItem, setVisibleItem] = useState(initiateVisibility())
   // let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
@@ -221,7 +220,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       ref={containerRef}
       tabIndex={-1}
       // style={{ backgroundColor: palette.dominant.background }}
-      className={`carouselContainer focus:outline-none w-full h-[100dvh] bg-opacity-80 bg-darkPrimary z-[100] fixed overscroll-y-none overflow-y-hidden top-0 transition-[opacity,visibility] duration-500 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'} ${darkMode ? "text-primary" : "text-darkPrimary"}`}
+      className={`carouselContainer focus:outline-none w-full h-[100dvh] bg-opacity-80 bg-background z-[100] fixed overscroll-y-none overflow-y-hidden top-0 transition-[opacity,visibility] duration-500 ${open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'} text-foreground`}
       onClick={(e) => { if (e.target === document.getElementById("carouselContainer")) { closeModal() } }}
       // onClick={(e) => console.log(e.target, Array.from(document.querySelectorAll(".carouselContainer")))}
 >
@@ -251,14 +250,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
                   d="M 3 16.5 L 17 2.5"
                   fill="transparent"
                   strokeWidth="2.5"
-                  stroke={`${darkMode ? '#FFF5EA' : '#000'}`}
+                  stroke="currentColor"
                   strokeLinecap="round"
                 />
                 <path
                   d="M 3 2.5 L 17 16.346"
                   fill="transparent"
                   strokeWidth="2.5"
-                  stroke={`${darkMode ? '#FFF5EA' : '#000'}`}
+                  stroke="currentColor"
                   strokeLinecap="round"
                 />
               </svg>

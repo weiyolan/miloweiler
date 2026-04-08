@@ -1,15 +1,13 @@
-import { usePageContext } from '@/utils/pageContext'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { BsArrowRightShort } from 'react-icons/bs'
 
 const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowClassName, containerClass }) => {
   let [hovering, setHovering] = useState(false)
-  let { darkMode } = usePageContext();
 
   if (ext) {
     return (
-      <Link tabIndex={tabIndex} className={`${inherit ? 'text-inherit' : darkMode ? 'text-primary fill-primary font-semibold' : 'text-darkPrimary fill-darkPrimary font-semibold'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer ${containerClass ? containerClass : ''}`}
+      <Link tabIndex={tabIndex} className={`${inherit ? 'text-inherit' : 'text-foreground fill-foreground font-semibold'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer ${containerClass ? containerClass : ''}`}
         href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }} rel="noopener noreferrer" target='_blank'>
 
         <span className={`inline-flex items-center md:text-base ${inText ? 'mt-0' : 'mt-4'} relative ${className ? className : ''}`}
@@ -23,7 +21,7 @@ const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowC
   }
 
   return (
-    <Link tabIndex={tabIndex} className={` ${inherit ? 'text-inherit font-medium' : darkMode ? 'text-primary fill-primary font-semibold' : 'text-darkPrimary fill-darkPrimary font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap ${containerClass ? containerClass : ''}  `}
+    <Link tabIndex={tabIndex} className={` ${inherit ? 'text-inherit font-medium' : 'text-foreground fill-foreground font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap ${containerClass ? containerClass : ''}  `}
       href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }}>
       <span className={`inline-flex items-center  md:text-base ${inText ? 'mt-0' : 'mt-4'} relative  ${className ? className : ''}`}
         onMouseEnter={() => setHovering(true)}

@@ -64,7 +64,7 @@ export default function Page3Animals({ className, style, scrubTl, transitionTl, 
   }, [transitionTl])
 
 
-  let colorPrimary = "#FFF5EA"
+  let colorPrimary = "currentColor"
 
   return (
     <div style={{ ...style }} className={`${animationName} ${className && className}`}>

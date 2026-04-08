@@ -14,7 +14,7 @@ import { useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-let mailLink = "mailto:contact@miloweiler.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A"
+let mailLink = "mailto:milo.weiler@gmail.com?subject=Photography%20Project&body=Hi%20Milo%2C%0A%0AI%20have%20a%20photography%20project%20for%20you.%0ACould%20we%20talk%20about%20this%20any%20time%20soon%3F%0A%0AThanks%20in%20advance%2C%0A%0A"
 
 export default function ContactDetails({ contactDetails, portfolioLink }) {
   let ctx = useRef(null)

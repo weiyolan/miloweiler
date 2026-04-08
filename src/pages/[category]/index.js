@@ -45,8 +45,8 @@ export default function CategoryGallery({ projects, category }) {
         )}
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={`w-full min-h-screen flex flex-col ${darkMode ? "bg-darkGrey text-primary" : "bg-primary text-darkPrimary"}`}>
-          <PageWrapper darkMode={darkMode}>
+        <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
+          <PageWrapper>
             <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-full mb-12 flex-1">
               <GalleryTitle h1 className="">
                 {label}
@@ -69,7 +69,7 @@ export default function CategoryGallery({ projects, category }) {
               <div className="galleryPage w-full mx-auto relative flex flex-col">
                 {projects.map((project, i) => (
                   <React.Fragment key={project.slug?.current || i}>
-                    <div className={`h-px bg-primary transition-opacity duration-300 ${
+                    <div className={`h-px bg-foreground transition-opacity duration-300 ${
                       hoveredRow === i || hoveredRow === i - 1 ? 'opacity-100' : 'opacity-0'
                     }`} />
                     <ProjectRow
@@ -81,7 +81,7 @@ export default function CategoryGallery({ projects, category }) {
                     />
                   </React.Fragment>
                 ))}
-                <div className={`h-px bg-primary transition-opacity duration-300 ${
+                <div className={`h-px bg-foreground transition-opacity duration-300 ${
                   hoveredRow === projects.length - 1 ? 'opacity-100' : 'opacity-0'
                 }`} />
               </div>

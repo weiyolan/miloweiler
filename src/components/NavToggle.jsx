@@ -3,18 +3,17 @@ import { gsap } from "gsap/dist/gsap";
 import React, { useEffect, useRef } from "react";
 
 export default function NavToggle({ open, onClick, className }) {
-  const { locale, navTheme } = useAppContext()
-  const isDark = navTheme === 'dark'
+  const { locale } = useAppContext()
   return (
-    <button onClick={onClick} title={`${locale === 'en' ? 'Menu toggle' : 'Ouvrir et fermer le menu'}`} className={'flex justify-center items-center w-[50px] h-[50px] ' + (className || '')}>
+    <button onClick={onClick} title={`${locale === 'en' ? 'Menu toggle' : 'Ouvrir et fermer le menu'}`} className={'flex justify-center items-center w-[50px] h-[50px] text-white ' + (className || '')}>
       <svg className='w-[17px] sm:w-[23px]' viewBox="0 0 23 23">
-        <Path open={open} isDark={isDark}
+        <Path open={open}
           closeD="M 2 2.5 L 20 2.5"
           openD="M 3 16.5 L 17 2.5"
           closeOp={1}
           openOp={1}
         />
-        <Path open={open} isDark={isDark}
+        <Path open={open}
           closeD="M 2 9.423 L 20 9.423"
           openD="M 2 9.423 L 20 9.423"
           closeOp={1}
@@ -22,7 +21,7 @@ export default function NavToggle({ open, onClick, className }) {
         // className='opacity-1'
         // transition={{ duration: 0.1 }}
         />
-        <Path open={open} isDark={isDark}
+        <Path open={open}
           closeD="M 2 16.346 L 20 16.346"
           openD="M 3 2.5 L 17 16.346"
           closeOp={1}
@@ -33,7 +32,7 @@ export default function NavToggle({ open, onClick, className }) {
   )
 };
 
-const Path = ({ open, isDark, openD, closeD, openOp, closeOp, ...props }) => {
+const Path = ({ open, openD, closeD, openOp, closeOp, ...props }) => {
   let pathRef = useRef(null)
   let ctx = useRef(gsap.context(() => { }))
   useEffect(() => { return () => ctx.current.revert() }, [])
@@ -53,11 +52,6 @@ const Path = ({ open, isDark, openD, closeD, openOp, closeOp, ...props }) => {
           x: ()=>open ?'-100%':0 ,
           ease:'expo.out',
         })
-      // gsap.to(pathRef.current, {
-      // rotate: open ? 90 : -90,
-      // transformOrigin: '50% 50%',
-      // duration: 0.3,
-      // })
     })
   }, [open])
 
@@ -67,9 +61,7 @@ const Path = ({ open, isDark, openD, closeD, openOp, closeOp, ...props }) => {
       fill="transparent"
       strokeWidth="2.5"
       d={closeD}
-      // stroke={`${props.open?'#171B4D':'hsl(236, 0%, 100%)'}`}
-      stroke={`${isDark ? '#FFF5EA' : '#000'}`}
-      // stroke="hsl(236, 45%, 20%)"
+      stroke="currentColor"
       strokeLinecap="round"
       {...props}
     />)

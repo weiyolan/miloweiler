@@ -133,7 +133,7 @@ export default function Page0Logo({ className, style, introAnimationTl }) {
     return () => document.removeEventListener('scroll', scrollHandler)
   }, [introEnded])
 
-  let colorPrimary = "#FFF5EA";
+  let colorPrimary = "currentColor";
 
   return (
     <div style={style} className={`${className && className}`}>

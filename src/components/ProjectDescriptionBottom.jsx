@@ -7,7 +7,7 @@ import { AiFillCaretLeft } from 'react-icons/ai'
 
 export default function ProjectDescriptionBottom({ project, setPosition, setAnimateDescription }) {
   const { locale, width, height } = useAppContext()
-  const { darkMode, descriptionOpen, setDescriptionOpen } = usePageContext()
+  const { descriptionOpen, setDescriptionOpen } = usePageContext()
   let [hovering, setHovering] = useState(false)
   let [loaded, setLoaded] = useState(false)
   let textRef = useRef(null)
@@ -109,9 +109,9 @@ export default function ProjectDescriptionBottom({ project, setPosition, setAnim
 
       {/* ============== ABSOLUTE TITLE =============== */}
       {/* <div className={`absolute bottom-2 mobm:bottom-3 flex mx-auto text-lg mobm:text-2xl md:text-3xl mt-2 w-[85vw] left-1/2 -translate-x-1/2 justify-between transition-all  
-      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      ${descriptionOpen ? 'opacity-0 invisible duration-300 delay-[0]' : 'opacity-100 visible duration-700 delay-300'} text-foreground`}>
       </div> */}
-      <div className={`relative font-serif text-lg md:text-3xl mb-4 flex justify-between ${darkMode ? 'text-primary' : 'text-darkPrimary'}`}>
+      <div className={`relative font-serif text-lg md:text-3xl mb-4 flex justify-between text-foreground`}>
         <h1 className={``}>
           {project.title}
           {project?.subTitle ? <Span text={` (${project.subTitle})`} /> : null}
