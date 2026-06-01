@@ -61,9 +61,9 @@ export default function Navigation() {
 
         {/* Center links */}
         <div className="absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-10 pointer-events-auto">
-          <div className="relative group">
+          <div className="relative">
             <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio locale={locale} />
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible transition-all duration-200 z-50">
               <div className="bg-background/50 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
                 {visibleSlugs.map(slug => (
                   <DropdownItem key={slug} text={categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug} to={`/${slug}`} />
