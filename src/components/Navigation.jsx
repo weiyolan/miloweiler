@@ -103,7 +103,7 @@ function NavButton({ text, to, isPortfolio, locale }) {
     <Link
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative min-w-[7rem] text-center  font-normal text-foreground"
+      className="relative block w-[7rem] text-center  font-normal text-foreground"
       href={to}
     >
       <div className="w-fit mx-auto">

@@ -89,14 +89,14 @@ export default function NavigationMobile() {
   return (
     <div data-transition="nav" className={`fixed font-sans w-full top-0 z-50 ${forceDark ? 'force-dark' : ''}`}>
       {/* Hamburger toggle */}
-      <div ref={toggleRef} className="absolute top-0 right-0 z-50">
+      <div ref={toggleRef} className={`absolute top-0 right-0 z-50 ${menuOpen ? 'force-dark' : ''}`}>
         <NavToggle open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
       </div>
 
       {/* Fullscreen menu overlay */}
       <div
         ref={menuRef}
-        className="fixed inset-0 bg-background/95 backdrop-blur-sm invisible opacity-0"
+        className="fixed inset-0 force-dark bg-background/90 backdrop-blur-md invisible opacity-0"
       >
         <div className="flex flex-col items-end gap-4 mt-[80px] px-8 py-4">
           {/* Portfolio — main link */}
