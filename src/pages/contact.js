@@ -26,7 +26,6 @@ import Footer2 from '@/components/Footer2'
 
 
 import { gsap } from "gsap/dist/gsap";
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 import { supportedLanguages } from "../../sanity/schemas/supportedLanguages";
 
@@ -99,30 +98,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
       })
         .to(".inspiration-child", { autoAlpha: 1, duration: 1, ease: "ease.out", stagger: 0.1 })
         .fromTo(".inspiration-child", { translateX: -20 }, { translateX: 0, duration: 1, ease: "ease.out", stagger: 0.1 }, "<");
-
-      gsap.utils.toArray("[data-speed]").forEach((logo, i) => {
-        // console.log(logo)
-        // console.log(logo.getAttribute("data-speed"))
-        gsap.to(logo, {
-          translateX: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
-          // x: parseFloat(logo.getAttribute("data-direction")) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
-          opacity: 0,
-          // translateX: (a, logo) => (i % 2 === 0 ? -1 : 1) * (1 - parseFloat(logo.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
-          // y:0,
-          // ease: "none",
-          scrollTrigger: {
-            trigger: ".trusted-by",
-            start: width < 648 ? "30% 20%" : "center 20%",
-            // start: 'top bottom',
-            // end: "max",
-            invalidateOnRefresh: true,
-            scrub: 2,
-            markers: i ? false : false,
-            // markers: ()=>i?false:false,
-          },
-          lazy: false,
-        });
-      });
 
       gsap.utils.toArray("[data-imagecontainer]").forEach((image, i) => {
         image.bg = image.querySelector(".imageFill");
