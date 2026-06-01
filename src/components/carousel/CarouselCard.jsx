@@ -76,7 +76,7 @@ const CarouselCard = forwardRef(function CarouselCard({
         {/* Description */}
         {description && (
           <div
-            className="absolute left-0 right-0 top-3/4 mt-4 px-5 md:px-0 md:left-5 md:right-auto md:top-auto md:bottom-14 md:max-w-[45%] md:mt-0"
+            className="absolute left-0 right-0 top-[120%] mt-4 px-5 md:px-0 md:left-5 md:right-auto md:top-auto md:bottom-14 md:max-w-[45%] md:mt-0"
             style={{
               opacity: showTitle ? 1 : 0,
               transform: showTitle ? 'translateY(0)' : 'translateY(12px)',
@@ -101,13 +101,13 @@ const CarouselCard = forwardRef(function CarouselCard({
               {projectCount} {projectCount === 1 ? 'project' : 'projects'}
             </span>
           </div>
-          <div className="flex justify-between items-end overflow-hidden">
+          <div className="flex justify-between items-end ">
             <span className="font-mono text-xs md:text-sm text-foreground">
               {year}
             </span>
-            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-foreground font-bold text-right leading-tight flex flex-wrap justify-end gap-x-[0.3em]">
+            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-foreground font-bold text-right flex flex-wrap justify-end gap-x-[0.3em] translate-y-4">
               {label.split(' ').map((word, wi) => (
-                <span key={wi} className="overflow-hidden py-4 inline-flex">
+                <span key={wi} className="overflow-hidden pb-4 inline-flex">
                   <span
                     style={{
                       display: 'inline-block',

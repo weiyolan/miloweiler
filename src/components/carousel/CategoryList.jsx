@@ -1,103 +1,125 @@
 import React, { useRef, useEffect } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 
-const ROW_HEIGHT = 35
+// Scroll-linked category picker: the active category is pinned to a fixed focal
+// line while the strip of labels slides under a fixed mask, with opacity falloff
+// only (no 3D, no scale — a clean straight slide). Driven by the carousel's
+// continuous scroll position (read each frame from scrollRef) — no per-frame React
+// state. Desktop = vertical slide (left rail); mobile = horizontal strip above the card.
 
-function buildMaskGradient(centerPct) {
-  const c = Math.max(0, Math.min(100, centerPct))
-  const STEPS = 20
-  const MIN_ALPHA = 0.05
-  const SPREAD = 55
+const WINDOW = 2.5 // items with |distance-to-focal| beyond this are culled
+const FADE_POW = 1.6 // opacity falloff sharpness
 
-  const stops = []
-  for (let i = 0; i <= STEPS; i++) {
-    const pos = (i / STEPS) * 100
-    const dist = Math.abs(pos - c) / SPREAD
-    const alpha = Math.max(MIN_ALPHA, Math.exp(-4 * dist * dist))
-    stops.push(`rgba(255,255,255,${alpha.toFixed(3)}) ${pos.toFixed(1)}%`)
-  }
-  return `linear-gradient(to bottom, ${stops.join(', ')})`
-}
+// Desktop (vertical) tunables
+const D = { STEP: 38, VIEW_W: 'min(70vw, 440px)', VIEW_H: 260 }
+// Mobile (horizontal) tunables
+const M = { STEP: 96, SLOT_W: 'min(25vw, 280px)', VIEW_H: 88 }
 
-export default function CategoryList({ categories, activeIndex, onCategoryClick }) {
+const MASK_V = 'linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%)'
+const MASK_H = 'linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%)'
+
+export default function CategoryList({ categories, activeIndex, onCategoryClick, scrollRef, zDistance = 150, isMobile = false }) {
   const total = categories.length
-  const containerRef = useRef(null)
-  const maskCenter = useRef({ value: ROW_HEIGHT / 2 })
   const itemRefs = useRef([])
-  const prevActiveRef = useRef(activeIndex)
-  const ctx = useRef(gsap.context(() => {}))
+  const prefersReduced = useRef(false)
 
+  // Honor prefers-reduced-motion (snapped position instead of a continuous slide)
   useEffect(() => {
-    return () => ctx.current.revert()
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    prefersReduced.current = mq.matches
+    const onChange = (e) => { prefersReduced.current = e.matches }
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
   }, [])
 
+  // Per-frame render loop — mirrors CardCarousel's ticker pattern (direct style writes)
   useEffect(() => {
-    const targetPx = activeIndex * ROW_HEIGHT + ROW_HEIGHT / 2
-    ctx.current.add(() => {
-      gsap.to(maskCenter.current, {
-        value: targetPx,
-        duration: 0.3,
-        ease: 'ease.out',
-        onUpdate: () => {
-          if (!containerRef.current) return
-          const center = maskCenter.current.value
-          const pct = (center / (total * ROW_HEIGHT)) * 100
-          const gradient = buildMaskGradient(pct)
-          containerRef.current.style.maskImage = gradient
-          containerRef.current.style.webkitMaskImage = gradient
-        },
-      })
-    })
-  }, [activeIndex, total])
+    const N = total
+    if (!N) return
+    const cfg = isMobile ? M : D
+    const wrapHalf = gsap.utils.wrap(-N / 2, N / 2)
 
-  useEffect(() => {
-    const prev = prevActiveRef.current
-    prevActiveRef.current = activeIndex
-    if (prev === activeIndex) return
+    function onTick() {
+      const frac = (scrollRef?.current || 0) / zDistance
+      const reduced = prefersReduced.current
+      const base = reduced ? Math.round(frac) : frac
 
-    ctx.current.add(() => {
-      if (itemRefs.current[prev]) {
-        gsap.to(itemRefs.current[prev], {
-          fontWeight: 300, duration: 0.5, ease: 'ease.out',
-        })
+      for (let i = 0; i < N; i++) {
+        const el = itemRefs.current[i]
+        if (!el) continue
+
+        const d = wrapHalf(i - base) // signed shortest distance to focal; 0 = pinned
+        const ad = Math.abs(d)
+
+        if (ad > WINDOW) {
+          el.style.visibility = 'hidden'
+          el.style.opacity = '0'
+          el.style.pointerEvents = 'none'
+          continue
+        }
+
+        const t = ad / WINDOW
+        const opacity = Math.max(0, 1 - Math.pow(t, FADE_POW))
+        const main = d * cfg.STEP
+
+        el.style.transform = isMobile
+          ? `translate(-50%, -50%) translate3d(${main.toFixed(2)}px, 0, 0)`
+          : `translateY(-50%) translate3d(0, ${main.toFixed(2)}px, 0)`
+        el.style.opacity = opacity.toFixed(3)
+        el.style.visibility = 'visible'
+        el.style.zIndex = String(1000 - Math.round(ad * 10))
+        el.style.pointerEvents = opacity > 0.15 ? 'auto' : 'none'
       }
-      if (itemRefs.current[activeIndex]) {
-        gsap.to(itemRefs.current[activeIndex], {
-          fontWeight: 600, duration: 0.5, ease: 'ease.out',
-        })
-      }
-    })
-  }, [activeIndex])
+    }
 
-  const initialGradient = buildMaskGradient((ROW_HEIGHT / 2) / (total * ROW_HEIGHT) * 100)
+    gsap.ticker.add(onTick)
+    return () => gsap.ticker.remove(onTick)
+  }, [total, isMobile, scrollRef, zDistance])
 
   return (
-    <div data-transition="category-list" className="fixed left-0 top-1/4 pl-6 md:pl-10 z-40">
+    <div
+      data-transition="category-list"
+      className={
+        isMobile
+          ? 'fixed top-0 left-0 right-0 z-40 flex justify-center pointer-events-none'
+          : 'fixed left-0 top-0 h-screen flex items-center pl-6 md:pl-10 z-40 pointer-events-none'
+      }
+      style={isMobile ? { paddingTop: '14vh' } : undefined}
+    >
       <div
-        ref={containerRef}
-        style={{
-          height: ROW_HEIGHT * total,
-          maskImage: initialGradient,
-          WebkitMaskImage: initialGradient,
-        }}
+        style={
+          isMobile
+            ? { position: 'relative', width: '100vw', height: M.VIEW_H, overflow: 'hidden', maskImage: MASK_H, WebkitMaskImage: MASK_H }
+            : { position: 'relative', width: D.VIEW_W, height: D.VIEW_H, overflow: 'hidden', maskImage: MASK_V, WebkitMaskImage: MASK_V }
+        }
       >
-        <div className="flex flex-col">
-          {categories.map((name, i) => (
+        {categories.map((label, i) => (
+          <button
+            key={i}
+            type="button"
+            ref={(el) => { itemRefs.current[i] = el }}
+            onClick={() => onCategoryClick?.(i)}
+            aria-current={i === activeIndex ? 'true' : undefined}
+            className={
+              isMobile
+                ? 'absolute left-1/2 top-1/2 m-0 p-0 border-0 bg-transparent cursor-pointer select-none text-center pointer-events-auto'
+                : 'absolute left-0 top-1/2 m-0 p-0 border-0 bg-transparent cursor-pointer select-none text-left pointer-events-auto'
+            }
+            style={{ opacity: 0, visibility: 'hidden', willChange: 'transform, opacity', transformOrigin: 'center center' }}
+          >
             <span
-              key={i}
-              ref={(el) => { itemRefs.current[i] = el }}
-              onClick={() => onCategoryClick?.(i)}
-              className="font-sans text-xs md:text-sm whitespace-nowrap cursor-pointer select-none text-foreground"
-              style={{
-                height: ROW_HEIGHT,
-                lineHeight: `${ROW_HEIGHT}px`,
-                fontWeight: i === activeIndex ? 600 : 300,
-              }}
+              className={isMobile ? 'font-mono text-foreground' : 'font-mono text-foreground text-xs md:text-sm whitespace-nowrap'}
+              style={
+                isMobile
+                  ? { display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', width: M.SLOT_W, fontSize: 'clamp(9px, 2.8vw, 14px)', lineHeight: 1.15, letterSpacing: '-0.01em' }
+                  : undefined
+              }
             >
-              {name}
+              {label}
             </span>
-          ))}
-        </div>
+          </button>
+        ))}
       </div>
     </div>
   )

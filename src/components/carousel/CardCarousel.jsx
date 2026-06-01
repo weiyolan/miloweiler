@@ -4,18 +4,18 @@ import { Observer } from 'gsap/dist/Observer'
 import { useAppContext } from '@/utils/appContext'
 import { useTransition } from '@/utils/transitionContext'
 import CarouselCard from './CarouselCard'
-import CarouselIndicator from './CarouselIndicator'
 import ScrollHint from './ScrollHint'
 import CategoryList from './CategoryList'
 import AsciiMarkers from './AsciiMarkers'
 
 gsap.registerPlugin(Observer)
 
-const Z_DISTANCE = 150
-const yStep_DESKTOP = 60
-const yStep_MOBILE = 30
+const Z_DISTANCE = 500 //150
+const yStep_DESKTOP = 80 //60
+const yStep_MOBILE = 20 //30
 const LERP_FACTOR = 0.07
 const PERSPECTIVE = 1200
+const WHEEL_BREAKPOINT = 768
 
 function easeOutQuint(t) {
   return 1-Math.pow(1-t,5)
@@ -83,7 +83,8 @@ export default function CardCarousel({ categories }) {
   const cardIndex = useRef(0)
   const isAnimating = useRef(false)
 
-  const yStep = width && width < 768 ? yStep_MOBILE : yStep_DESKTOP
+  const isMobileWheel = !!width && width < WHEEL_BREAKPOINT
+  const yStep = isMobileWheel ? yStep_MOBILE : yStep_DESKTOP
 
   // Duplicate categories for infinite loop
   const duplicated = useMemo(() => [...categories, ...categories], [categories])
@@ -361,10 +362,12 @@ export default function CardCarousel({ categories }) {
         categories={categories.map(c => c.label)}
         activeIndex={activeIndex}
         onCategoryClick={goToIndex}
+        scrollRef={currentValue}
+        zDistance={Z_DISTANCE}
+        isMobile={isMobileWheel}
       />
-    <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
-        <CarouselIndicator activeIndex={activeIndex} totalCategories={TOTAL_REAL} />
-        <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} />
+    <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center pl-1 pr-6 sm:px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
+        <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} visible={1} />
       <span className="font-mono text-xs md:text-sm text-foreground/60 whitespace-nowrap">
         Brussels, Belgium
         </span>
