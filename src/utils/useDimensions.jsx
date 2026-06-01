@@ -101,6 +101,7 @@ export default function useDimensions(ref, options) {
 
   useEffect(() => {
     function handleResize() {
+      if (!ref.current) return;
       const { width, height, x, y } = ref.current.getBoundingClientRect();
       let marginTop = null;
       let marginBottom = null;

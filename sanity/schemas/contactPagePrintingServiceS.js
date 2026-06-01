@@ -8,6 +8,13 @@ export default defineType({
   icon: BlockElementIcon,
   fields: [
     defineField({
+      name: 'enabled',
+      title: 'Enabled',
+      type: 'boolean',
+      initialValue: true,
+      description: 'When off, the Printing Service section is hidden on the contact page and its intro text is shown as a subtitle under the form title instead.',
+    }),
+    defineField({
       name: 'title', title: 'Section Title', type: 'localeString',
       validation: Rule => Rule.required()
     }),

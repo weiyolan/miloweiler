@@ -6,7 +6,14 @@ export default defineType({
   type: 'document',
     icon: BlockElementIcon,
   fields: [
-    defineField({ 
+    defineField({
+      name: 'singleText',
+      title: 'Single large text',
+      type: 'boolean',
+      initialValue: false,
+      description: 'When on, the bottom section shows one large full-width text (built from Text 1) with a single link, instead of the two-column Subtitle/Text 1 + Subtitle/Text 2 layout.',
+    }),
+    defineField({
       name: 'title', title: 'Section Title', type: 'localeString',
       validation: Rule => Rule.required()
     }),
@@ -16,7 +23,6 @@ export default defineType({
     }),
     defineField({ 
       name: 'subTitle2', title: 'Subtitle 2', type: 'localeString',
-      validation: Rule => Rule.required()
     }),
     defineField({ 
       name: 'text1', title: 'Text 1', type: 'localeText',
@@ -24,7 +30,6 @@ export default defineType({
     }),
     defineField({ 
       name: 'text2', title: 'Text 2', type: 'localeText',
-      validation: Rule => Rule.required()
     }),
   ],
   preview: {

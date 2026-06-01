@@ -35,6 +35,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   let { height: textHeight } = useDimensions(textRef);
   let pageMobile = width < 648;
   let darkMode = true;
+  const printingEnabled = printingData?.enabled !== false;
+  const singleText = inspirationData?.singleText === true;
   // console.log(contactFormData)
   // const router = useRouter();
   let tl = useRef();
@@ -193,14 +195,14 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <LayoutSection right className={`flex-col-reverse form-parent`}>
                 <div className="flex flex-col w-full form-child invisible">
                   {/* <SubTitle mainTitle={'test'} SubTitle='' left /> */}
-                  <SubTitle mainTitle={contactFormData.title[locale]} SubTitle="" left />
+                  <SubTitle mainTitle={contactFormData.title[locale]} subTitle={printingEnabled ? undefined : printingData.text[locale]} left />
                   <Form />
                 </div>
                 <SanityImage fill containerClass="form-child invisible" image={contactFormData.image.image.asset} alt={contactFormData.image.alt[locale]} />
               </LayoutSection>
 
               {/* =======PRINTING SERVICE======== */}
-              <PrintingDetails printingData={printingData} />
+              {printingEnabled && <PrintingDetails printingData={printingData} />}
 
               {/* ======PRORTFOLIO======== */}
               <LayoutSection center className="portfolio-parent">
@@ -230,6 +232,19 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
               <LayoutSection center className="inspiration-parent">
                 <div className="w-full text-center mb-4">
                   <SubTitle className="inspiration-child invisible max-w-[70%] mx-auto" mainTitle={inspirationData.title[locale]} subTitle={""} />
+                  {singleText ? (
+                    <div className="inspiration-child invisible max-w-2xl mx-auto flex flex-col">
+                       <p
+                        style={{ height: pageMobile ? "auto" : textHeight ? textHeight + "px" : "auto" }}
+                        className={`text-justify font-sans  first-letter:float-left first-letter:text-6xl first-letter:pr-2 first-letter:font-normal first-letter:uppercase  ${
+                          darkMode ? "font-extralight" : "font-normal"
+                        }`}>
+                        {inspirationData.text1[locale]}
+                      </p>
+                      <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/commissioned" />
+                    </div>
+                  ) : (
+                  <>
                   {!pageMobile && <ArrowLink inText className="inspiration-child invisible ml-8 w-fit self-center mb-2" text="Contact me" to="#contactSection" />}
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-24 px:gap-8 md:px-12">
                     <div className="inspiration-child invisible flex-1 flex flex-col justify-start">
@@ -255,6 +270,8 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                       <ArrowLink inText className="ml-8 w-fit self-center text-center mt-5" text="Visit my gallery" to="/commissioned" />
                     </div>
                   </div>
+                  </>
+                  )}
                 </div>
               </LayoutSection>
             </Layout>
