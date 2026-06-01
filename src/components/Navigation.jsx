@@ -5,12 +5,13 @@ import { gsap } from 'gsap/dist/gsap'
 import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import { useAppContext } from '@/utils/appContext'
-import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
+import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
 
 gsap.registerPlugin(Observer)
 
 export default function Navigation() {
-  const { locale, categoryLabels } = useAppContext()
+  const { locale, categoryLabels, highlightedEnabled } = useAppContext()
+  const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled)
   const { pathname } = useRouter()
   const [hiding, setHiding] = useState(false)
   const hasPlayedIntro = useRef(false)
@@ -56,7 +57,7 @@ export default function Navigation() {
           <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio locale={locale} />
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
             <div className="bg-background/90 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
-              {ALL_CATEGORY_SLUGS.map(slug => (
+              {visibleSlugs.map(slug => (
                 <DropdownItem key={slug} text={categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug} to={`/${slug}`} />
               ))}
             </div>

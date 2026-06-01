@@ -3,7 +3,7 @@ import { ColorInput } from '../components/ColorInput'
 import { ImagePickerInput } from '../components/ImagePickerInput'
 
 const CATEGORIES = [
-  { name: 'highlighted', title: 'Highlighted', filter: 'highlighted == true' },
+  { name: 'highlighted', title: 'Highlighted', filter: 'highlighted == true', withEnabled: true },
   { name: 'bts', title: 'Set Photography', filter: 'cat == "bts"' },
   { name: 'corp', title: 'Corporate & Brand Photography', filter: 'cat == "corp"' },
   { name: 'events', title: 'Event & Documentary Photography', filter: 'cat == "events"' },
@@ -12,12 +12,24 @@ const CATEGORIES = [
   { name: 'art', title: 'Fine Art & Personal Projects', filter: 'cat == "art"' },
 ]
 
-function categoryField({ name, title, filter }) {
+function categoryField({ name, title, filter, withEnabled }) {
   return defineField({
     name,
     title,
     type: 'object',
     fields: [
+      ...(withEnabled
+        ? [
+            defineField({
+              name: 'enabled',
+              title: 'Enabled',
+              type: 'boolean',
+              initialValue: true,
+              description:
+                'When off, this category is hidden from the homepage carousel and the site navigation. The direct URL still works.',
+            }),
+          ]
+        : []),
       defineField({
         name: 'project',
         title: 'Project',

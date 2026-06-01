@@ -65,6 +65,13 @@ function buildCategoryShortLabels(sanityDoc) {
   return labels;
 }
 
+// Slugs visible in nav menus, homepage carousel, etc. URL routes still exist for all slugs.
+function getVisibleCategorySlugs(highlightedEnabled) {
+  return highlightedEnabled === false
+    ? ALL_CATEGORY_SLUGS.filter((s) => s !== 'highlighted')
+    : ALL_CATEGORY_SLUGS;
+}
+
 function getCategorySlug(cat) {
   return CATEGORY_MAP[cat];
 }
@@ -93,4 +100,4 @@ function buildCategoryLabels(sanityDoc) {
   return labels;
 }
 
-module.exports = { CATEGORY_MAP, SLUG_TO_CAT, CATEGORY_SLUGS, ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_SHORT_LABELS, CATEGORY_DESCRIPTIONS, RESERVED_SLUGS, getCategorySlug, getCatFromSlug, buildCategoryLabels, buildCategoryShortLabels, buildCategoryDescriptions };
+module.exports = { CATEGORY_MAP, SLUG_TO_CAT, CATEGORY_SLUGS, ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_SHORT_LABELS, CATEGORY_DESCRIPTIONS, RESERVED_SLUGS, getCategorySlug, getCatFromSlug, getVisibleCategorySlugs, buildCategoryLabels, buildCategoryShortLabels, buildCategoryDescriptions };

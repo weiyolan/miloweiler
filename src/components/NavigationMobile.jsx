@@ -5,12 +5,13 @@ import { gsap } from 'gsap/dist/gsap'
 import { Observer } from 'gsap/dist/Observer'
 import NavToggle from './NavToggle'
 import { useAppContext } from '@/utils/appContext'
-import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS } from '@/utils/categories'
+import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
 
 gsap.registerPlugin(Observer)
 
 export default function NavigationMobile() {
-  const { locale, categoryLabels } = useAppContext()
+  const { locale, categoryLabels, highlightedEnabled } = useAppContext()
+  const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled)
   const [menuOpen, setMenuOpen] = useState(false)
   const [toggleVisible, setToggleVisible] = useState(true)
   const menuRef = useRef(null)
@@ -108,7 +109,7 @@ export default function NavigationMobile() {
           </Link>
 
           {/* Subcategories — always visible, indented */}
-          {ALL_CATEGORY_SLUGS.map(slug => (
+          {visibleSlugs.map(slug => (
             <Link
               key={slug}
               ref={setItemRef(itemIndex++)}

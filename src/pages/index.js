@@ -28,6 +28,7 @@ export default function Home({ categories }) {
   const localizedCategories = categories.map((cat) => ({
     ...cat,
     label: labels[cat.slug]?.[locale] || labels[cat.slug]?.en || cat.slug,
+    description: descriptions[cat.slug]?.[locale] || descriptions[cat.slug]?.en || '',
   }));
 
   const firstImage = categories.find((c) => c.image);
@@ -151,7 +152,7 @@ export async function getStaticProps() {
     'artCount': count(*[_type == "project" && cat == "art"]),
 
     'homepageConfig': *[_type == "homepageConfig" && _id == "homepageConfig"][0]{
-      highlighted{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
+      highlighted{ enabled, project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       bts{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       corp{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       events{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
@@ -162,8 +163,10 @@ export async function getStaticProps() {
   }`);
 
   const hpConfig = data.homepageConfig || {};
+  const highlightedEnabled = hpConfig.highlighted?.enabled !== false;
 
   const categories = ALL_CATEGORY_SLUGS
+    .filter((slug) => slug !== 'highlighted' || highlightedEnabled)
     .map((slug) => {
       const queryKey = SLUG_TO_QUERY_KEY[slug];
       const latestProject = data[queryKey];

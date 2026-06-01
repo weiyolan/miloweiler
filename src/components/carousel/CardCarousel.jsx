@@ -11,7 +11,6 @@ import AsciiMarkers from './AsciiMarkers'
 
 gsap.registerPlugin(Observer)
 
-const TOTAL_REAL = 6
 const Z_DISTANCE = 150
 const yStep_DESKTOP = 60
 const yStep_MOBILE = 30
@@ -60,6 +59,7 @@ function wrap(value, total) {
 export default function CardCarousel({ categories }) {
   const { width, height } = useAppContext()
   const { startForward, carouselScrollIndex, signalCarouselReady, signalDepthReveal, depthRevealReady, phase, activeRef, completeReverse } = useTransition()
+  const TOTAL_REAL = categories.length
   const [activeIndex, setActiveIndex] = useState(0)
   const [scrollHintVisible, setScrollHintVisible] = useState(true)
   const [titleVisible, setTitleVisible] = useState(true)
@@ -342,6 +342,7 @@ export default function CardCarousel({ categories }) {
               key={`${cat.slug}-${i}`}
               ref={(el) => { cardRefs.current[i] = el }}
               label={cat.label}
+              description={cat.description}
               image={cat.image}
               alt={cat.alt}
               projectCount={cat.projectCount}

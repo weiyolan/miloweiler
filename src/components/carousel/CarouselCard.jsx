@@ -4,6 +4,7 @@ import SanityImage from '@/components/SanityImage'
 
 const CarouselCard = forwardRef(function CarouselCard({
   label,
+  description,
   image,
   alt,
   projectCount,
@@ -60,6 +61,35 @@ const CarouselCard = forwardRef(function CarouselCard({
 
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20 rounded-sm md:rounded-md transition-opacity duration-500 group-hover:opacity-80" />
+
+        {/* Description legibility scrim (desktop only) */}
+        {description && (
+          <div
+            className="hidden md:block absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-black/70 to-transparent rounded-l-sm md:rounded-l-md pointer-events-none"
+            style={{
+              opacity: showTitle ? 1 : 0,
+              transition: showTitle ? 'opacity 0.5s ease-out 0.2s' : 'opacity 0.15s ease',
+            }}
+          />
+        )}
+
+        {/* Description */}
+        {description && (
+          <div
+            className="absolute left-0 right-0 top-full mt-4 px-5 md:px-0 md:left-5 md:right-auto md:top-auto md:bottom-14 md:max-w-[45%] md:mt-0"
+            style={{
+              opacity: showTitle ? 1 : 0,
+              transform: showTitle ? 'translateY(0)' : 'translateY(12px)',
+              transition: showTitle
+                ? 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
+                : 'opacity 0.15s ease, transform 0.15s ease',
+            }}
+          >
+            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[11px] leading-snug md:text-sm md:leading-relaxed">
+              {description}
+            </p>
+          </div>
+        )}
 
         {/* Metadata */}
         <div className="absolute inset-0 p-5 flex flex-col justify-between">

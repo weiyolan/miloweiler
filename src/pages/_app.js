@@ -38,7 +38,7 @@ const spaceMono = Space_Mono({
   weight: ["400"],
 });
 
-export default function App({ Component, pageProps, categoryLabels, categoryShortLabels, categoryDescriptions, businessInfo }) {
+export default function App({ Component, pageProps, categoryLabels, categoryShortLabels, categoryDescriptions, businessInfo, highlightedEnabled }) {
   let scrolled = useRef(0);
   // const router = useRouter();
   // usePreserveScroll();
@@ -94,7 +94,7 @@ export default function App({ Component, pageProps, categoryLabels, categoryShor
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
       </Head>
       {/* ${poppins.variable} */}
-      <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} categoryShortLabels={categoryShortLabels} categoryDescriptions={categoryDescriptions} businessInfo={businessInfo} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
+      <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} categoryShortLabels={categoryShortLabels} categoryDescriptions={categoryDescriptions} businessInfo={businessInfo} highlightedEnabled={highlightedEnabled} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
         <TransitionProvider>
           <NavRenderer />
           <Component {...pageProps} />
@@ -112,9 +112,10 @@ App.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
   try {
-    const [catNames, bizInfo] = await Promise.all([
+    const [catNames, bizInfo, hpHighlighted] = await Promise.all([
       client.fetch(`*[_type == "categoryNames" && _id == "categoryNames"][0]`),
       client.fetch(`*[_type == "businessInfo" && _id == "businessInfo"][0]{email,phone,vat,address,mailtoSubject,mailtoBody,whatsappNumber,whatsappMessage,socialInstagram,socialUnsplash,socialLinkedin}`),
+      client.fetch(`*[_type == "homepageConfig" && _id == "homepageConfig"][0].highlighted.enabled`),
     ]);
     return {
       pageProps,
@@ -122,10 +123,11 @@ App.getInitialProps = async ({ Component, ctx }) => {
       categoryShortLabels: buildCategoryShortLabels(catNames),
       categoryDescriptions: buildCategoryDescriptions(catNames),
       businessInfo: bizInfo || null,
+      highlightedEnabled: hpHighlighted !== false,
     };
   } catch (e) {
     console.error("Failed to fetch app data:", e);
-    return { pageProps, categoryLabels: buildCategoryLabels(null), categoryShortLabels: buildCategoryShortLabels(null), categoryDescriptions: buildCategoryDescriptions(null), businessInfo: null };
+    return { pageProps, categoryLabels: buildCategoryLabels(null), categoryShortLabels: buildCategoryShortLabels(null), categoryDescriptions: buildCategoryDescriptions(null), businessInfo: null, highlightedEnabled: true };
   }
 };
 

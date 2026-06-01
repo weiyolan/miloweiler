@@ -9,15 +9,16 @@ import Footer2 from "@/components/Footer2";
 import { ReactLenis } from "lenis/react";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
-import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, CATEGORY_LABELS, RESERVED_SLUGS } from "@/utils/categories";
+import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, getVisibleCategorySlugs, CATEGORY_LABELS, RESERVED_SLUGS } from "@/utils/categories";
 import Link from "next/link";
 
-export default function CategoryGallery({ projects, category }) {
+export default function CategoryGallery({ projects, category, highlightedEnabled }) {
   let { width, locale } = useAppContext();
   let darkMode = true;
   let [hoveredRow, setHoveredRow] = useState(null);
 
   const label = CATEGORY_LABELS[category]?.[locale] || category;
+  const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled);
 
   return (
     <>
@@ -61,7 +62,7 @@ export default function CategoryGallery({ projects, category }) {
               </GalleryTitle>
 
               <nav className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
-                {ALL_CATEGORY_SLUGS.map((slug, i) => (
+                {visibleSlugs.map((slug, i) => (
                   <React.Fragment key={slug}>
                     {i > 0 && <span className="opacity-60 select-none">|</span>}
                     <Link
@@ -126,10 +127,15 @@ export async function getStaticProps({ params }) {
     );
   }
 
+  const hpHighlighted = await client.fetch(
+    `*[_type == "homepageConfig" && _id == "homepageConfig"][0].highlighted.enabled`
+  );
+
   return {
     props: {
       projects,
       category: params.category,
+      highlightedEnabled: hpHighlighted !== false,
     },
   };
 }
