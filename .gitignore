@@ -39,6 +39,11 @@ yarn-error.log*
 # Playwright CLI logs
 .playwright-cli/
 
+# Local scratch / test artifacts (screenshots, snapshots, crash dumps)
+*.stackdump
+/localhost*.png
+/*-snap.yaml
+
 
 # Auto Generated PWA files
 /public/sw.js
