@@ -29,6 +29,7 @@ export default function CookieNoticePage({ data }) {
         <link rel="canonical" href={canonicalUrl(locale, "/cookie-notice")} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl("en", "/cookie-notice")} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl("fr", "/cookie-notice")} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl("nl", "/cookie-notice")} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl("en", "/cookie-notice")} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>

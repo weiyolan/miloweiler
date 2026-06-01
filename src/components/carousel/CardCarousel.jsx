@@ -160,6 +160,7 @@ export default function CardCarousel({ categories }) {
       if (el) gsap.set(el, { autoAlpha: 0 })
     })
     gsap.set('[data-transition="nav"]', { autoAlpha: 0, y: -20 })
+    gsap.set('[data-transition="hero-title"]', { autoAlpha: 0, y: -20 })
     gsap.set('[data-transition="category-list"]', { autoAlpha: 0, x: -30 })
     gsap.set('[data-transition="bottom-bar"]', { autoAlpha: 0, y: 20 })
 
@@ -260,6 +261,7 @@ export default function CardCarousel({ categories }) {
     if (carouselScrollIndex != null) return // reverse transition handles this differently
     gsap.set(wrapperRef.current, { autoAlpha: 1 })
     gsap.set('[data-transition="nav"]', { autoAlpha: 0, y: -20 })
+    gsap.set('[data-transition="hero-title"]', { autoAlpha: 0, y: -20 })
     gsap.set('[data-transition="category-list"]', { autoAlpha: 0, x: -30 })
     gsap.set('[data-transition="bottom-bar"]', { autoAlpha: 0, y: 20 })
     signalDepthReveal()
@@ -315,6 +317,7 @@ export default function CardCarousel({ categories }) {
 
     // UI chrome comes alive alongside the stagger
     tl.to('[data-transition="nav"]', { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0)
+    tl.to('[data-transition="hero-title"]', { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0)
     tl.to('[data-transition="category-list"]', { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, 0)
     tl.to('[data-transition="bottom-bar"]', { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0)
 
@@ -358,6 +361,13 @@ export default function CardCarousel({ categories }) {
         </div>
       </div>
 
+      <h1
+        data-transition="hero-title"
+        className="fixed top-0 left-0 z-40 md:hidden pl-6 pt-2 font-serif font-black text-foreground leading-[0.9] tracking-tight pointer-events-none text-xl"
+      >
+        Milo Weiler
+      </h1>
+
       <CategoryList
         categories={categories.map(c => c.label)}
         activeIndex={activeIndex}
@@ -369,7 +379,8 @@ export default function CardCarousel({ categories }) {
     <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center pl-1 pr-6 sm:px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
         <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} visible={1} />
       <span className="font-mono text-xs md:text-sm text-foreground/60 whitespace-nowrap">
-        Brussels, Belgium
+        <span className="hidden sm:inline">Brussels — Antwerp — Belgium</span>
+        <span className="sm:hidden">Belgium</span>
         </span>
     </div>
       <ScrollHint visible={scrollHintVisible} />

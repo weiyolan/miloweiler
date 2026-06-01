@@ -10,6 +10,7 @@ function generateSiteMap(projects) {
         <loc>https://miloweiler.com${path}</loc>
         <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com${path}'/>
         <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr${path}'/>
+        <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl${path}'/>
         <lastmod>${now}</lastmod>
         <priority>0.80</priority>
       </url>
@@ -17,6 +18,15 @@ function generateSiteMap(projects) {
         <loc>https://miloweiler.com/fr${path}</loc>
         <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com${path}'/>
         <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr${path}'/>
+        <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl${path}'/>
+        <lastmod>${now}</lastmod>
+        <priority>0.80</priority>
+      </url>
+      <url>
+        <loc>https://miloweiler.com/nl${path}</loc>
+        <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com${path}'/>
+        <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr${path}'/>
+        <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl${path}'/>
         <lastmod>${now}</lastmod>
         <priority>0.80</priority>
       </url>`;
@@ -31,6 +41,7 @@ function generateSiteMap(projects) {
           <loc>https://miloweiler.com/</loc>
           <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com/'/>
           <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr'/>
+          <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl'/>
           <lastmod>${now}</lastmod>
           <priority>1.00</priority>
       </url>
@@ -38,6 +49,15 @@ function generateSiteMap(projects) {
          <loc>https://miloweiler.com/fr</loc>
           <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com/'/>
           <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr'/>
+          <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl'/>
+          <lastmod>${now}</lastmod>
+          <priority>0.80</priority>
+      </url>
+      <url>
+         <loc>https://miloweiler.com/nl</loc>
+          <xhtml:link rel='alternate' hreflang='en' href='https://miloweiler.com/'/>
+          <xhtml:link rel='alternate' hreflang='fr' href='https://miloweiler.com/fr'/>
+          <xhtml:link rel='alternate' hreflang='nl' href='https://miloweiler.com/nl'/>
           <lastmod>${now}</lastmod>
           <priority>0.80</priority>
       </url>

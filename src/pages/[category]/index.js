@@ -28,6 +28,7 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
         <link rel="canonical" href={canonicalUrl(locale, `/${category}`)} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}`)} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}`)} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', `/${category}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}`)} />
         <meta property="og:title" content={label} />
         <meta property="og:description" content="Specialised Set & Studio Photography" />

@@ -169,6 +169,7 @@ export default function Project({ project, slug, slugs, category }) {
         <link rel="canonical" href={canonicalUrl(locale, `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}/${slug}`)} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}/${slug}`)} />
         <meta property="og:title" content={project?.seoTitle?.[locale] || project?.title} />
         <meta property="og:type" content="website" />
@@ -227,32 +228,32 @@ export default function Project({ project, slug, slugs, category }) {
                 <nav className={`flex mt-16 md:mt-20 lg:gap-12 justify-between text-sm`}>
                   {/* =======================BACK TO GALLERY======================= */}
                   <Link
-                    title={locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
+                    title={locale === "fr" ? "Retour à la galerie" : locale === "nl" ? "Terug naar galerij" : "Back to gallery"}
                     className={`group relative flex gap-1 items-center w-fit h-fit font-mono font-normal transition-all `}
                     href={`/${category}`}>
                       <Arrow/>
                     <div>
-                      {locale === "fr" ? "Retour à la galerie" : "Back to gallery"}
+                      {locale === "fr" ? "Retour à la galerie" : locale === "nl" ? "Terug naar galerij" : "Back to gallery"}
                     </div>
                   </Link>
                   <div className={`flex font-mono font-normal gap-4 mr-auto`}>
                     {/* =======================PREVIOUS======================= */}
                     <Link
-                      title={locale === "fr" ? "Précédent projet" : "Previous project"}
+                      title={locale === "fr" ? "Précédent projet" : locale === "nl" ? "Vorig project" : "Previous project"}
                       className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
                       href={`/${category}/${prevSlug()}`}>
                       <AiFillCaretLeft className={`fill-foreground opacity-100 w-3 h-3 transition-all group-hover:-translate-x-1 group-hover:scale-105`} />
                       <div>
-                        {locale === "fr" ? "Précédent" : "Previous"}
+                        {locale === "fr" ? "Précédent" : locale === "nl" ? "Vorige" : "Previous"}
                       </div>
                     </Link>
                     {/* =======================NEXT======================= */}
                     <Link
-                      title={locale === "fr" ? "Suivant projet" : "Next project"}
+                      title={locale === "fr" ? "Suivant projet" : locale === "nl" ? "Volgend project" : "Next project"}
                       className={`hidden group transition-all md:flex items-center gap-1 w-fit h-fit`}
                       href={`/${category}/${nextSlug()}`}>
                       <div>
-                        {locale === "fr" ? "Suivant" : "Next"}
+                        {locale === "fr" ? "Suivant" : locale === "nl" ? "Volgende" : "Next"}
                       </div>
                       <AiFillCaretRight className={`fill-foreground opacity-100 w-3 h-3 transition-all group-hover:translate-x-1 group-hover:scale-105`} />
                     </Link>
@@ -265,10 +266,10 @@ export default function Project({ project, slug, slugs, category }) {
                   </h1>
                   {project?.minimalText == false && project?.by?.[0] ? (
                     <h2>
-                      <Span text={locale === "fr" ? "par " : "by "} />
+                      <Span text={locale === "fr" ? "par " : locale === "nl" ? "door " : "by "} />
                       <Link
                         className={`w-fit relative inline-flex ${project?.partnerLink ? "group" : "select-none cursor-default"}`}
-                        title={project?.partnerLink ? `${locale === "fr" ? "Visitez le site" : "Visit the website"}` : undefined}
+                        title={project?.partnerLink ? `${locale === "fr" ? "Visitez le site" : locale === "nl" ? "Bezoek de website" : "Visit the website"}` : undefined}
                         target="_blank"
                         href={project?.partnerLink ? project?.partnerLink : ""}
                         rel="noopener noreferrer"
@@ -290,16 +291,16 @@ export default function Project({ project, slug, slugs, category }) {
                 <div className="flex flex-col md:flex-row md:justify-between gap-6 md:gap-10 relative mb-16">
                   {project?.minimalText == false && (
                     <div className="relative flex flex-col gap-4 md:basis-1/3  font-serif ">
-                      {project?.date ? <Detail title={locale === "fr" ? "An" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
+                      {project?.date ? <Detail title={locale === "fr" ? "An" : locale === "nl" ? "Jaar" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
                       {project?.album ? <Detail title="Album" text={[project.album]} /> : null}
-                      {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : "Directed By"} text={project.directed} /> : null}
-                      {project?.produced ? <Detail title={locale === "fr" ? "Produit Par" : "Produced By"} text={project.produced} /> : null}
-                      {project?.designed ? <Detail title={locale === "fr" ? "Conçu Par" : "Designed By"} text={project.designed} /> : null}
-                      {project?.created ? <Detail title={locale === "fr" ? "Créé Par" : "Created By"} text={project.created} /> : null}
-                      {project?.developed ? <Detail title={locale === "fr" ? "Développé Par" : "Developed By"} text={project.developed} /> : null}
-                      {project?.commissioned ? <Detail title={locale === "fr" ? "Commandée Par" : "Commissioned By"} text={project.commissioned} /> : null}
+                      {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : locale === "nl" ? "Geregisseerd door" : "Directed By"} text={project.directed} /> : null}
+                      {project?.produced ? <Detail title={locale === "fr" ? "Produit Par" : locale === "nl" ? "Geproduceerd door" : "Produced By"} text={project.produced} /> : null}
+                      {project?.designed ? <Detail title={locale === "fr" ? "Conçu Par" : locale === "nl" ? "Ontworpen door" : "Designed By"} text={project.designed} /> : null}
+                      {project?.created ? <Detail title={locale === "fr" ? "Créé Par" : locale === "nl" ? "Gemaakt door" : "Created By"} text={project.created} /> : null}
+                      {project?.developed ? <Detail title={locale === "fr" ? "Développé Par" : locale === "nl" ? "Ontwikkeld door" : "Developed By"} text={project.developed} /> : null}
+                      {project?.commissioned ? <Detail title={locale === "fr" ? "Commandée Par" : locale === "nl" ? "In opdracht van" : "Commissioned By"} text={project.commissioned} /> : null}
                       {project?.artist ? (
-                        <Detail title={locale === "fr" ? `Artiste${project.artist.length > 1 ? "s" : ""}` : `Artist${project.artist.length > 1 ? "s" : ""}`} text={project.artist} />
+                        <Detail title={locale === "fr" ? `Artiste${project.artist.length > 1 ? "s" : ""}` : locale === "nl" ? `Artiest${project.artist.length > 1 ? "en" : ""}` : `Artist${project.artist.length > 1 ? "s" : ""}`} text={project.artist} />
                       ) : null}
                     </div>
                   )}
@@ -416,10 +417,10 @@ function Detail({ title, text }) {
   if (text.length === 1) {
     string = text[0];
   } else if (text.length === 2) {
-    string = text[0] + (locale === "fr" ? " et " : " and ") + text[1];
+    string = text[0] + (locale === "fr" ? " et " : locale === "nl" ? " en " : " and ") + text[1];
   } else {
     let firsts = text.slice(0, -1);
-    string = firsts.join(", ") + (locale === "fr" ? " et " : " and ") + text.slice(-1);
+    string = firsts.join(", ") + (locale === "fr" ? " et " : locale === "nl" ? " en " : " and ") + text.slice(-1);
   }
 
   return (

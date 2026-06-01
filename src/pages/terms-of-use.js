@@ -29,6 +29,7 @@ export default function TermsOfUsePage({ data }) {
         <link rel="canonical" href={canonicalUrl(locale, "/terms-of-use")} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl("en", "/terms-of-use")} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl("fr", "/terms-of-use")} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl("nl", "/terms-of-use")} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl("en", "/terms-of-use")} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>

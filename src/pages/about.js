@@ -1614,6 +1614,7 @@ export default function Home({ projects, sectionInfo, introImages }) {
         <link rel="canonical" href={canonicalUrl(locale, '/about')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/about')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/about')} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/about')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/about')} />
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
         <meta property="og:type" content="website" />

@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap/dist/gsap'
 import { Observer } from 'gsap/dist/Observer'
 import NavToggle from './NavToggle'
+import LangSwitch from './LangSwitch'
 import { useAppContext } from '@/utils/appContext'
 import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
 
@@ -126,7 +127,7 @@ export default function NavigationMobile() {
             href="/about"
             className={`text-xl font-normal opacity-0 invisible text-foreground ${pathname === '/about' ? 'underline underline-offset-4' : ''}`}
           >
-            {locale === 'fr' ? 'À Propos' : 'About Me'}
+            {locale === 'fr' ? 'À Propos' : locale === 'nl' ? 'Over Mij' : 'About Me'}
           </Link>
 
           {/* Contact */}
@@ -137,6 +138,11 @@ export default function NavigationMobile() {
           >
             Contact
           </Link>
+
+          {/* Language switcher */}
+          <div ref={setItemRef(itemIndex++)} className="opacity-0 invisible mt-2">
+            <LangSwitch className="text-base text-foreground gap-3" />
+          </div>
         </div>
       </div>
     </div>

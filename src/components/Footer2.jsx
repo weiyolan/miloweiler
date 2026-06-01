@@ -8,9 +8,9 @@ import SubTitle from "./SubTitle";
 import Layout from "./Layout";
 
 const financialInfo = {
-  en: '2026 MiloWeiler, Inc. All rights reserved.',
-  fr: '2026 MiloWeiler, Inc. Tous droits r\u00e9serv\u00e9s.',
-  nl: '2026 MiloWeiler, Inc. Alle rechten voorbehouden.',
+  en: '2026 \u00a9 MiloWeiler, Inc. All rights reserved.',
+  fr: '2026 \u00a9 MiloWeiler, Inc. Tous droits r\u00e9serv\u00e9s.',
+  nl: '2026 \u00a9 MiloWeiler, Inc. Alle rechten voorbehouden.',
 };
 
 const legalLinks = {

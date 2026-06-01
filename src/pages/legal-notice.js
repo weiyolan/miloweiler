@@ -29,6 +29,7 @@ export default function LegalNoticePage({ data }) {
         <link rel="canonical" href={canonicalUrl(locale, "/legal-notice")} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl("en", "/legal-notice")} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl("fr", "/legal-notice")} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl("nl", "/legal-notice")} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl("en", "/legal-notice")} />
       </Head>
       <ReactLenis root options={{ wheelMultiplier: 0.9 }}>

@@ -25,7 +25,7 @@ const nextConfig = withPWA({
   },
 
   i18n: {
-    locales: ["en", "fr"],
+    locales: ["en", "fr", "nl"],
     defaultLocale: "en",
   },
 

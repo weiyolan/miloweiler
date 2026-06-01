@@ -6,6 +6,7 @@ import Line from './Line'
 import { Observer } from 'gsap/dist/Observer'
 import { useAppContext } from '@/utils/appContext'
 import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
+import LangSwitch from './LangSwitch'
 
 gsap.registerPlugin(Observer)
 
@@ -51,20 +52,31 @@ export default function Navigation() {
   }, [hiding])
 
   return (
-    <nav ref={navRef} data-transition="nav" className={`fixed w-full font-sans top-0 z-50 flex justify-center ${forceDark ? 'force-dark' : ''}`}>
-      <div className="inline-flex relative items-center gap-10 mx-8 mt-2 px-4 py-2">
-        <div className="relative group">
-          <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio locale={locale} />
-          <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <div className="bg-background/90 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
-              {visibleSlugs.map(slug => (
-                <DropdownItem key={slug} text={categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug} to={`/${slug}`} />
-              ))}
+    <nav ref={navRef} data-transition="nav" className={`fixed w-full font-sans top-0 z-50 pointer-events-none ${forceDark ? 'force-dark' : ''}`}>
+      <div className="relative flex items-center justify-between mx-8 mt-2 px-4 py-2">
+        {/* Wordmark */}
+        <Link href="/" className="pointer-events-auto font-serif font-black text-foreground text-xl md:text-2xl leading-none tracking-tight">
+          Milo Weiler
+        </Link>
+
+        {/* Center links */}
+        <div className="absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-10 pointer-events-auto">
+          <div className="relative group">
+            <NavButton text={locale === 'fr' ? 'Accueil' : 'Home'} to="/" isPortfolio locale={locale} />
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="bg-background/50 backdrop-blur-sm rounded-lg py-3 px-5 flex flex-col gap-1 min-w-[200px] shadow-xl">
+                {visibleSlugs.map(slug => (
+                  <DropdownItem key={slug} text={categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug} to={`/${slug}`} />
+                ))}
+              </div>
             </div>
           </div>
+          <NavButton text={locale === 'fr' ? 'À Propos' : locale === 'nl' ? 'Over Mij' : 'About Me'} to="/about" locale={locale} />
+          <NavButton text="Contact" to="/contact" locale={locale} />
         </div>
-        <NavButton text={locale === 'fr' ? 'À Propos' : 'About Me'} to="/about" locale={locale} />
-        <NavButton text="Contact" to="/contact" locale={locale} />
+
+        {/* Language */}
+        <LangSwitch className="pointer-events-auto text-xs md:text-sm" />
       </div>
     </nav>
   )

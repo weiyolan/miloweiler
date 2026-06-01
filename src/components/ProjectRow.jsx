@@ -41,7 +41,7 @@ export default function ProjectRow({ project, index, categorySlug, onMouseEnter,
   const isEven = index % 2 === 0
   const year = project.date?.slice(0, 4)
   const credits = formatCredits(project.by)
-  const prefix = locale === 'fr' ? 'par' : 'by'
+  const prefix = locale === 'fr' ? 'par' : locale === 'nl' ? 'door' : 'by'
 
   return (
     <div

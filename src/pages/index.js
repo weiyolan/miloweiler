@@ -41,6 +41,7 @@ export default function Home({ categories }) {
         <link rel="canonical" href={canonicalUrl(locale, '/')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/')} />
+        <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/')} />
         <meta property="og:title" content={"Witness The Beauty Of Life"} />
         <meta property="og:description" content="Specialised Set & Studio Photography" />
