@@ -12,14 +12,14 @@ const FADE_POW = 1.6 // opacity falloff sharpness
 
 // Desktop rail placement
 const D_FOCAL_VH = 35 // focal line as % of viewport height (was centered at 50)
-const RAIL_GAP = 24 // px gap between the rail's right edge and the card's left edge (rail sits fully left of the card)
+const RAIL_GAP = 30 // px gap between the rail's right edge and the card's left edge (rail sits fully left of the card)
 
 // Desktop (vertical) tunables
 const D = { STEP: 35, VIEW_W: 'min(70vw, 440px)', VIEW_H: 260 }
 // Mobile (horizontal) tunables
-export const M = { STEP: 92, SLOT_W: 'min(25vw, 280px)', VIEW_H: 88, GAP_BELOW: 20 }
+export const M = { STEP: 80, SLOT_W: 'min(25vw, 280px)', VIEW_H: 20, GAP_BELOW: 30 }
 // Mobile-only: shift the card + strip up by this much (vh) to open room for the description below the strip
-export const MOBILE_CARD_UP_SHIFT_VH = 7
+export const MOBILE_CARD_UP_SHIFT_VH = 15
 
 const MASK_V = 'linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%)'
 const MASK_H = 'linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%)'

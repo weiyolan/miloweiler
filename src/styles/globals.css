@@ -153,6 +153,11 @@ html.dark {
   --color-muted: var(--color-muted-dark);
 }
 
+/* Hide the navbar while a project carousel lightbox is open */
+html.carousel-open [data-transition="nav"] {
+  display: none;
+}
+
 html {
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: none;

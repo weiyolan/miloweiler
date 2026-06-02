@@ -13,11 +13,11 @@ import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, getVisibleCategory
 import Link from "next/link";
 
 export default function CategoryGallery({ projects, category, highlightedEnabled }) {
-  let { width, locale } = useAppContext();
+  let { width, locale, categoryLabels, categoryShortLabels } = useAppContext();
   let darkMode = true;
   let [hoveredRow, setHoveredRow] = useState(null);
 
-  const label = CATEGORY_LABELS[category]?.[locale] || category;
+  const label = categoryLabels?.[category]?.[locale] || CATEGORY_LABELS[category]?.[locale] || category;
   const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled);
 
   return (
@@ -70,7 +70,8 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
                       href={`/${slug}`}
                       className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
                     >
-                      {CATEGORY_LABELS[slug]?.[locale] || slug}
+                      <span className="sm:hidden">{categoryShortLabels?.[slug]?.[locale] || slug}</span>
+                      <span className="hidden sm:inline">{categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug}</span>
                     </Link>
                   </React.Fragment>
                 ))}

@@ -409,7 +409,7 @@ export default function PageIndicator({ className, style }) {
   return (
     <div style={style} className={`${className && className}`}>
 
-      <svg className='screenIndicatorInner w-14 md:w-14' width="71" height="280" viewBox="0 0 71 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className='screenIndicatorInner w-14 h-auto md:w-20' viewBox="0 0 71 280" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path className='screenIndicatorItem translate-x-[200%] opacity-0' id="upLine" d="M55 132H15" stroke="currentColor" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
         <path className='screenIndicatorItem translate-x-[200%] opacity-0' id="downLine" d="M55 157H15" stroke="currentColor" strokeWidth="1.12632" strokeLinecap="round" strokeLinejoin="round" />
 

@@ -21,7 +21,7 @@ export default function AsciiMarkers({ activeIndex, total, visible }) {
             transition: 'opacity 0.2s ease-out'
           }}
         >
-          {String(activeIndex + 1).padStart(2, '0')}|{String(total).padStart(2, '0')}
+          {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
     </div>

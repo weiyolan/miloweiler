@@ -77,7 +77,7 @@ const CarouselCard = forwardRef(function CarouselCard({
         {/* Description */}
         {description && (
           <div
-            className="absolute left-0 right-0 px-5 md:px-0 md:left-10 md:right-auto md:top-auto md:bottom-[20%] md:max-w-[35%] md:mt-0 md:mb-0"
+            className="absolute left-0 right-0 px-0 min-[400px]:px-5 lg:px-0 lg:left-10 lg:right-auto lg:top-auto lg:bottom-[20%] lg:max-w-[45%] 2xl:max-w-[35%] lg:mt-0 lg:mb-0"
             style={{
               top: mobileDescriptionTop != null ? `${mobileDescriptionTop}px` : undefined,
               opacity: showTitle ? 1 : 0,
@@ -87,7 +87,7 @@ const CarouselCard = forwardRef(function CarouselCard({
                 : 'opacity 0.15s ease, transform 0.15s ease',
             }}
           >
-            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[13px] leading-snug md:text-sm md:leading-relaxed">
+            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[13px] leading-snug lg:text-sm lg:leading-relaxed">
               {description}
             </p>
           </div>

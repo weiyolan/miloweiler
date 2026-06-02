@@ -13,7 +13,7 @@ gsap.registerPlugin(Observer)
 const Z_DISTANCE = 150 //150
 const LERP_FACTOR = 0.07
 const PERSPECTIVE = 1200
-const WHEEL_BREAKPOINT = 768
+const WHEEL_BREAKPOINT = 1024
 // Card vertical stagger scales with card height (less on small phones, more on big screens)
 const STAGGER_FRACTION = 0.09
 const STAGGER_MIN = 12
@@ -117,7 +117,7 @@ export default function CardCarousel({ categories }) {
   const cardUpShiftPx = isMobileWheel && height ? Math.round((height * MOBILE_CARD_UP_SHIFT_VH) / 100) : 0
   // Description sits below the strip. In the card's local coords this is shift-independent (the card box carries the
   // shift): cardHeight (card bottom) + GAP_BELOW (to strip top) + VIEW_H (strip) + GAP_BELOW (to description).
-  const mobileDescriptionTop = isMobileWheel ? cardHeight + 2 * STRIP_M.GAP_BELOW + STRIP_M.VIEW_H : null
+  const mobileDescriptionTop = isMobileWheel ? cardHeight + 2 * STRIP_M.GAP_BELOW*1.4 + STRIP_M.VIEW_H : null
 
   // Category labels: short on the mobile strip, and on desktop until the left gutter can fit the
   // longest full label — so full labels never clip (no fade needed). FR labels are longer, so the
@@ -128,7 +128,11 @@ export default function CardCarousel({ categories }) {
   )
   const useShortLabels = isMobileWheel || cardLeft - RAIL_GAP < longestFullPx
   const wheelLabels = useMemo(
-    () => categories.map((c) => (useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label)),
+    () => categories.map((c, i) => {
+      const base = useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label
+      // Append (after the name, since the rail is right-aligned) a zero-padded index ("01.", "02.") + an extra (en-space) gap;   doesn't collapse like ASCII spaces
+      return `${base} | ${String(i + 1).padStart(2, '0')}` //\u2002
+    }),
     [categories, useShortLabels, categoryShortLabels, locale]
   )
 

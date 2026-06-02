@@ -93,7 +93,7 @@ export default function ProjectPictures({ images, handleVisibility, visibleItem 
 
   return (
     // <ReactLenis root options={{}}> overscroll-x-contain lg:overscroll-y-contain
-    <div ref={container} className={`min-h-fit shrink-0 flex relative project-pictures no-scrollbar select-none w-full h-fit overflow-x-scroll `}>
+    <div ref={container} data-lenis-prevent className={`min-h-fit shrink-0 flex relative project-pictures no-scrollbar select-none w-full h-fit overflow-x-scroll touch-pan-x `}>
       {/* <div ref={container} className='relative project-pictures no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit overflow-hidden overflow-x-scroll lg:overflow-x-hidden lg:overflow-y-scroll'> */}
       <div ref={grid} className='project-grid relative ignore-swipe w-fit h-fit grid opacity-1 grid-rows-1  grid-flow-col mx-auto  gap-1 p-1 overflow-visible '>
         {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 1024} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}

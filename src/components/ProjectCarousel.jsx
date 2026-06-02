@@ -38,6 +38,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [open, prevVisibility, nextVisibility])
 
+  // Hide the site navbar while the carousel is open (covers mobile + desktop nav)
+  useEffect(() => {
+    const el = document.documentElement
+    if (open) el.classList.add('carousel-open')
+    else el.classList.remove('carousel-open')
+    return () => { el.classList.remove('carousel-open') }
+  }, [open])
+
   useEffect(() => {
     // console.log(descriptionPosition)
     // console.log(indicatorPosition)
