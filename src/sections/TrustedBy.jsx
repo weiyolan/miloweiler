@@ -2,6 +2,7 @@ import AccentTitle from '@/components/AccentTitle';
 import LayoutSection from '@/components/LayoutSection';
 import Line from '@/components/Line';
 import SubTitle from '@/components/SubTitle';
+import FadeDiv from '@/components/FadeDiv';
 import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import { gsap } from 'gsap/dist/gsap';
@@ -13,11 +14,6 @@ import { useAppContext } from '@/utils/appContext';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 gsap.registerPlugin(ScrollTrigger);
-
-// How many times each set of logos is repeated to fill the marquee track so the
-// seamless loop never shows a gap. Safe for any logo count >= 2.
-const REPEAT_ARTISTS = 4
-const REPEAT_COMPANIES = 3
 
 export default function TrustedBy({ trustedBy }) {
 
@@ -58,31 +54,38 @@ export default function TrustedBy({ trustedBy }) {
 
       if (reducedMotion) return // native swipeable strips; no auto-loop
 
-      // ---- Build one seamless loop per row. Per-row magnitude lives in `speed`;
-      //      timeScale carries ONLY direction (sign) + the scroll-velocity boost.
+      // ---- Build one seamless loop per row, paused; visibility gates play/pause below.
+      //      Direction lives in the SIGN of timeScale (negative = the helper's onReverseComplete
+      //      keeps the reverse seam seamless; repeat:-1 keeps the forward seam). Magnitude = speed.
       const gapPx = (ref, fallback) => parseFloat(getComputedStyle(ref.current).columnGap) || fallback
-      // forward play = items move LEFT (artists). companies drift RIGHT, so build them
-      // `reversed` — the helper primes onReverseComplete first, avoiding the parked-at-0
-      // edge case you hit when setting a negative timeScale on a fresh loop.
-      const artistLoop = horizontalLoop(self.selector('.logo-artist'), { speed: 0.4, repeat: -1, paddingRight: gapPx(artistStrip, 64) })
-      const companyLoop = horizontalLoop(self.selector('.logo-company'), { speed: 0.7, repeat: -1, reversed: true, paddingRight: gapPx(companyStrip, 48) })
+      const artistLoop = horizontalLoop(self.selector('.logo-artist'), { speed: 0.4, repeat: -1, paused: true, paddingRight: gapPx(artistStrip, 64) })
+      const companyLoop = horizontalLoop(self.selector('.logo-company'), { speed: 0.7, repeat: -1, paused: true, paddingRight: gapPx(companyStrip, 48) })
+      // companies drift RIGHT (negative timeScale). Prime the playhead 100 loops in so the first
+      // reverse frame has runway and never parks at the 0 seam on scroll-up.
+      companyLoop.totalTime(companyLoop.duration() * 100)
 
-      // artists drift LEFT (+1), companies RIGHT (-1) on scroll-down.
+      // artists drift LEFT (+1), companies RIGHT (-1) on scroll-down; scroll-up flips the sign.
       const rows = {
         artist: { loop: artistLoop, baseDir: 1, hovered: false },
         company: { loop: companyLoop, baseDir: -1, hovered: false },
       }
       let scrollDir = 1
       const settle = (k) => { if (!rows[k].hovered) gsap.to(rows[k].loop, { timeScale: scrollDir * rows[k].baseDir, duration: 0.6, overwrite: true }) }
-      Object.keys(rows).forEach((k) => rows[k].loop.timeScale(rows[k].baseDir)) // start at slow base drift
+      Object.keys(rows).forEach((k) => rows[k].loop.timeScale(rows[k].baseDir)) // signed base drift
 
-      // ---- Scroll scrub: velocity ramps timeScale up, direction flips the loops, idle eases back to base.
+      // ---- Scroll scrub: velocity ramps speed up, scroll-up flips direction, idle eases back to base.
+      //      onToggle pauses both loops while the section is off-screen (no off-screen transform churn).
       let idle
       ScrollTrigger.create({
         trigger: trusted.current,
         start: 'top bottom',
         end: 'bottom top',
         invalidateOnRefresh: true,
+        onToggle: (st) => {
+          // resume() (not play()) keeps each loop's signed direction; play() would force forward.
+          if (st.isActive) { artistLoop.resume(); companyLoop.resume() }
+          else { artistLoop.pause(); companyLoop.pause(); idle?.kill() }
+        },
         onUpdate: (st) => {
           scrollDir = st.direction
           const add = Math.min(Math.abs(st.getVelocity()) * 0.0009, 6)
@@ -116,9 +119,17 @@ export default function TrustedBy({ trustedBy }) {
     )
   }
 
-  // In reduced-motion mode we render a single set the user can swipe through.
-  let artistRepeat = reducedMotion ? 1 : REPEAT_ARTISTS
-  let companyRepeat = reducedMotion ? 1 : REPEAT_COMPANIES
+  // Reduced motion: one swipeable set. Otherwise repeat enough to fill the full-bleed track
+  // (>=2x viewport at 2560px) so the seamless loop never shows a gap, even with few logos.
+  const repeatFor = (len, min) => reducedMotion ? 1 : Math.max(min, Math.ceil(28 / (len || 1)))
+  let artistRepeat = repeatFor(trustedBy.artists?.length, 6)
+  let companyRepeat = repeatFor(trustedBy.companies?.length, 5)
+
+  // Animated rows go full-bleed under a left/right fade mask; reduced-motion rows stay a plain
+  // swipeable scroller (a mask would hide the scroll affordance).
+  const TrackTag = reducedMotion ? 'div' : FadeDiv
+  const trackBleed = reducedMotion ? 'w-full overflow-x-auto' : 'relative left-1/2 -translate-x-1/2 w-screen overflow-x-hidden'
+  const fadeProps = reducedMotion ? {} : { type: 'leftRight', amount: width < 648 ? 6 : 10 }
 
   return (
     <LayoutSection center>
@@ -126,18 +137,18 @@ export default function TrustedBy({ trustedBy }) {
         <SubTitle className='max-w-[70%] mx-auto opacity-1 title' mainTitle={trustedBy.title?.[locale] || 'Trusted By'} subTitle={''} />
         <AccentTitle noMargin className={'artist-title opacity-0'} text={trustedBy.artistsLabel?.[locale] || 'Artists'} />
         <Line style={{}} className={`opacity-100 w-0 mx-auto mb-2 artist-line border-foreground`} />
-        <div ref={artistTrack} className={`artist-track w-full opacity-0 ${reducedMotion ? 'overflow-x-auto' : 'overflow-x-hidden'}`}>
+        <TrackTag ref={artistTrack} {...fadeProps} className={`artist-track opacity-0 ${trackBleed}`}>
           <div ref={artistStrip} className='flex flex-nowrap w-max mx-auto items-center gap-16 sm:gap-20 lg:gap-24'>
             {renderRow(trustedBy.artists, 'artist', artistRepeat)}
           </div>
-        </div>
+        </TrackTag>
         <AccentTitle noMargin className={'mt-4 company-title opacity-0'} text={trustedBy.companiesLabel?.[locale] || 'Companies'} />
         <Line style={{}} className={`opacity-100 w-0 mx-auto mb-2 company-line border-foreground`} />
-        <div ref={companyTrack} className={`company-track w-full opacity-0 ${reducedMotion ? 'overflow-x-auto' : 'overflow-x-hidden'}`}>
+        <TrackTag ref={companyTrack} {...fadeProps} className={`company-track opacity-0 ${trackBleed}`}>
           <div ref={companyStrip} className='flex flex-nowrap w-max mx-auto items-center gap-10 sm:gap-12 lg:gap-16'>
             {renderRow(trustedBy.companies, 'company', companyRepeat)}
           </div>
-        </div>
+        </TrackTag>
       </div>
     </LayoutSection>
   )
@@ -146,33 +157,14 @@ export default function TrustedBy({ trustedBy }) {
 function Logo({ type, logo, link, ariaHidden }) {
   let { src, width, height, loader } = useNextSanityImage(client, logo.image.asset);
   let ar = (width / height)
-  // console.log(ar)
-  let [hovering, setHovering] = useState(false);
-  let [clicking, setClicking] = useState(false);
-  let [active, setActive] = useState(false);
   const myRef = useRef();
-  let ctx = useRef(gsap.context(() => { }))
-  useEffect(() => {
 
-    return () => ctx.current.revert()
-
+  // overwrite:'auto' touches only the scale tween; overwrite:true would kill the loop's
+  // xPercent tween that runs on this same <Link>.
+  const scaleTo = (v) => gsap.to(myRef.current, {
+    scale: v, duration: 0.5, transformOrigin: '50% 50%', ease: 'elastic.out(1, 0.5)', overwrite: 'auto',
   })
-
-
-  useEffect(() => {
-    myRef?.current !== undefined &&
-      ctx.current.add(() => {
-        gsap.to(myRef.current, {
-          duration: 0.5,
-          scale: hovering ? (clicking ? 0.95 : 1.05) : 1,
-          transformOrigin: '50% 50%',
-          ease: 'elastic.out(1, 0.5)',
-          // ease: 'expo.out',
-        });
-      });
-  }, [hovering, clicking, active]);
-
-
+  useEffect(() => () => gsap.killTweensOf(myRef.current), [])
 
   function getImage() {
     let displayWidth = ar > 2.5 ? 120 : ar > 1 ? 100 : 80;
@@ -204,15 +196,12 @@ function Logo({ type, logo, link, ariaHidden }) {
       aria-hidden={ariaHidden}
       tabIndex={ariaHidden ? -1 : 0}
       onClick={(e) => link === undefined && e.preventDefault()}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => {
-        setHovering(false);
-        setClicking(false);
-      }}
-      onMouseDown={() => setClicking(true)}
-      onMouseUp={() => setClicking(false)}
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
+      onMouseEnter={() => scaleTo(1.05)}
+      onMouseLeave={() => scaleTo(1)}
+      onMouseDown={() => scaleTo(0.95)}
+      onMouseUp={() => scaleTo(1.05)}
+      onFocus={() => scaleTo(1.05)}
+      onBlur={() => scaleTo(1)}
     >
       {getImage()}
     </Link>)
