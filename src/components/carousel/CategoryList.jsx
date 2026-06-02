@@ -17,7 +17,7 @@ const RAIL_GAP = 30 // px gap between the rail's right edge and the card's left 
 // Desktop (vertical) tunables
 const D = { STEP: 35, VIEW_W: 'min(70vw, 440px)', VIEW_H: 260 }
 // Mobile (horizontal) tunables
-export const M = { STEP: 80, SLOT_W: 'min(25vw, 280px)', VIEW_H: 20, GAP_BELOW: 30 }
+export const M = { STEP: 90, SLOT_W: 'min(25vw, 280px)', VIEW_H: 20, GAP_BELOW: 30 }
 // Mobile-only: shift the card + strip up by this much (vh) to open room for the description below the strip
 export const MOBILE_CARD_UP_SHIFT_VH = 15
 

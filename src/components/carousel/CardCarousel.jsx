@@ -131,9 +131,9 @@ export default function CardCarousel({ categories }) {
     () => categories.map((c, i) => {
       const base = useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label
       // Append (after the name, since the rail is right-aligned) a zero-padded index ("01.", "02.") + an extra (en-space) gap;   doesn't collapse like ASCII spaces
-      return `${base} | ${String(i + 1).padStart(2, '0')}` //\u2002
+      return width > 1180 ? `${base} | ${String(i + 1).padStart(2, '0')}` : base //\u2002
     }),
-    [categories, useShortLabels, categoryShortLabels, locale]
+    [categories, useShortLabels, categoryShortLabels, locale, width]
   )
 
   // Shared scroll-by-delta logic
