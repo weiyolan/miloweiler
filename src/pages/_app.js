@@ -17,8 +17,9 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { Observer } from "gsap/dist/Observer";
+import { SplitText } from "gsap/dist/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer, SplitText);
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

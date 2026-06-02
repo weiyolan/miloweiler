@@ -117,7 +117,10 @@ export default function CardCarousel({ categories }) {
   const cardUpShiftPx = isMobileWheel && height ? Math.round((height * MOBILE_CARD_UP_SHIFT_VH) / 100) : 0
   // Description sits below the strip. In the card's local coords this is shift-independent (the card box carries the
   // shift): cardHeight (card bottom) + GAP_BELOW (to strip top) + VIEW_H (strip) + GAP_BELOW (to description).
-  const mobileDescriptionTop = isMobileWheel ? cardHeight + 2 * STRIP_M.GAP_BELOW*1.4 + STRIP_M.VIEW_H : null
+  // Gap below the strip scales up a touch on larger phones (≤400 → 1.2, >400 → 1.6).
+  // Only live for 400<width<768, since mobileDescriptionTop is null on desktop.
+  const gapMul = width > 400 ? 1.6 : 1.2
+  const mobileDescriptionTop = isMobileWheel ? cardHeight + 2 * STRIP_M.GAP_BELOW * gapMul + STRIP_M.VIEW_H : null
 
   // Category labels: short on the mobile strip, and on desktop until the left gutter can fit the
   // longest full label — so full labels never clip (no fade needed). FR labels are longer, so the
@@ -227,8 +230,11 @@ export default function CardCarousel({ categories }) {
       target: window,
       type: 'touch',
       preventDefault: true,
+      lockAxis: true, // lock to the gesture's dominant axis so a diagonal swipe fires once
       onUp: () => scrollBy(1),
       onDown: () => scrollBy(-1),
+      onLeft: () => scrollBy(1),
+      onRight: () => scrollBy(-1),
       tolerance: 50,
     })
     return () => {

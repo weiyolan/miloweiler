@@ -1,5 +1,7 @@
-import React, { forwardRef, useRef, useCallback } from 'react'
+import React, { forwardRef, useRef, useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { gsap } from 'gsap/dist/gsap'
+import { SplitText } from 'gsap/dist/SplitText'
 import SanityImage from '@/components/SanityImage'
 
 const CarouselCard = forwardRef(function CarouselCard({
@@ -25,6 +27,90 @@ const CarouselCard = forwardRef(function CarouselCard({
   }, [ref])
 
   const showTitle = isFront && titleVisible
+
+  // ---- Line-by-line description reveal (front card) ----
+  const pRef = useRef(null)
+  const barRef = useRef(null)
+  const descWrapRef = useRef(null)
+  const tlRef = useRef(null)
+  const showTitleRef = useRef(showTitle)
+  const [reduced] = useState(
+    () => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+
+  // Hold the description back until the title's word-reveal is nearly done: start ~0.15s before it finishes.
+  // Mirrors the title's per-word CSS timing (delay 0.1 + wi*0.1, duration 0.5s) across label.split(' ').
+  const titleWords = label ? label.split(' ').length : 1
+  const descStart = Math.max(0, 0.6 + 0.1 * Math.max(0, titleWords - 1) - 0.3)
+
+  // Hide the description until SplitText has built the lines (the line + bar tweens drive visibility after).
+  useLayoutEffect(() => {
+    if (reduced || !description) return
+    if (pRef.current) gsap.set(pRef.current, { autoAlpha: 0 })
+    if (barRef.current) gsap.set(barRef.current, { scaleY: 0, transformOrigin: 'top' })
+  }, [reduced, description])
+
+  // Split the description into lines and build a paused, staggered rise + accent-bar draw.
+  useEffect(() => {
+    if (reduced || !description) return
+    const p = pRef.current
+    if (!p) return
+    let ctx
+    let cancelled = false
+    const applyReveal = () => {
+      const tl = tlRef.current
+      if (!tl) return
+      showTitleRef.current ? tl.play(0) : tl.pause(0)
+    }
+    document.fonts.ready.then(() => {
+      if (cancelled || !pRef.current) return
+      ctx = gsap.context(() => {
+        SplitText.create(p, {
+          type: 'lines',
+          autoSplit: true,
+          linesClass: 'cc-desc-line',
+          onSplit(self) {
+            // Subtle reveal: lines softly fade up a touch; the left accent bar draws top→bottom alongside.
+            if (tlRef.current) tlRef.current.kill() // drop the prior tl on autoSplit rebuild
+            const lines = self.lines
+            const LINES_START = 0.06
+            const LINE_DUR = 0.7
+            const STAGGER = 0.09
+            // Match the bar draw to when the last line settles, so they finish together.
+            const barDur = LINES_START + LINE_DUR + STAGGER * Math.max(0, lines.length - 1)
+            const tl = gsap.timeline({ paused: true })
+            tl.to(barRef.current, { scaleY: 1, duration: barDur, ease: 'ease.out' }, descStart)
+              .from(lines, {
+                yPercent: 50,
+                autoAlpha: 0,
+                stagger: STAGGER,
+                duration: LINE_DUR,
+                ease: 'power2.out',
+              }, descStart + LINES_START)
+            tlRef.current = tl
+            gsap.set(p, { autoAlpha: 1 }) // container visible; lines + bar animate from hidden
+            applyReveal()
+            return tl // autoSplit reverts this tl + rebuilds on resize / font-swap
+          },
+        })
+      }, descWrapRef)
+    })
+    return () => {
+      cancelled = true
+      if (tlRef.current) tlRef.current.kill()
+      tlRef.current = null
+      ctx && ctx.revert()
+    }
+  }, [reduced, description, descStart])
+
+  // Play / reset the reveal as this card enters or leaves the front position.
+  useEffect(() => {
+    showTitleRef.current = showTitle
+    if (reduced) return
+    const tl = tlRef.current
+    if (!tl) return
+    showTitle ? tl.play(0) : tl.pause(0)
+  }, [showTitle, reduced])
 
   function handleClick(e) {
     e.preventDefault()
@@ -69,27 +155,40 @@ const CarouselCard = forwardRef(function CarouselCard({
             className="hidden md:block absolute inset-y-0 left-0 w-3/5 bg-gradient-to-r from-black/70 to-transparent rounded-l-sm md:rounded-l-md pointer-events-none"
             style={{
               opacity: showTitle ? 1 : 0,
-              transition: showTitle ? 'opacity 0.5s ease-out 0.2s' : 'opacity 0.15s ease',
+              transition: showTitle ? `opacity 0.5s ease-out ${descStart}s` : 'opacity 0.15s ease',
             }}
           />
         )}
 
-        {/* Description */}
+        {/* Description — front card reveals it line by line */}
         {description && (
           <div
+            ref={descWrapRef}
             className="absolute left-0 right-0 px-0 min-[400px]:px-5 lg:px-0 lg:left-10 lg:right-auto lg:top-auto lg:bottom-[20%] lg:max-w-[45%] 2xl:max-w-[35%] lg:mt-0 lg:mb-0"
-            style={{
-              top: mobileDescriptionTop != null ? `${mobileDescriptionTop}px` : undefined,
-              opacity: showTitle ? 1 : 0,
-              transform: showTitle ? 'translateY(0)' : 'translateY(12px)',
-              transition: showTitle
-                ? 'opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s'
-                : 'opacity 0.15s ease, transform 0.15s ease',
-            }}
+            style={{ top: mobileDescriptionTop != null ? `${mobileDescriptionTop}px` : undefined }}
           >
-            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[13px] leading-snug lg:text-sm lg:leading-relaxed">
-              {description}
-            </p>
+            <div className="relative pl-3">
+              {/* Left accent bar — draws top→bottom in sync with the line reveal */}
+              <span
+                ref={barRef}
+                aria-hidden="true"
+                className="pointer-events-none absolute left-0 top-0 bottom-0 w-[2px] bg-foreground/40 origin-top"
+              />
+              <p
+                ref={pRef}
+                className="font-sans text-foreground/75 text-[13px] leading-snug lg:text-sm lg:leading-relaxed"
+                style={
+                  reduced
+                    ? {
+                        opacity: showTitle ? 1 : 0,
+                        transition: showTitle ? `opacity 0.5s ease-out ${descStart}s` : 'opacity 0.15s ease',
+                      }
+                    : undefined
+                }
+              >
+                {description}
+              </p>
+            </div>
           </div>
         )}
 
