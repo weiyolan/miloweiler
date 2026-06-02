@@ -18,6 +18,7 @@ export default function NavigationMobile() {
   const menuRef = useRef(null)
   const itemsRef = useRef([])
   const toggleRef = useRef(null)
+  const wordmarkRef = useRef(null)
   const scrollTimerRef = useRef(null)
   const router = useRouter()
 
@@ -63,6 +64,16 @@ export default function NavigationMobile() {
     })
   }, [toggleVisible, menuOpen])
 
+  // Animate wordmark visibility — in sync with hamburger; hidden while menu open
+  useEffect(() => {
+    if (!wordmarkRef.current) return
+    gsap.to(wordmarkRef.current, {
+      autoAlpha: (!menuOpen && toggleVisible) ? 1 : 0,
+      duration: 0.2,
+      ease: 'power2.out',
+    })
+  }, [toggleVisible, menuOpen])
+
   // Menu open/close animation
   useEffect(() => {
     if (!menuRef.current) return
@@ -88,7 +99,18 @@ export default function NavigationMobile() {
   let itemIndex = 0
 
   return (
-    <div data-transition="nav" className={`fixed font-sans w-full top-0 z-50 ${forceDark ? 'force-dark' : ''}`}>
+    <div data-transition="nav" className={`fixed font-sans w-full top-0 z-[2000] ${forceDark ? 'force-dark' : ''}`}>
+      {/* Wordmark — top-left (hidden on the About page, which has its own Milo branding) */}
+      {pathname !== '/about' && (
+        <Link
+          ref={wordmarkRef}
+          href="/"
+          className="absolute top-0 left-0 z-50 h-[50px] flex items-center px-5 font-serif font-black text-foreground text-xl leading-none tracking-tight pointer-events-auto"
+        >
+          Milo Weiler
+        </Link>
+      )}
+
       {/* Hamburger toggle */}
       <div ref={toggleRef} className={`absolute top-0 right-0 z-50 ${menuOpen ? 'force-dark' : ''}`}>
         <NavToggle open={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
@@ -97,7 +119,7 @@ export default function NavigationMobile() {
       {/* Fullscreen menu overlay */}
       <div
         ref={menuRef}
-        className="fixed inset-0 force-dark bg-background/90 backdrop-blur-md invisible opacity-0"
+        className="fixed top-0 left-0 w-full h-[100dvh] force-dark bg-background/90 backdrop-blur-md invisible opacity-0"
       >
         <div className="flex flex-col items-end gap-4 mt-[80px] px-8 py-4">
           {/* Portfolio — main link */}
