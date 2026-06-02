@@ -10,12 +10,14 @@ import AsciiMarkers from './AsciiMarkers'
 
 gsap.registerPlugin(Observer)
 
-const Z_DISTANCE = 500 //150
-const yStep_DESKTOP = 80 //60
-const yStep_MOBILE = 20 //30
+const Z_DISTANCE = 150 //150
 const LERP_FACTOR = 0.07
 const PERSPECTIVE = 1200
 const WHEEL_BREAKPOINT = 768
+// Card vertical stagger scales with card height (less on small phones, more on big screens)
+const STAGGER_FRACTION = 0.09
+const STAGGER_MIN = 12
+const STAGGER_MAX = 120
 
 function easeOutQuint(t) {
   return 1-Math.pow(1-t,5)
@@ -57,7 +59,7 @@ function wrap(value, total) {
 }
 
 export default function CardCarousel({ categories }) {
-  const { width, height } = useAppContext()
+  const { width, height, categoryShortLabels, locale } = useAppContext()
   const { startForward, carouselScrollIndex, signalCarouselReady, signalDepthReveal, depthRevealReady, phase, activeRef, completeReverse } = useTransition()
   const TOTAL_REAL = categories.length
   const [activeIndex, setActiveIndex] = useState(0)
@@ -84,7 +86,12 @@ export default function CardCarousel({ categories }) {
   const isAnimating = useRef(false)
 
   const isMobileWheel = !!width && width < WHEEL_BREAKPOINT
-  const yStep = isMobileWheel ? yStep_MOBILE : yStep_DESKTOP
+  // Short titles below md (mobile); full ("long") titles from md up
+  const useShortLabels = isMobileWheel
+  const wheelLabels = useMemo(
+    () => categories.map((c) => (useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label)),
+    [categories, useShortLabels, categoryShortLabels, locale]
+  )
 
   // Duplicate categories for infinite loop
   const duplicated = useMemo(() => [...categories, ...categories], [categories])
@@ -99,6 +106,14 @@ export default function CardCarousel({ categories }) {
     return Math.min(maxW, maxH * (16 / 9))
   }, [width, height])
   const cardHeight = cardWidth * (9 / 16)
+
+  // Vertical stagger between stacked cards, proportional to card size (read live in the ticker)
+  const yStep = Math.max(STAGGER_MIN, Math.min(STAGGER_MAX, cardHeight * STAGGER_FRACTION))
+  const yStepRef = useRef(0)
+  yStepRef.current = yStep
+
+  // Left edge of the centered card — keep the category rail beside it on big screens
+  const cardLeft = width ? Math.max(0, (width - cardWidth) / 2) : 0
 
   // Shared scroll-by-delta logic
   const scrollBy = useCallback((delta) => {
@@ -220,7 +235,7 @@ export default function CardCarousel({ categories }) {
 
         // Y offset — derived from perspective scale so gaps diminish with depth
         const cardDepth = wrappedZ / Z_DISTANCE
-        const yOffset = cardDepth * yStep * perspectiveScale
+        const yOffset = cardDepth * yStepRef.current * perspectiveScale
 
         // Opacity — asymmetric: cards in front fade fast, cards behind fade gently
         let opacity
@@ -361,20 +376,14 @@ export default function CardCarousel({ categories }) {
         </div>
       </div>
 
-      <h1
-        data-transition="hero-title"
-        className="fixed top-0 left-0 z-40 md:hidden pl-6 pt-2 font-serif font-black text-foreground leading-[0.9] tracking-tight pointer-events-none text-xl"
-      >
-        Milo Weiler
-      </h1>
-
       <CategoryList
-        categories={categories.map(c => c.label)}
+        categories={wheelLabels}
         activeIndex={activeIndex}
         onCategoryClick={goToIndex}
         scrollRef={currentValue}
         zDistance={Z_DISTANCE}
         isMobile={isMobileWheel}
+        cardLeft={cardLeft}
       />
     <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center pl-1 pr-6 sm:px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
         <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} visible={1} />

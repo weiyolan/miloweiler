@@ -76,7 +76,7 @@ const CarouselCard = forwardRef(function CarouselCard({
         {/* Description */}
         {description && (
           <div
-            className="absolute left-0 right-0 top-[120%] mt-4 px-5 md:px-0 md:left-5 md:right-auto md:top-auto md:bottom-14 md:max-w-[45%] md:mt-0"
+            className="absolute left-0 right-0 top-[120%] mt-4 px-5 md:px-0 md:left-10 md:right-auto md:top-auto md:bottom-[20%] md:max-w-[35%] md:mt-0"
             style={{
               opacity: showTitle ? 1 : 0,
               transform: showTitle ? 'translateY(0)' : 'translateY(12px)',
@@ -107,7 +107,7 @@ const CarouselCard = forwardRef(function CarouselCard({
             </span>
             <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-foreground font-bold text-right flex flex-wrap justify-end gap-x-[0.3em] translate-y-4">
               {label.split(' ').map((word, wi) => (
-                <span key={wi} className="overflow-hidden pb-4 inline-flex">
+                <span key={wi} className="overflow-hidden pb-2 md:pb-6 inline-flex">
                   <span
                     style={{
                       display: 'inline-block',
