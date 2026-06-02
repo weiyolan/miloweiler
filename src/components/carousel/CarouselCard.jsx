@@ -13,6 +13,7 @@ const CarouselCard = forwardRef(function CarouselCard({
   href,
   isFront,
   titleVisible,
+  mobileDescriptionTop,
   onTransitionClick,
 }, ref) {
   const router = useRouter()
@@ -76,8 +77,9 @@ const CarouselCard = forwardRef(function CarouselCard({
         {/* Description */}
         {description && (
           <div
-            className="absolute left-0 right-0 top-[120%] mt-4 px-5 md:px-0 md:left-10 md:right-auto md:top-auto md:bottom-[20%] md:max-w-[35%] md:mt-0"
+            className="absolute left-0 right-0 px-5 md:px-0 md:left-10 md:right-auto md:top-auto md:bottom-[20%] md:max-w-[35%] md:mt-0 md:mb-0"
             style={{
+              top: mobileDescriptionTop != null ? `${mobileDescriptionTop}px` : undefined,
               opacity: showTitle ? 1 : 0,
               transform: showTitle ? 'translateY(0)' : 'translateY(12px)',
               transition: showTitle
@@ -85,7 +87,7 @@ const CarouselCard = forwardRef(function CarouselCard({
                 : 'opacity 0.15s ease, transform 0.15s ease',
             }}
           >
-            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[11px] leading-snug md:text-sm md:leading-relaxed">
+            <p className="border-l-2 border-foreground/40 pl-3 font-sans text-foreground/75 text-[13px] leading-snug md:text-sm md:leading-relaxed">
               {description}
             </p>
           </div>
@@ -105,7 +107,7 @@ const CarouselCard = forwardRef(function CarouselCard({
             <span className="font-mono text-xs md:text-sm text-foreground">
               {year}
             </span>
-            <h2 className="font-serif text-2xl md:text-4xl lg:text-5xl text-foreground font-bold text-right flex flex-wrap justify-end gap-x-[0.3em] translate-y-4">
+            <h2 className="font-serif text-[22px] md:text-4xl lg:text-5xl text-foreground font-bold text-right flex flex-wrap justify-end gap-x-[0.3em] translate-y-4">
               {label.split(' ').map((word, wi) => (
                 <span key={wi} className="overflow-hidden pb-2 md:pb-6 inline-flex">
                   <span

@@ -5,24 +5,26 @@ import { gsap } from 'gsap/dist/gsap'
 // line while the strip of labels slides under a fixed mask, with opacity falloff
 // only (no 3D, no scale — a clean straight slide). Driven by the carousel's
 // continuous scroll position (read each frame from scrollRef) — no per-frame React
-// state. Desktop = vertical slide (left rail); mobile = horizontal strip above the card.
+// state. Desktop = vertical slide (left rail); mobile = horizontal strip below the card.
 
 const WINDOW = 2.5 // items with |distance-to-focal| beyond this are culled
 const FADE_POW = 1.6 // opacity falloff sharpness
 
 // Desktop rail placement
 const D_FOCAL_VH = 35 // focal line as % of viewport height (was centered at 50)
-const RAIL_GAP = 40 // px gap between the rail's right edge and the card's left edge (rail sits fully left of the card)
+const RAIL_GAP = 24 // px gap between the rail's right edge and the card's left edge (rail sits fully left of the card)
 
 // Desktop (vertical) tunables
 const D = { STEP: 35, VIEW_W: 'min(70vw, 440px)', VIEW_H: 260 }
 // Mobile (horizontal) tunables
-const M = { STEP: 112, SLOT_W: 'min(25vw, 280px)', VIEW_H: 88 }
+export const M = { STEP: 92, SLOT_W: 'min(25vw, 280px)', VIEW_H: 88, GAP_BELOW: 20 }
+// Mobile-only: shift the card + strip up by this much (vh) to open room for the description below the strip
+export const MOBILE_CARD_UP_SHIFT_VH = 7
 
 const MASK_V = 'linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%)'
 const MASK_H = 'linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%)'
 
-export default function CategoryList({ categories, activeIndex, onCategoryClick, scrollRef, zDistance = 150, isMobile = false, cardLeft = 0 }) {
+export default function CategoryList({ categories, activeIndex, onCategoryClick, scrollRef, zDistance = 150, isMobile = false, cardLeft = 0, cardHeight = 0, cardUpShiftPx = 0 }) {
   const total = categories.length
   const itemRefs = useRef([])
   const prefersReduced = useRef(false)
@@ -86,15 +88,15 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick,
       data-transition="category-list"
       className={
         isMobile
-          ? 'fixed top-0 left-0 right-0 z-40 flex justify-center pointer-events-none'
+          ? 'fixed top-1/2 left-0 right-0 z-40 flex justify-center pointer-events-none'
           : 'fixed left-0 top-0 h-screen flex items-center z-40 pointer-events-none'
       }
-      style={isMobile ? { paddingTop: '14vh' } : { width: `${Math.max(0, cardLeft - RAIL_GAP)}px` }}
+      style={isMobile ? undefined : { width: `${Math.max(0, cardLeft - RAIL_GAP)}px` }}
     >
       <div
         style={
           isMobile
-            ? { position: 'relative', width: '100vw', height: M.VIEW_H, overflow: 'hidden', maskImage: MASK_H, WebkitMaskImage: MASK_H }
+            ? { position: 'relative', width: '100vw', height: M.VIEW_H, overflow: 'hidden', maskImage: MASK_H, WebkitMaskImage: MASK_H, transform: `translateY(${cardHeight / 2 + M.GAP_BELOW - cardUpShiftPx}px)` }
             : { position: 'relative', width: '100%', height: D.VIEW_H, overflow: 'hidden', maskImage: MASK_V, WebkitMaskImage: MASK_V, transform: `translateY(${D_FOCAL_VH - 50}vh)` }
         }
       >
