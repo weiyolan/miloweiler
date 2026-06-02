@@ -8,7 +8,7 @@ import useDimensions from '@/utils/useDimensions'
 
 
 export default function ProjectPicture({ images, mainPictureHeight, setMainPictureWidth, visibleItem, handleVisibility, nextVisibility, prevVisibility, index }) {
-  const { width } = useAppContext()
+  const { width, locale } = useAppContext()
   // const [clicked,setClicked] = useState(false)
   let projectPictureContainerRef = useRef(null)
   let { width: projectPictureContainerWidth } = useDimensions(projectPictureContainerRef)
@@ -28,14 +28,18 @@ export default function ProjectPicture({ images, mainPictureHeight, setMainPictu
 
       {images.map((image, i) => <MainPicture index={i} key={i} image={image} alt={`Project image ${i}`} />)}
 
-      <div className=' group absolute left-0 bottom-0 flex items-center cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1]'
-        // onClick={() => { if (visible) { prevVisibility() } }}>
-        onClick={prevVisibility}>
+      <div role="button" tabIndex={0}
+        aria-label={locale === 'fr' ? 'Image précédente' : locale === 'nl' ? 'Vorige afbeelding' : 'Previous image'}
+        className=' group absolute left-0 bottom-0 flex items-center cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1] focus:outline-none'
+        onClick={prevVisibility}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevVisibility() } }}>
         {width > 1024 && <AiFillCaretLeft className={`opacity-0 group-hover:opacity-30 transition duration-300 w-10 h-10 `}/>}
              </div>
-      <div className='group absolute right-0 bottom-0 flex items-center justify-end cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1]'
-        // onClick={() => { if (visible) { nextVisibility() } }}>
-        onClick={nextVisibility}>
+      <div role="button" tabIndex={0}
+        aria-label={locale === 'fr' ? 'Image suivante' : locale === 'nl' ? 'Volgende afbeelding' : 'Next image'}
+        className='group absolute right-0 bottom-0 flex items-center justify-end cursor-pointer w-1/2 lg:relative lg:w-[37%] xl:w-[50%] h-[100%] lg:pt-1 z-[1] focus:outline-none'
+        onClick={nextVisibility}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextVisibility() } }}>
         {width > 1024 && <AiFillCaretRight className={`opacity-0 group-hover:opacity-30 transition duration-300 w-10 h-10 `}/>}
       </div>
 

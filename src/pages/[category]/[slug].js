@@ -34,6 +34,9 @@ export default function Project({ project, slug, slugs, category }) {
   let [animating, setAnimating] = useState(false);
   const ctx = useRef(gsap.context(() => {}));
   let [visibleItem, setVisibleItem] = useState(initiateVisibility());
+  // Coordination for the carousel's drag-to-dismiss vs. the swipe-nav Observer
+  const dragActiveRef = useRef(false);
+  const navRef = useRef({});
 
   useEffect(() => {
     return () => ctx.current.revert();
@@ -57,23 +60,25 @@ export default function Project({ project, slug, slugs, category }) {
   }
 
   useEffect(() => {
+    if (!carouselIsOpen) return;
+    let navLock = false; // one navigation per swipe/scroll gesture
     let observer = Observer.create({
       target: window,
       ignore: ".project-pictures, .project-grid, .imageFill",
       type: "touch, scroll, pointer",
       preventDefault: false,
-      onRight: () => {
-        prevVisibility();
-      },
-      onLeft: () => {
-        nextVisibility();
-      },
+      // Yield to the carousel's vertical drag-to-dismiss while it's engaged
+      ignoreCheck: () => dragActiveRef.current,
+      onPress: () => { navLock = false; },
+      onStop: () => { navLock = false; },
+      onRight: () => { if (navLock) return; navLock = true; navRef.current.prevVisibility?.(); },
+      onLeft: () => { if (navLock) return; navLock = true; navRef.current.nextVisibility?.(); },
       lockAxis: true,
     });
     return () => {
-      observer.disable();
+      observer.kill();
     };
-  }, [visibleItem, animating]);
+  }, [carouselIsOpen]);
 
   function vanish(index1, index2, direction) {
     let xAmount = 30;
@@ -158,8 +163,19 @@ export default function Project({ project, slug, slugs, category }) {
     }
   }, [carouselIsOpen]);
 
+  navRef.current = { prevVisibility, nextVisibility };
+
   const showDialog = () => setCarouselIsOpen(true);
   const closeDialog = () => setCarouselIsOpen(false);
+
+  // Open the lightbox at a given image WITHOUT the slide cross-fade — the photo
+  // morphs in from its thumbnail via GSAP Flip instead (handled in ProjectCarousel).
+  function openAt(lightboxIndex) {
+    const v = new Array(visibleItem.length).fill(false);
+    v[lightboxIndex] = true;
+    setVisibleItem(v);
+    setCarouselIsOpen(true);
+  }
 
   return (
     <>
@@ -222,6 +238,7 @@ export default function Project({ project, slug, slugs, category }) {
               slug={slug}
               open={carouselIsOpen}
               closeModal={() => closeDialog()}
+              onDragActiveChange={(v) => { dragActiveRef.current = v; }}
             />
             <Layout cardSection className={"relative w-full h-full flex flex-col flex-1 gap-6 md:gap-8 px-6 mt-12"}>
               <div className={"relative w-full flex flex-col flex-1 gap-6 md:gap-8 max-w-7xl mx-auto"}>
@@ -314,10 +331,7 @@ export default function Project({ project, slug, slugs, category }) {
               {project?.grid ? (
                 <ProjectGrid
                   project={project}
-                  onImageClick={(i) => {
-                    handleVisibility(i + 1, "left");
-                    showDialog();
-                  }}
+                  onImageClick={(i) => openAt(i + 1)}
                 />
               ) : (
                 <Masonry
@@ -334,10 +348,8 @@ export default function Project({ project, slug, slugs, category }) {
                       image={item.image}
                       alt={item.alt}
                       i={i}
-                      onClick={() => {
-                        handleVisibility(i, "left");
-                        showDialog();
-                      }}
+                      data-thumb-index={i}
+                      onClick={() => openAt(i)}
                     />
                   ))}
                 </Masonry>

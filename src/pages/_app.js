@@ -18,8 +18,11 @@ import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { Observer } from "gsap/dist/Observer";
 import { SplitText } from "gsap/dist/SplitText";
+import { Draggable } from "gsap/dist/Draggable";
+import { InertiaPlugin } from "gsap/dist/InertiaPlugin";
+import { Flip } from "gsap/dist/Flip";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer, SplitText);
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer, SplitText, Draggable, InertiaPlugin, Flip);
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

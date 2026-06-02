@@ -74,6 +74,7 @@ export default function ProjectGrid({ project, onImageClick }) {
           key={image._key || i}
           image={image}
           i={i}
+          data-thumb-index={i + 1}
           onClick={() => onImageClick?.(i)}
         />
       ))}
