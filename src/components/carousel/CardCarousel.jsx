@@ -5,7 +5,7 @@ import { useAppContext } from '@/utils/appContext'
 import { useTransition } from '@/utils/transitionContext'
 import CarouselCard from './CarouselCard'
 import ScrollHint from './ScrollHint'
-import CategoryList from './CategoryList'
+import CategoryList, { M as STRIP_M, MOBILE_CARD_UP_SHIFT_VH } from './CategoryList'
 import AsciiMarkers from './AsciiMarkers'
 
 gsap.registerPlugin(Observer)
@@ -18,6 +18,9 @@ const WHEEL_BREAKPOINT = 768
 const STAGGER_FRACTION = 0.09
 const STAGGER_MIN = 12
 const STAGGER_MAX = 120
+// Category-rail label fit (desktop): show full labels only when the left gutter can hold the longest one
+const RAIL_GAP = 24 // keep in sync with CategoryList's RAIL_GAP
+const DESKTOP_LABEL_CHAR_PX = 8.6 // ≈ Space Mono advance width at md:text-sm (14px)
 
 function easeOutQuint(t) {
   return 1-Math.pow(1-t,5)
@@ -63,6 +66,7 @@ export default function CardCarousel({ categories }) {
   const { startForward, carouselScrollIndex, signalCarouselReady, signalDepthReveal, depthRevealReady, phase, activeRef, completeReverse } = useTransition()
   const TOTAL_REAL = categories.length
   const [activeIndex, setActiveIndex] = useState(0)
+  const [frontCardIndex, setFrontCardIndex] = useState(0)
   const [scrollHintVisible, setScrollHintVisible] = useState(true)
   const [titleVisible, setTitleVisible] = useState(true)
 
@@ -86,12 +90,6 @@ export default function CardCarousel({ categories }) {
   const isAnimating = useRef(false)
 
   const isMobileWheel = !!width && width < WHEEL_BREAKPOINT
-  // Short titles below md (mobile); full ("long") titles from md up
-  const useShortLabels = isMobileWheel
-  const wheelLabels = useMemo(
-    () => categories.map((c) => (useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label)),
-    [categories, useShortLabels, categoryShortLabels, locale]
-  )
 
   // Duplicate categories for infinite loop
   const duplicated = useMemo(() => [...categories, ...categories], [categories])
@@ -101,7 +99,7 @@ export default function CardCarousel({ categories }) {
   // Responsive card dimensions (16:9, centered)
   const cardWidth = useMemo(() => {
     if (!width || !height) return 800
-    const maxW = width < 768 ? width * 0.9 : width * 0.88
+    const maxW = width < 768 ? width * 0.9 : width * 0.75
     const maxH = height * 0.7
     return Math.min(maxW, maxH * (16 / 9))
   }, [width, height])
@@ -114,6 +112,25 @@ export default function CardCarousel({ categories }) {
 
   // Left edge of the centered card — keep the category rail beside it on big screens
   const cardLeft = width ? Math.max(0, (width - cardWidth) / 2) : 0
+
+  // Mobile only: shift the card + strip up by cardUpShiftPx (px) to open room for the description below the strip.
+  const cardUpShiftPx = isMobileWheel && height ? Math.round((height * MOBILE_CARD_UP_SHIFT_VH) / 100) : 0
+  // Description sits below the strip. In the card's local coords this is shift-independent (the card box carries the
+  // shift): cardHeight (card bottom) + GAP_BELOW (to strip top) + VIEW_H (strip) + GAP_BELOW (to description).
+  const mobileDescriptionTop = isMobileWheel ? cardHeight + 2 * STRIP_M.GAP_BELOW + STRIP_M.VIEW_H : null
+
+  // Category labels: short on the mobile strip, and on desktop until the left gutter can fit the
+  // longest full label — so full labels never clip (no fade needed). FR labels are longer, so the
+  // threshold rises automatically with label length.
+  const longestFullPx = useMemo(
+    () => categories.reduce((m, c) => Math.max(m, c.label?.length || 0), 0) * DESKTOP_LABEL_CHAR_PX,
+    [categories]
+  )
+  const useShortLabels = isMobileWheel || cardLeft - RAIL_GAP < longestFullPx
+  const wheelLabels = useMemo(
+    () => categories.map((c) => (useShortLabels ? (categoryShortLabels?.[c.slug]?.[locale] || categoryShortLabels?.[c.slug]?.en || c.label) : c.label)),
+    [categories, useShortLabels, categoryShortLabels, locale]
+  )
 
   // Shared scroll-by-delta logic
   const scrollBy = useCallback((delta) => {
@@ -181,6 +198,8 @@ export default function CardCarousel({ categories }) {
 
     // Calculate front card rect mathematically (no DOM query timing issues)
     // Wrapper stays invisible — TransitionOverlay will show it during reverse-enter
+    // TODO(transitions): disabled now (handleClick uses router.push). If re-enabled, on mobile the card is
+    // shifted up, so freshRect.top must subtract cardUpShiftPx to match the card's real on-screen position.
     const freshRect = {
       left: (window.innerWidth - cardWidth) / 2,
       top: (window.innerHeight - cardHeight) / 2,
@@ -264,6 +283,9 @@ export default function CardCarousel({ categories }) {
       const rawIndex = Math.round(currentValue.current / Z_DISTANCE)
       const normalized = ((rawIndex % TOTAL_REAL) + TOTAL_REAL) % TOTAL_REAL
       setActiveIndex(normalized)
+      // Exactly one duplicated card is the visual front, so the same-category duplicate at the
+      // back of the loop never renders a faint duplicate title/description.
+      setFrontCardIndex(((rawIndex % totalCards) + totalCards) % totalCards)
     }
 
     gsap.ticker.add(onTick)
@@ -352,6 +374,7 @@ export default function CardCarousel({ categories }) {
         style={{
           width: cardWidth,
           height: cardHeight,
+          transform: cardUpShiftPx ? `translateY(-${cardUpShiftPx}px)` : undefined,
         }}
       >
         {/* Card stack */}
@@ -368,8 +391,9 @@ export default function CardCarousel({ categories }) {
               year={cat.year}
               index={(i % TOTAL_REAL) + 1}
               href={cat.href}
-              isFront={(i % TOTAL_REAL) === activeIndex}
+              isFront={i === frontCardIndex}
               titleVisible={titleVisible}
+              mobileDescriptionTop={mobileDescriptionTop}
               onTransitionClick={handleTransitionClick}
             />
           ))}
@@ -384,6 +408,8 @@ export default function CardCarousel({ categories }) {
         zDistance={Z_DISTANCE}
         isMobile={isMobileWheel}
         cardLeft={cardLeft}
+        cardHeight={cardHeight}
+        cardUpShiftPx={cardUpShiftPx}
       />
     <div data-transition="bottom-bar" className="fixed bottom-0 left-0 right-0 z-40 flex justify-between items-center pl-1 pr-6 sm:px-6 md:px-10 pb-5 md:pb-7 pointer-events-none">
         <AsciiMarkers activeIndex={activeIndex} total={TOTAL_REAL} visible={1} />
