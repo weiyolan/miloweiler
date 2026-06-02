@@ -36,15 +36,15 @@ export default function Home({ categories }) {
   return (
     <>
       <Head>
-        <title>{"Milo Weiler Photography | Witness The Beauty Of Life"}</title>
-        <meta name="description" content="Specialised Set & Studio Photography" />
+        <title>{"Milo Weiler Photography | Set, Portrait & Corporate Photographer"}</title>
+        <meta name="description" content="Witness the Beauty of Life" />
         <link rel="canonical" href={canonicalUrl(locale, '/')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/')} />
-        <meta property="og:title" content={"Witness The Beauty Of Life"} />
-        <meta property="og:description" content="Specialised Set & Studio Photography" />
+        <meta property="og:title" content={"Set, Portrait & Corporate Photographer"} />
+        <meta property="og:description" content="Witness the Beauty of Life" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
         {firstImage?.ogUrl && (
@@ -61,8 +61,8 @@ export default function Home({ categories }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, '/')} />
-        <meta name="twitter:title" content="Witness The Beauty Of Life" />
-        <meta name="twitter:description" content="Specialised Set & Studio Photography" />
+        <meta name="twitter:title" content="Set, Portrait & Corporate Photographer" />
+        <meta name="twitter:description" content="Witness the Beauty of Life" />
         {firstImage?.ogUrl && (
           <meta name="twitter:image" content={firstImage.ogUrl} />
         )}
