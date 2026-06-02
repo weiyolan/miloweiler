@@ -22,6 +22,10 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
   // let [visibleItem, setVisibleItem] = useState(initiateVisibility())
   // let [visibleItem, setVisibleItem] = useLocalStorage(`${slug}-visibleItem`, initiateVisibility())
   const containerRef = useRef(null)
+  const sheetRef = useRef(null)
+  // Keep latest closeModal without re-subscribing the drag listeners every render
+  const closeModalRef = useRef(closeModal)
+  closeModalRef.current = closeModal
   let [indicatorPosition, setIndicatorPosition] = useState(null)
   let [mainPictureHeight, setMainPictureHeight] = useState(null)
   let [mainPictureWidth, setMainPictureWidth] = useState(null)
@@ -37,6 +41,117 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [open, prevVisibility, nextVisibility])
+
+  // Subtle upward slide-in on open; clear any leftover drag transforms on close
+  useEffect(() => {
+    const sheet = sheetRef.current
+    const container = containerRef.current
+    if (open) {
+      if (sheet) gsap.fromTo(sheet, { y: 24 }, { y: 0, duration: 0.6, ease: 'expo.out' })
+    } else {
+      if (sheet) gsap.set(sheet, { clearProps: 'transform' })
+      if (container) container.style.removeProperty('opacity')
+    }
+  }, [open])
+
+  // Drag / swipe down to dismiss (pointer events, all viewports).
+  // Only vertical-dominant downward gestures are hijacked, so horizontal
+  // swipe navigation and the thumbnail strip's horizontal scroll keep working.
+  useEffect(() => {
+    if (!open) return
+    const container = containerRef.current
+    const sheet = sheetRef.current
+    if (!container || !sheet) return
+
+    const SLOP = 8
+    let activeId = null
+    let startX = 0, startY = 0
+    let locked = false      // engaged a vertical-down drag
+    let bailed = false      // decided this gesture is not ours
+    let lastY = 0, prevY = 0, lastTime = 0, prevTime = 0
+
+    const closeDistance = () => window.innerHeight * 0.25
+
+    function onDown(e) {
+      if (activeId !== null) return
+      activeId = e.pointerId
+      startX = e.clientX
+      startY = e.clientY
+      locked = false
+      bailed = false
+      prevY = lastY = e.clientY
+      prevTime = lastTime = e.timeStamp
+    }
+
+    function onMove(e) {
+      if (e.pointerId !== activeId || bailed) return
+      const dx = e.clientX - startX
+      const dy = e.clientY - startY
+
+      if (!locked) {
+        if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return
+        // Horizontal-dominant or upward → leave it to the Observer / native scroll
+        if (Math.abs(dx) > Math.abs(dy) || dy <= 0) {
+          bailed = true
+          return
+        }
+        locked = true
+        gsap.killTweensOf(sheet)
+        try { container.setPointerCapture(activeId) } catch {}
+      }
+
+      // engaged: follow the finger downward
+      const drag = Math.max(0, dy)
+      prevY = lastY; prevTime = lastTime
+      lastY = e.clientY; lastTime = e.timeStamp
+      gsap.set(sheet, { y: drag })
+      container.style.opacity = String(1 - Math.min(drag / closeDistance() * 0.85, 0.85))
+      e.preventDefault()
+    }
+
+    function settle() {
+      const dy = Math.max(0, lastY - startY)
+      const dt = lastTime - prevTime
+      const velocity = dt > 0 ? (lastY - prevY) / dt : 0 // px/ms, +ve = downward
+      const dismiss = dy > closeDistance() || velocity > 0.5
+      if (dismiss) {
+        gsap.timeline({ onComplete: () => closeModalRef.current() })
+          .to(sheet, { y: window.innerHeight, duration: 0.35, ease: 'power2.in' }, 0)
+          .to(container, { opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
+      } else {
+        gsap.to(sheet, { y: 0, duration: 0.5, ease: 'power3.out' })
+        gsap.to(container, { opacity: 1, duration: 0.4, ease: 'power3.out', onComplete: () => container.style.removeProperty('opacity') })
+      }
+    }
+
+    // Swallow the click synthesized after a drag so it can't hit the
+    // click-outside-to-close handler or a prev/next click zone.
+    function suppressNextClick() {
+      const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault() }
+      container.addEventListener('click', swallow, { capture: true, once: true })
+      setTimeout(() => container.removeEventListener('click', swallow, { capture: true }), 350)
+    }
+
+    function onUp(e) {
+      if (e.pointerId !== activeId) return
+      try { container.releasePointerCapture(activeId) } catch {}
+      if (locked) { settle(); suppressNextClick() }
+      activeId = null
+      locked = false
+      bailed = false
+    }
+
+    container.addEventListener('pointerdown', onDown)
+    container.addEventListener('pointermove', onMove, { passive: false })
+    container.addEventListener('pointerup', onUp)
+    container.addEventListener('pointercancel', onUp)
+    return () => {
+      container.removeEventListener('pointerdown', onDown)
+      container.removeEventListener('pointermove', onMove)
+      container.removeEventListener('pointerup', onUp)
+      container.removeEventListener('pointercancel', onUp)
+    }
+  }, [open])
 
   // Hide the site navbar while the carousel is open (covers mobile + desktop nav)
   useEffect(() => {
@@ -237,7 +352,9 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
           <div style={{}} className={`carouselContainer relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
 
             {/* {visibleItem && ( */}
-            <div id="carouselContainer" className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
+            <div ref={sheetRef} id="carouselContainer" className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
+              {/* Drag affordance: rounded grabber bar indicating the modal is draggable */}
+              <div aria-hidden className="absolute top-2 mobm:top-3 left-1/2 -translate-x-1/2 w-10 mobm:w-12 h-1.5 rounded-full bg-foreground/40 z-[2] pointer-events-none" />
               <ProjectPicture
                 setMainPictureWidth={setMainPictureWidth}
                 mainPictureHeight={mainPictureHeight}
