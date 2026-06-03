@@ -73,19 +73,19 @@ const CarouselCard = forwardRef(function CarouselCard({
             // Subtle reveal: lines softly fade up a touch; the left accent bar draws top→bottom alongside.
             if (tlRef.current) tlRef.current.kill() // drop the prior tl on autoSplit rebuild
             const lines = self.lines
-            const LINES_START = 0.06
+            const LINES_START = 0.2
             const LINE_DUR = 0.7
             const STAGGER = 0.09
             // Match the bar draw to when the last line settles, so they finish together.
-            const barDur = LINES_START + LINE_DUR + STAGGER * Math.max(0, lines.length - 1)
+            const barDur = LINES_START - 0.3 + LINE_DUR + STAGGER * Math.max(0, lines.length - 1)
             const tl = gsap.timeline({ paused: true })
             tl.to(barRef.current, { scaleY: 1, duration: barDur, ease: 'ease.out' }, descStart)
               .from(lines, {
-                yPercent: 50,
+                yPercent: 30,
                 autoAlpha: 0,
                 stagger: STAGGER,
                 duration: LINE_DUR,
-                ease: 'power2.out',
+                ease: 'ease.out',
               }, descStart + LINES_START)
             tlRef.current = tl
             gsap.set(p, { autoAlpha: 1 }) // container visible; lines + bar animate from hidden
