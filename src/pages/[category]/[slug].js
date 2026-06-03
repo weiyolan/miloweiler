@@ -2,6 +2,7 @@ import Logo from "@/components/Logo";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { canonicalUrl } from "@/utils/seo";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
@@ -28,6 +29,7 @@ export default function Project({ project, slug, slugs, category }) {
   const { width, locale, height } = useAppContext();
   let pageMobile = width < 648;
 
+  const router = useRouter();
   const lenisRef = useRef();
   const [carouselIsOpen, setCarouselIsOpen] = useState(false);
   let [descriptionOpen, setDescriptionOpen] = useState(false);
@@ -37,6 +39,11 @@ export default function Project({ project, slug, slugs, category }) {
   // Coordination for the carousel's drag-to-dismiss vs. the swipe-nav Observer
   const dragActiveRef = useRef(false);
   const navRef = useRef({});
+  // URL-driven modal: ?photo=N (1-based ordinal over [mainImage, ...otherImages])
+  const totalImages = 1 + (project?.otherImages?.length || 0);
+  const didPushRef = useRef(false); // did WE push the open history entry this session?
+  const openRef = useRef(carouselIsOpen); openRef.current = carouselIsOpen;
+  const visibleRef = useRef(visibleItem); visibleRef.current = visibleItem;
 
   useEffect(() => {
     return () => ctx.current.revert();
@@ -116,6 +123,9 @@ export default function Project({ project, slug, slugs, category }) {
 
   useEffect(() => {
     ctx.current.add(() => {
+      // The thumbnail strip only exists while the carousel is mounted/open; skip
+      // when it's absent (e.g. a deep-linked ?photo before the carousel mounts).
+      if (typeof document !== "undefined" && !document.querySelector(".project-pictures")) return;
       gsap.to(".project-pictures", {
         scrollTo: { x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width < 350 ? (width - 80) / 2 : (width - 112) / 2 },
         ease: "power1.inout",
@@ -131,6 +141,12 @@ export default function Project({ project, slug, slugs, category }) {
     setVisibleItem(newVisibility);
     if (nextItem !== currentItem) {
       vanish(currentItem, nextItem, direction || (currentItem > nextItem ? "right" : "left"));
+    }
+    // Keep the URL in sync with the active photo while open. Use replace (not
+    // push) so the browser Back button closes the modal rather than stepping
+    // back through every photo.
+    if (openRef.current) {
+      router.replace({ pathname: router.pathname, query: { ...router.query, photo: nextItem + 1 } }, undefined, { shallow: true, scroll: false });
     }
   }
 
@@ -163,18 +179,54 @@ export default function Project({ project, slug, slugs, category }) {
     }
   }, [carouselIsOpen]);
 
+  // Sync modal state FROM the URL (?photo=N). Handles deep links / shared links
+  // and browser Back/Forward: Back removes ?photo, which closes the modal here.
+  useEffect(() => {
+    if (!router.isReady) return;
+    const raw = Array.isArray(router.query.photo) ? router.query.photo[0] : router.query.photo;
+    const ord = parseInt(raw, 10);
+    const hasPhoto = Number.isInteger(ord) && ord >= 1 && ord <= totalImages;
+    const idx = hasPhoto ? ord - 1 : -1;
+    const cur = visibleRef.current.indexOf(true);
+    if (hasPhoto) {
+      if (!openRef.current) {
+        const v = new Array(visibleRef.current.length).fill(false); v[idx] = true;
+        setVisibleItem(v);
+        setCarouselIsOpen(true);
+      } else if (idx !== cur) {
+        const v = new Array(visibleRef.current.length).fill(false); v[idx] = true;
+        setVisibleItem(v);
+      }
+    } else if (openRef.current) {
+      setCarouselIsOpen(false);
+      didPushRef.current = false;
+    }
+  }, [router.isReady, router.query.photo]);
+
   navRef.current = { prevVisibility, nextVisibility };
 
   const showDialog = () => setCarouselIsOpen(true);
-  const closeDialog = () => setCarouselIsOpen(false);
+  const closeDialog = () => {
+    setCarouselIsOpen(false);
+    if (didPushRef.current) {
+      didPushRef.current = false;
+      router.back(); // pop our pushed entry -> back to the clean project URL
+    } else {
+      const { photo, ...rest } = router.query; // deep-linked open: just strip the param
+      router.replace({ pathname: router.pathname, query: rest }, undefined, { shallow: true, scroll: false });
+    }
+  };
 
-  // Open the lightbox at a given image WITHOUT the slide cross-fade — the photo
-  // morphs in from its thumbnail via GSAP Flip instead (handled in ProjectCarousel).
+  // Open the lightbox at a given image. Pushes ?photo=ordinal so the open modal
+  // is shareable and the browser Back button closes it. The photo morphs in from
+  // its thumbnail via GSAP Flip (handled in ProjectCarousel); no slide cross-fade.
   function openAt(lightboxIndex) {
     const v = new Array(visibleItem.length).fill(false);
     v[lightboxIndex] = true;
     setVisibleItem(v);
     setCarouselIsOpen(true);
+    didPushRef.current = true;
+    router.push({ pathname: router.pathname, query: { ...router.query, photo: lightboxIndex + 1 } }, undefined, { shallow: true, scroll: false });
   }
 
   return (

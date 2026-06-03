@@ -120,7 +120,9 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       const img = sheet.querySelector(`.mainPicture-${idx}`)
       if (img) gsap.set(img, { autoAlpha: 1 })
       const thumb = getThumbEl(idx)
-      if (img && thumb && !reduced) {
+      // Only morph from the thumbnail when it's actually visible (a click). For a
+      // deep link / shared URL the grid is scrolled away, so just fade the photo in.
+      if (img && thumb && !reduced && inViewport(thumb)) {
         Flip.fit(img, thumb, { duration: 0.6, ease: 'power3.inOut', absolute: true, scale: true, runBackwards: true })
       }
     })
