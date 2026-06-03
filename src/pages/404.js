@@ -7,7 +7,6 @@ import { gsap } from "gsap/dist/gsap";
 import useLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import Layout from "@/components/Layout";
 import Footer2 from "@/components/Footer2";
-import { ReactLenis } from "lenis/react";
 import { useAppContext } from "@/utils/appContext";
 
 export async function getStaticProps({ locale }) {
@@ -36,8 +35,7 @@ export default function Custom404() {
         <title>Milo Weiler | 404</title>
         <meta name="robots" content="noindex" />
       </Head>
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className="w-full min-h-screen flex flex-col bg-background text-foreground">
+      <main className="w-full min-h-screen flex flex-col bg-background text-foreground">
           <PageWrapper darkMode={true}>
             <Layout className="content-404 relative pt-12 flex-1 flex flex-col items-center justify-center text-center">
               <p className="fade-404 invisible font-mono text-sm tracking-widest uppercase opacity-60 mb-4">
@@ -64,7 +62,6 @@ export default function Custom404() {
             <Footer2 className="relative" noMotion noMargin />
           </PageWrapper>
         </main>
-      </ReactLenis>
     </>
   );
 }
