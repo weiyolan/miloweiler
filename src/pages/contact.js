@@ -20,7 +20,6 @@ import Logo from '@/components/Logo'
 // import { gsap } from 'gsap/dist/gsap'
 // import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import useLayoutEffect from '@/utils/useIsomorphicLayoutEffect'
-import { ReactLenis } from 'lenis/react'
 import Footer2 from '@/components/Footer2'
 // import { useRouter } from 'next/router';
 
@@ -41,20 +40,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
   // const router = useRouter();
   let tl = useRef();
   let ctx = useRef();
-
-  const lenisRef = useRef();
-
-  useEffect(() => {
-    function update(time) {
-      lenisRef.current?.lenis?.raf(time * 1000);
-    }
-
-    gsap.ticker.add(update);
-
-    return () => {
-      gsap.ticker.remove(update);
-    };
-  }, []);
 
   let getRatio = (el) => window.innerHeight / (window.innerHeight + el.offsetHeight);
 
@@ -172,7 +157,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop`} />
       </Head>
       {/* duration:0.9,  */}
-      <ReactLenis ref={lenisRef} autoRaf={false} root options={{ wheelMultiplier: 0.9, print: false }}>
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
         <main className={`min-h-screen flex flex-col bg-background text-foreground ${darkMode ? "font-extralight" : ""} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
@@ -280,7 +264,6 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
 
           </PageWrapper>
         </main>
-      </ReactLenis>
     </>
   );
 }

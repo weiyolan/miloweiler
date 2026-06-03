@@ -21,6 +21,7 @@ import { SplitText } from "gsap/dist/SplitText";
 import { Draggable } from "gsap/dist/Draggable";
 import { InertiaPlugin } from "gsap/dist/InertiaPlugin";
 import { Flip } from "gsap/dist/Flip";
+import { ReactLenis, useLenis } from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin, Observer, SplitText, Draggable, InertiaPlugin, Flip);
 
@@ -44,6 +45,20 @@ const spaceMono = Space_Mono({
 
 export default function App({ Component, pageProps, categoryLabels, categoryShortLabels, categoryDescriptions, businessInfo, highlightedEnabled }) {
   let scrolled = useRef(0);
+  // Single, persistent Lenis instance for the whole app. Driving its raf from
+  // the GSAP ticker (with lagSmoothing off) keeps Lenis and ScrollTrigger on one
+  // clock; ScrollTrigger.update is wired to Lenis scroll via <ScrollTriggerSync/>.
+  const lenisRef = useRef();
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+    return () => {
+      gsap.ticker.remove(update);
+    };
+  }, []);
   // const router = useRouter();
   // usePreserveScroll();
 
@@ -100,9 +115,12 @@ export default function App({ Component, pageProps, categoryLabels, categoryShor
       {/* ${poppins.variable} */}
       <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} categoryShortLabels={categoryShortLabels} categoryDescriptions={categoryDescriptions} businessInfo={businessInfo} highlightedEnabled={highlightedEnabled} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
         <TransitionProvider>
-          <NavRenderer />
-          <Component {...pageProps} />
-          {/* <TransitionOverlay /> */}
+          <ReactLenis root ref={lenisRef} autoRaf={false} options={{ wheelMultiplier: 0.9 }}>
+            <ScrollTriggerSync />
+            <NavRenderer />
+            <Component {...pageProps} />
+            {/* <TransitionOverlay /> */}
+          </ReactLenis>
         </TransitionProvider>
         <Toaster />
       </AppWrapper>
@@ -138,4 +156,10 @@ App.getInitialProps = async ({ Component, ctx }) => {
 function NavRenderer() {
   const { isMobile } = useAppContext()
   return isMobile ? <NavigationMobile /> : <Navigation />
+}
+
+// Keep GSAP ScrollTrigger in sync with the global Lenis scroll.
+function ScrollTriggerSync() {
+  useLenis(() => ScrollTrigger.update());
+  return null;
 }

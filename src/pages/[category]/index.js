@@ -6,7 +6,6 @@ import { canonicalUrl } from "@/utils/seo";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
-import { ReactLenis } from "lenis/react";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, getVisibleCategorySlugs, CATEGORY_LABELS, RESERVED_SLUGS } from "@/utils/categories";
@@ -54,8 +53,7 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
           <meta name="twitter:image" content={`${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
         )}
       </Head>
-      <ReactLenis root options={{ wheelMultiplier: 0.9 }}>
-        <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
+      <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
           <PageWrapper>
             <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-full mb-12 flex-1">
               <GalleryTitle h1 className="">
@@ -101,7 +99,6 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
             <Footer2 className="relative" noMotion noMargin />
           </PageWrapper>
         </main>
-      </ReactLenis>
     </>
   );
 }

@@ -18,7 +18,7 @@ import Line from "@/components/Line";
 import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
 import ProjectGrid from "@/components/ProjectGrid";
-import { ReactLenis } from "lenis/react";
+import { useLenis } from "lenis/react";
 const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { ssr: false });
 import Footer2 from "@/components/Footer2";
 import { CATEGORY_MAP } from "@/utils/categories";
@@ -30,7 +30,7 @@ export default function Project({ project, slug, slugs, category }) {
   let pageMobile = width < 648;
 
   const router = useRouter();
-  const lenisRef = useRef();
+  const lenis = useLenis();
   const [carouselIsOpen, setCarouselIsOpen] = useState(false);
   let [descriptionOpen, setDescriptionOpen] = useState(false);
   let [animating, setAnimating] = useState(false);
@@ -173,11 +173,11 @@ export default function Project({ project, slug, slugs, category }) {
 
   useEffect(() => {
     if (carouselIsOpen) {
-      lenisRef.current?.lenis?.stop();
+      lenis?.stop();
     } else {
-      lenisRef.current?.lenis?.start();
+      lenis?.start();
     }
-  }, [carouselIsOpen]);
+  }, [carouselIsOpen, lenis]);
 
   // Sync modal state FROM the URL (?photo=N). Handles deep links / shared links
   // and browser Back/Forward: Back removes ?photo, which closes the modal here.
@@ -273,8 +273,7 @@ export default function Project({ project, slug, slugs, category }) {
           url: canonicalUrl(locale, `/${category}/${slug}`),
         }).replace(/</g, '\\u003c') }}
       />
-      <ReactLenis ref={lenisRef} root options={{ wheelMultiplier: 0.9 }}>
-        <main
+      <main
           onKeyDown={(e) => {
             e.key === "Escape" && closeDialog();
           }}
@@ -411,7 +410,6 @@ export default function Project({ project, slug, slugs, category }) {
             <Footer2 className={`relative mt-24`} noMotion noMargin />
           </PageWrapper>
         </main>
-      </ReactLenis>
     </>
   );
 }
