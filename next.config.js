@@ -31,6 +31,10 @@ const nextConfig = withPWA({
 
   reactStrictMode: true,
 
+  experimental: {
+    scrollRestoration: true,
+  },
+
   async redirects() {
     const { createClient } = require("next-sanity");
     const { config } = require("./lib/config");

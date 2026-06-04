@@ -374,7 +374,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       role="dialog"
       aria-modal="true"
       aria-label={dialogLabel}
-      className={`carouselContainer focus:outline-none w-full h-[100dvh] z-[100] fixed overscroll-y-none overflow-y-hidden top-0 invisible opacity-0 text-foreground`}
+      className={`carouselContainer focus:outline-none w-full h-[100dvh] z-[100] fixed overscroll-y-none overflow-y-hidden top-0 invisible opacity-0 text-foreground ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}
       onPointerDownCapture={(e) => { pointerStartRef.current = { x: e.clientX, y: e.clientY } }}
       onClick={(e) => {
         const p = pointerStartRef.current

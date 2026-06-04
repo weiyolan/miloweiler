@@ -44,7 +44,7 @@ export default function CategoryDescriptions({ descriptions, labels }) {
   return (
     <section
       ref={sectionRef}
-      className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 py-20 sm:py-28 bg-background text-foreground force-dark invisible"
+      className="w-full px-6 sm:px-10 lg:px-16 xl:px-24 py-20 sm:py-28 bg-background text-foreground force-dark hidden"
     >
       <h2 className="cat-desc-heading font-serif font-extrabold text-2xl sm:text-3xl lg:text-4xl mb-12 sm:mb-16">
         Our Work

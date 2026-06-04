@@ -23,7 +23,7 @@ export default function ProjectPicture({ images, mainPictureHeight, setMainPictu
   }, [])
 
   return (
-    <div ref={projectPictureContainerRef} style={{}} className={`project-picture-container relative flex justify-center w-full h-full md:w-4/5 lg:w-1/2 min-[2000px]:w-3/5 flex-1 mx-auto select-none  `}>
+    <div ref={projectPictureContainerRef} style={{}} className={`project-picture-container relative flex justify-center w-full h-full md:w-4/5  min-[2000px]:w-3/5 flex-1 mx-auto select-none  `}>
       {/* <div style={{ backgroundColor: `${images[visibleItem.indexOf(true) || 0].asset.metadata.palette.darkMuted.background}` }} className={`absolute block blur-3xl opacity-80 rounded-full ${ar > 1 ? 'w-4/5 h-1/2' : 'w-1/2 h-4/5'} transition-all duration-1000 delay-[0.15] top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] `} /> */}
 
       {images.map((image, i) => <MainPicture index={i} key={i} image={image} alt={`Project image ${i}`} />)}

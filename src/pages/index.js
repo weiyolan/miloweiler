@@ -1,8 +1,9 @@
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { useLenis } from "lenis/react";
 import client from "../../lib/sanity";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
 import { canonicalUrl } from "@/utils/seo";
@@ -22,6 +23,14 @@ const SLUG_TO_QUERY_KEY = {
 
 export default function Home({ categories }) {
   const { locale, categoryLabels, categoryDescriptions } = useAppContext();
+  // The homepage is a fixed single screen: the CardCarousel drives its own
+  // wheel/touch navigation, so stop the global Lenis here (and re-enable it on
+  // navigate-away) to remove the native scrollbar and avoid a wheel-handler conflict.
+  const lenis = useLenis();
+  useEffect(() => {
+    lenis?.stop();
+    return () => lenis?.start();
+  }, [lenis]);
   const labels = categoryLabels || CATEGORY_LABELS;
   const descriptions = categoryDescriptions || CATEGORY_DESCRIPTIONS;
 

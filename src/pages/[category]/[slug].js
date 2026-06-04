@@ -464,7 +464,7 @@ function Photo({ image, alt: altText, i, ...props }) {
       intrinsic
       factor={width < 850 ? 0.1 : 0.2}
       image={image}
-      sizes="(max-width: 700px) 50vw, 25vw"
+      sizes="(max-width: 700px) 50vw, 30vw"
       alt={altText?.[locale] || `Project picture ${i + 1}`}
       {...props}
     />
