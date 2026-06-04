@@ -397,13 +397,16 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
         if (!moved && (e.target === sheetRef.current || e.target === backdropRef.current)) animatedClose()
       }}
     >
-      <div ref={backdropRef} aria-hidden className="absolute inset-0 bg-background bg-opacity-80" />
+      <div ref={backdropRef} aria-hidden className="absolute inset-0 bg-background/80 bg-opacity-95 " />
+      {/* Thin hairline framing the top edge of the modal */}
+      <div aria-hidden className="absolute top-0 inset-x-0 h-px bg-foreground opacity-20 z-[4] pointer-events-none" />
       <PageWrapper palette={palette} >
-        <Layout cardSection className={"carouselContainer relative h-full flex items-center justify-center"}>
+        <Layout cardSection className={"carouselContainer relative h-full flex items-center justify-center "}>
+
           <div style={{}} className={`carouselContainer relative w-[100%] h-full xl:w-[100%] max-w-[1700px] border-0 `}>
 
             {/* {visibleItem && ( */}
-            <div ref={sheetRef} id="carouselContainer" className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
+            <div ref={sheetRef} id="carouselContainer" className="relative flex flex-col justify-end overflow-x-hidden w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
               {/* Drag affordance: grows from a round dot into a rounded grabber bar on open */}
               <div ref={handleRef} aria-hidden className="absolute top-2 mobm:top-3 left-1/2 -translate-x-1/2 w-10 mobm:w-12 h-1.5 rounded-full bg-foreground/40 z-[2] pointer-events-none" />
               {/* Subtle photo metadata (number · year · dimensions) */}
