@@ -61,11 +61,12 @@ function MainPicture({ image, alt, index }) {
 
   return (
     <div ref={mainPicRef}
-      className={`absolute flex justify-center items-center max-w-[1500px] max-h-[80vh] w-full h-full px-2 xs:px-4 `}>
+      className={`absolute inset-0 flex justify-center items-center max-w-[1500px] max-h-[80vh] w-full h-full mx-auto px-2 xs:px-4 `}>
       <SanityImage
         className={`mainPicture-${index} will-change-transform opacity-0 invisible drop-shadow-[0_20px_38px_rgba(0,0,0,0.45)] `} // box-shadow ignores object-fit letterboxing on portrait images; drop-shadow follows the rendered pixels
         sizes='(max-width: 700px) 95vw, 60vw'
-        style={{ objectFit: 'contain', transform: 'translate3d(0,0,0)' }}
+        // width/height:auto + max 100% makes the image itself the contained element so it never exceeds the 80vh / 1500px box
+        style={{ objectFit: 'contain', transform: 'translate3d(0,0,0)', width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%' }}
         image={image}
         alt={alt} />
 

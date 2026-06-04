@@ -14,16 +14,16 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Draggable } from "gsap/dist/Draggable";
 import { InertiaPlugin } from "gsap/dist/InertiaPlugin";
-import { Flip } from "gsap/dist/Flip";
 import PictureIndicator from "@/components/PictureIndicator";
 
-gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger, Draggable, InertiaPlugin, Flip)
+gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger, Draggable, InertiaPlugin)
 
 export default function ProjectCarousel({ project, open, visibleItem, setVisibleItem, nextVisibility, prevVisibility, handleVisibility, closeModal, onDragActiveChange }) {
   const { locale } = useAppContext()
   const containerRef = useRef(null)
   const backdropRef = useRef(null)
   const sheetRef = useRef(null)
+  const handleRef = useRef(null)
   // Keep latest callbacks without re-subscribing effects every render
   const closeModalRef = useRef(closeModal)
   closeModalRef.current = closeModal
@@ -39,29 +39,31 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
   const dialogLabel = locale === 'fr' ? `Galerie photo : ${project.title}` : locale === 'nl' ? `Fotogalerij: ${project.title}` : `${project.title} photo gallery`
 
   const prefersReduced = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const getThumbEl = (idx) => (typeof document !== 'undefined' ? document.querySelector(`[data-thumb-index="${idx}"]`) : null)
-  const inViewport = (el) => {
-    const r = el.getBoundingClientRect()
-    return r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth
-  }
 
-  // Animated close (X / Esc / click-outside): morph the photo back into its
-  // thumbnail with Flip while the backdrop fades, then unmount.
+  // Subtle photo metadata (mono font): "NN / NN · year · W×H"
+  const allImages = [project.mainImage.image, ...project.otherImages.map((o) => o.image)]
+  const totalImages = allImages.length
+  const activeDims = allImages[activeIndex]?.asset?.metadata?.dimensions
+  const projectYear = project.date ? String(project.date).slice(0, 4) : null
+  const pad2 = (n) => String(n).padStart(2, '0')
+  const metaText = [
+    activeIndex >= 0 ? `${pad2(activeIndex + 1)} / ${pad2(totalImages)}` : null,
+    projectYear,
+    activeDims?.width && activeDims?.height ? `${activeDims.width}×${activeDims.height}` : null,
+  ].filter(Boolean).join('   ·   ')
+
+  // Animated close (X / Esc / click-outside): slide the sheet down a touch while the
+  // whole modal — including the big picture — fades out, then unmount.
   function animatedClose() {
     const container = containerRef.current
     const sheet = sheetRef.current
     const done = () => closeModalRef.current()
     if (!container || !sheet) { done(); return }
     if (prefersReduced()) { gsap.set(container, { autoAlpha: 0 }); done(); return }
-    const img = sheet.querySelector(`.mainPicture-${activeIndex}`)
-    const thumb = getThumbEl(activeIndex)
-    gsap.killTweensOf([container, backdropRef.current])
-    gsap.to(container, { opacity: 0, duration: 0.45, ease: 'power2.in' })
-    if (img && thumb && inViewport(thumb)) {
-      Flip.fit(img, thumb, { duration: 0.45, ease: 'power3.inOut', absolute: true, scale: true, onComplete: done })
-    } else {
-      gsap.delayedCall(0.3, done)
-    }
+    gsap.killTweensOf([container, sheet, backdropRef.current])
+    gsap.timeline({ onComplete: done })
+      .to(sheet, { y: 44, duration: 0.42, ease: 'power2.in' }, 0)
+      .to(container, { opacity: 0, duration: 0.4, ease: 'power2.in' }, 0.04)
   }
   const animatedCloseRef = useRef(animatedClose)
   animatedCloseRef.current = animatedClose
@@ -87,12 +89,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [open])
 
-  // Open: fade the backdrop in, morph the photo from its thumbnail (Flip),
-  // wire up Draggable + InertiaPlugin swipe-to-dismiss, and trap focus.
+  // Open: slide the sheet up with a fade (modal entrance), fade the active photo in,
+  // grow the grabber from a dot into a bar, stagger the thumbnails in from the centre,
+  // then wire up Draggable + InertiaPlugin swipe-to-dismiss and trap focus.
   useEffect(() => {
     const container = containerRef.current
     const sheet = sheetRef.current
     const backdrop = backdropRef.current
+    const handle = handleRef.current
     if (!open || !container || !sheet) return
 
     const reduced = prefersReduced()
@@ -102,29 +106,38 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
 
     const backdropTo = gsap.quickTo(backdrop, 'opacity', { duration: 0.12, ease: 'none' })
 
-    // Reveal the modal. Backdrop opacity is driven independently (so dragging
-    // dims the backdrop while the sheet stays solid); the overall fade-in uses
-    // the container so chrome appears smoothly.
-    gsap.set(backdrop, { opacity: 1 })
-    gsap.set(container, { autoAlpha: 1 })
-    if (!reduced) gsap.fromTo(container, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-
-    // Flip the active photo from its grid/masonry thumbnail (after layout).
     const idx = visibleItem.indexOf(true)
-    const flipRaf = requestAnimationFrame(() => {
-      const imgs = sheet.querySelectorAll('[class*="mainPicture-"]')
-      // Reset any inline transform/position left by a previous Flip or the nav
-      // cross-fade so the morph measures the photo's true natural box.
-      gsap.set(imgs, { clearProps: 'transform,position,top,left,right,bottom,width,height,borderRadius' })
-      gsap.set(imgs, { autoAlpha: 0 })
-      const img = sheet.querySelector(`.mainPicture-${idx}`)
+    const imgs = sheet.querySelectorAll('[class*="mainPicture-"]')
+    const img = sheet.querySelector(`.mainPicture-${idx}`)
+    const thumbs = sheet.querySelectorAll('.picture-thumb')
+
+    // Base (pre-animation) state.
+    gsap.set(backdrop, { opacity: 1 })
+    gsap.set(imgs, { autoAlpha: 0 })
+    if (reduced) {
+      gsap.set(container, { autoAlpha: 1 })
+      gsap.set(sheet, { y: 0 })
       if (img) gsap.set(img, { autoAlpha: 1 })
-      const thumb = getThumbEl(idx)
-      // Only morph from the thumbnail when it's actually visible (a click). For a
-      // deep link / shared URL the grid is scrolled away, so just fade the photo in.
-      if (img && thumb && !reduced && inViewport(thumb)) {
-        Flip.fit(img, thumb, { duration: 0.6, ease: 'power3.inOut', absolute: true, scale: true, runBackwards: true })
-      }
+      if (handle) gsap.set(handle, { width: 44 })
+      gsap.set(thumbs, { autoAlpha: 1 })
+    } else {
+      gsap.set(container, { visibility: 'visible', opacity: 0 }) // visible but transparent; the timeline fades it in
+      gsap.set(sheet, { y: 52 })
+      if (handle) gsap.set(handle, { width: 6 })
+      gsap.set(thumbs, { autoAlpha: 0 })
+    }
+
+    // Run the entrance on the next frame so the photo + thumbnails are laid out first.
+    let openTl
+    const openRaf = requestAnimationFrame(() => {
+      if (reduced) return
+      openTl = gsap.timeline()
+      openTl
+        .fromTo(container, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0)
+        .to(sheet, { y: 0, duration: 0.6, ease: 'power3.out' }, 0)
+      if (img) openTl.to(img, { autoAlpha: 1, duration: 0.5, ease: 'power2.out' }, 0.08)
+      if (handle) openTl.to(handle, { width: 44, duration: 0.4, ease: 'power2.out' }, 0.32)
+      if (thumbs.length) openTl.to(thumbs, { autoAlpha: 1, duration: 0.4, ease: 'power2.out', stagger: { each: 0.05, from: idx } }, 0.28)
     })
 
     const focusRaf = requestAnimationFrame(() => {
@@ -168,8 +181,9 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
     const drag = created && created[0]
 
     return () => {
-      cancelAnimationFrame(flipRaf)
+      cancelAnimationFrame(openRaf)
       cancelAnimationFrame(focusRaf)
+      if (openTl) openTl.kill()
       onDragActiveChange && onDragActiveChange(false)
       if (drag) drag.kill()
       try { InertiaPlugin.untrack(sheet, 'y') } catch (e) {}
@@ -177,6 +191,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       gsap.set(sheet, { clearProps: 'transform,willChange' })
       gsap.set(container, { clearProps: 'opacity,visibility' })
       gsap.set(backdrop, { clearProps: 'opacity' })
+      if (handle) gsap.set(handle, { clearProps: 'width' })
       const last = lastFocusRef.current
       if (last && last.focus) last.focus({ preventScroll: true })
     }
@@ -389,8 +404,14 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
 
             {/* {visibleItem && ( */}
             <div ref={sheetRef} id="carouselContainer" className="relative flex flex-col justify-end  w-full h-full  pb-0 pt-10 mobm:pt-14  lg:py-8  ">
-              {/* Drag affordance: rounded grabber bar indicating the modal is draggable */}
-              <div aria-hidden className="absolute top-2 mobm:top-3 left-1/2 -translate-x-1/2 w-10 mobm:w-12 h-1.5 rounded-full bg-foreground/40 z-[2] pointer-events-none" />
+              {/* Drag affordance: grows from a round dot into a rounded grabber bar on open */}
+              <div ref={handleRef} aria-hidden className="absolute top-2 mobm:top-3 left-1/2 -translate-x-1/2 w-10 mobm:w-12 h-1.5 rounded-full bg-foreground/40 z-[2] pointer-events-none" />
+              {/* Subtle photo metadata (number · year · dimensions) */}
+              {metaText && (
+                <div aria-hidden className="absolute top-2.5 mobm:top-4 left-3 sm:left-4 z-[2] font-mono text-[10px] sm:text-xs tracking-wide text-foreground/50 pointer-events-none">
+                  {metaText}
+                </div>
+              )}
               <ProjectPicture
                 setMainPictureWidth={setMainPictureWidth}
                 mainPictureHeight={mainPictureHeight}
