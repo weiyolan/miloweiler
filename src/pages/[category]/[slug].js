@@ -13,7 +13,6 @@ import {  AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 import Layout from "@/components/Layout";
 import { gsap } from "gsap/dist/gsap";
 import { Observer } from "gsap/dist/Observer";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import Line from "@/components/Line";
 import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
@@ -121,18 +120,7 @@ export default function Project({ project, slug, slugs, category }) {
       );
   }
 
-  useEffect(() => {
-    ctx.current.add(() => {
-      // The thumbnail strip only exists while the carousel is mounted/open; skip
-      // when it's absent (e.g. a deep-linked ?photo before the carousel mounts).
-      if (typeof document !== "undefined" && !document.querySelector(".project-pictures")) return;
-      gsap.to(".project-pictures", {
-        scrollTo: { x: `#pictureThumb${visibleItem?.indexOf(true)}`, offsetX: width < 350 ? (width - 80) / 2 : (width - 112) / 2 },
-        ease: "power1.inout",
-        duration: 0.7,
-      });
-    });
-  }, [visibleItem]);
+  // Thumbnail centering is handled by the seamless loop inside ProjectPictures.
 
   function handleVisibility(nextItem, direction) {
     let currentItem = visibleItem.indexOf(true);

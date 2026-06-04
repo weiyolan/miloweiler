@@ -1,105 +1,75 @@
 import React, { useEffect, useRef } from 'react'
 import PictureThumb from './PictureThumb'
-import { gsap } from "gsap/dist/gsap";
-// import Draggable from 'gsap/dist/Draggable';
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useAppContext } from '@/utils/appContext';
-
-gsap.registerPlugin(ScrollTrigger);
-// gsap.registerPlugin(Draggable);
-// gsap.registerPlugin();
+import { gsap } from 'gsap/dist/gsap'
+import { useAppContext } from '@/utils/appContext'
+import { horizontalLoop } from '@/utils/horizontalLoopCenter'
 
 export default function ProjectPictures({ images, handleVisibility, visibleItem }) {
-  // console.log(images)
-  let container = useRef(null)
+  const container = useRef(null)
+  const loopRef = useRef(null)
   const { width } = useAppContext()
-  // let [ctx, setCts] = useState(gsap.context(() => { }, container.current))
-  // const ctx = useRef(null);
-  const grid = useRef(null);
-  // const tl = useRef(null);
-  // let scrollTween = useRef()
+  const activeIndex = visibleItem ? visibleItem.indexOf(true) : 0
 
-  // useEffect(() => {
-  //   tl.current = gsap.timeline({
-  //     scrollTrigger: {
-  //       scroller: container.current,
-  //       trigger: grid.current,
-  //       // end: '+=100%', s
-  //       end: width < 1024 ? 'right right' : 'bottom bottom',
-  //       // pin:true,width < 1024
-  //       scrub: true,
-  //       horizontal: width < 1024,
-  //       markers: true,
-  //       invalidateOnRefresh: true
-  //     }, onUpdate: () => console.log('start')
-  //   })
-  // }, [])
+  // Seamless infinite loop, but only when the thumbnails actually overflow the
+  // container — otherwise a static centered row reads better. Rebuilt on breakpoint
+  // changes (thumb sizes change) and when the image count changes.
+  useEffect(() => {
+    const cont = container.current
+    if (!cont) return
+    const raf = requestAnimationFrame(() => {
+      const items = gsap.utils.toArray(cont.querySelectorAll('.picture-thumb'))
+      if (items.length < 2) return
+      const totalW = items.reduce((s, el) => s + el.offsetWidth, 0) + (items.length - 1) * 4
+      if (totalW <= cont.offsetWidth + 4) return // not enough to loop -> static centered
+      // The loop needs normal left-aligned offsets; justify-center (used for the static
+      // case) gives overflowing flex items odd offsetLeft values that break its math.
+      cont.classList.remove('justify-center')
+      // No horizontal Draggable: it fights the sheet's vertical drag-to-dismiss. The
+      // loop is driven by click-to-center + arrow keys, wrapping seamlessly both ways.
+      const loop = horizontalLoop(items, { paused: true, center: cont })
+      loopRef.current = loop
+      loop.toIndex(activeIndex, { duration: 0 })
+    })
+    return () => {
+      cancelAnimationFrame(raf)
+      const l = loopRef.current
+      if (l) {
+        l.draggable && l.draggable.kill()
+        l.kill()
+      }
+      loopRef.current = null
+      cont.classList.add('justify-center')
+      const items = cont.querySelectorAll('.picture-thumb')
+      gsap.set(items, { clearProps: 'x,xPercent' })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, images.length])
 
-  // useEffect(() => {
-  //   // console.log('context')
-  //   ctx.current = gsap.context(() => {
-  //     // gsap.to(grid.current, { opacity: 1, duration: 2, delay: 2 });
-  //     // !!!!!!!!!!!! IMPLEMENTED IN THE THUMBNAIL ITSELF!!!!!!!!!!
-  //     gsap.utils.toArray(".picture-thumb").forEach((thumbnail, i) => {
-  //       // console.log(thumbnail.getAttribute('data-loaded'))
-  //       // if (thumbnail.getAttribute('data-loaded') === 'true') {
-  //       gsap.from(thumbnail, {
-  //         scale: 0.5,
-  //         opacity: 0,
-  //         // duration: 0.5,
-  //         // stagger: 0.5,
-  //         ease: 'expo.out',
-  //         scrollTrigger: {
-  //           scroller: container.current,
-  //           trigger: thumbnail,
-  //           start: '-=49% bottom',
-  //           // end:'bo'
-  //           // endTrigger:window,
-  //           // end: '+=100%', 
-  //           end: width < 1024 ? '+=49% right' : '+=49% bottom',
-  //           end: '+=49% bottom',
-  //           // pin:true,width < 1024
-  //           // scrub: 1,
-  //           toggleActions: 'play reverse play reverse',
-  //           horizontal: width < 1024,
-  //           // markers: true,
-  //           invalidateOnRefresh: true
-  //         },
-  // // onStart: () => console.log('start')
-  // // })
-  //         // }
-  //       })
-  //       // scrollTrigger:{ scrub: 2, horizontal:true, markers:false}
-  //       // gsap.to(grid.current, {
-  //       //   yPercent: -100,
-  //       //   ease: 'none',
-  //       //   scrollTrigger: {
-  //       //     trigger: grid.current,
-  //       //     pin: true,
-  //       //     scrub: 1,
-  //       //     end: '+=3000'
-  //       //   },
-  //       // onStart: () => console.log('started'),
-  //     })
-  //   }, container.current);
-  //   return () => ctx.current.revert();
-  // }, []);
-
-  // useEffect(() => {
-  //   Draggable.create(grid.current, {
-  //     type: 'x',
-  //   })
-  // }, [])
+  // Center the active thumbnail whenever the selection changes. Resync the loop's
+  // internal index to the real playhead first so repeated/wrap-around moves don't drift.
+  useEffect(() => {
+    const loop = loopRef.current
+    if (!loop) return
+    loop.closestIndex(true)
+    loop.toIndex(activeIndex, { duration: 0.55, ease: 'power3.out' })
+  }, [activeIndex])
 
   return (
-    // <ReactLenis root options={{}}> overscroll-x-contain lg:overscroll-y-contain
-    <div ref={container} data-lenis-prevent data-clickable="true" className={`min-h-fit shrink-0 flex relative project-pictures no-scrollbar select-none w-full h-fit overflow-x-scroll touch-pan-x `}>
-      {/* <div ref={container} className='relative project-pictures no-scrollbar select-none w-full h-fit lg:h-full lg:w-fit overflow-hidden overflow-x-scroll lg:overflow-x-hidden lg:overflow-y-scroll'> */}
-      <div ref={grid} className='project-grid relative ignore-swipe w-fit h-fit grid opacity-1 grid-rows-1  grid-flow-col mx-auto  gap-1 p-1 overflow-visible '>
-        {images.map((image, i) => (<PictureThumb containerRef={container} row={width < 1024} handleClick={() => handleVisibility(i)} visible={visibleItem[i]} image={image} index={i} key={i} alt={`Preview of picture ${i} of this project`} />))}
-      </div>
-      {/* </div> */}
+    <div
+      ref={container}
+      data-lenis-prevent
+      data-clickable="true"
+      className="project-pictures relative flex justify-center w-full h-fit overflow-hidden select-none py-1 gap-1">
+      {images.map((image, i) => (
+        <PictureThumb
+          handleClick={() => handleVisibility(i)}
+          visible={visibleItem[i]}
+          image={image}
+          index={i}
+          key={i}
+          alt={`Preview of picture ${i} of this project`}
+        />
+      ))}
     </div>
-    // </ReactLenis>
   )
 }
