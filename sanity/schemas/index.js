@@ -30,6 +30,9 @@ import businessInfo from './businessInfo'
 import legalNotice from './legalNotice'
 import termsOfUse from './termsOfUse'
 import cookieNotice from './cookieNotice'
+import seo from './seo'
+import pageSeo from './pageSeo'
+import categorySeo from './categorySeo'
 
 export const schemaTypes = [
   trustedByLogo,
@@ -59,4 +62,7 @@ export const schemaTypes = [
   legalNotice,
   termsOfUse,
   cookieNotice,
+  seo,
+  pageSeo,
+  categorySeo,
 ]
