@@ -35,17 +35,14 @@ export default defineType({
   name: 'pageSeo',
   title: 'Page SEO',
   type: 'document',
-  fieldsets: PAGE_FIELDS.map(({ name, title }) => ({
-    name,
-    title,
-    options: { collapsible: true, collapsed: true },
-  })),
+  // Each page is a single collapsible section. The `seo` object type is already
+  // collapsible, so we deliberately do NOT also wrap it in a fieldset (that would
+  // nest a collapsible inside a collapsible — i.e. the double indentation).
   fields: PAGE_FIELDS.map(({ name, title, initialValue }) =>
     defineField({
       name,
       title,
       type: 'seo',
-      fieldset: name,
       initialValue,
     })
   ),

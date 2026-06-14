@@ -19,17 +19,14 @@ export default defineType({
   name: 'categorySeo',
   title: 'Category SEO',
   type: 'document',
-  fieldsets: CATEGORY_FIELDS.map(({ name, title }) => ({
-    name,
-    title,
-    options: { collapsible: true, collapsed: true },
-  })),
+  // Each category is a single collapsible section. The `seo` object type is
+  // already collapsible, so we deliberately do NOT also wrap it in a fieldset
+  // (that would nest a collapsible inside a collapsible — double indentation).
   fields: CATEGORY_FIELDS.map(({ name, title }) =>
     defineField({
       name,
       title,
       type: 'seo',
-      fieldset: name,
       initialValue: { seoDescription: INITIAL_DESCRIPTION },
     })
   ),
