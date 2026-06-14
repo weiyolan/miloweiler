@@ -37,6 +37,9 @@ export default function Project({ project, slug, slugs, category }) {
   let [visibleItem, setVisibleItem] = useState(initiateVisibility());
   // Coordination for the carousel's drag-to-dismiss vs. the swipe-nav Observer
   const dragActiveRef = useRef(false);
+  // True while a photo is zoomed (focus mode): pan gestures own the screen, so the
+  // swipe-to-navigate Observer must stand down.
+  const zoomActiveRef = useRef(false);
   const navRef = useRef({});
   // URL-driven modal: ?photo=N (1-based ordinal over [mainImage, ...otherImages])
   const totalImages = 1 + (project?.otherImages?.length || 0);
@@ -73,8 +76,8 @@ export default function Project({ project, slug, slugs, category }) {
       ignore: ".project-pictures, .project-grid, .imageFill",
       type: "touch, scroll, pointer",
       preventDefault: false,
-      // Yield to the carousel's vertical drag-to-dismiss while it's engaged
-      ignoreCheck: () => dragActiveRef.current,
+      // Yield to the carousel's vertical drag-to-dismiss or an active zoom/pan
+      ignoreCheck: () => dragActiveRef.current || zoomActiveRef.current,
       onPress: () => { navLock = false; },
       onStop: () => { navLock = false; },
       onRight: () => { if (navLock) return; navLock = true; navRef.current.prevVisibility?.(); },
@@ -278,6 +281,7 @@ export default function Project({ project, slug, slugs, category }) {
               open={carouselIsOpen}
               closeModal={() => closeDialog()}
               onDragActiveChange={(v) => { dragActiveRef.current = v; }}
+              onZoomActiveChange={(v) => { zoomActiveRef.current = v; }}
             />
             <Layout cardSection className={"relative w-full h-full flex flex-col flex-1 gap-6 md:gap-8 px-6 mt-12"}>
               <div className={"relative w-full flex flex-col flex-1 gap-6 md:gap-8 max-w-7xl mx-auto"}>

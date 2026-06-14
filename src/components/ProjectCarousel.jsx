@@ -18,12 +18,24 @@ import PictureIndicator from "@/components/PictureIndicator";
 
 gsap.registerPlugin(Observer, ScrollToPlugin, ScrollTrigger, Draggable, InertiaPlugin)
 
-export default function ProjectCarousel({ project, open, visibleItem, setVisibleItem, nextVisibility, prevVisibility, handleVisibility, closeModal, onDragActiveChange }) {
+export default function ProjectCarousel({ project, open, visibleItem, setVisibleItem, nextVisibility, prevVisibility, handleVisibility, closeModal, onDragActiveChange, onZoomActiveChange }) {
   const { locale } = useAppContext()
   const containerRef = useRef(null)
   const backdropRef = useRef(null)
   const sheetRef = useRef(null)
   const handleRef = useRef(null)
+  const dragRef = useRef(null)
+  // Latest zoom callback without re-subscribing effects
+  const onZoomActiveChangeRef = useRef(onZoomActiveChange)
+  onZoomActiveChangeRef.current = onZoomActiveChange
+
+  // While a photo is zoomed: suspend the sheet's vertical drag-to-dismiss and let
+  // the page suspend its swipe-to-navigate, so pan gestures stay on the image.
+  function handleZoomActive(v) {
+    const d = dragRef.current
+    if (d) { v ? d.disable() : d.enable() }
+    onZoomActiveChangeRef.current && onZoomActiveChangeRef.current(v)
+  }
   // Keep latest callbacks without re-subscribing effects every render
   const closeModalRef = useRef(closeModal)
   closeModalRef.current = closeModal
@@ -179,6 +191,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       },
     })
     const drag = created && created[0]
+    dragRef.current = drag
 
     return () => {
       cancelAnimationFrame(openRaf)
@@ -186,6 +199,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       if (openTl) openTl.kill()
       onDragActiveChange && onDragActiveChange(false)
       if (drag) drag.kill()
+      dragRef.current = null
       try { InertiaPlugin.untrack(sheet, 'y') } catch (e) {}
       gsap.killTweensOf([container, sheet, backdrop])
       gsap.set(sheet, { clearProps: 'transform,willChange' })
@@ -423,6 +437,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
                 handleVisibility={handleVisibility}
                 nextVisibility={nextVisibility}
                 prevVisibility={prevVisibility}
+                onZoomActiveChange={handleZoomActive}
               />
               <PictureIndicator mainPictureWidth={mainPictureWidth} setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
               <ProjectPictures images={[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
