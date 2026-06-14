@@ -54,8 +54,8 @@ export const myStructure = (S) => {
           S.list()
             .title("SEO")
             .items([
-              S.listItem().title("Pages (Home / About / Contact)").icon(BlockElementIcon).child(S.document().schemaType("pageSeo").documentId("pageSeo")),
-              S.listItem().title("Category Pages").icon(BlockElementIcon).child(S.document().schemaType("categorySeo").documentId("categorySeo")),
+              S.listItem().title("Pages (Home / About / Contact)").icon(BlockElementIcon).child(S.document().schemaType("pageSeo").documentId("pageSeo").title("Page SEO")),
+              S.listItem().title("Category Pages").icon(BlockElementIcon).child(S.document().schemaType("categorySeo").documentId("categorySeo").title("Category SEO")),
             ])
         ),
       // S.divider(),
