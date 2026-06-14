@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useLenis } from "lenis/react";
 import client from "../../lib/sanity";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
-import { canonicalUrl } from "@/utils/seo";
+import { canonicalUrl, resolveSeo } from "@/utils/seo";
 import CategoryDescriptions from "@/sections/CategoryDescriptions";
 
 const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
@@ -21,7 +21,7 @@ const SLUG_TO_QUERY_KEY = {
   'personal-work': 'art',
 };
 
-export default function Home({ categories }) {
+export default function Home({ categories, seo }) {
   const { locale, categoryLabels, categoryDescriptions } = useAppContext();
   // The homepage is a fixed single screen: the CardCarousel drives its own
   // wheel/touch navigation, so stop the global Lenis here (and re-enable it on
@@ -42,23 +42,31 @@ export default function Home({ categories }) {
 
   const firstImage = categories.find((c) => c.image);
 
+  const pageSeo = resolveSeo(seo, locale, {
+    title: 'Milo Weiler Photography | Set, Portrait & Corporate Photographer',
+    description: 'Witness the Beauty of Life',
+    image: firstImage?.ogUrl || null,
+  });
+  // og/twitter title keeps its own shorter default when Milo hasn't set an SEO title.
+  const socialTitle = seo?.seoTitle?.[locale] || 'Set, Portrait & Corporate Photographer';
+
   return (
     <>
       <Head>
-        <title>{"Milo Weiler Photography | Set, Portrait & Corporate Photographer"}</title>
-        <meta name="description" content="Witness the Beauty of Life" />
+        <title>{pageSeo.title}</title>
+        <meta name="description" content={pageSeo.description} />
         <link rel="canonical" href={canonicalUrl(locale, '/')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/')} />
-        <meta property="og:title" content={"Set, Portrait & Corporate Photographer"} />
-        <meta property="og:description" content="Witness the Beauty of Life" />
+        <meta property="og:title" content={socialTitle} />
+        <meta property="og:description" content={pageSeo.description} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        {firstImage?.ogUrl && (
+        {pageSeo.image && (
           <>
-            <meta property="og:image" content={firstImage.ogUrl} />
+            <meta property="og:image" content={pageSeo.image} />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
             <meta property="og:image:alt" content="Milo Weiler Photography" />
@@ -70,10 +78,10 @@ export default function Home({ categories }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, '/')} />
-        <meta name="twitter:title" content="Set, Portrait & Corporate Photographer" />
-        <meta name="twitter:description" content="Witness the Beauty of Life" />
-        {firstImage?.ogUrl && (
-          <meta name="twitter:image" content={firstImage.ogUrl} />
+        <meta name="twitter:title" content={socialTitle} />
+        <meta name="twitter:description" content={pageSeo.description} />
+        {pageSeo.image && (
+          <meta name="twitter:image" content={pageSeo.image} />
         )}
       </Head>
       <script
@@ -169,7 +177,8 @@ export async function getStaticProps() {
       docu{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       studio{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       art{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor }
-    }
+    },
+    'seo': *[_type == "pageSeo" && _id == "pageSeo"][0].home{ seoTitle, seoDescription, seoImage{asset->{url}} }
   }`);
 
   const hpConfig = data.homepageConfig || {};
@@ -225,6 +234,7 @@ export async function getStaticProps() {
   return {
     props: {
       categories,
+      seo: data.seo || null,
     },
   };
 }

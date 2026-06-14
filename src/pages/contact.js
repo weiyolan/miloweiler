@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Head from 'next/head'
-import { canonicalUrl } from '@/utils/seo'
+import { canonicalUrl, resolveSeo } from '@/utils/seo'
 import SubTitle from '@components/SubTitle'
 import Layout from '@/components/Layout'
 import LayoutSection from '@/components/LayoutSection'
@@ -28,7 +28,7 @@ import { gsap } from "gsap/dist/gsap";
 
 import { supportedLanguages } from "../../sanity/schemas/supportedLanguages";
 
-export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData }) {
+export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData, seo }) {
   let textRef = useRef(null);
   let { width, locale } = useAppContext();
   let { height: textHeight } = useDimensions(textRef);
@@ -128,21 +128,29 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
     return () => ctx.current.revert();
   }, [width]);
 
+  const pageSeo = resolveSeo(seo, locale, {
+    title: 'Milo Weiler Photography | A Unique Style In Artistic Photography',
+    description: 'Discover the power of visual storytelling through my lens.',
+    image: 'https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop',
+  });
+  // og/twitter title keeps its own shorter default until Milo sets an SEO title.
+  const socialTitle = seo?.seoTitle?.[locale] || 'A Unique Style In Artistic Photography';
+
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | A Unique Style In Artistic Photography</title>
-        <meta name="description" content="Discover the power of visual storytelling through my lens." />
+        <title>{pageSeo.title}</title>
+        <meta name="description" content={pageSeo.description} />
         <link rel="canonical" href={canonicalUrl(locale, '/contact')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/contact')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/contact')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/contact')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/contact')} />
-        <meta property="og:title" content={"A Unique Style In Artistic Photography"} />
-        <meta property="og:description" content={`Discover the power of visual storytelling through my lens.`} />
+        <meta property="og:title" content={socialTitle} />
+        <meta property="og:description" content={pageSeo.description} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop`} />
+        <meta property="og:image" content={pageSeo.image} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Milo Weiler Photography - Contact" />
@@ -152,9 +160,9 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, '/contact')} />
-        <meta name="twitter:title" content="A Unique Style In Artistic Photography" />
-        <meta name="twitter:description" content="Discover the power of visual storytelling through my lens." />
-        <meta name="twitter:image" content={`https://cdn.sanity.io/images/erjr84ua/production/10a6c74de0cb8dd19f628619d6c1508ef1e32795-618x817.jpg?w=1200&h=630&fit=crop`} />
+        <meta name="twitter:title" content={socialTitle} />
+        <meta name="twitter:description" content={pageSeo.description} />
+        <meta name="twitter:image" content={pageSeo.image} />
       </Head>
       {/* duration:0.9,  */}
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
@@ -284,6 +292,7 @@ export async function getStaticProps() {
     printingData,
     portfolioRaw,
     inspirationData,
+    seo,
   ] = await Promise.all([
     client.fetch(`*[_type == "contactPageCDS"][0]`),
     client.fetch(`*[_type == "contactPageTBS"][0]`),
@@ -293,6 +302,7 @@ export async function getStaticProps() {
       `*[_type == "contactPagePFS"][0]{image1,image2,title,text,'portfolio':{'url':{${langObjPortfolioUrl}},'fileName':{${langObjPortfolioName}}}}`
     ),
     client.fetch(`*[_type == "contactPageGIS"][0]`),
+    client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].contact{ seoTitle, seoDescription, seoImage{asset->{url}} }`),
   ]);
 
   const { image1, image2, title, text, portfolio } = portfolioRaw;
@@ -305,6 +315,7 @@ export async function getStaticProps() {
       printingData: printingData,
       portfolioData: { image1, image2, title, text, portfolio },
       inspirationData: inspirationData,
+      seo: seo || null,
     },
   };
 }

@@ -2,7 +2,7 @@ import ProjectRow from "@/components/ProjectRow";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import { canonicalUrl } from "@/utils/seo";
+import { canonicalUrl, resolveSeo } from "@/utils/seo";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
@@ -11,7 +11,7 @@ import GalleryTitle from "@/components/GalleryTitle";
 import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, getVisibleCategorySlugs, CATEGORY_LABELS, RESERVED_SLUGS } from "@/utils/categories";
 import Link from "next/link";
 
-export default function CategoryGallery({ projects, category, highlightedEnabled }) {
+export default function CategoryGallery({ projects, category, highlightedEnabled, seo }) {
   let { width, locale, categoryLabels, categoryShortLabels } = useAppContext();
   let darkMode = true;
   let [hoveredRow, setHoveredRow] = useState(null);
@@ -19,23 +19,34 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
   const label = categoryLabels?.[category]?.[locale] || CATEGORY_LABELS[category]?.[locale] || category;
   const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled);
 
+  const fallbackImage = projects[0]?.mainImage?.image?.asset?.url
+    ? `${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`
+    : null;
+  const pageSeo = resolveSeo(seo, locale, {
+    title: `Milo Weiler | ${label}`,
+    description: 'Specialised Set & Studio Photography',
+    image: fallbackImage,
+  });
+  // og/twitter title keeps the bare category label until Milo sets an SEO title.
+  const socialTitle = seo?.seoTitle?.[locale] || label;
+
   return (
     <>
       <Head>
-        <title>{`Milo Weiler | ${label}`}</title>
-        <meta name="description" content="Specialised Set & Studio Photography" />
+        <title>{pageSeo.title}</title>
+        <meta name="description" content={pageSeo.description} />
         <link rel="canonical" href={canonicalUrl(locale, `/${category}`)} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}`)} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}`)} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', `/${category}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}`)} />
-        <meta property="og:title" content={label} />
-        <meta property="og:description" content="Specialised Set & Studio Photography" />
+        <meta property="og:title" content={socialTitle} />
+        <meta property="og:description" content={pageSeo.description} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="miloweiler.com" />
-        {projects[0]?.mainImage?.image?.asset?.url && (
+        {pageSeo.image && (
           <>
-            <meta property="og:image" content={`${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+            <meta property="og:image" content={pageSeo.image} />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
             <meta property="og:image:alt" content={`Milo Weiler - ${label}`} />
@@ -47,10 +58,10 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, `/${category}`)} />
-        <meta name="twitter:title" content={label} />
-        <meta name="twitter:description" content="Specialised Set & Studio Photography" />
-        {projects[0]?.mainImage?.image?.asset?.url && (
-          <meta name="twitter:image" content={`${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+        <meta name="twitter:title" content={socialTitle} />
+        <meta name="twitter:description" content={pageSeo.description} />
+        {pageSeo.image && (
+          <meta name="twitter:image" content={pageSeo.image} />
         )}
       </Head>
       <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
@@ -130,11 +141,23 @@ export async function getStaticProps({ params }) {
     `*[_type == "homepageConfig" && _id == "homepageConfig"][0].highlighted.enabled`
   );
 
+  // Per-category SEO (no dedicated SEO for the "highlighted" pseudo-category).
+  let seo = null;
+  if (params.category !== 'highlighted') {
+    const cat = getCatFromSlug(params.category);
+    if (cat) {
+      seo = await client.fetch(
+        `*[_type == "categorySeo" && _id == "categorySeo"][0].${cat}{ seoTitle, seoDescription, seoImage{asset->{url}} }`
+      );
+    }
+  }
+
   return {
     props: {
       projects,
       category: params.category,
       highlightedEnabled: hpHighlighted !== false,
+      seo: seo || null,
     },
   };
 }
