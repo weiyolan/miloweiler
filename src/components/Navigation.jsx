@@ -7,6 +7,7 @@ import { Observer } from 'gsap/dist/Observer'
 import { useAppContext } from '@/utils/appContext'
 import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
 import LangSwitch from './LangSwitch'
+import ThemeToggle from './ThemeToggle'
 
 gsap.registerPlugin(Observer)
 
@@ -75,8 +76,11 @@ export default function Navigation() {
           <NavButton text="Contact" to="/contact" locale={locale} />
         </div>
 
-        {/* Language */}
-        <LangSwitch className="pointer-events-auto text-xs md:text-sm" />
+        {/* Theme + Language */}
+        <div className="flex items-center gap-4 pointer-events-auto">
+          <ThemeToggle />
+          <LangSwitch className="text-xs md:text-sm" />
+        </div>
       </div>
     </nav>
   )

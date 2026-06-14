@@ -3,6 +3,7 @@ import { MasterDetailIcon } from '@sanity/icons'
 import { BlockElementIcon } from '@sanity/icons'
 import { CogIcon } from '@sanity/icons'
 import { HomeIcon } from '@sanity/icons'
+import { SearchIcon } from '@sanity/icons'
 
 export const myStructure = (S) => {
   return S.list()
@@ -46,6 +47,17 @@ export const myStructure = (S) => {
               S.listItem().title("Get Inspired").icon(BlockElementIcon).child(S.document().schemaType("contactPageGIS").documentId("contactPageGIS")),
             ])
         ),
+      S.listItem()
+        .title("SEO")
+        .icon(SearchIcon)
+        .child(
+          S.list()
+            .title("SEO")
+            .items([
+              S.listItem().title("Pages (Home / About / Contact)").icon(BlockElementIcon).child(S.document().schemaType("pageSeo").documentId("pageSeo").title("Page SEO")),
+              S.listItem().title("Category Pages").icon(BlockElementIcon).child(S.document().schemaType("categorySeo").documentId("categorySeo").title("Category SEO")),
+            ])
+        ),
       // S.divider(),
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -68,6 +80,8 @@ export const myStructure = (S) => {
             "legalNotice",
             "termsOfUse",
             "cookieNotice",
+            "pageSeo",
+            "categorySeo",
           ].includes(listItem.getId())
       ),
       S.listItem()

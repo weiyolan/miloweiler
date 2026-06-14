@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { canonicalUrl } from "@/utils/seo";
+import { canonicalUrl, resolveSeo } from "@/utils/seo";
 // import { ReactLenis } from 'lenis/react'
 // import '../styles/globals.css'
 
@@ -43,7 +43,7 @@ import BackgroundMain from "@/components/BackgroundMain";
 const SplashScreen = dynamic(() => import("@/components/SplashScreen"), { ssr: false });
 import StoryTitle2 from "@/components/line/StoryTitle2";
 
-export default function Home({ projects, sectionInfo, introImages }) {
+export default function Home({ projects, sectionInfo, introImages, seo }) {
   const {
     scrolled,
     width: screenWidth,
@@ -1606,33 +1606,51 @@ export default function Home({ projects, sectionInfo, introImages }) {
   //   return document.removeEventListener("scroll", storeScroll);
   // }, []);
 
+  const introOg = introImages.images[0]?.image?.asset?.url
+    ? `${introImages.images[0].image.asset.url}?w=1200&h=630&fit=crop`
+    : null;
+  const pageSeo = resolveSeo(seo, locale, {
+    title: 'Milo Weiler Photography | About Me',
+    description: 'From behind the scenes Set Photography to the Studio and Outdoors.',
+    image: introOg,
+  });
+  // og/twitter keep their own shorter defaults until Milo sets an SEO title/description.
+  const socialTitle = seo?.seoTitle?.[locale] || 'Witness The Beauty Of Life';
+  const socialDescription = seo?.seoDescription?.[locale] || 'From Set Photography to the Studio and Outdoors.';
+
   return (
     <>
       <Head>
-        <title>Milo Weiler Photography | About Me</title>
-        <meta name="description" content="From behind the scenes Set Photography to the Studio and Outdoors." />
+        <title>{pageSeo.title}</title>
+        <meta name="description" content={pageSeo.description} />
         <link rel="canonical" href={canonicalUrl(locale, '/about')} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', '/about')} />
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/about')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/about')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/about')} />
-        <meta property="og:title" content={"Witness The Beauty Of Life"} />
+        <meta property="og:title" content={socialTitle} />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content={`From Set Photography to the Studio and Outdoors.`} />
+        <meta property="og:description" content={socialDescription} />
         <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={`${introImages.images[0]?.image?.asset?.url}?w=1200&h=630&fit=crop`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Milo Weiler Photography - About Me" />
+        {pageSeo.image && (
+          <>
+            <meta property="og:image" content={pageSeo.image} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content="Milo Weiler Photography - About Me" />
+          </>
+        )}
         <meta property="og:locale" content={locale} />
         <meta property="og:url" content={canonicalUrl(locale, '/about')} />
         <meta property="fb:app_id" content="659504862954849" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="miloweiler.com" />
         <meta property="twitter:url" content={canonicalUrl(locale, '/about')} />
-        <meta name="twitter:title" content="Witness The Beauty Of Life" />
-        <meta name="twitter:description" content="From Set Photography to the Studio and Outdoors." />
-        <meta name="twitter:image" content={`${introImages.images[0]?.image?.asset?.url}?w=1200&h=630&fit=crop`} />
+        <meta name="twitter:title" content={socialTitle} />
+        <meta name="twitter:description" content={socialDescription} />
+        {pageSeo.image && (
+          <meta name="twitter:image" content={pageSeo.image} />
+        )}
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
@@ -1862,7 +1880,7 @@ overscroll-behavior: none;
 }
 
 export async function getStaticProps() {
-  const [projects, introImages, sectionInfo] = await Promise.all([
+  const [projects, introImages, sectionInfo, seo] = await Promise.all([
     client.fetch(
       `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type,alt, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
     ),
@@ -1870,9 +1888,10 @@ export async function getStaticProps() {
       `*[_type == "mainPageXIntro"][0]{images[]{alt,image{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}}`
     ),
     client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`),
+    client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].about{ seoTitle, seoDescription, seoImage{asset->{url}} }`),
   ]);
 
   return {
-    props: { projects, sectionInfo, introImages },
+    props: { projects, sectionInfo, introImages, seo: seo || null },
   };
 }

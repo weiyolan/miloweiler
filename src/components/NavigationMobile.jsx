@@ -5,6 +5,7 @@ import { gsap } from 'gsap/dist/gsap'
 import { Observer } from 'gsap/dist/Observer'
 import NavToggle from './NavToggle'
 import LangSwitch from './LangSwitch'
+import ThemeToggle from './ThemeToggle'
 import { useAppContext } from '@/utils/appContext'
 import { CATEGORY_LABELS, getVisibleCategorySlugs } from '@/utils/categories'
 
@@ -164,6 +165,11 @@ export default function NavigationMobile() {
           {/* Language switcher */}
           <div ref={setItemRef(itemIndex++)} className="opacity-0 invisible mt-2">
             <LangSwitch className="text-base text-foreground gap-3" />
+          </div>
+
+          {/* Theme toggle */}
+          <div ref={setItemRef(itemIndex++)} className="opacity-0 invisible">
+            <ThemeToggle />
           </div>
         </div>
       </div>
