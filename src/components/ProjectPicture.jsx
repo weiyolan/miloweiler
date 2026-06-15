@@ -6,7 +6,7 @@ import useDimensions from '@/utils/useDimensions'
 import ZoomableImage from './ZoomableImage'
 
 
-export default function ProjectPicture({ images, setMainPictureWidth, visibleItem, nextVisibility, prevVisibility, onZoomActiveChange }) {
+export default function ProjectPicture({ images, setMainPictureWidth, visibleItem, nextVisibility, prevVisibility, onZoomActiveChange, open }) {
   const { width, locale } = useAppContext()
   let projectPictureContainerRef = useRef(null)
   let { width: projectPictureContainerWidth } = useDimensions(projectPictureContainerRef)
@@ -24,8 +24,10 @@ export default function ProjectPicture({ images, setMainPictureWidth, visibleIte
     setLoaded(2)
   }, [])
 
-  // Moving to another photo exits focus mode and restores normal navigation.
+  // Exit focus mode when moving to another photo OR when the carousel closes, so
+  // it never reopens still zoomed (and the suspended swipe-nav is released).
   useEffect(() => { setFocus(false) }, [activeIndex])
+  useEffect(() => { if (!open) setFocus(false) }, [open])
 
   // Tell the carousel/page to suspend swipe-to-navigate + drag-to-dismiss while
   // focusing, so the whole screen is dedicated to zoom/pan.

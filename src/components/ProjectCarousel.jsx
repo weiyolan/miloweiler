@@ -438,6 +438,7 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
                 nextVisibility={nextVisibility}
                 prevVisibility={prevVisibility}
                 onZoomActiveChange={handleZoomActive}
+                open={open}
               />
               <PictureIndicator mainPictureWidth={mainPictureWidth} setPosition={setIndicatorPosition} handleVisibility={handleVisibility} visibleItem={visibleItem} />
               <ProjectPictures images={[project.mainImage.image, ...project.otherImages.map((oImage) => oImage.image)]} handleVisibility={handleVisibility} visibleItem={visibleItem} />
