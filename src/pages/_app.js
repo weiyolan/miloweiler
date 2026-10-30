@@ -9,6 +9,7 @@ import client from "../../lib/sanity";
 import { Toaster } from "react-hot-toast";
 import Navigation from "@/components/Navigation";
 import NavigationMobile from "@/components/NavigationMobile";
+import Cursor from "@/components/Cursor";
 // import TransitionOverlay from "@/components/TransitionOverlay";
 import { TransitionProvider } from "@/utils/transitionContext";
 
@@ -123,6 +124,7 @@ export default function App({ Component, pageProps, categoryLabels, categoryShor
           </ReactLenis>
         </TransitionProvider>
         <Toaster />
+        <Cursor />
       </AppWrapper>
     </>
   );

@@ -216,6 +216,22 @@ body {
   scrollbar-color: rgb(var(--color-foreground)) rgb(var(--color-background));
 }
 
+/* ============== Circle-and-dot cursor (desktop only, see Cursor.jsx) ===============*/
+.cursor, .cursor-dot { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 10000; opacity: 0; transition: opacity .2s; }
+/* white + difference blend = the inverse of whatever is underneath → always high contrast */
+.cursor { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid #fff; mix-blend-mode: difference; transition: opacity .2s, width .2s cubic-bezier(.22, 1, .36, 1), height .2s cubic-bezier(.22, 1, .36, 1), margin .2s cubic-bezier(.22, 1, .36, 1); }
+.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: rgb(var(--color-accent)); box-shadow: 0 0 0 1.5px rgb(var(--color-background)); }
+.cursor.on, .cursor-dot.on { opacity: 1; }
+.cursor.big { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+/* click: the ring eases in a little on press and settles back on release (`scale` is separate from the translate) */
+.cursor.press { scale: .85; transition: opacity .2s, width .2s cubic-bezier(.22, 1, .36, 1), height .2s cubic-bezier(.22, 1, .36, 1), margin .2s cubic-bezier(.22, 1, .36, 1), scale .15s cubic-bezier(.22, 1, .36, 1); }
+.cursor.bounce { animation: cursor-bounce .45s cubic-bezier(.22, 1, .36, 1); }
+@keyframes cursor-bounce { 0% { scale: .85; } 45% { scale: 1.06; } 100% { scale: 1; } }
+html:not(.carousel-open) body.has-cursor, html:not(.carousel-open) body.has-cursor * { cursor: none !important; }
+body.has-cursor :is(input:not([type=checkbox]):not([type=radio]), textarea, [contenteditable]) { cursor: text !important; }
+/* the project carousel relies on native grab / zoom-in cursors */
+html.carousel-open .cursor, html.carousel-open .cursor-dot { display: none; }
+
 /* ============== Selection styling ===============*/
 *::selection {
   color: white;
