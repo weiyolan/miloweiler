@@ -220,7 +220,8 @@ body {
 .cursor, .cursor-dot { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 10000; opacity: 0; transition: opacity .2s; }
 /* white + difference blend = the inverse of whatever is underneath → always high contrast */
 .cursor { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid #fff; mix-blend-mode: difference; transition: opacity .2s, width .2s cubic-bezier(.22, 1, .36, 1), height .2s cubic-bezier(.22, 1, .36, 1), margin .2s cubic-bezier(.22, 1, .36, 1); }
-.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: rgb(var(--color-accent)); box-shadow: 0 0 0 1.5px rgb(var(--color-background)); }
+/* the dot inverts too (white + difference): always the opposite of what's behind it, no halo needed */
+.cursor-dot { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; background: #fff; mix-blend-mode: difference; }
 .cursor.on, .cursor-dot.on { opacity: 1; }
 .cursor.big { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
 /* click: the ring eases in a little on press and settles back on release (`scale` is separate from the translate) */

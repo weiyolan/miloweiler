@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 // Circle-and-dot cursor (ported from the Yoga, Zen & Tonic site): fine pointers only, respects reduced motion.
 // The dot follows the pointer; the ring trails behind and settles around it when the pointer rests.
-// The ring inverts what's under it (difference blend) so it stays high-contrast on light, dark and photos;
-// the dot is a sibling so it keeps the accent colour (with a background-coloured halo for contrast).
+// Ring and dot both invert what's under them (difference blend) so they stay high-contrast on light,
+// dark and photos.
 // Hidden until the first move, when the pointer leaves the window, over text fields and inside the open
 // project carousel (its native grab / zoom-in cursors are functional there).
 // Click: the ring squeezes while pressed and bounces back on release.
