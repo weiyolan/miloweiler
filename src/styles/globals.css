@@ -228,10 +228,8 @@ body {
 .cursor.press { scale: .85; transition: opacity .2s, width .2s cubic-bezier(.22, 1, .36, 1), height .2s cubic-bezier(.22, 1, .36, 1), margin .2s cubic-bezier(.22, 1, .36, 1), scale .15s cubic-bezier(.22, 1, .36, 1); }
 .cursor.bounce { animation: cursor-bounce .45s cubic-bezier(.22, 1, .36, 1); }
 @keyframes cursor-bounce { 0% { scale: .85; } 45% { scale: 1.06; } 100% { scale: 1; } }
-html:not(.carousel-open) body.has-cursor, html:not(.carousel-open) body.has-cursor * { cursor: none !important; }
+body.has-cursor:not(.native-cursor), body.has-cursor:not(.native-cursor) * { cursor: none !important; }
 body.has-cursor :is(input:not([type=checkbox]):not([type=radio]), textarea, [contenteditable]) { cursor: text !important; }
-/* the project carousel relies on native grab / zoom-in cursors */
-html.carousel-open .cursor, html.carousel-open .cursor-dot { display: none; }
 
 /* ============== Selection styling ===============*/
 *::selection {

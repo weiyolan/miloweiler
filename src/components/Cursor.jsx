@@ -4,13 +4,16 @@ import { useEffect } from 'react'
 // The dot follows the pointer; the ring trails behind and settles around it when the pointer rests.
 // Ring and dot both invert what's under them (difference blend) so they stay high-contrast on light,
 // dark and photos.
-// Hidden until the first move, when the pointer leaves the window, over text fields and inside the open
-// project carousel (its native grab / zoom-in cursors are functional there).
+// Hidden until the first move, when the pointer leaves the window, over text fields and over
+// [data-native-cursor] (e.g. the zoom layer in the photo overlay: its zoom-in / grab cursor is the feedback).
+// The ring only grows over small clickables, not over the overlay's half-photo prev / next zones.
 // Click: the ring squeezes while pressed and bounces back on release.
 
 const BIG = 'a, button, [role=button], label, .cursor-pointer, .picture-thumb'
 const TEXT = 'input:not([type=checkbox]):not([type=radio]), textarea, [contenteditable]'
+const NATIVE = '[data-native-cursor]'
 const EASE = 0.16 // share of the remaining distance the ring covers per frame
+const BIG_MAX = 320 // px: clickables wider or taller than this keep the small ring
 
 export default function Cursor() {
   useEffect(() => {
@@ -53,8 +56,12 @@ export default function Cursor() {
       dot.style.translate = `${x}px ${y}px`
       if (!frame) frame = requestAnimationFrame(tick)
       const el = e.target
-      ring.classList.toggle('big', !!el.closest?.(BIG))
-      show(!el.closest?.(TEXT))
+      const hit = el.closest?.(BIG)
+      const r = hit?.getBoundingClientRect()
+      ring.classList.toggle('big', !!r && r.width <= BIG_MAX && r.height <= BIG_MAX)
+      const native = !!el.closest?.(NATIVE)
+      document.body.classList.toggle('native-cursor', native)
+      show(!native && !el.closest?.(TEXT))
     }
     const out = (e) => {
       if (e.relatedTarget) return
@@ -88,7 +95,7 @@ export default function Cursor() {
       removeEventListener('blur', hide)
       removeEventListener('pointerdown', press)
       removeEventListener('pointerup', release)
-      document.body.classList.remove('has-cursor')
+      document.body.classList.remove('has-cursor', 'native-cursor')
       ring.remove()
       dot.remove()
     }

@@ -258,6 +258,7 @@ const ZoomableImage = forwardRef(function ZoomableImage({ children, ar, active, 
         <div
           ref={layerRef}
           aria-hidden
+          data-native-cursor
           style={{ touchAction: 'none', cursor: zoomed ? 'grab' : 'zoom-in' }}
           className="absolute inset-0 z-[1] pointer-events-auto"
         />
