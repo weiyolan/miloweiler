@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import Footer2 from "@/components/Footer2";
 import { useAppContext } from "@/utils/appContext";
 import { canonicalUrl } from "@/utils/seo";
+import socialMeta from "@/utils/socialMeta";
 import { PortableText } from "@portabletext/react";
 import portableTextComponents from "@/components/PortableTextComponents";
 import SubTitle from "@/components/SubTitle";
@@ -30,6 +31,7 @@ export default function TermsOfUsePage({ data }) {
         <link rel="alternate" hrefLang="fr" href={canonicalUrl("fr", "/terms-of-use")} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl("nl", "/terms-of-use")} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl("en", "/terms-of-use")} />
+        {socialMeta({ title: `Milo Weiler | ${title}`, url: canonicalUrl(locale, "/terms-of-use"), locale })}
       </Head>
       <main className="w-full min-h-screen flex flex-col bg-background text-foreground">
           <PageWrapper darkMode={true}>

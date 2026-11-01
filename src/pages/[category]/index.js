@@ -2,7 +2,8 @@ import ProjectRow from "@/components/ProjectRow";
 import { useAppContext } from "@/utils/appContext";
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
-import { canonicalUrl, resolveSeo } from "@/utils/seo";
+import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
+import socialMeta from "@/utils/socialMeta";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
@@ -19,9 +20,7 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
   const label = categoryLabels?.[category]?.[locale] || CATEGORY_LABELS[category]?.[locale] || category;
   const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled);
 
-  const fallbackImage = projects[0]?.mainImage?.image?.asset?.url
-    ? `${projects[0].mainImage.image.asset.url}?w=1200&h=630&fit=crop`
-    : null;
+  const fallbackImage = ogImageUrl(projects[0]?.mainImage?.image);
   const pageSeo = resolveSeo(seo, locale, {
     title: `Milo Weiler | ${label}`,
     description: 'Specialised Set & Studio Photography',
@@ -40,29 +39,7 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}`)} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', `/${category}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}`)} />
-        <meta property="og:title" content={socialTitle} />
-        <meta property="og:description" content={pageSeo.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="miloweiler.com" />
-        {pageSeo.image && (
-          <>
-            <meta property="og:image" content={pageSeo.image} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content={`Milo Weiler - ${label}`} />
-          </>
-        )}
-        <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={canonicalUrl(locale, `/${category}`)} />
-        <meta property="fb:app_id" content="659504862954849" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={canonicalUrl(locale, `/${category}`)} />
-        <meta name="twitter:title" content={socialTitle} />
-        <meta name="twitter:description" content={pageSeo.description} />
-        {pageSeo.image && (
-          <meta name="twitter:image" content={pageSeo.image} />
-        )}
+        {socialMeta({ title: socialTitle, description: pageSeo.description, url: canonicalUrl(locale, `/${category}`), image: pageSeo.image, imageAlt: `Milo Weiler - ${label}`, locale })}
       </Head>
       <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
           <PageWrapper>
@@ -147,7 +124,7 @@ export async function getStaticProps({ params }) {
     const cat = getCatFromSlug(params.category);
     if (cat) {
       seo = await client.fetch(
-        `*[_type == "categorySeo" && _id == "categorySeo"][0].${cat}{ seoTitle, seoDescription, seoImage{asset->{url}} }`
+        `*[_type == "categorySeo" && _id == "categorySeo"][0].${cat}{ seoTitle, seoDescription, seoImage{asset->{url}, hotspot} }`
       );
     }
   }

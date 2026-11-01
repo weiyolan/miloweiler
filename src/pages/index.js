@@ -6,7 +6,8 @@ import dynamic from "next/dynamic";
 import { useLenis } from "lenis/react";
 import client from "../../lib/sanity";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
-import { canonicalUrl, resolveSeo } from "@/utils/seo";
+import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
+import socialMeta from "@/utils/socialMeta";
 import CategoryDescriptions from "@/sections/CategoryDescriptions";
 
 const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
@@ -60,29 +61,7 @@ export default function Home({ categories, seo }) {
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/')} />
-        <meta property="og:title" content={socialTitle} />
-        <meta property="og:description" content={pageSeo.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="miloweiler.com" />
-        {pageSeo.image && (
-          <>
-            <meta property="og:image" content={pageSeo.image} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="Milo Weiler Photography" />
-          </>
-        )}
-        <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={canonicalUrl(locale, '/')} />
-        <meta property="fb:app_id" content="659504862954849" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={canonicalUrl(locale, '/')} />
-        <meta name="twitter:title" content={socialTitle} />
-        <meta name="twitter:description" content={pageSeo.description} />
-        {pageSeo.image && (
-          <meta name="twitter:image" content={pageSeo.image} />
-        )}
+        {socialMeta({ title: socialTitle, description: pageSeo.description, url: canonicalUrl(locale, '/'), image: pageSeo.image, imageAlt: 'Milo Weiler Photography', locale })}
       </Head>
       <script
         type="application/ld+json"
@@ -178,7 +157,7 @@ export async function getStaticProps() {
       studio{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor },
       art{ project->{_id}, image{..., asset->{url, metadata}, ...asset{_ref}}, bgColor }
     },
-    'seo': *[_type == "pageSeo" && _id == "pageSeo"][0].home{ seoTitle, seoDescription, seoImage{asset->{url}} }
+    'seo': *[_type == "pageSeo" && _id == "pageSeo"][0].home{ seoTitle, seoDescription, seoImage{asset->{url}, hotspot} }
   }`);
 
   const hpConfig = data.homepageConfig || {};
@@ -224,9 +203,7 @@ export async function getStaticProps() {
         href: `/${slug}`,
         bgColor,
         customBgColor,
-        ogUrl: image?.asset?.url
-          ? `${image.asset.url}?w=1200&h=630&fit=crop`
-          : null,
+        ogUrl: ogImageUrl(image),
       };
     })
     .filter(Boolean);
