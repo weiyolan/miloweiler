@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { canonicalUrl, resolveSeo } from "@/utils/seo";
+import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
+import socialMeta from "@/utils/socialMeta";
 // import { ReactLenis } from 'lenis/react'
 // import '../styles/globals.css'
 
@@ -1606,9 +1607,7 @@ export default function Home({ projects, sectionInfo, introImages, seo }) {
   //   return document.removeEventListener("scroll", storeScroll);
   // }, []);
 
-  const introOg = introImages.images[0]?.image?.asset?.url
-    ? `${introImages.images[0].image.asset.url}?w=1200&h=630&fit=crop`
-    : null;
+  const introOg = ogImageUrl(introImages?.images?.[0]?.image);
   const pageSeo = resolveSeo(seo, locale, {
     title: 'Milo Weiler Photography | About Me',
     description: 'From behind the scenes Set Photography to the Studio and Outdoors.',
@@ -1628,29 +1627,7 @@ export default function Home({ projects, sectionInfo, introImages, seo }) {
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', '/about')} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', '/about')} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/about')} />
-        <meta property="og:title" content={socialTitle} />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content={socialDescription} />
-        <meta property="og:site_name" content="miloweiler.com" />
-        {pageSeo.image && (
-          <>
-            <meta property="og:image" content={pageSeo.image} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="Milo Weiler Photography - About Me" />
-          </>
-        )}
-        <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={canonicalUrl(locale, '/about')} />
-        <meta property="fb:app_id" content="659504862954849" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={canonicalUrl(locale, '/about')} />
-        <meta name="twitter:title" content={socialTitle} />
-        <meta name="twitter:description" content={socialDescription} />
-        {pageSeo.image && (
-          <meta name="twitter:image" content={pageSeo.image} />
-        )}
+        {socialMeta({ title: socialTitle, description: socialDescription, url: canonicalUrl(locale, '/about'), image: pageSeo.image, imageAlt: 'Milo Weiler Photography - About Me', locale })}
       </Head>
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
@@ -1888,7 +1865,7 @@ export async function getStaticProps() {
       `*[_type == "mainPageXIntro"][0]{images[]{alt,image{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}}`
     ),
     client.fetch(`*[_type == "mainPageXXX" || _type == "mainPageYYY"]`),
-    client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].about{ seoTitle, seoDescription, seoImage{asset->{url}} }`),
+    client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].about{ seoTitle, seoDescription, seoImage{asset->{url}, hotspot} }`),
   ]);
 
   return {
