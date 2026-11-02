@@ -204,7 +204,7 @@ const CarouselCard = forwardRef(function CarouselCard({
               {String(index).padStart(2, '0')}
             </span>
             <span className="font-mono text-xs md:text-sm text-foreground">
-              {projectCount} {projectCount === 1 ? 'project' : 'projects'}
+              {projectCount} {router.locale === 'fr' ? (projectCount === 1 ? 'projet' : 'projets') : router.locale === 'nl' ? (projectCount === 1 ? 'project' : 'projecten') : (projectCount === 1 ? 'project' : 'projects')}
             </span>
           </div>
           <div className="flex justify-between items-end ">
