@@ -9,7 +9,7 @@ import LOCATIONS from "./data/projectLocations.json";
 //   npx sanity migration run seedProjectLocations             # dry run
 //   npx sanity migration run seedProjectLocations --no-dry-run
 // The Sanity CLI crashes on Android/Termux (device-id lookup); use the plain script there instead:
-//   node scripts/seedProjectLocations.mjs
+//   npm run seed:locations   (then npm run seed:locations:apply)
 const ids = Object.keys(LOCATIONS);
 
 export default defineMigration({

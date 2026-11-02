@@ -4,9 +4,9 @@
  * Only fills projects whose location is still empty: never overwrites what Milo entered. Safe to re-run.
  * Patches the published document and, if one exists, its draft.
  *
- * Usage (from the repo root):
- *   SANITY_TOKEN=<token> node scripts/seedProjectLocations.mjs           # dry run: shows what would change
- *   SANITY_TOKEN=<token> node scripts/seedProjectLocations.mjs --apply   # writes to Sanity
+ * Usage (from the repo root), with SANITY_TOKEN=<token> in .env.local (git-ignored) or the environment:
+ *   npm run seed:locations          # dry run: shows what would change
+ *   npm run seed:locations:apply    # writes to Sanity
  *
  * Token: https://www.sanity.io/manage → project → API → Tokens → "Add API token", permission "Editor".
  * Delete the token afterwards if you only needed it for this.
@@ -14,11 +14,21 @@
 import { readFileSync } from 'node:fs'
 import { createClient } from '@sanity/client'
 
+// Load .env.local (and .env) without extra dependencies; real environment variables win.
+for (const file of ['.env.local', '.env']) {
+  try {
+    for (const line of readFileSync(new URL(`../${file}`, import.meta.url), 'utf8').split(/\r?\n/)) {
+      const m = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/)
+      if (m && !(m[1] in process.env)) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, '$2')
+    }
+  } catch {}
+}
+
 const LOCATIONS = JSON.parse(readFileSync(new URL('../migrations/data/projectLocations.json', import.meta.url), 'utf8'))
 const apply = process.argv.includes('--apply')
 
 if (!process.env.SANITY_TOKEN) {
-  console.error('Missing SANITY_TOKEN (Editor token from sanity.io/manage → API → Tokens).')
+  console.error('Missing SANITY_TOKEN. Add SANITY_TOKEN=<token> to .env.local (Editor token from sanity.io/manage → API → Tokens).')
   process.exit(1)
 }
 
@@ -31,9 +41,15 @@ const client = createClient({
 })
 
 const ids = Object.keys(LOCATIONS)
-const docs = await client.fetch(`*[_type == "project" && _id in $ids]{_id, title, location}`, {
-  ids: ids.flatMap((id) => [id, `drafts.${id}`]),
-})
+const docs = await client
+  .fetch(`*[_type == "project" && _id in $ids]{_id, title, location}`, { ids: ids.flatMap((id) => [id, `drafts.${id}`]) })
+  .catch((err) => {
+    if (err.statusCode === 401 || err.statusCode === 403) {
+      console.error('Sanity rejected SANITY_TOKEN (wrong, expired or not for this project). Create an Editor token at sanity.io/manage → API → Tokens.')
+      process.exit(1)
+    }
+    throw err
+  })
 
 const tx = client.transaction()
 let changes = 0
