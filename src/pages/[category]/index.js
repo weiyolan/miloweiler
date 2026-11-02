@@ -4,6 +4,7 @@ import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
 import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
 import socialMeta from "@/utils/socialMeta";
+import { jsonLd, breadcrumb, WEBSITE_ID, PERSON_ID } from "@/utils/structuredData";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
 import Footer2 from "@/components/Footer2";
@@ -41,6 +42,32 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}`)} />
         {socialMeta({ title: socialTitle, description: pageSeo.description, url: canonicalUrl(locale, `/${category}`), image: pageSeo.image, imageAlt: `Milo Weiler - ${label}`, locale })}
       </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            {
+              "@type": "CollectionPage",
+              url: canonicalUrl(locale, `/${category}`),
+              name: pageSeo.title,
+              description: pageSeo.description,
+              inLanguage: locale,
+              isPartOf: { "@id": WEBSITE_ID },
+              author: { "@id": PERSON_ID },
+              mainEntity: {
+                "@type": "ItemList",
+                itemListElement: projects.map((p, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  name: p.title,
+                  url: canonicalUrl(locale, `/${category === 'highlighted' ? getCategorySlug(p.cat) : category}/${p.slug.current}`),
+                })),
+              },
+            },
+            breadcrumb(locale, [{ name: label, path: `/${category}` }])
+          ),
+        }}
+      />
       <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
           <PageWrapper>
             <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-full mb-12 flex-1">

@@ -8,6 +8,8 @@ import client from "../../lib/sanity";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
 import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
 import socialMeta from "@/utils/socialMeta";
+import { jsonLd, website, business, person } from "@/utils/structuredData";
+import Link from "next/link";
 import CategoryDescriptions from "@/sections/CategoryDescriptions";
 
 const CardCarousel = dynamic(() => import("@/components/carousel/CardCarousel"), { ssr: false });
@@ -65,34 +67,22 @@ export default function Home({ categories, seo }) {
       </Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'ProfessionalService',
-          name: 'Milo Weiler Photography',
-          url: 'https://miloweiler.com',
-          telephone: '+32476506209',
-          email: 'milo.weiler@gmail.com',
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: 'Hof Savelkoul 40',
-            addressLocality: 'Mortsel',
-            postalCode: '2640',
-            addressCountry: 'BE',
-          },
-          ...(firstImage?.ogUrl ? { image: firstImage.ogUrl } : {}),
-          sameAs: [
-            'https://www.instagram.com/miloweiler/',
-            'https://unsplash.com/@miloweiler',
-            'https://www.linkedin.com/in/mwphotography',
-          ],
-          founder: {
-            '@type': 'Person',
-            name: 'Milo Weiler',
-            jobTitle: 'Photographer',
-          },
-        }).replace(/</g, '\\u003c') }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(website(), business(firstImage?.ogUrl), person(locale)) }}
       />
       <main className="w-full bg-background text-foreground force-dark">
+        {/* The card carousel renders client-side only, so crawlers would otherwise see no heading and no
+            links into the galleries. Visually hidden, but real text and links for search engines and screen readers. */}
+        <h1 className="sr-only">{pageSeo.title}</h1>
+        <nav className="sr-only" aria-label={locale === 'fr' ? 'Galeries' : locale === 'nl' ? 'Galerijen' : 'Galleries'}>
+          <ul>
+            {localizedCategories.map((cat) => (
+              <li key={cat.slug}>
+                <Link href={cat.href}>{cat.label}</Link>
+                {cat.description ? <p>{cat.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="h-screen overflow-hidden">
           <PageWrapper>
             <CardCarousel categories={localizedCategories} />
