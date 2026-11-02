@@ -3,7 +3,8 @@ import { useAppContext } from "@/utils/appContext";
 import { PageWrapper, usePageContext } from "@/utils/pageContext";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { canonicalUrl } from "@/utils/seo";
+import { canonicalUrl, ogImageUrl, DEFAULT_OG_IMAGE } from "@/utils/seo";
+import socialMeta from "@/utils/socialMeta";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import client from "../../../lib/sanity";
@@ -220,6 +221,8 @@ export default function Project({ project, slug, slugs, category }) {
     router.push({ pathname: router.pathname, query: { ...router.query, photo: lightboxIndex + 1 } }, undefined, { shallow: true, scroll: false });
   }
 
+  const shareImage = ogImageUrl(project?.seoImage) || ogImageUrl(project?.mainImage?.image) || DEFAULT_OG_IMAGE;
+
   return (
     <>
       <Head>
@@ -230,23 +233,7 @@ export default function Project({ project, slug, slugs, category }) {
         <link rel="alternate" hrefLang="fr" href={canonicalUrl('fr', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="nl" href={canonicalUrl('nl', `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', `/${category}/${slug}`)} />
-        <meta property="og:title" content={project?.seoTitle?.[locale] || project?.title} />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
-        <meta property="og:site_name" content="miloweiler.com" />
-        <meta property="og:image" content={project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={project?.seoTitle?.[locale] || project?.title} />
-        <meta property="og:locale" content={locale} />
-        <meta property="og:url" content={canonicalUrl(locale, `/${category}/${slug}`)} />
-        <meta property="fb:app_id" content="659504862954849" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="miloweiler.com" />
-        <meta property="twitter:url" content={canonicalUrl(locale, `/${category}/${slug}`)} />
-        <meta name="twitter:title" content={project?.seoTitle?.[locale] || project?.title} />
-        <meta name="twitter:description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
-        <meta name="twitter:image" content={project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`} />
+        {socialMeta({ title: project?.seoTitle?.[locale] || project?.title, description: project?.seoDescription?.[locale] || project?.description?.[locale] || '', url: canonicalUrl(locale, `/${category}/${slug}`), image: shareImage, imageAlt: project?.mainImage?.alt?.[locale] || project?.seoTitle?.[locale] || project?.title, locale, type: 'article' })}
       </Head>
       <script
         type="application/ld+json"
@@ -255,7 +242,7 @@ export default function Project({ project, slug, slugs, category }) {
           '@type': 'CreativeWork',
           name: project.title,
           ...(project?.description?.[locale] ? { description: project.description[locale] } : {}),
-          image: project?.seoImage?.asset?.url ? `${project.seoImage.asset.url}?w=1200&h=630&fit=crop` : `${project.mainImage.image.asset.url}?w=1200&h=630&fit=crop`,
+          image: shareImage,
           ...(project?.date ? { dateCreated: project.date } : {}),
           creator: { '@type': 'Person', name: 'Milo Weiler' },
           ...(project?.by?.filter(Boolean)?.length ? {

@@ -1,5 +1,7 @@
 import { PageWrapper } from "@/utils/pageContext";
 import Head from "next/head";
+import socialMeta from "@/utils/socialMeta";
+import { SITE_URL } from "@/utils/seo";
 import Link from "next/link";
 import { useRef } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
@@ -34,6 +36,7 @@ export default function Custom404() {
       <Head>
         <title>Milo Weiler | 404</title>
         <meta name="robots" content="noindex" />
+        {socialMeta({ title: "Milo Weiler Photography", url: SITE_URL, locale })}
       </Head>
       <main className="w-full min-h-screen flex flex-col bg-background text-foreground">
           <PageWrapper darkMode={true}>
