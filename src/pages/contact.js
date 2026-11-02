@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import Head from 'next/head'
 import { canonicalUrl, resolveSeo, ogImageUrl } from '@/utils/seo'
 import socialMeta from "@/utils/socialMeta";
+import { jsonLd, business, breadcrumb, WEBSITE_ID, BUSINESS_ID } from "@/utils/structuredData";
 import SubTitle from '@components/SubTitle'
 import Layout from '@/components/Layout'
 import LayoutSection from '@/components/LayoutSection'
@@ -149,6 +150,16 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/contact')} />
         {socialMeta({ title: socialTitle, description: pageSeo.description, url: canonicalUrl(locale, '/contact'), image: pageSeo.image, imageAlt: 'Milo Weiler Photography - Contact', locale })}
       </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            business(pageSeo.image),
+            { "@type": "ContactPage", url: canonicalUrl(locale, "/contact"), name: pageSeo.title, inLanguage: locale, isPartOf: { "@id": WEBSITE_ID }, about: { "@id": BUSINESS_ID } },
+            breadcrumb(locale, [{ name: "Contact", path: "/contact" }])
+          ),
+        }}
+      />
       {/* duration:0.9,  */}
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
         <main className={`min-h-screen flex flex-col bg-background text-foreground ${darkMode ? "font-extralight" : ""} relative contact-page overflow-x-hidden`}>
@@ -159,7 +170,13 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             // ctx={ctx} tl={tl}
           >
             <Layout className={"relative lg:px-16 xl:px-24 max-w-7xl flex-1"}>
-              <h1 className="invisible uppercase font-serif text-center text-3xl ">Contact Page</h1>
+              <h1 className="sr-only">
+                {locale === "fr"
+                  ? "Contacter Milo Weiler, photographe à Anvers et Bruxelles"
+                  : locale === "nl"
+                  ? "Contact Milo Weiler, fotograaf in Antwerpen en Brussel"
+                  : "Contact Milo Weiler, photographer in Antwerp and Brussels"}
+              </h1>
 
               {/* =======CONTACT DETAILS======== */}
               <ContactDetails contactDetails={contactDetailsData} portfolioLink={portfolioData.portfolio.url[locale] + "?dl=" + portfolioData.portfolio.fileName[locale]} />

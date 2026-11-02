@@ -8,9 +8,11 @@ export const DEFAULT_OG_IMAGE = 'https://cdn.sanity.io/images/erjr84ua/productio
 // Open Graph wants language_TERRITORY.
 export const OG_LOCALES = { en: 'en_GB', fr: 'fr_BE', nl: 'nl_BE' };
 
+// en lives at the root, fr/nl under /fr and /nl. The fr/nl homepages are /fr and /nl without a trailing
+// slash: /fr/ 308-redirects to /fr, and canonical/hreflang URLs must not point at a redirect.
 export function canonicalUrl(locale, path = '') {
-  const prefix = locale === 'en' ? '' : `/${locale}`;
-  return `${SITE_URL}${prefix}${path}`;
+  if (locale === 'en') return `${SITE_URL}${path || '/'}`;
+  return `${SITE_URL}/${locale}${path === '/' ? '' : path}`;
 }
 
 // Builds a 1200×630 JPG share image from a Sanity CDN url (or an image object

@@ -3,6 +3,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
 import socialMeta from "@/utils/socialMeta";
+import { jsonLd, person, breadcrumb, WEBSITE_ID, PERSON_ID } from "@/utils/structuredData";
 // import { ReactLenis } from 'lenis/react'
 // import '../styles/globals.css'
 
@@ -38,6 +39,7 @@ import FadeDiv from "@/components/FadeDiv";
 // import Line from '@/components/Line'
 import ScrollDown from "@/components/ScrollDown";
 import client from "../../lib/sanity";
+import { CATEGORY_MAP } from "@/utils/categories";
 import PageIndicator from "@/components/PageIndicator";
 // import useMinimizeScroll from "@/utils/useMinimizeScroll";
 import BackgroundMain from "@/components/BackgroundMain";
@@ -61,7 +63,7 @@ export default function Home({ projects, sectionInfo, introImages, seo }) {
     let project = projects.filter((project) => project.cat === "art")[0];
     project?.otherImages?.forEach((img) => {
       // console.log(img);
-      photos = [...photos, { image: img, slug: project.slug.current }];
+      photos = [...photos, { image: img, slug: project.slug.current, path: project.path }];
     });
     return photos;
   });
@@ -87,7 +89,7 @@ export default function Home({ projects, sectionInfo, introImages, seo }) {
     let artProject = artProjects[Math.floor(Math.random() * artProjects?.length)];
     let newPhotos = [];
     artProject?.otherImages?.forEach((img) => {
-      newPhotos = [...newPhotos, { image: img, slug: artProject.slug.current }];
+      newPhotos = [...newPhotos, { image: img, slug: artProject.slug.current, path: artProject.path }];
     });
     let shuffledPhotos = shuffle([...newPhotos]);
     // let newPhotos = shuffle([...artImages])
@@ -1629,6 +1631,16 @@ export default function Home({ projects, sectionInfo, introImages, seo }) {
         <link rel="alternate" hrefLang="x-default" href={canonicalUrl('en', '/about')} />
         {socialMeta({ title: socialTitle, description: socialDescription, url: canonicalUrl(locale, '/about'), image: pageSeo.image, imageAlt: 'Milo Weiler Photography - About Me', locale })}
       </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            { ...person(locale, introOg), description: socialDescription },
+            { "@type": "AboutPage", url: canonicalUrl(locale, "/about"), name: pageSeo.title, inLanguage: locale, isPartOf: { "@id": WEBSITE_ID }, mainEntity: { "@id": PERSON_ID } },
+            breadcrumb(locale, [{ name: locale === "fr" ? "À propos" : locale === "nl" ? "Over mij" : "About", path: "/about" }])
+          ),
+        }}
+      />
 
       {/* <ReactLenis root options={{ duration: 0.9, wheelMultiplier: 0.9 }}> */}
       {/* style={{ height: heightToScroll + 'px' }} */}
@@ -1858,8 +1870,9 @@ overscroll-behavior: none;
 
 export async function getStaticProps() {
   const [projects, introImages, sectionInfo, seo] = await Promise.all([
+    // Only the categories the story uses (bts, docu, art), only the fields the photo strips read.
     client.fetch(
-      `*[_type == "project"]|order(date desc){title, cat, otherImages[]{_key,_type,alt, ...image{asset->{url,metadata{dimensions},'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, mainImage{alt,image{asset->{url,'titleColor':metadata.palette.vibrant.foreground}, ...asset{_ref}}}, slug}`
+      `*[_type == "project" && cat in ["bts", "docu", "art"]]|order(date desc){cat, slug, otherImages[]{alt, ...image{asset->{url,metadata{dimensions}}, ...asset{_ref}}}}`
     ),
     client.fetch(
       `*[_type == "mainPageXIntro"][0]{images[]{alt,image{asset->{url,'dimensions':metadata.dimensions}, ...asset{_ref}}}}`
@@ -1868,7 +1881,26 @@ export async function getStaticProps() {
     client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].about{ seoTitle, seoDescription, seoImage{asset->{url}, hotspot} }`),
   ]);
 
+  // The photo strips show 3 (art), 12 (docu) and 12 (bts) images picked at random. Shipping every image of
+  // every project made this page ~1.5 MB of HTML, so each build keeps a small random pool per project; the
+  // client still shuffles within it. Each project also gets its direct URL (no redirect hop for crawlers).
+  const POOL = { bts: 4, docu: 3, art: 8 };
+  const shuffle = (arr) => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+  const trimmed = projects.map((p) => ({
+    cat: p.cat,
+    slug: p.slug,
+    path: `/${CATEGORY_MAP[p.cat]}/${p.slug.current}`,
+    otherImages: shuffle(p.otherImages || []).slice(0, POOL[p.cat]),
+  }));
+
   return {
-    props: { projects, sectionInfo, introImages, seo: seo || null },
+    props: { projects: trimmed, sectionInfo, introImages, seo: seo || null },
   };
 }

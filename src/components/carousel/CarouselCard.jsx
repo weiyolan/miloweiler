@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { gsap } from 'gsap/dist/gsap'
 import { SplitText } from 'gsap/dist/SplitText'
 import SanityImage from '@/components/SanityImage'
+import { cursorViewLabel } from '@/components/Cursor'
 
 const CarouselCard = forwardRef(function CarouselCard({
   label,
@@ -134,7 +135,11 @@ const CarouselCard = forwardRef(function CarouselCard({
       className="absolute inset-0 cursor-pointer"
       style={{ opacity: 0, visibility: 'hidden', backfaceVisibility: 'hidden', willChange: 'transform' }}
     >
-      <a onClick={handleClick} className="block w-full h-full group">
+      <a
+        onClick={handleClick}
+        data-cursor-label={isFront ? cursorViewLabel(router.locale) : undefined}
+        className="block w-full h-full group"
+      >
         <div className="absolute inset-0 rounded-sm md:rounded-md overflow-hidden brightness-100 transition-[filter] duration-500 ease-out group-hover:brightness-110">
           <SanityImage
             image={image}
@@ -199,7 +204,7 @@ const CarouselCard = forwardRef(function CarouselCard({
               {String(index).padStart(2, '0')}
             </span>
             <span className="font-mono text-xs md:text-sm text-foreground">
-              {projectCount} {projectCount === 1 ? 'project' : 'projects'}
+              {projectCount} {router.locale === 'fr' ? (projectCount === 1 ? 'projet' : 'projets') : router.locale === 'nl' ? (projectCount === 1 ? 'project' : 'projecten') : (projectCount === 1 ? 'project' : 'projects')}
             </span>
           </div>
           <div className="flex justify-between items-end ">

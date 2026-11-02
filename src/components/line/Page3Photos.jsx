@@ -5,7 +5,7 @@ import Image from 'next/image'
 // import FadeDiv from '../FadeDiv'
 // import { Observer } from 'gsap/dist/Observer'
 import gsap from 'gsap/dist/gsap'
-// import { useAppContext } from '@/utils/appContext';
+import { useAppContext } from '@/utils/appContext';
 import Link from 'next/link';
 
 let paths = [
@@ -21,6 +21,7 @@ let newPath = [
 ]
 
 export default function Page3Photos({ images, className, animateName }) {
+  const { locale } = useAppContext()
   // const ctx = useRef(gsap.context(() => { }));
 
   // useEffect(() => {
@@ -41,11 +42,11 @@ export default function Page3Photos({ images, className, animateName }) {
   return (
     <div className={'page3photosContainer fixed w-screen h-screen top-0'} >
       <div className='w-full h-full page3photosContainerInner'>
-        <ArtImage n={2} alt='Artistic image with vibrant colors' src={images[2]?.image.asset.url} slug={images[2].slug} imagePosition={`object-center`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
+        <ArtImage n={2} alt={images[2]?.image?.alt?.[locale] || images[2]?.image?.alt?.en || 'Fine art photograph by Milo Weiler'} src={images[2]?.image.asset.url} slug={images[2].slug} imagePosition={`object-center`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} />
         {/* <ArtImage n={2} alt='' src='/images/mainpageArt3.jpg' imagePosition={`object-[50%,-12lvh] lg:object-[50%,-35vh]`} className={'w-[calc(0.890*70vw)] md:w-[calc(0.890*30vw)] left-[30%] top-[10lvh] md:left-[20%] md:top-[23%] -translate-x-1/2'} /> */}
-        <ArtImage n={1} alt='Artistic image with vibrant colors' src={images[1]?.image.asset.url} slug={images[1].slug} imagePosition={`object-center`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} />
+        <ArtImage n={1} alt={images[1]?.image?.alt?.[locale] || images[1]?.image?.alt?.en || 'Fine art photograph by Milo Weiler'} src={images[1]?.image.asset.url} slug={images[1].slug} imagePosition={`object-center`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} />
         {/* <ArtImage n={1} alt='' src={images[1]?.image.asset.url} imagePosition={`object-[50%,-10lvh] lg:object-[50%,-30vh]`} className={'w-[calc(0.752*70vw)] md:w-[calc(0.752*30vw)]  left-1/2 top-[35lvh] md:left-1/2 md:top-[42%] -translate-x-1/2'} /> */}
-        <ArtImage n={0} alt='Artistic image with vibrant colors' src={images[0]?.image.asset.url} slug={images[0].slug} imagePosition={`object-center`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} />
+        <ArtImage n={0} alt={images[0]?.image?.alt?.[locale] || images[0]?.image?.alt?.en || 'Fine art photograph by Milo Weiler'} src={images[0]?.image.asset.url} slug={images[0].slug} imagePosition={`object-center`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} />
         {/* <ArtImage n={0} alt='' src={images[0]?.image.asset.url} imagePosition={`object-[50%,-5lvh] lg:object-[50%,-20vh]`} className={'w-[calc(0.920*70vw)] md:w-[calc(0.920*30vw)] left-[70%] top-[50lvh]  md:left-[80%] md:top-[50%] -translate-x-1/2'} /> */}
         {/* translate-y-64
 translate-y-28
