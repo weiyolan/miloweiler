@@ -254,6 +254,14 @@ export default defineType({
     // =============CONTENT & IMAGES=======================
 
     defineField({
+      name: "location",
+      title: "Location",
+      type: "localeStringOptional",
+      group: "details",
+      description: "Where it was shot, e.g. \"Antwerp\" or \"RAI Amsterdam, Netherlands\". Optional. Shown with the project details and helps Google connect the work to a place (local search).",
+    }),
+
+    defineField({
       name: "description",
       title: "Description",
       type: "localeText",
