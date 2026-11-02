@@ -3,6 +3,7 @@ import SanityImage from './SanityImage'
 import Link from 'next/link'
 import { useAppContext } from '@/utils/appContext'
 import { formatCredits } from '@/utils/formatCredits'
+import { cursorViewLabel } from '@/components/Cursor'
 import { gsap } from 'gsap/dist/gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
@@ -48,7 +49,7 @@ export default function ProjectRow({ project, index, categorySlug, onMouseEnter,
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Link href={`/${categorySlug}/${project.slug.current}`}>
+      <Link href={`/${categorySlug}/${project.slug.current}`} data-cursor-label={cursorViewLabel(locale)}>
         <div
           ref={rowRef}
           className={`opacity-0 flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} cursor-pointer py-8`}

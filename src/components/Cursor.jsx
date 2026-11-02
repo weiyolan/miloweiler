@@ -8,12 +8,18 @@ import { useEffect } from 'react'
 // [data-native-cursor] (e.g. the zoom layer in the photo overlay: its zoom-in / grab cursor is the feedback).
 // The ring only grows over small clickables, not over the overlay's half-photo prev / next zones.
 // Click: the ring squeezes while pressed and bounces back on release.
+// Large clickables (project rows, homepage category cards) opt in with [data-cursor-label]: the ring
+// grows and shows that label (e.g. "View"), since BIG_MAX keeps them out of the plain `big` state.
 
 const BIG = 'a, button, [role=button], label, .cursor-pointer, .picture-thumb'
 const TEXT = 'input:not([type=checkbox]):not([type=radio]), textarea, [contenteditable]'
 const NATIVE = '[data-native-cursor]'
+const LABEL = '[data-cursor-label]'
 const EASE = 0.16 // share of the remaining distance the ring covers per frame
 const BIG_MAX = 320 // px: clickables wider or taller than this keep the small ring
+
+// Localised label for [data-cursor-label] on cards that open a page.
+export const cursorViewLabel = (locale) => (locale === 'fr' ? 'Voir' : locale === 'nl' ? 'Bekijk' : 'View')
 
 export default function Cursor() {
   useEffect(() => {
@@ -56,7 +62,11 @@ export default function Cursor() {
       dot.style.translate = `${x}px ${y}px`
       if (!frame) frame = requestAnimationFrame(tick)
       const el = e.target
-      const hit = el.closest?.(BIG)
+      const labelled = el.closest?.(LABEL)
+      const label = labelled?.dataset.cursorLabel || ''
+      if (ring.dataset.label !== label) ring.dataset.label = label
+      ring.classList.toggle('label', !!label)
+      const hit = label ? null : el.closest?.(BIG)
       const r = hit?.getBoundingClientRect()
       ring.classList.toggle('big', !!r && r.width <= BIG_MAX && r.height <= BIG_MAX)
       const native = !!el.closest?.(NATIVE)
