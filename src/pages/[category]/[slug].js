@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { canonicalUrl, ogImageUrl, DEFAULT_OG_IMAGE } from "@/utils/seo";
 import socialMeta from "@/utils/socialMeta";
+import { jsonLd, breadcrumb, imageObject, PERSON_ID, WEBSITE_ID } from "@/utils/structuredData";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import client from "../../../lib/sanity";
@@ -21,12 +22,12 @@ import ProjectGrid from "@/components/ProjectGrid";
 import { useLenis } from "lenis/react";
 const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { ssr: false });
 import Footer2 from "@/components/Footer2";
-import { CATEGORY_MAP } from "@/utils/categories";
+import { CATEGORY_MAP, CATEGORY_LABELS } from "@/utils/categories";
 import { getCatFromSlug } from "@/utils/categories";
 
 export default function Project({ project, slug, slugs, category }) {
   let darkMode = true;
-  const { width, locale, height } = useAppContext();
+  const { width, locale, height, categoryLabels } = useAppContext();
   let pageMobile = width < 648;
 
   const router = useRouter();
@@ -222,11 +223,19 @@ export default function Project({ project, slug, slugs, category }) {
   }
 
   const shareImage = ogImageUrl(project?.seoImage) || ogImageUrl(project?.mainImage?.image) || DEFAULT_OG_IMAGE;
+  // Milo's SEO title is written to stand alone; only the bare project title gets the name prefix.
+  const pageTitle = project?.seoTitle?.[locale] || `Milo Weiler | ${project?.title}`;
+  const location = project?.location?.[locale] || project?.location?.en || '';
+  const categoryLabel = categoryLabels?.[category]?.[locale] || CATEGORY_LABELS[category]?.[locale] || category;
+  const pageUrl = canonicalUrl(locale, `/${category}/${slug}`);
+  const photos = [project.mainImage, ...(project.otherImages || [])]
+    .filter((p) => p?.image?.asset?.url)
+    .map((p) => imageObject(locale, p.image.asset.url, p.alt?.[locale] || p.alt?.en));
 
   return (
     <>
       <Head>
-        <title>{`Milo Weiler | ${project?.seoTitle?.[locale] || project?.title}`}</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={project?.seoDescription?.[locale] || project?.description?.[locale] || ''} />
         <link rel="canonical" href={canonicalUrl(locale, `/${category}/${slug}`)} />
         <link rel="alternate" hrefLang="en" href={canonicalUrl('en', `/${category}/${slug}`)} />
@@ -237,19 +246,33 @@ export default function Project({ project, slug, slugs, category }) {
       </Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'CreativeWork',
-          name: project.title,
-          ...(project?.description?.[locale] ? { description: project.description[locale] } : {}),
-          image: shareImage,
-          ...(project?.date ? { dateCreated: project.date } : {}),
-          creator: { '@type': 'Person', name: 'Milo Weiler' },
-          ...(project?.by?.filter(Boolean)?.length ? {
-            contributor: project.by.filter(Boolean).map(name => ({ '@type': 'Person', name })),
-          } : {}),
-          url: canonicalUrl(locale, `/${category}/${slug}`),
-        }).replace(/</g, '\\u003c') }}
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            {
+              "@type": "CreativeWork",
+              "@id": `${pageUrl}#work`,
+              url: pageUrl,
+              name: project.title,
+              headline: project?.seoTitle?.[locale] || project.title,
+              ...(project?.description?.[locale] ? { description: project.description[locale] } : {}),
+              inLanguage: locale,
+              isPartOf: { "@id": WEBSITE_ID },
+              thumbnailUrl: shareImage,
+              image: photos,
+              ...(project?.date ? { dateCreated: project.date } : {}),
+              creator: { "@id": PERSON_ID },
+              copyrightHolder: { "@id": PERSON_ID },
+              ...(location ? { contentLocation: { "@type": "Place", name: location } } : {}),
+              ...(project?.by?.filter(Boolean)?.length ? {
+                contributor: project.by.filter(Boolean).map(name => ({ '@type': 'Person', name })),
+              } : {}),
+            },
+            breadcrumb(locale, [
+              { name: categoryLabel, path: `/${category}` },
+              { name: project.title, path: `/${category}/${slug}` },
+            ])
+          ),
+        }}
       />
       <main
           onKeyDown={(e) => {
@@ -339,6 +362,7 @@ export default function Project({ project, slug, slugs, category }) {
                   {project?.minimalText == false && (
                     <div className="relative flex flex-col gap-4 md:basis-1/3  font-serif ">
                       {project?.date ? <Detail title={locale === "fr" ? "An" : locale === "nl" ? "Jaar" : "Year"} text={[project.date.slice(0, 4)]} /> : null}
+                      {location ? <Detail title={locale === "fr" ? "Lieu" : locale === "nl" ? "Locatie" : "Location"} text={[location]} /> : null}
                       {project?.album ? <Detail title="Album" text={[project.album]} /> : null}
                       {project?.directed ? <Detail title={locale === "fr" ? "Réalisé Par" : locale === "nl" ? "Geregisseerd door" : "Directed By"} text={project.directed} /> : null}
                       {project?.produced ? <Detail title={locale === "fr" ? "Produit Par" : locale === "nl" ? "Geproduceerd door" : "Produced By"} text={project.produced} /> : null}
