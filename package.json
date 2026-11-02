@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed:locations": "node scripts/seedProjectLocations.mjs",
+    "seed:locations:apply": "node scripts/seedProjectLocations.mjs --apply"
   },
   "dependencies": {
     "@sanity/dashboard": "^3.1.6",
