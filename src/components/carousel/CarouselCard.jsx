@@ -68,6 +68,8 @@ const CarouselCard = forwardRef(function CarouselCard({
       ctx = gsap.context(() => {
         SplitText.create(p, {
           type: 'lines',
+          // Lines keep whole words, so screen readers read them fine; the default aria-label on <p> is invalid ARIA.
+          aria: 'none',
           autoSplit: true,
           linesClass: 'cc-desc-line',
           onSplit(self) {

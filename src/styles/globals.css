@@ -174,9 +174,47 @@ html {
   outline: none;
 }
 
+/* Clearly visible keyboard focus ring (mouse clicks don't show it: :focus-visible). */
 *:focus-visible {
-  outline: rgb(var(--color-foreground) / 0.2) solid 2px;
-  outline-offset: -2px;
+  outline: rgb(var(--color-foreground)) solid 2px;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link: off-screen until focused with Tab. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  font-family: var(--font-spacemono), monospace;
+  font-size: 0.875rem;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+/* The skip link's target: no ring around the whole page. */
+main:focus {
+  outline: none;
+}
+
+/* Respect the OS "reduce motion" setting: no smooth scrolling, near-instant CSS transitions/animations. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 #viewport {

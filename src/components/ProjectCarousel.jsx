@@ -403,6 +403,8 @@ export default function ProjectCarousel({ project, open, visibleItem, setVisible
       role="dialog"
       aria-modal="true"
       aria-label={dialogLabel}
+      // While closed, keep its buttons out of the Tab order and away from screen readers (React 18: inert needs "").
+      inert={open ? undefined : ""}
       className={`carouselContainer focus:outline-none w-full h-[100dvh] z-[100] fixed overscroll-y-none overflow-y-hidden top-0 invisible opacity-0 text-foreground ${open ? 'pointer-events-auto' : 'pointer-events-none'}`}
       onPointerDownCapture={(e) => { pointerStartRef.current = { x: e.clientX, y: e.clientY } }}
       onClick={(e) => {
