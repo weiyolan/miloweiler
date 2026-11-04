@@ -3,9 +3,16 @@ import client from 'lib/sanity';
 import { useNextSanityImage } from 'next-sanity-image';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
+import { withVanity } from '@/utils/a11y';
 
-const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, quality=80, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, ...props }, ref) {
+const SanityImage = forwardRef(function SanityImage({ image, fill, absolute, blur, factor, sizes, quality=80, style, onLoad, containerClass, className, name, move, intrinsic, alt, print, thumb, vanity, ...props }, ref) {
   let { src, width, height, loader } = useNextSanityImage(client, image._ref);
+  // Optional readable file name ("comeback-3-milo-weiler-photography.jpg") for Google Images.
+  if (vanity) {
+    const baseLoader = loader;
+    loader = (args) => withVanity(baseLoader(args), vanity);
+    src = withVanity(src, vanity);
+  }
 
   let landscape = width / height > 1;
   const hotspot = image?.hotspot;

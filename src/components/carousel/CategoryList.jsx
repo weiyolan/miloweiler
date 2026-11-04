@@ -9,6 +9,8 @@ import { gsap } from 'gsap/dist/gsap'
 
 const WINDOW = 2.5 // items with |distance-to-focal| beyond this are culled
 const FADE_POW = 1.6 // opacity falloff sharpness
+// Readable floor (WCAG contrast ≥ 4.5:1 on the dark background); the edge mask still fades labels out visually.
+const MIN_OPACITY = 0.6
 
 // Desktop rail placement
 const D_FOCAL_VH = 35 // focal line as % of viewport height (was centered at 50)
@@ -66,7 +68,7 @@ export default function CategoryList({ categories, activeIndex, onCategoryClick,
         }
 
         const t = ad / WINDOW
-        const opacity = Math.max(0, 1 - Math.pow(t, FADE_POW))
+        const opacity = MIN_OPACITY + (1 - MIN_OPACITY) * Math.max(0, 1 - Math.pow(t, FADE_POW))
         const main = d * cfg.STEP
 
         el.style.transform = isMobile

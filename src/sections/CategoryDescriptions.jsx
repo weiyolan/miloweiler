@@ -68,11 +68,11 @@ export default function CategoryDescriptions({ descriptions, labels }) {
                 {label}
               </span>
               {description && (
-                <p className="font-sans text-sm text-foreground/60 leading-relaxed">
+                <p className="font-sans text-sm text-foreground/75 leading-relaxed">
                   {description}
                 </p>
               )}
-              <span className="mt-auto pt-4 font-sans text-xs tracking-widest uppercase text-foreground/40 group-hover:text-foreground/70 transition-colors duration-300">
+              <span className="mt-auto pt-4 font-sans text-xs tracking-widest uppercase text-foreground/70 group-hover:text-foreground/70 transition-colors duration-300">
                 View work →
               </span>
             </Link>

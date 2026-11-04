@@ -4,10 +4,14 @@ import { BsArrowRightShort } from 'react-icons/bs'
 
 const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowClassName, containerClass }) => {
   let [hovering, setHovering] = useState(false)
+  // Nothing to click on (empty Studio field): render no empty, unnamed link.
+  if (!text || !to) return null
+  // The text is often visibility:hidden until its scroll animation runs; aria-label keeps the link named meanwhile.
+  const label = typeof text === 'string' ? text : undefined
 
   if (ext) {
     return (
-      <Link tabIndex={tabIndex} className={`${inherit ? 'text-inherit' : 'text-foreground fill-foreground font-semibold'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer ${containerClass ? containerClass : ''}`}
+      <Link aria-label={label} tabIndex={tabIndex} className={`${inherit ? 'text-inherit' : 'text-foreground fill-foreground font-semibold'} font-semibold min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap  cursor-pointer ${containerClass ? containerClass : ''}`}
         href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }} rel="noopener noreferrer" target='_blank'>
 
         <span className={`inline-flex items-center md:text-base ${inText ? 'mt-0' : 'mt-4'} relative ${className ? className : ''}`}
@@ -21,7 +25,7 @@ const ArrowLink = ({ text, to, ext, inherit, inText, tabIndex, className, arrowC
   }
 
   return (
-    <Link tabIndex={tabIndex} className={` ${inherit ? 'text-inherit font-medium' : 'text-foreground fill-foreground font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap ${containerClass ? containerClass : ''}  `}
+    <Link aria-label={label} tabIndex={tabIndex} className={` ${inherit ? 'text-inherit font-medium' : 'text-foreground fill-foreground font-semibold'} min-[460px]:whitespace-pre-wrap sm:whitespace-nowrap ${containerClass ? containerClass : ''}  `}
       href={to} onFocus={() => { setHovering(true) }} onBlur={() => { setHovering(false) }}>
       <span className={`inline-flex items-center  md:text-base ${inText ? 'mt-0' : 'mt-4'} relative  ${className ? className : ''}`}
         onMouseEnter={() => setHovering(true)}

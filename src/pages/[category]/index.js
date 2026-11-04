@@ -14,12 +14,14 @@ import { getCatFromSlug, ALL_CATEGORY_SLUGS, getCategorySlug, getVisibleCategory
 import Link from "next/link";
 
 export default function CategoryGallery({ projects, category, highlightedEnabled, seo }) {
-  let { width, locale, categoryLabels, categoryShortLabels } = useAppContext();
+  let { width, locale, categoryLabels, categoryShortLabels, categoryDescriptions } = useAppContext();
   let darkMode = true;
   let [hoveredRow, setHoveredRow] = useState(null);
 
   const label = categoryLabels?.[category]?.[locale] || CATEGORY_LABELS[category]?.[locale] || category;
   const visibleSlugs = getVisibleCategorySlugs(highlightedEnabled);
+  // Category text from Studio (Category Names → Description): gives Google words to match on the gallery page.
+  const intro = categoryDescriptions?.[category]?.[locale] || categoryDescriptions?.[category]?.en || '';
 
   const fallbackImage = ogImageUrl(projects[0]?.mainImage?.image);
   const pageSeo = resolveSeo(seo, locale, {
@@ -68,20 +70,21 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
           ),
         }}
       />
-      <main className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
+      <main id="main" tabIndex={-1} className={`w-full min-h-screen flex flex-col bg-background text-foreground`}>
           <PageWrapper>
             <Layout className="relative pt-12 lg:px-16 xl:px-24 max-w-full mb-12 flex-1">
               <GalleryTitle h1 className="">
                 {label}
               </GalleryTitle>
 
-              <nav className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
+              <nav aria-label={locale === 'fr' ? 'Galeries' : locale === 'nl' ? 'Galerijen' : 'Galleries'} className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-sm mb-12 mt-24">
                 {visibleSlugs.map((slug, i) => (
                   <React.Fragment key={slug}>
-                    {i > 0 && <span className="opacity-60 select-none">|</span>}
+                    {i > 0 && <span aria-hidden="true" className="opacity-60 select-none">|</span>}
                     <Link
                       href={`/${slug}`}
-                      className={`${slug === category ? "font-semibold" : "font-normal opacity-60 hover:opacity-100"} transition-opacity`}
+                      aria-current={slug === category ? "page" : undefined}
+                      className={`${slug === category ? "font-semibold" : "font-normal opacity-75 hover:opacity-100"} transition-opacity`}
                     >
                       <span className="sm:hidden">{categoryShortLabels?.[slug]?.[locale] || slug}</span>
                       <span className="hidden sm:inline">{categoryLabels?.[slug]?.[locale] || CATEGORY_LABELS[slug]?.[locale] || slug}</span>
@@ -89,6 +92,10 @@ export default function CategoryGallery({ projects, category, highlightedEnabled
                   </React.Fragment>
                 ))}
               </nav>
+
+              {intro ? (
+                <p className="font-sans text-base leading-relaxed max-w-2xl -mt-4 mb-12 whitespace-pre-line">{intro}</p>
+              ) : null}
 
               <div className="galleryPage w-full mx-auto relative flex flex-col">
                 {projects.map((project, i) => (

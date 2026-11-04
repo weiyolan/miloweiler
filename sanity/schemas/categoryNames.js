@@ -38,7 +38,7 @@ export default defineType({
       title: 'Description',
       type: 'object',
       fieldset: name,
-      description: 'Short description shown on the homepage.',
+      description: 'Shown on the homepage and as intro text on the gallery page (helps Google). A few sentences, e.g. what kind of shoots and where.',
       options: { collapsible: true, collapsed: true },
       fields: [
         { name: 'en', title: 'English', type: 'text', rows: 3 },

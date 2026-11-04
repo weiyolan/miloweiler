@@ -74,7 +74,7 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
 
           <div className="flex justify-center items-center mt-4 gap-3 mb-1">
             <LanguageSwitch />
-            <span className="text-foreground/40">|</span>
+            <span aria-hidden="true" className="text-foreground/50">|</span>
             <ThemeToggle />
           </div>
 
@@ -141,12 +141,12 @@ function LanguageSwitch() {
     <div className="flex items-center gap-2 font-mono text-sm text-foreground">
       {(locales || []).map((loc, i) => (
         <span key={loc} className="flex items-center gap-2">
-          {i > 0 && <span className="text-foreground/40">|</span>}
+          {i > 0 && <span aria-hidden="true" className="text-foreground/50">|</span>}
           <Link
             href={{ pathname, query }}
             as={asPath}
             locale={loc}
-            className={`transition-opacity duration-200 hover:opacity-100 ${loc === activeLocale ? 'font-semibold opacity-100' : 'font-extralight opacity-60'}`}
+            className={`transition-opacity duration-200 hover:opacity-100 ${loc === activeLocale ? 'font-semibold opacity-100' : 'font-extralight opacity-75'}`}
           >
             {loc.toUpperCase()}
           </Link>

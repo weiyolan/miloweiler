@@ -18,6 +18,7 @@ import { Observer } from "gsap/dist/Observer";
 import Line from "@/components/Line";
 import Masonry from "react-masonry-css";
 import SanityImage from "@/components/SanityImage";
+import { photoButtonProps, imageVanityName, withVanity } from "@/utils/a11y";
 import ProjectGrid from "@/components/ProjectGrid";
 import { useLenis } from "lenis/react";
 const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { ssr: false });
@@ -230,7 +231,7 @@ export default function Project({ project, slug, slugs, category }) {
   const pageUrl = canonicalUrl(locale, `/${category}/${slug}`);
   const photos = [project.mainImage, ...(project.otherImages || [])]
     .filter((p) => p?.image?.asset?.url)
-    .map((p) => imageObject(locale, p.image.asset.url, p.alt?.[locale] || p.alt?.en));
+    .map((p, i) => imageObject(locale, withVanity(p.image.asset.url, imageVanityName(slug, i + 1, "milo-weiler-photography")), p.alt?.[locale] || p.alt?.en));
 
   return (
     <>
@@ -274,7 +275,7 @@ export default function Project({ project, slug, slugs, category }) {
           ),
         }}
       />
-      <main
+      <main id="main" tabIndex={-1}
           onKeyDown={(e) => {
             e.key === "Escape" && closeDialog();
           }}
@@ -385,6 +386,7 @@ export default function Project({ project, slug, slugs, category }) {
               {project?.grid ? (
                 <ProjectGrid
                   project={project}
+                  vanityBase={slug}
                   onImageClick={(i) => openAt(i + 1)}
                 />
               ) : (
@@ -402,6 +404,7 @@ export default function Project({ project, slug, slugs, category }) {
                       image={item.image}
                       alt={item.alt}
                       i={i}
+                      vanityBase={slug}
                       data-thumb-index={i}
                       onClick={() => openAt(i)}
                     />
@@ -430,7 +433,7 @@ function Arrow({arrowClassName="" }) {
   )
 }
 
-function Photo({ image, alt: altText, i, ...props }) {
+function Photo({ image, alt: altText, i, onClick, vanityBase, ...props }) {
   const [loaded, setLoaded] = useState(false);
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
@@ -457,18 +460,22 @@ function Photo({ image, alt: altText, i, ...props }) {
     return () => ctx.current.revert();
   }, [loaded]);
 
+  const alt = altText?.[locale] || `Project picture ${i + 1}`;
   return (
     <SanityImage
       ref={fotoThumb}
       blur
       key={i}
-      className={`opacity-0  mb-[6px] cursor-pointer transition-transform duration-200 hover:scale-[0.97]`}
+      className={`opacity-0  mb-[6px] cursor-pointer transition-transform duration-200 hover:scale-[0.97] focus-visible:scale-[0.97]`}
       onLoad={() => setLoaded(true)}
       intrinsic
       factor={width < 850 ? 0.1 : 0.2}
       image={image}
       sizes="(max-width: 700px) 50vw, 30vw"
-      alt={altText?.[locale] || `Project picture ${i + 1}`}
+      alt={alt}
+      vanity={vanityBase ? imageVanityName(vanityBase, i + 1, "milo-weiler-photography") : undefined}
+      priority={i < 2}
+      {...photoButtonProps({ onClick, locale, index: i + 1, alt })}
       {...props}
     />
   );

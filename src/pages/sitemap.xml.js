@@ -1,6 +1,7 @@
 import client from "../../lib/sanity";
 import { CATEGORY_MAP, ALL_CATEGORY_SLUGS, getCatFromSlug } from "@/utils/categories";
 import { canonicalUrl } from "@/utils/seo";
+import { imageVanityName, withVanity } from "@/utils/a11y";
 
 const LOCALES = ["en", "fr", "nl"];
 
@@ -44,7 +45,7 @@ ${categorySlugs
   .join("\n")}
 ${projects
   .filter((p) => CATEGORY_MAP[p.cat] && p.slug)
-  .map((p) => urlEntries(`/${CATEGORY_MAP[p.cat]}/${p.slug}`, { lastmod: p.updatedAt, images: p.images.filter(Boolean) }))
+  .map((p) => urlEntries(`/${CATEGORY_MAP[p.cat]}/${p.slug}`, { lastmod: p.updatedAt, images: p.images.filter(Boolean).map((src, i) => withVanity(src, imageVanityName(p.slug, i + 1, "milo-weiler-photography"))) }))
   .join("\n")}
 </urlset>
 `;
