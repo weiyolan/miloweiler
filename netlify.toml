@@ -7,6 +7,19 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Long browser cache for static files in /public (the HTML itself stays max-age=0).
+# Fonts never change under the same name → 1 year. Images in /public/images are not content-hashed,
+# so they get 30 days (+ revalidate in the background) in case one is replaced under the same name.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=604800"
+
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
   #[[redirects]]

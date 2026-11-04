@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 // Fixed display order, independent of next.config locale order
 const ORDER = ['en', 'nl', 'fr']
+const LABELS = { en: 'English', nl: 'Nederlands', fr: 'Français' }
 
 export default function LangSwitch({ className = '', ...props }) {
   const router = useRouter()
@@ -14,15 +15,18 @@ export default function LangSwitch({ className = '', ...props }) {
     <div className={`flex items-center gap-2 font-mono select-none ${className}`} {...props}>
       {codes.map((code, i) => (
         <React.Fragment key={code}>
-          {i > 0 && <span className="text-foreground/30">|</span>}
+          {i > 0 && <span aria-hidden="true" className="text-foreground/50">|</span>}
           {code === active ? (
-            <span className="text-foreground" aria-current="true">{code.toUpperCase()}</span>
+            <span className="text-foreground" aria-current="true" lang={code} title={LABELS[code]}>{code.toUpperCase()}</span>
           ) : (
             <Link
               href={{ pathname, query }}
               as={asPath}
               locale={code}
-              className="text-foreground/40 hover:text-foreground transition-colors focus:outline-none"
+              hrefLang={code}
+              lang={code}
+              title={LABELS[code]}
+              className="text-foreground/70 hover:text-foreground transition-colors"
             >
               {code.toUpperCase()}
             </Link>
