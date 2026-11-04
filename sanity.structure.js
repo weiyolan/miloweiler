@@ -45,6 +45,7 @@ export const myStructure = (S) => {
               S.listItem().title("Printing Service").icon(BlockElementIcon).child(S.document().schemaType("contactPagePSS").documentId("contactPagePSS")),
               S.listItem().title("Portfolio").icon(BlockElementIcon).child(S.document().schemaType("contactPagePFS").documentId("contactPagePFS")),
               S.listItem().title("Get Inspired").icon(BlockElementIcon).child(S.document().schemaType("contactPageGIS").documentId("contactPageGIS")),
+              S.listItem().title("FAQ").icon(BlockElementIcon).child(S.document().schemaType("contactPageFaq").documentId("contactPageFaq")),
             ])
         ),
       S.listItem()
@@ -69,6 +70,7 @@ export const myStructure = (S) => {
             "contactPageAOS",
             "contactPagePSS",
             "contactPagePFS",
+            "contactPageFaq",
             "mainPageXXX",
             "mainPageXIntro",
             "mainPageYYY",

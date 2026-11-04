@@ -16,7 +16,7 @@ import client from '../../lib/sanity'
 import TrustedBy from '@/sections/TrustedBy'
 import { useAppContext } from '@/utils/appContext'
 import ContactDetails from '@/sections/ContactDetails'
-import ContactFaq, { faqSchema } from '@/sections/ContactFaq'
+import ContactFaq, { faqSchema, resolveFaq } from '@/sections/ContactFaq'
 import SanityImage from '@/components/SanityImage'
 import PrintingDetails from '@/sections/PrintingDetails'
 import Logo from '@/components/Logo'
@@ -31,7 +31,8 @@ import { gsap } from "gsap/dist/gsap";
 
 import { supportedLanguages } from "../../sanity/schemas/supportedLanguages";
 
-export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData, seo }) {
+export default function Contact({ contactDetailsData, trustedByData, contactFormData, printingData, portfolioData, inspirationData, faqData, seo }) {
+  const faq = resolveFaq(faqData);
   let textRef = useRef(null);
   let { width, locale } = useAppContext();
   let { height: textHeight } = useDimensions(textRef);
@@ -158,7 +159,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
             business(pageSeo.image),
             { "@type": "ContactPage", url: canonicalUrl(locale, "/contact"), name: pageSeo.title, inLanguage: locale, isPartOf: { "@id": WEBSITE_ID }, about: { "@id": BUSINESS_ID } },
             breadcrumb(locale, [{ name: "Contact", path: "/contact" }]),
-            faqSchema(locale, canonicalUrl(locale, "/contact"))
+            faqSchema(locale, canonicalUrl(locale, "/contact"), faq)
           ),
         }}
       />
@@ -271,7 +272,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 </div>
               </LayoutSection>
             </Layout>
-            <ContactFaq className="relative mt-24 mb-8" />
+            <ContactFaq faq={faq} className="relative mt-24 mb-8" />
             {/* <Footer /> */}
             <Footer2 className={`relative `} noMotion />
 
@@ -297,6 +298,7 @@ export async function getStaticProps() {
     printingData,
     portfolioRaw,
     inspirationData,
+    faqData,
     seo,
   ] = await Promise.all([
     client.fetch(`*[_type == "contactPageCDS"][0]`),
@@ -307,6 +309,7 @@ export async function getStaticProps() {
       `*[_type == "contactPagePFS"][0]{image1,image2,title,text,'portfolio':{'url':{${langObjPortfolioUrl}},'fileName':{${langObjPortfolioName}}}}`
     ),
     client.fetch(`*[_type == "contactPageGIS"][0]`),
+    client.fetch(`*[_type == "contactPageFaq" && _id == "contactPageFaq"][0]{enabled, title, items[]{question, answer}}`),
     client.fetch(`*[_type == "pageSeo" && _id == "pageSeo"][0].contact{ seoTitle, seoDescription, seoImage{asset->{url}, hotspot} }`),
   ]);
 
@@ -320,6 +323,7 @@ export async function getStaticProps() {
       printingData: printingData,
       portfolioData: { image1, image2, title, text, portfolio },
       inspirationData: inspirationData,
+      faqData: faqData || null,
       seo: seo || null,
     },
   };

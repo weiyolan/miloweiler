@@ -13,6 +13,7 @@ import contactPageTBS from './contactPageTrustedByS'
 import contactPageAOS from './contactPageAskOfferS'
 import contactPageGIS from './contactPageGetInspiredS'
 import contactPagePFS from './contactPagePortFolioS'
+import contactPageFaq from './contactPageFaq'
 
 import mainPageXXX from './mainPageXXX'
 import mainPageYYY from './mainPageYYY'
@@ -49,6 +50,7 @@ export const schemaTypes = [
   contactPageGIS,
   contactPageAOS,
   contactPagePFS,
+  contactPageFaq,
   mainPageXXX,
   mainPageXIntro,
   mainPageYYY,
