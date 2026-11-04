@@ -16,6 +16,7 @@ import client from '../../lib/sanity'
 import TrustedBy from '@/sections/TrustedBy'
 import { useAppContext } from '@/utils/appContext'
 import ContactDetails from '@/sections/ContactDetails'
+import ContactFaq, { faqSchema } from '@/sections/ContactFaq'
 import SanityImage from '@/components/SanityImage'
 import PrintingDetails from '@/sections/PrintingDetails'
 import Logo from '@/components/Logo'
@@ -156,13 +157,14 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
           __html: jsonLd(
             business(pageSeo.image),
             { "@type": "ContactPage", url: canonicalUrl(locale, "/contact"), name: pageSeo.title, inLanguage: locale, isPartOf: { "@id": WEBSITE_ID }, about: { "@id": BUSINESS_ID } },
-            breadcrumb(locale, [{ name: "Contact", path: "/contact" }])
+            breadcrumb(locale, [{ name: "Contact", path: "/contact" }]),
+            faqSchema(locale, canonicalUrl(locale, "/contact"))
           ),
         }}
       />
       {/* duration:0.9,  */}
         {/* bg-gradient-to-br from-primary to-[#FFEAD6] */}
-        <main className={`min-h-screen flex flex-col bg-background text-foreground ${darkMode ? "font-extralight" : ""} relative contact-page overflow-x-hidden`}>
+        <main id="main" tabIndex={-1} className={`min-h-screen flex flex-col bg-background text-foreground ${darkMode ? "font-extralight" : ""} relative contact-page overflow-x-hidden`}>
           <div className="fixed top-0 w-[140vw] sm:w-full lg:w-4/5 lg:left-1/2 lg:-translate-x-1/2">
             <Logo darkMode={darkMode} className="w-full relative opacity-[0.02]  -translate-x-14 md:translate-x-0 -translate-y-0 md:translate-y-40 lg:-translate-y-40" />
           </div>
@@ -269,6 +271,7 @@ export default function Contact({ contactDetailsData, trustedByData, contactForm
                 </div>
               </LayoutSection>
             </Layout>
+            <ContactFaq className="relative mt-24 mb-8" />
             {/* <Footer /> */}
             <Footer2 className={`relative `} noMotion />
 
@@ -311,6 +314,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      contactDetails: undefined,
       contactDetailsData: contactDetailsData,
       trustedByData: trustedByData,
       contactFormData: contactFormData,
