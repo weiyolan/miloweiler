@@ -53,7 +53,7 @@ export default function Navigation() {
   }, [hiding])
 
   return (
-    <nav ref={navRef} data-transition="nav" className={`fixed w-full font-sans top-0 z-50 pointer-events-none ${forceDark ? 'force-dark' : ''}`}>
+    <nav ref={navRef} aria-label={locale === 'fr' ? 'Menu principal' : locale === 'nl' ? 'Hoofdmenu' : 'Main menu'} data-transition="nav" className={`fixed w-full font-sans top-0 z-50 pointer-events-none ${forceDark ? 'force-dark' : ''}`}>
       <div className="relative flex items-center justify-between mx-8 mt-2 px-4 py-2">
         {/* Wordmark */}
         <Link href="/" className="pointer-events-auto font-serif font-black text-foreground text-xl md:text-2xl leading-none tracking-tight">

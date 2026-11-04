@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useAppContext } from "@/utils/appContext";
 import { gsap } from "gsap/dist/gsap";
 import SanityImage from "@/components/SanityImage";
+import { photoButtonProps, imageVanityName } from "@/utils/a11y";
 
-function GridPhoto({ image, i, ...props }) {
+function GridPhoto({ image, i, onClick, vanityBase, ...props }) {
   const [loaded, setLoaded] = useState(false);
   const fotoThumb = useRef(null);
   const ctx = useRef(gsap.context(() => {}));
@@ -30,8 +31,10 @@ function GridPhoto({ image, i, ...props }) {
     return () => ctx.current.revert();
   }, [loaded]);
 
+  const alt = image?.alt?.[locale] || `Project picture ${i + 1}`;
   return (
     <div
+      {...photoButtonProps({ onClick, locale, index: i + 2, alt })}
       className={`relative opacity-0 cursor-pointer transition-transform duration-200  ${image?.border && `before:absolute before:bg-background before:-top-1 sm:before:-top-2 before:-left-1 sm:before:-left-2 before:-right-1 sm:before:-right-2 before:-bottom-1 sm:before:-bottom-2`}`}
       ref={fotoThumb}
       style={{
@@ -50,14 +53,16 @@ function GridPhoto({ image, i, ...props }) {
         factor={width < 850 ? 0.1 : 0.2}
         image={image.image}
         sizes="(max-width: 700px) 50vw, 25vw"
-        alt={image?.alt?.[locale] || `Project picture ${i + 1}`}
+        alt={alt}
+        vanity={vanityBase ? imageVanityName(vanityBase, i + 2, "milo-weiler-photography") : undefined}
+        priority={i === 0}
         {...props}
       />
     </div>
   );
 }
 
-export default function ProjectGrid({ project, onImageClick }) {
+export default function ProjectGrid({ project, onImageClick, vanityBase }) {
   const { width } = useAppContext();
 
   return (
@@ -75,6 +80,7 @@ export default function ProjectGrid({ project, onImageClick }) {
           key={image._key || i}
           image={image}
           i={i}
+          vanityBase={vanityBase}
           data-thumb-index={i + 1}
           onClick={() => onImageClick?.(i)}
         />

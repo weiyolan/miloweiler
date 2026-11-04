@@ -115,6 +115,7 @@ export default function App({ Component, pageProps, categoryLabels, categoryShor
       </Head>
       {/* ${poppins.variable} */}
       <AppWrapper scrolled={scrolled} categoryLabels={categoryLabels} categoryShortLabels={categoryShortLabels} categoryDescriptions={categoryDescriptions} businessInfo={businessInfo} highlightedEnabled={highlightedEnabled} className={`${playfair.variable} ${instrument.variable} ${spaceMono.variable} font-sans relative w-full min-h-screen`}>
+        <SkipLink />
         <TransitionProvider>
           <ReactLenis root ref={lenisRef} autoRaf={false} options={{ wheelMultiplier: 0.9 }}>
             <ScrollTriggerSync />
@@ -164,4 +165,22 @@ function NavRenderer() {
 function ScrollTriggerSync() {
   useLenis(() => ScrollTrigger.update());
   return null;
+}
+
+// First Tab stop on every page: jumps keyboard users past the menu to the page's <main>.
+const SKIP_LABEL = { en: "Skip to content", fr: "Aller au contenu", nl: "Naar de inhoud" };
+function SkipLink() {
+  const { locale, asPath } = useRouter();
+  // Give each page's <main> the skip target id (pages don't need to set it themselves).
+  useEffect(() => {
+    const main = document.querySelector("main");
+    if (!main) return;
+    if (!main.id) main.id = "main";
+    if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+  }, [asPath]);
+  return (
+    <a href="#main" className="skip-link">
+      {SKIP_LABEL[locale] || SKIP_LABEL.en}
+    </a>
+  );
 }
