@@ -314,7 +314,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      contactDetails: undefined,
       contactDetailsData: contactDetailsData,
       trustedByData: trustedByData,
       contactFormData: contactFormData,
