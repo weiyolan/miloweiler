@@ -25,7 +25,7 @@ export function imageVanityName(...parts) {
     .filter(Boolean)
     .join("-")
     .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/\p{M}/gu, "") // strip accents (é → e)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
