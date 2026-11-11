@@ -39,42 +39,33 @@
 <p class="sub">Source: <a href="https://developers.google.com/search">Google Search Central</a>. Written 11 Nov 2026. Branch <code>ccr-172d8586-2aemz0</code>.</p>
 
 <div class="tldr">
-  <p><strong>Can a button make Milo appear in Google more often?</strong> Partly. Google has an official feature for this called <strong>Preferred sources</strong>. A visitor who clicks it tells Google they prefer miloweiler.com, so Milo shows up more often <em>for that visitor</em>, and only in <strong>Top Stories, AI Mode and AI Overviews</strong>.</p>
-  <p>It does <strong>not</strong> raise Milo's position in normal "blue link" results, it doesn't count as a vote, and it doesn't change what anyone else sees. Nothing a visitor can click does those things.</p>
-  <p><strong>Done:</strong> I added a small "Add as preferred source on Google" link with the Google G icon in the footer (EN/FR/NL), and I fixed a leak where the Sanity Studio admin page could appear in Google.</p>
-  <p><strong>Biggest real wins still to do (outside the code):</strong> Google Search Console, a Google Business Profile, and links from other sites (see §4).</p>
+  <p><strong>Can a button make Milo appear in Google more often?</strong> Not directly: nothing a visitor clicks raises Milo's position for everyone else. The button that helps most is <strong>"Review me on Google"</strong>. Google reviews strengthen Milo's <strong>Google Business Profile</strong>, which is what shows up in Google Maps and in local searches like "photographer Antwerp".</p>
+  <p><strong>Done:</strong> a "Review me on Google" button with the Google G icon in the footer (EN/FR/NL). Milo controls it from the Studio, and it stays hidden until he pastes his review link. I also kept the Sanity Studio and the 404 page out of Google.</p>
+  <p><strong>Tried and dropped:</strong> Google's "Preferred sources" button. miloweiler.com isn't listed in Google's tool, so the button led to an empty page (§1).</p>
+  <p><strong>Biggest real wins still to do (outside the code):</strong> create the Google Business Profile, Google Search Console, and links from other sites (see §4).</p>
 </div>
 
-<h2>1. The "preferred source" button</h2>
+<h2>1. The footer button</h2>
 
-<h3>What Google says</h3>
-<p>From <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Help your audience find you as a preferred source</a>:</p>
+<h3>"Review me on Google" (what the site has now)</h3>
+<div class="demo"><span class="pill"><svg width="14" height="14" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Review me on Google</span></div>
 <ul>
-  <li>When a user selects a site as a preferred source, its content is <em>"more likely to appear in Top Stories"</em> with a "preferred" badge. It can also get that badge in <strong>AI Mode</strong> and <strong>AI Overviews</strong>.</li>
-  <li>The feature is available globally, in every language where Google Search runs.</li>
-  <li>Only whole domains or subdomains are eligible. <code>miloweiler.com</code> qualifies; a subfolder like <code>/blog</code> would not.</li>
-  <li>Google offers three ways to add the button: a JavaScript button (<code>publisher.js</code>), a custom JavaScript API, or a plain <strong>deeplink</strong>: <code>https://www.google.com/preferences/source?q=example.com</code>.</li>
-  <li>The button is optional. A site can be chosen as a preferred source without it.</li>
+  <li><strong>Why reviews:</strong> for a local business, reviews are one of the factors Google uses to rank a Business Profile in Maps and local results (see Google's <a href="https://support.google.com/business/answer/7091">"Tips to improve your local ranking"</a>). It's also the one thing a happy visitor or client can do in 30 seconds that actually helps.</li>
+  <li><strong>Where:</strong> in the footer on every page that has one, below the language and theme switches (<code>src/components/Footer2.jsx</code>). Labels: EN "Review me on Google", FR "Évaluez-moi sur Google", NL "Beoordeel mij op Google". It opens Google's review form in a new tab, with no Google script on the site (so no cookies to declare).</li>
+  <li><strong>How Milo turns it on:</strong>
+    <ol>
+      <li>Create or claim the Google Business Profile at <a href="https://business.google.com">business.google.com</a>, using the same name, address and phone number as the website.</li>
+      <li>Once it's verified, search "Milo Weiler Photography" on Google while signed in, then click <em>"Ask for reviews"</em> (sometimes called "Get more reviews") and copy the link. It looks like <code>https://g.page/r/XXXX/review</code>.</li>
+      <li>In the Studio, go to <strong>Business Info → Google → Google review link</strong>, paste it, publish, and trigger the Netlify deploy.</li>
+    </ol>
+    The button stays hidden while that field is empty, so the site never links to a page that doesn't work.</li>
+  <li><strong>Also use the same link</strong> in the email Milo sends after delivering photos, and on invoices or a QR code at events. That's where most reviews actually come from.</li>
 </ul>
 
-<h3>How much will it help Milo? Honestly, not much</h3>
-<table>
-  <tr><th>Where it helps</th><th>Relevance for a photography portfolio</th></tr>
-  <tr><td>Top Stories (news carousel)</td><td><span class="tag no">low</span> Top Stories mainly shows news and timely articles. Portfolio pages rarely appear there.</td></tr>
-  <tr><td>AI Mode / AI Overviews</td><td><span class="tag warn">some</span> Could matter for questions like "set photographer Belgium" when an AI answer cites sources. Only for people who opted in.</td></tr>
-  <tr><td>Normal web results &amp; Google Images</td><td><span class="tag no">none</span> These are the results that bring clients. The button doesn't touch them.</td></tr>
-</table>
-<p>It's still worth having: it costs nothing, it's one small line in the footer, and Milo's fans (clients, friends, Instagram followers) are the kind of people who would click it. It's a nice extra, not a growth engine.</p>
-
-<h3>What I built</h3>
-<div class="demo"><span class="pill"><svg width="14" height="14" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Add as preferred source on Google</span></div>
+<h3>Why not Google's "Preferred sources" button</h3>
 <ul>
-  <li><strong>Where:</strong> in the footer on every page that has one, below the language and theme switches (<code>src/components/Footer2.jsx</code>).</li>
-  <li><strong>Labels:</strong> EN "Add as preferred source on Google", FR "Source préférée sur Google", NL "Voorkeursbron op Google". They stay on one line on mobile (tested at 390 px).</li>
-  <li><strong>Why a plain link and not Google's script:</strong> <code>publisher.js</code> loads a script from <code>news.google.com</code> on every page. That costs speed, and it brings third-party cookies and requests, which the Cookie Notice would then have to cover. The deeplink opens the same Google tool in a new tab with no script on our side. If you ever want the official Google-styled button instead:
-<pre><code>&lt;script async src="https://news.google.com/swg/js/v1/publisher.js"&gt;&lt;/script&gt;
-&lt;div google-add-preferred-source-btn data-theme="dark"&gt;&lt;/div&gt;</code></pre></li>
-  <li><strong>To check before deploying:</strong> open <a href="https://www.google.com/preferences/source?q=miloweiler.com">google.com/preferences/source?q=miloweiler.com</a> while signed in to a Google account and confirm that miloweiler.com shows up. Google says to do this first. If the site isn't listed yet, the link lands on an empty search; in that case remove the link, or wait until Google lists the site.</li>
+  <li>Per <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Google's docs</a>, a visitor who picks a site as a "preferred source" sees it more often in <strong>Top Stories, AI Mode and AI Overviews</strong>, and only for that visitor. Normal web results and Google Images aren't affected.</li>
+  <li>Every version of that button (the JavaScript button, the custom API and the plain link) opens the same Google tool, and miloweiler.com isn't listed in it. Google offers no way to apply. SEO reports say the tool favours sites that publish often, such as news sites, so a portfolio rarely qualifies. So we removed it.</li>
 </ul>
 
 <h2>2. Other fix in this change</h2>
@@ -128,12 +119,12 @@
 
 <h2>5. Verification</h2>
 <ul>
-  <li>Dev server + Playwright: the link is visible in the footer at 1280 px and 390 px, on one line, and its <code>href</code> is <code>https://www.google.com/preferences/source?q=miloweiler.com</code>. The FR and NL labels render.</li>
-  <li><code>/studio</code> renders <code>&lt;title&gt;Milo Weiler | Studio&lt;/title&gt;</code> and <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>.</li>
-  <li>Not tested: the Google preferences page itself, because it needs a signed-in Google account. Please run the check in §1.</li>
+  <li>Dev server + Playwright. With the review link empty, the button isn't rendered. With a test link, it renders in EN/FR/NL, links to the review URL and fits on one line at 1280 px and 390 px.</li>
+  <li>Studio schema: validates with no errors (new field: Business Info → Google review link).</li>
+  <li><code>/studio</code> renders <code>&lt;title&gt;Milo Weiler | Studio&lt;/title&gt;</code> and <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>. The 404 page renders "Page not found | Milo Weiler Photography" with noindex and returns HTTP 404.</li>
 </ul>
 
-<p class="muted">Sources: <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Preferred sources</a> · <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">SEO Starter Guide</a> · <a href="https://developers.google.com/search/docs/essentials">Search Essentials</a></p>
+<p class="muted">Sources: <a href="https://support.google.com/business/answer/7091">Improve your local ranking on Google</a> · <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Preferred sources</a> · <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">SEO Starter Guide</a> · <a href="https://developers.google.com/search/docs/essentials">Search Essentials</a></p>
 </main>
 </body>
 </html>

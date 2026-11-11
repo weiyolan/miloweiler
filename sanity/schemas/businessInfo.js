@@ -8,6 +8,7 @@ export default defineType({
     { name: 'contact', title: 'Contact', options: { columns: 2 } },
     { name: 'templates', title: 'Message Templates', options: { collapsible: true, collapsed: true } },
     { name: 'socials', title: 'Socials', options: { columns: 3 } },
+    { name: 'google', title: 'Google' },
   ],
   fields: [
     // ── Contact ──
@@ -96,6 +97,15 @@ export default defineType({
       title: 'LinkedIn URL',
       type: 'url',
       fieldset: 'socials',
+    }),
+
+    // ── Google ──
+    defineField({
+      name: 'googleReviewUrl',
+      title: 'Google review link',
+      type: 'url',
+      fieldset: 'google',
+      description: 'Shows a "Review me on Google" button in the footer. Get the link in your Google Business Profile: open it in Google Search or Maps → "Ask for reviews" (or "Get more reviews") → copy the link, e.g. https://g.page/r/XXXX/review. Leave empty to hide the button.',
     }),
   ],
   preview: {

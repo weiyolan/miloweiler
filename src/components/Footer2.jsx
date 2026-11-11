@@ -13,14 +13,12 @@ const financialInfo = {
   nl: '2026 © MiloWeiler, Inc. Alle rechten voorbehouden.',
 };
 
-// Google "preferred sources" deeplink (https://developers.google.com/search/docs/appearance/preferred-sources).
-// A plain link instead of Google's publisher.js button: no third-party script/cookies on the site.
-// Only affects Top Stories / AI Mode / AI Overviews for the visitor who opts in, not normal web results.
-const PREFERRED_SOURCE_URL = 'https://www.google.com/preferences/source?q=miloweiler.com';
-const preferredSourceLabel = {
-  en: 'Add as preferred source on Google',
-  fr: 'Source préférée sur Google',
-  nl: 'Voorkeursbron op Google',
+// "Review me on Google" → Google Business Profile review link (Sanity: Business Info → Google review link).
+// Reviews help the Business Profile rank in Maps / local results ("photographer Antwerp"). No link set → no button.
+const reviewLabel = {
+  en: 'Review me on Google',
+  fr: 'Évaluez-moi sur Google',
+  nl: 'Beoordeel mij op Google',
 };
 
 // Google "G" mark (official 4-colour logo) so the link is recognisable at a glance.
@@ -100,17 +98,19 @@ export default function Footer2({ style, className, noMotion, noMargin, setFoote
             <ThemeToggle />
           </div>
 
+          {businessInfo?.googleReviewUrl && (
           <div className="flex justify-center mt-3">
             <a
-              href={PREFERRED_SOURCE_URL}
+              href={businessInfo.googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 whitespace-nowrap font-mono font-extralight text-xs text-foreground border border-foreground/40 rounded-full px-3 py-1 duration-200 hover:border-foreground focus:outline-none focus-visible:border-foreground"
             >
               <GoogleG className="w-3.5 h-3.5 shrink-0" />
-              {preferredSourceLabel[locale] || preferredSourceLabel.en}
+              {reviewLabel[locale] || reviewLabel.en}
             </a>
           </div>
+          )}
 
         <div role='presentation' className='w-full text-xs text-center mt-4 text-foreground font-thin font-mono'>
           <ul role='presentation' className='inline-flex flex-wrap justify-center'>
