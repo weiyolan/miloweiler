@@ -139,7 +139,7 @@ App.getInitialProps = async ({ Component, ctx }) => {
   try {
     const [catNames, bizInfo, hpHighlighted] = await Promise.all([
       client.fetch(`*[_type == "categoryNames" && _id == "categoryNames"][0]`),
-      client.fetch(`*[_type == "businessInfo" && _id == "businessInfo"][0]{email,phone,vat,address,mailtoSubject,mailtoBody,whatsappNumber,whatsappMessage,socialInstagram,socialUnsplash,socialLinkedin}`),
+      client.fetch(`*[_type == "businessInfo" && _id == "businessInfo"][0]{email,phone,vat,address,mailtoSubject,mailtoBody,whatsappNumber,whatsappMessage,socialInstagram,socialUnsplash,socialLinkedin,googleReviewUrl}`),
       client.fetch(`*[_type == "homepageConfig" && _id == "homepageConfig"][0].highlighted.enabled`),
     ]);
     return {
