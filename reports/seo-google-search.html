@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SEO report: Google Search & miloweiler.com</title>
+<style>
+  :root { --bg:#FCF9EE; --fg:#3C0B03; --accent:#D9481C; --muted:#7a5a4f; --line:#e6dccb; --ok:#2e7d32; --warn:#b26a00; --no:#b3261e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1 { font: 600 2rem/1.2 Georgia, serif; margin: 0 0 4px; }
+  h2 { font: 600 1.35rem/1.3 Georgia, serif; margin: 48px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+  .sub { color: var(--muted); margin: 0 0 32px; }
+  .tldr { background:#fff; border:1px solid var(--line); border-left:4px solid var(--accent); padding:16px 20px; border-radius:6px; }
+  .tldr p { margin: 6px 0; }
+  code, pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .88em; }
+  code { background:#f1ead9; padding:1px 5px; border-radius:3px; }
+  pre { background:#2b1a15; color:#fcf9ee; padding:14px 16px; border-radius:6px; overflow-x:auto; }
+  pre code { background:none; padding:0; }
+  table { width:100%; border-collapse: collapse; margin: 12px 0; font-size: .95rem; }
+  th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); }
+  th { font-weight:600; background:#f5eedf; }
+  .tag { display:inline-block; font-size:.75rem; font-weight:600; padding:1px 8px; border-radius:999px; color:#fff; white-space:nowrap; }
+  .ok { background:var(--ok); } .warn { background:var(--warn); } .no { background:var(--no); }
+  .pill { display:inline-flex; gap:8px; align-items:center; font:300 .8rem ui-monospace, monospace; color:#FCF9EE; border:1px solid rgba(252,249,238,.4); border-radius:999px; padding:4px 12px; }
+  .demo { background:#3C0B03; padding:24px; border-radius:6px; text-align:center; }
+  ol li, ul li { margin: 4px 0; }
+  a { color: var(--accent); }
+  .muted { color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>SEO report: Google Search &amp; miloweiler.com</h1>
+<p class="sub">Source: <a href="https://developers.google.com/search">Google Search Central</a>. Written 11 Nov 2026. Branch <code>ccr-172d8586-2aemz0</code>.</p>
+
+<div class="tldr">
+  <p><strong>Can a button make Milo appear in Google more often?</strong> Partly. Google has an official feature for this called <strong>Preferred sources</strong>. A visitor who clicks it tells Google they prefer miloweiler.com, so Milo shows up more often <em>for that visitor</em>, and only in <strong>Top Stories, AI Mode and AI Overviews</strong>.</p>
+  <p>It does <strong>not</strong> raise Milo's position in normal "blue link" results, it doesn't count as a vote, and it doesn't change what anyone else sees. Nothing a visitor can click does those things.</p>
+  <p><strong>Done:</strong> I added a small "Add as preferred source on Google" link with the Google G icon in the footer (EN/FR/NL), and I fixed a leak where the Sanity Studio admin page could appear in Google.</p>
+  <p><strong>Biggest real wins still to do (outside the code):</strong> Google Search Console, a Google Business Profile, and links from other sites (see §4).</p>
+</div>
+
+<h2>1. The "preferred source" button</h2>
+
+<h3>What Google says</h3>
+<p>From <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Help your audience find you as a preferred source</a>:</p>
+<ul>
+  <li>When a user selects a site as a preferred source, its content is <em>"more likely to appear in Top Stories"</em> with a "preferred" badge. It can also get that badge in <strong>AI Mode</strong> and <strong>AI Overviews</strong>.</li>
+  <li>The feature is available globally, in every language where Google Search runs.</li>
+  <li>Only whole domains or subdomains are eligible. <code>miloweiler.com</code> qualifies; a subfolder like <code>/blog</code> would not.</li>
+  <li>Google offers three ways to add the button: a JavaScript button (<code>publisher.js</code>), a custom JavaScript API, or a plain <strong>deeplink</strong>: <code>https://www.google.com/preferences/source?q=example.com</code>.</li>
+  <li>The button is optional. A site can be chosen as a preferred source without it.</li>
+</ul>
+
+<h3>How much will it help Milo? Honestly, not much</h3>
+<table>
+  <tr><th>Where it helps</th><th>Relevance for a photography portfolio</th></tr>
+  <tr><td>Top Stories (news carousel)</td><td><span class="tag no">low</span> Top Stories mainly shows news and timely articles. Portfolio pages rarely appear there.</td></tr>
+  <tr><td>AI Mode / AI Overviews</td><td><span class="tag warn">some</span> Could matter for questions like "set photographer Belgium" when an AI answer cites sources. Only for people who opted in.</td></tr>
+  <tr><td>Normal web results &amp; Google Images</td><td><span class="tag no">none</span> These are the results that bring clients. The button doesn't touch them.</td></tr>
+</table>
+<p>It's still worth having: it costs nothing, it's one small line in the footer, and Milo's fans (clients, friends, Instagram followers) are the kind of people who would click it. It's a nice extra, not a growth engine.</p>
+
+<h3>What I built</h3>
+<div class="demo"><span class="pill"><svg width="14" height="14" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Add as preferred source on Google</span></div>
+<ul>
+  <li><strong>Where:</strong> in the footer on every page that has one, below the language and theme switches (<code>src/components/Footer2.jsx</code>).</li>
+  <li><strong>Labels:</strong> EN "Add as preferred source on Google", FR "Source préférée sur Google", NL "Voorkeursbron op Google". They stay on one line on mobile (tested at 390 px).</li>
+  <li><strong>Why a plain link and not Google's script:</strong> <code>publisher.js</code> loads a script from <code>news.google.com</code> on every page. That costs speed, and it brings third-party cookies and requests, which the Cookie Notice would then have to cover. The deeplink opens the same Google tool in a new tab with no script on our side. If you ever want the official Google-styled button instead:
+<pre><code>&lt;script async src="https://news.google.com/swg/js/v1/publisher.js"&gt;&lt;/script&gt;
+&lt;div google-add-preferred-source-btn data-theme="dark"&gt;&lt;/div&gt;</code></pre></li>
+  <li><strong>To check before deploying:</strong> open <a href="https://www.google.com/preferences/source?q=miloweiler.com">google.com/preferences/source?q=miloweiler.com</a> while signed in to a Google account and confirm that miloweiler.com shows up. Google says to do this first. If the site isn't listed yet, the link lands on an empty search; in that case remove the link, or wait until Google lists the site.</li>
+</ul>
+
+<h2>2. Other fix in this change</h2>
+<table>
+  <tr><th>Issue</th><th>Fix</th></tr>
+  <tr><td><code>/studio</code> (the Sanity admin) had the page title "Next.js", the description "Generated by Next.js" and no <code>noindex</code>. Google could index it as a junk result for "Milo Weiler".</td>
+      <td><code>src/app/studio/layout.js</code>: the title is now "Milo Weiler | Studio". <code>src/app/layout.js</code>: <code>robots: noindex, nofollow</code> (checked: <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code> is rendered). I deliberately did <em>not</em> add a robots.txt <code>Disallow</code>, because that would stop Google from reading the noindex.</td></tr>
+  <tr><td>The 404 page ("Blank Film") is served by the same app-router layout, so it also had the title "Next.js".</td>
+      <td>Its title is now "Page not found | Milo Weiler Photography", with noindex. It still returns HTTP 404.</td></tr>
+</table>
+
+<h2>3. What the site already does well</h2>
+<p>I checked the site against Google's <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">SEO Starter Guide</a> and the <a href="https://developers.google.com/search/docs/essentials">Search Essentials</a>. Earlier work already covers most of it:</p>
+<table>
+  <tr><th>Google guideline</th><th>Status</th></tr>
+  <tr><td>Pages are crawlable, with a sitemap listed in robots.txt</td><td><span class="tag ok">ok</span> <code>/sitemap.xml</code> uses real <code>lastmod</code> dates and includes an image sitemap.</td></tr>
+  <tr><td>One canonical URL per page</td><td><span class="tag ok">ok</span> <code>rel=canonical</code> on every page, plus permanent redirects for old URLs.</td></tr>
+  <tr><td>Multilingual: hreflang</td><td><span class="tag ok">ok</span> en / fr / nl / x-default, in the page head and in the sitemap.</td></tr>
+  <tr><td>Unique titles and meta descriptions</td><td><span class="tag ok">ok</span> Milo can edit them per page and per project in Sanity (the SEO fields).</td></tr>
+  <tr><td>Descriptive URLs</td><td><span class="tag ok">ok</span> e.g. <code>/set-photography/&lt;project&gt;</code></td></tr>
+  <tr><td>Image alt text and descriptive file names</td><td><span class="tag ok">ok</span> Alt text comes from Sanity, and image file names describe the photo.</td></tr>
+  <tr><td>Structured data</td><td><span class="tag ok">ok</span> Person, ProfessionalService, WebSite, BreadcrumbList, FAQPage, and ImageObject with licence info (which enables the "Licensable" badge in Google Images).</td></tr>
+  <tr><td>Legal pages kept out of search results</td><td><span class="tag ok">ok</span> <code>noindex</code></td></tr>
+  <tr><td>No intrusive pop-ups or interstitials</td><td><span class="tag ok">ok</span></td></tr>
+</table>
+<p class="muted">Myths Google itself rules out, so we don't spend time on them: the keywords meta tag, keyword stuffing, keywords in the domain name, a target word count, and the number of headings.</p>
+
+<h3>Page-by-page audit (11 Nov 2026)</h3>
+<p>Checked with Playwright on the home page (EN/FR/NL), /about, /contact, every category page, a project page (EN/NL), a legal page and a 404:</p>
+<table>
+  <tr><th>Check</th><th>Result</th></tr>
+  <tr><td>Title length (Google shows ≈ 50–60 characters)</td><td><span class="tag ok">ok</span> 51–62 characters, unique, include "Brussels &amp; Antwerp"</td></tr>
+  <tr><td>Meta description</td><td><span class="tag ok">ok</span> 125–150 characters on every indexable page</td></tr>
+  <tr><td><code>&lt;html lang&gt;</code>, canonical, 4 hreflang links</td><td><span class="tag ok">ok</span> on every indexable page; FR/NL pages point to themselves</td></tr>
+  <tr><td>Exactly one <code>&lt;h1&gt;</code></td><td><span class="tag ok">ok</span></td></tr>
+  <tr><td>Images without an <code>alt</code></td><td><span class="tag ok">ok</span> none. The empty <code>alt=""</code> images on /about are decorative backgrounds, which is correct.</td></tr>
+  <tr><td>Structured data parses</td><td><span class="tag ok">ok</span> on every page</td></tr>
+  <tr><td>Small content tip</td><td><span class="tag warn">optional</span> Project subtitles aren't translated (the NL page shows "Alive (music video)"). Translate them in Sanity if you want, but it's minor.</td></tr>
+</table>
+<p>Conclusion: the in-code SEO is complete. The remaining gains are the off-site steps below.</p>
+
+<h2>4. What actually makes Milo appear more often (to-do, mostly outside the code)</h2>
+<ol>
+  <li><strong>Google Search Console</strong> (<a href="https://search.google.com/search-console">search.google.com/search-console</a>) is the most important step. Verify <code>miloweiler.com</code> (a DNS record at the domain host, or Netlify), submit <code>https://miloweiler.com/sitemap.xml</code>, and use URL Inspection → "Request indexing" after big new projects. It also shows which searches already bring visitors, so you can see what is working.</li>
+  <li><strong>Google Business Profile</strong> (<a href="https://business.google.com">business.google.com</a>). For searches like "photographer Antwerp" or "fotograaf Mortsel", this is the strongest lever: a Maps listing, photos and reviews. Use exactly the same name, address and phone number as the site's structured data (Hof Savelkoul 40, 2640 Mortsel, +32 476 50 62 09).</li>
+  <li><strong>Reviews.</strong> Ask happy clients for a Google review. Reviews raise the Business Profile in local results.</li>
+  <li><strong>Links from other sites.</strong> Google uses links to discover and rank pages. Good sources: film and production credits (IMDb, production company sites), client sites ("photos: Milo Weiler" + a link), local press, photo awards, and Unsplash/Instagram/LinkedIn bios pointing to miloweiler.com.</li>
+  <li><span class="tag ok">done</span> <strong>Descriptive projects.</strong> Google calls helpful content <em>"likely more than any other suggestion"</em> in importance. Checked in Sanity (11 Nov 2026): all 61 projects have a description in EN, FR and NL (106–836 characters), and every photo has EN alt text. Keep doing this for each new project. FR/NL alt text is a small extra.</li>
+  <li><strong>Be patient.</strong> Google says to allow several weeks before judging any change. Re-deploying more often does not speed this up.</li>
+</ol>
+
+<h2>5. Verification</h2>
+<ul>
+  <li>Dev server + Playwright: the link is visible in the footer at 1280 px and 390 px, on one line, and its <code>href</code> is <code>https://www.google.com/preferences/source?q=miloweiler.com</code>. The FR and NL labels render.</li>
+  <li><code>/studio</code> renders <code>&lt;title&gt;Milo Weiler | Studio&lt;/title&gt;</code> and <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code>.</li>
+  <li>Not tested: the Google preferences page itself, because it needs a signed-in Google account. Please run the check in §1.</li>
+</ul>
+
+<p class="muted">Sources: <a href="https://developers.google.com/search/docs/appearance/preferred-sources">Preferred sources</a> · <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide">SEO Starter Guide</a> · <a href="https://developers.google.com/search/docs/essentials">Search Essentials</a></p>
+</main>
+</body>
+</html>
