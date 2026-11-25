@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useLenis } from "lenis/react";
 import client from "../../lib/sanity";
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 import { ALL_CATEGORY_SLUGS, CATEGORY_LABELS, CATEGORY_DESCRIPTIONS } from "@/utils/categories";
 import { canonicalUrl, resolveSeo, ogImageUrl } from "@/utils/seo";
 import socialMeta from "@/utils/socialMeta";
@@ -203,5 +204,6 @@ export async function getStaticProps() {
       categories,
       seo: data.seo || null,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }

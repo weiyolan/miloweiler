@@ -7,6 +7,7 @@ import socialMeta from "@/utils/socialMeta";
 import { jsonLd, breadcrumb, WEBSITE_ID, PERSON_ID } from "@/utils/structuredData";
 import React, { useState } from "react";
 import client from "../../../lib/sanity";
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 import Footer2 from "@/components/Footer2";
 import Layout from "@/components/Layout";
 import GalleryTitle from "@/components/GalleryTitle";
@@ -170,5 +171,6 @@ export async function getStaticProps({ params }) {
       highlightedEnabled: hpHighlighted !== false,
       seo: seo || null,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }

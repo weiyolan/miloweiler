@@ -9,12 +9,13 @@ import { PortableText } from "@portabletext/react";
 import portableTextComponents from "@/components/PortableTextComponents";
 import SubTitle from "@/components/SubTitle";
 import client from "../../lib/sanity";
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 
 export async function getStaticProps() {
   const data = await client.fetch(
     `*[_type == "termsOfUse" && _id == "termsOfUse"][0]{title,body}`
   );
-  return { props: { data: data || null } };
+  return { props: { data: data || null }, revalidate: REVALIDATE_SECONDS };
 }
 
 export default function TermsOfUsePage({ data }) {

@@ -13,6 +13,7 @@ import ArrowLink from '@/components/ArrowLink'
 import useDimensions from '@/utils/useDimensions'
 import Form from '@/components/Form'
 import client from '../../lib/sanity'
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 import TrustedBy from '@/sections/TrustedBy'
 import { useAppContext } from '@/utils/appContext'
 import ContactDetails from '@/sections/ContactDetails'
@@ -326,5 +327,6 @@ export async function getStaticProps() {
       faqData: faqData || null,
       seo: seo || null,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }

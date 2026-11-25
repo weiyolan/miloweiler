@@ -1,5 +1,43 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Publish → live (on-demand revalidation)
+
+Pages are static, but re-rendered on the server when Milo publishes in the Studio —
+no Netlify rebuild needed for content. A rebuild is only needed for code changes.
+
+- `src/pages/api/revalidate.js` receives a Sanity webhook and re-renders only the
+  pages that show the changed document (all 3 locales). Unknown / site-wide types
+  (category names, business info, theme, fonts) re-render the whole site (~15 s).
+- New projects: `/[category]/[slug]` uses `fallback: "blocking"`, so a project
+  published after the build works right away. Deleted, unpublished or moved
+  projects return a 404 at their old URL.
+- Safety net: every page also re-renders at most once a day on a visit
+  (`src/utils/revalidate.js`), in case a webhook delivery is missed.
+
+### One-time setup
+
+1. Netlify → Site configuration → Environment variables: add
+   `SANITY_REVALIDATE_SECRET` (any long random string), then redeploy once.
+2. sanity.io/manage → project → API → Webhooks → Create webhook:
+   - URL: `https://miloweiler.com/api/revalidate`
+   - Dataset: `production`
+   - Trigger on: Create, Update, Delete
+   - Filter: `!(_type match "sanity.*")`
+   - Projection:
+     ```groq
+     {
+       "_type": coalesce(after()._type, before()._type),
+       "slug": after().slug.current,
+       "cat": after().cat,
+       "beforeSlug": before().slug.current,
+       "beforeCat": before().cat
+     }
+     ```
+   - HTTP method: `POST`, API version: `v2021-03-25`, drafts/versions: off
+   - Secret: the same value as `SANITY_REVALIDATE_SECRET`
+3. Test: publish a small change in the Studio, then check the webhook's attempt log
+   (it should show `200` with `"revalidated": true`) and reload the page.
+
 ## Getting Started
 
 First, run the development server:

@@ -25,6 +25,7 @@ const ProjectCarousel = dynamic(() => import("@/components/ProjectCarousel"), { 
 import Footer2 from "@/components/Footer2";
 import { CATEGORY_MAP, CATEGORY_LABELS } from "@/utils/categories";
 import { getCatFromSlug } from "@/utils/categories";
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 
 export default function Project({ project, slug, slugs, category }) {
   let darkMode = true;
@@ -515,7 +516,9 @@ export async function getStaticPaths({ locales }) {
       locale,
     }))
   );
-  return { paths, fallback: false };
+  // 'blocking': projects published after the build are rendered on their first visit
+  // (or by the Sanity webhook → /api/revalidate) instead of 404ing until the next deploy.
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
@@ -526,8 +529,13 @@ export async function getStaticProps({ params }) {
     ),
     client.fetch(`*[_type == "project" && cat == "${cat}"]|order(date desc){slug}`),
   ]);
+  // Deleted/unpublished, or moved to another category → this URL no longer exists.
+  if (!project || CATEGORY_MAP[project.cat] !== params.category) {
+    return { notFound: true, revalidate: REVALIDATE_SECONDS };
+  }
   const slugNames = categorySlugs.map(p => p.slug.current);
   return {
     props: { key: params.slug, project, slug: params.slug, slugs: slugNames, category: params.category },
+    revalidate: REVALIDATE_SECONDS,
   };
 }

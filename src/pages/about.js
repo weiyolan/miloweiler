@@ -39,6 +39,7 @@ import FadeDiv from "@/components/FadeDiv";
 // import Line from '@/components/Line'
 import ScrollDown from "@/components/ScrollDown";
 import client from "../../lib/sanity";
+import { REVALIDATE_SECONDS } from "@/utils/revalidate";
 import { CATEGORY_MAP } from "@/utils/categories";
 import PageIndicator from "@/components/PageIndicator";
 // import useMinimizeScroll from "@/utils/useMinimizeScroll";
@@ -1902,5 +1903,6 @@ export async function getStaticProps() {
 
   return {
     props: { projects: trimmed, sectionInfo, introImages, seo: seo || null },
+    revalidate: REVALIDATE_SECONDS,
   };
 }
